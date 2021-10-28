@@ -1,0 +1,18 @@
+platform :ios, '8.0'
+#use_frameworks!个别需要用到它，比如reactiveCocoa
+
+target 'flashE' do
+  pod 'AFNetworking'
+  pod 'ViewDeck'
+  pod 'Masonry'
+  pod 'TZImagePickerController'
+  pod 'MBProgressHUD'
+  pod 'MMPopupView'
+  pod 'SDWebImage'
+  pod 'MJRefresh'
+  pod 'SDCycleScrollView','>= 1.82'
+  pod 'DateTools'
+  pod 'IQKeyboardManager'
+end
+
+
