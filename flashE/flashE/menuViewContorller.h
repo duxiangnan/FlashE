@@ -5,11 +5,11 @@
 //  Created by duxiangnan on 2021/11/3.
 //
 
-#import <UIKit/UIKit.h>
+#import "FEBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface menuViewContorller : UIViewController
+@interface menuViewContorller : FEBaseViewController
 
 @end
 

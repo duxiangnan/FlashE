@@ -13,6 +13,7 @@ target 'flashE' do
   pod 'SDCycleScrollView','>= 1.82'
   pod 'DateTools'
   pod 'IQKeyboardManager'
+  pod 'FDFullscreenPopGesture'
 end
 
 

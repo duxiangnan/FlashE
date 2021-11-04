@@ -8,11 +8,12 @@
 #import "SceneDelegate.h"
 
 #import <ViewDeck/ViewDeck.h>
-
+#import "menuViewContorller.h"
+#import "FEHomeVC.h"
 @interface SceneDelegate ()
 
 @property (nonatomic) IIViewDeckController *viewDeckController;
-@property (nonatomic) UIViewController *itemController;
+@property (nonatomic) FEHomeVC *homeVC;
 @end
 
 @implementation SceneDelegate
@@ -22,21 +23,16 @@
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-    NSLog(@"%s",__func__);
+    self.homeVC = [[FEHomeVC alloc] initWithNibName:@"FEHomeVC" bundle:nil];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.homeVC];
     
-    UIViewController *itemController = [[UIViewController alloc] init];
-    itemController.view.backgroundColor = UIColor.redColor;
-    self.itemController = itemController;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:itemController];
+    menuViewContorller* vc = [[menuViewContorller alloc] initWithNibName:@"menuViewContorller" bundle:nil];
     
-    
-    UIViewController *menuContorl = [[UIViewController alloc] init];
-    menuContorl.view.backgroundColor = UIColor.yellowColor;
-    UINavigationController *menu = [[UINavigationController alloc] initWithRootViewController:menuContorl];
+    UINavigationController *menu = [[UINavigationController alloc] initWithRootViewController:vc];
 
     IIViewDeckController *viewDeckController = [[IIViewDeckController alloc] initWithCenterViewController:navigationController leftViewController:menu];
 
-//    self.viewDeckController = viewDeckController;
+    self.viewDeckController = viewDeckController;
     
     self.window.rootViewController = viewDeckController;
     

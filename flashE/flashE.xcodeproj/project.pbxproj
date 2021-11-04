@@ -17,6 +17,16 @@
 		8B367C13272A381A00B5C1AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B367C12272A381A00B5C1AC /* main.m */; };
 		8B3683D42732D7B700B5C1AC /* menuViewContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3683D22732D7B700B5C1AC /* menuViewContorller.m */; };
 		8B3683D52732D7B800B5C1AC /* menuViewContorller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B3683D32732D7B700B5C1AC /* menuViewContorller.xib */; };
+		8B36882A27343B7E00B5C1AC /* UIButton+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36881727343B7E00B5C1AC /* UIButton+BackgroundColor.m */; };
+		8B36882B27343B7E00B5C1AC /* UIButton+vspImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36881B27343B7E00B5C1AC /* UIButton+vspImage.m */; };
+		8B36882C27343B7E00B5C1AC /* UIButton+Frequentclicks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36881C27343B7E00B5C1AC /* UIButton+Frequentclicks.m */; };
+		8B36882D27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36881F27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m */; };
+		8B36882E27343B7E00B5C1AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B36882027343B7E00B5C1AC /* Assets.xcassets */; };
+		8B36882F27343B7E00B5C1AC /* FEBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36882127343B7E00B5C1AC /* FEBaseViewController.m */; };
+		8B36883027343B7E00B5C1AC /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36882327343B7E00B5C1AC /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8B36883127343B7E00B5C1AC /* FEPublicMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36882727343B7E00B5C1AC /* FEPublicMethods.m */; };
+		8B36883827343C0E00B5C1AC /* FEHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36883627343C0E00B5C1AC /* FEHomeVC.m */; };
+		8B36883927343C0E00B5C1AC /* FEHomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B36883727343C0E00B5C1AC /* FEHomeVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +47,27 @@
 		8B3683D12732D7B700B5C1AC /* menuViewContorller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = menuViewContorller.h; sourceTree = "<group>"; };
 		8B3683D22732D7B700B5C1AC /* menuViewContorller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = menuViewContorller.m; sourceTree = "<group>"; };
 		8B3683D32732D7B700B5C1AC /* menuViewContorller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = menuViewContorller.xib; sourceTree = "<group>"; };
+		8B36881727343B7E00B5C1AC /* UIButton+BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BackgroundColor.m"; sourceTree = "<group>"; };
+		8B36881827343B7E00B5C1AC /* UIButton+Frequentclicks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Frequentclicks.h"; sourceTree = "<group>"; };
+		8B36881927343B7E00B5C1AC /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
+		8B36881A27343B7E00B5C1AC /* UIButtonModule-umbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButtonModule-umbrella.h"; sourceTree = "<group>"; };
+		8B36881B27343B7E00B5C1AC /* UIButton+vspImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+vspImage.m"; sourceTree = "<group>"; };
+		8B36881C27343B7E00B5C1AC /* UIButton+Frequentclicks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Frequentclicks.m"; sourceTree = "<group>"; };
+		8B36881D27343B7E00B5C1AC /* UIButton+BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+BackgroundColor.h"; sourceTree = "<group>"; };
+		8B36881E27343B7E00B5C1AC /* UIButton+vspImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+vspImage.h"; sourceTree = "<group>"; };
+		8B36881F27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
+		8B36882027343B7E00B5C1AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8B36882127343B7E00B5C1AC /* FEBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEBaseViewController.m; sourceTree = "<group>"; };
+		8B36882327343B7E00B5C1AC /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
+		8B36882427343B7E00B5C1AC /* FEPublicMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEPublicMethods.h; sourceTree = "<group>"; };
+		8B36882527343B7E00B5C1AC /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
+		8B36882627343B7E00B5C1AC /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
+		8B36882727343B7E00B5C1AC /* FEPublicMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEPublicMethods.m; sourceTree = "<group>"; };
+		8B36882827343B7E00B5C1AC /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
+		8B36882927343B7E00B5C1AC /* FEBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEBaseViewController.h; sourceTree = "<group>"; };
+		8B36883527343C0E00B5C1AC /* FEHomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHomeVC.h; sourceTree = "<group>"; };
+		8B36883627343C0E00B5C1AC /* FEHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeVC.m; sourceTree = "<group>"; };
+		8B36883727343C0E00B5C1AC /* FEHomeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEHomeVC.xib; sourceTree = "<group>"; };
 		CD85DD360E682DB69B0B9700 /* libPods-flashE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flashE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -90,6 +121,12 @@
 		8B367BFF272A381700B5C1AC /* flashE */ = {
 			isa = PBXGroup;
 			children = (
+				8B36883427343BD900B5C1AC /* scene */,
+				8B36882027343B7E00B5C1AC /* Assets.xcassets */,
+				8B36881627343B7E00B5C1AC /* btn */,
+				8B36882927343B7E00B5C1AC /* FEBaseViewController.h */,
+				8B36882127343B7E00B5C1AC /* FEBaseViewController.m */,
+				8B36882227343B7E00B5C1AC /* public */,
 				8B367C00272A381700B5C1AC /* AppDelegate.h */,
 				8B367C01272A381700B5C1AC /* AppDelegate.m */,
 				8B367C03272A381700B5C1AC /* SceneDelegate.h */,
@@ -106,6 +143,45 @@
 				8B3683D32732D7B700B5C1AC /* menuViewContorller.xib */,
 			);
 			path = flashE;
+			sourceTree = "<group>";
+		};
+		8B36881627343B7E00B5C1AC /* btn */ = {
+			isa = PBXGroup;
+			children = (
+				8B36881727343B7E00B5C1AC /* UIButton+BackgroundColor.m */,
+				8B36881827343B7E00B5C1AC /* UIButton+Frequentclicks.h */,
+				8B36881927343B7E00B5C1AC /* UIButton+EnlargeTouchArea.h */,
+				8B36881A27343B7E00B5C1AC /* UIButtonModule-umbrella.h */,
+				8B36881B27343B7E00B5C1AC /* UIButton+vspImage.m */,
+				8B36881C27343B7E00B5C1AC /* UIButton+Frequentclicks.m */,
+				8B36881D27343B7E00B5C1AC /* UIButton+BackgroundColor.h */,
+				8B36881E27343B7E00B5C1AC /* UIButton+vspImage.h */,
+				8B36881F27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m */,
+			);
+			path = btn;
+			sourceTree = "<group>";
+		};
+		8B36882227343B7E00B5C1AC /* public */ = {
+			isa = PBXGroup;
+			children = (
+				8B36882327343B7E00B5C1AC /* OpenUDID.m */,
+				8B36882427343B7E00B5C1AC /* FEPublicMethods.h */,
+				8B36882527343B7E00B5C1AC /* Macro.h */,
+				8B36882627343B7E00B5C1AC /* defines.h */,
+				8B36882727343B7E00B5C1AC /* FEPublicMethods.m */,
+				8B36882827343B7E00B5C1AC /* OpenUDID.h */,
+			);
+			path = public;
+			sourceTree = "<group>";
+		};
+		8B36883427343BD900B5C1AC /* scene */ = {
+			isa = PBXGroup;
+			children = (
+				8B36883527343C0E00B5C1AC /* FEHomeVC.h */,
+				8B36883627343C0E00B5C1AC /* FEHomeVC.m */,
+				8B36883727343C0E00B5C1AC /* FEHomeVC.xib */,
+			);
+			path = scene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,8 +244,10 @@
 			files = (
 				8B367C10272A381900B5C1AC /* LaunchScreen.storyboard in Resources */,
 				8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */,
+				8B36883927343C0E00B5C1AC /* FEHomeVC.xib in Resources */,
 				8B367C0B272A381800B5C1AC /* Main.storyboard in Resources */,
 				8B3683D52732D7B800B5C1AC /* menuViewContorller.xib in Resources */,
+				8B36882E27343B7E00B5C1AC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,11 +300,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B36882F27343B7E00B5C1AC /* FEBaseViewController.m in Sources */,
 				8B367C08272A381800B5C1AC /* ViewController.m in Sources */,
+				8B36883027343B7E00B5C1AC /* OpenUDID.m in Sources */,
+				8B36882A27343B7E00B5C1AC /* UIButton+BackgroundColor.m in Sources */,
 				8B367C02272A381700B5C1AC /* AppDelegate.m in Sources */,
+				8B36882B27343B7E00B5C1AC /* UIButton+vspImage.m in Sources */,
+				8B36883827343C0E00B5C1AC /* FEHomeVC.m in Sources */,
+				8B36882C27343B7E00B5C1AC /* UIButton+Frequentclicks.m in Sources */,
 				8B367C13272A381A00B5C1AC /* main.m in Sources */,
 				8B367C05272A381800B5C1AC /* SceneDelegate.m in Sources */,
 				8B3683D42732D7B700B5C1AC /* menuViewContorller.m in Sources */,
+				8B36883127343B7E00B5C1AC /* FEPublicMethods.m in Sources */,
+				8B36882D27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
