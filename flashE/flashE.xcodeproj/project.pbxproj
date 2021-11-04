@@ -15,6 +15,8 @@
 		8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B367C0C272A381900B5C1AC /* Assets.xcassets */; };
 		8B367C10272A381900B5C1AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B367C0E272A381900B5C1AC /* LaunchScreen.storyboard */; };
 		8B367C13272A381A00B5C1AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B367C12272A381A00B5C1AC /* main.m */; };
+		8B3683D42732D7B700B5C1AC /* menuViewContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3683D22732D7B700B5C1AC /* menuViewContorller.m */; };
+		8B3683D52732D7B800B5C1AC /* menuViewContorller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B3683D32732D7B700B5C1AC /* menuViewContorller.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,9 @@
 		8B367C0F272A381900B5C1AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B367C11272A381900B5C1AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B367C12272A381A00B5C1AC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8B3683D12732D7B700B5C1AC /* menuViewContorller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = menuViewContorller.h; sourceTree = "<group>"; };
+		8B3683D22732D7B700B5C1AC /* menuViewContorller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = menuViewContorller.m; sourceTree = "<group>"; };
+		8B3683D32732D7B700B5C1AC /* menuViewContorller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = menuViewContorller.xib; sourceTree = "<group>"; };
 		CD85DD360E682DB69B0B9700 /* libPods-flashE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flashE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,6 +101,9 @@
 				8B367C0E272A381900B5C1AC /* LaunchScreen.storyboard */,
 				8B367C11272A381900B5C1AC /* Info.plist */,
 				8B367C12272A381A00B5C1AC /* main.m */,
+				8B3683D12732D7B700B5C1AC /* menuViewContorller.h */,
+				8B3683D22732D7B700B5C1AC /* menuViewContorller.m */,
+				8B3683D32732D7B700B5C1AC /* menuViewContorller.xib */,
 			);
 			path = flashE;
 			sourceTree = "<group>";
@@ -161,6 +169,7 @@
 				8B367C10272A381900B5C1AC /* LaunchScreen.storyboard in Resources */,
 				8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */,
 				8B367C0B272A381800B5C1AC /* Main.storyboard in Resources */,
+				8B3683D52732D7B800B5C1AC /* menuViewContorller.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +226,7 @@
 				8B367C02272A381700B5C1AC /* AppDelegate.m in Sources */,
 				8B367C13272A381A00B5C1AC /* main.m in Sources */,
 				8B367C05272A381800B5C1AC /* SceneDelegate.m in Sources */,
+				8B3683D42732D7B700B5C1AC /* menuViewContorller.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +379,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.flashE.qs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaolu.shansong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -390,7 +400,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.flashE.qs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaolu.shansong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
