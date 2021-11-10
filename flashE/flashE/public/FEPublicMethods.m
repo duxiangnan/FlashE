@@ -500,12 +500,12 @@
     __block CAGradientLayer* oldLayer = nil;
     [view.layer.sublayers enumerateObjectsUsingBlock:
      ^(__kindof CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.name isEqualToString:@"vsp_gradualChanging"]) {
+        if ([obj.name isEqualToString:@"FE_gradualChanging"]) {
             oldLayer = obj;
         }
     }];
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.name = @"vsp_gradualChanging";
+    gradientLayer.name = @"FE_gradualChanging";
     gradientLayer.frame = view.bounds;
     //  创建渐变色数组，需要转换为CGColor颜色
     gradientLayer.colors = @[
@@ -590,7 +590,7 @@
  */
 + (NSArray*) getUniversallyUA:(NSString*)webUA {
     NSMutableArray* uas = [[NSMutableArray alloc] init];
-    [uas addObject:@"vspapp"];
+    [uas addObject:@"FEapp"];
     [uas addObject:@"jdlog"];
     [uas addObject:[FEPublicMethods deviceModel]];
     [uas addObject:[FEPublicMethods clientVersion]];

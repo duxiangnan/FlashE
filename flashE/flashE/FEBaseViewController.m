@@ -9,7 +9,7 @@
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #import "UIButtonModule-umbrella.h"
 #import "FEPublicMethods.h"
-#import "defines.h"
+#import "FEDefineModule.h"
 
 
 @interface FEBaseViewController ()
@@ -62,7 +62,7 @@
 
 - (void)createNavigationBackButton {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setImage:[UIImage imageNamed:@"vsp_defines_arrow_left_dark"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"FE_defines_arrow_left_dark"] forState:UIControlStateNormal];
     btn.frame = CGRectMake(0, 0, 20, 44);
     NSString *version = [FEPublicMethods OSVersion];
     

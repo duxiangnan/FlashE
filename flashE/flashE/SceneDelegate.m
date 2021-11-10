@@ -25,7 +25,7 @@
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     self.homeVC = [[FEHomeVC alloc] initWithNibName:@"FEHomeVC" bundle:nil];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.homeVC];
-    
+    self.homeVC.view.backgroundColor = [UIColor blueColor];
     menuViewContorller* vc = [[menuViewContorller alloc] initWithNibName:@"menuViewContorller" bundle:nil];
     
     UINavigationController *menu = [[UINavigationController alloc] initWithRootViewController:vc];

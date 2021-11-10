@@ -27,8 +27,10 @@ PODS:
   - SDWebImage (5.9.5):
     - SDWebImage/Core (= 5.9.5)
   - SDWebImage/Core (5.9.5)
-  - TZImagePickerController (3.6.6)
+  - TZImagePickerController (3.6.7)
   - ViewDeck (3.1.0)
+  - YBAttributeTextTapAction (3.0.3)
+  - YYModel (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking
@@ -43,6 +45,8 @@ DEPENDENCIES:
   - SDWebImage
   - TZImagePickerController
   - ViewDeck
+  - YBAttributeTextTapAction
+  - YYModel
 
 SPEC REPOS:
   trunk:
@@ -58,6 +62,8 @@ SPEC REPOS:
     - SDWebImage
     - TZImagePickerController
     - ViewDeck
+    - YBAttributeTextTapAction
+    - YYModel
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -70,9 +76,11 @@ SPEC CHECKSUMS:
   MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
   SDCycleScrollView: a0d74c3384caa72bdfc81470bdbc8c14b3e1fbcf
   SDWebImage: 0b2ba0d56479bf6a45ecddbfd5558bea93150d25
-  TZImagePickerController: edf61b8e87f26e3e445aa50eb66254bd7f4859db
+  TZImagePickerController: 679ae9fa11e189a9a81291ae96f0a4463be8edc1
   ViewDeck: 942d90dd23c9f97cc8038be352255378167edcca
+  YBAttributeTextTapAction: b7e61f0265b5673e7ce7bad7319e8eff9e209a2b
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: ebea59c78bb25b4dc0ad57733040d8dc8535e337
+PODFILE CHECKSUM: c6e949de0756ac178ea0836686a580337bef8362
 
 COCOAPODS: 1.8.3
