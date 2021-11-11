@@ -16,6 +16,7 @@ target 'flashE' do
   pod 'FDFullscreenPopGesture'
   pod 'YYModel'
   pod 'YBAttributeTextTapAction'
+  pod 'FFRouter'
 end
 
 

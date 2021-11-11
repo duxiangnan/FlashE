@@ -12,12 +12,14 @@
 #import <ViewDeck/ViewDeck.h>
 #import "menuViewContorller.h"
 #import "FEHomeVC.h"
+#import "FEWalletVC.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import <FFRouter/FFRouter.h>
 
 @interface AppDelegate ()
 
 @property (nonatomic) IIViewDeckController *viewDeckController;
-@property (nonatomic) FEHomeVC *homeVC;
+@property (nonatomic) UIViewController *currentVC;
 
 @end
 
@@ -42,24 +44,57 @@
 - (void) resetRootVC {
 
     if ([[FEAccountManager sharedFEAccountManager] hasLogin]) {
-        self.homeVC = [[FEHomeVC alloc] initWithNibName:@"FEHomeVC" bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.homeVC];
-        self.homeVC.view.backgroundColor = [UIColor blueColor];
+        FEHomeVC* homeVC = [[FEHomeVC alloc] initWithNibName:@"FEHomeVC" bundle:nil];
+        self.currentVC = homeVC;
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeVC];
+        
         menuViewContorller* vc = [[menuViewContorller alloc] initWithNibName:@"menuViewContorller" bundle:nil];
         
         UINavigationController *menu = [[UINavigationController alloc] initWithRootViewController:vc];
 
         IIViewDeckController *viewDeckController = [[IIViewDeckController alloc] initWithCenterViewController:navigationController leftViewController:menu];
-
         self.viewDeckController = viewDeckController;
-        
         self.window.rootViewController = viewDeckController;
+        
+        [FFRouter registerRouteURL:@"deckControl://show" handler:^(NSDictionary *routerParameters) {
+            [self.viewDeckController openSide:IIViewDeckSideLeft animated:YES];
+        }];
+        [FFRouter registerRouteURL:@"deckControl://changeSecen" handler:^(NSDictionary *routerParameters) {
+            NSString* vcType = routerParameters[@"vcType"];
+            switch (vcType.integerValue) {
+                case 1:{
+                    if (![self.currentVC isKindOfClass:[FEHomeVC class]]) {
+                        FEHomeVC* homeVC = [[FEHomeVC alloc] initWithNibName:@"FEHomeVC" bundle:nil];
+                        self.currentVC = homeVC;
+                        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeVC];
+                        self.viewDeckController.centerViewController = navigationController;
+                    }
+                    [self.viewDeckController closeSide:YES];
+                }break;
+                case 2:{
+                    if (![self.currentVC isKindOfClass:[FEWalletVC class]]) {
+                        UIViewController* vc = [[FEWalletVC alloc] init];
+                        self.currentVC = vc;
+                        vc.view.backgroundColor = UIColor.redColor;
+                        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+                        self.viewDeckController.centerViewController = navigationController;
+                    }
+                    [self.viewDeckController closeSide:YES];
+                }break;
+                case 3:{}break;
+                case 4:{}break;
+                case 5:{}break;
+                case 6:{}break;
+                default:
+                    break;
+            }
+        }];
+
     } else {
         FELoginVC* vc = [[FELoginVC alloc] initWithNibName:@"FELoginVC" bundle:nil];
         UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vc];
         self.window.rootViewController = navi;
     }
-    
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
 
@@ -114,33 +149,30 @@
 
 #pragma mark--分享回调
 #if __IPHONE_OS_VERSION_MAX_ALLOWED <__IPHONE_9_0
-    - (BOOL)application:(UIApplication *)application
-                openURL:(NSURL *)url
-      sourceApplication:(nullable NSString *)sourceApplication
-             annotation:(id)annotation
-    {
-        BOOL flag = NO;
+    - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+      sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL flag = NO;
 
-        @try {
-            flag = [self myApplication:application openURL:url];
-        } @catch(NSException *exception) {} @finally {}
+    @try {
+        flag = [self myApplication:application openURL:url];
+    } @catch(NSException *exception) {} @finally {}
 
-        return flag;
-    }
+    return flag;
+}
 
 #else
-    - (BOOL)application:(UIApplication *)application
-                openURL:(NSURL *)url
-                options:(nonnull NSDictionary <NSString *, id> *)options
-    {
-        BOOL flag = NO;
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+        options:(nonnull NSDictionary <NSString *, id> *)options
+{
+    BOOL flag = NO;
 
-        @try {
-            flag = [self myApplication:application openURL:url];
-        } @catch(NSException *exception) {} @finally {}
+    @try {
+        flag = [self myApplication:application openURL:url];
+    } @catch(NSException *exception) {} @finally {}
 
-        return flag;
-    }
+    return flag;
+}
 
 #endif
 
@@ -154,6 +186,7 @@
 - (void) loginSucAction:(NSNotification*)noti {
     [self resetRootVC];
 }
+
 - (void) logoutAction:(NSNotification*)noti {
     [self resetRootVC];
 }

@@ -57,6 +57,8 @@
 		8B368B83273ABA4100B5C1AC /* FEAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368B7C273ABA4100B5C1AC /* FEAlertView.m */; };
 		8B368BA3273AC8AE00B5C1AC /* NSString+FESize.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368BA2273AC8AE00B5C1AC /* NSString+FESize.m */; };
 		8B368BD8273B9BDB00B5C1AC /* FEAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368BD6273B9BDB00B5C1AC /* FEAccountModel.m */; };
+		8B368BFF273CBA2700B5C1AC /* FEWalletVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368BFD273CBA2700B5C1AC /* FEWalletVC.m */; };
+		8B368C00273CBA2700B5C1AC /* FEWalletVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B368BFE273CBA2700B5C1AC /* FEWalletVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +161,9 @@
 		8B368BA2273AC8AE00B5C1AC /* NSString+FESize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FESize.m"; sourceTree = "<group>"; };
 		8B368BD6273B9BDB00B5C1AC /* FEAccountModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEAccountModel.m; sourceTree = "<group>"; };
 		8B368BD7273B9BDB00B5C1AC /* FEAccountModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEAccountModel.h; sourceTree = "<group>"; };
+		8B368BFC273CBA2700B5C1AC /* FEWalletVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEWalletVC.h; sourceTree = "<group>"; };
+		8B368BFD273CBA2700B5C1AC /* FEWalletVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEWalletVC.m; sourceTree = "<group>"; };
+		8B368BFE273CBA2700B5C1AC /* FEWalletVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEWalletVC.xib; sourceTree = "<group>"; };
 		CD85DD360E682DB69B0B9700 /* libPods-flashE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flashE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -278,6 +283,7 @@
 		8B36883427343BD900B5C1AC /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				8B368BFB273CBA0900B5C1AC /* wallet */,
 				8B368AFA273A272D00B5C1AC /* login */,
 				8B368AF8273A272400B5C1AC /* home */,
 			);
@@ -448,6 +454,16 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		8B368BFB273CBA0900B5C1AC /* wallet */ = {
+			isa = PBXGroup;
+			children = (
+				8B368BFC273CBA2700B5C1AC /* FEWalletVC.h */,
+				8B368BFD273CBA2700B5C1AC /* FEWalletVC.m */,
+				8B368BFE273CBA2700B5C1AC /* FEWalletVC.xib */,
+			);
+			path = wallet;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -506,6 +522,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B368C00273CBA2700B5C1AC /* FEWalletVC.xib in Resources */,
 				8B367C10272A381900B5C1AC /* LaunchScreen.storyboard in Resources */,
 				8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */,
 				8B36883927343C0E00B5C1AC /* FEHomeVC.xib in Resources */,
@@ -592,6 +609,7 @@
 				8B368B34273AB46C00B5C1AC /* FECanCopyLabel.m in Sources */,
 				8B368B35273AB46C00B5C1AC /* FEVerticalAlignmentLabel.m in Sources */,
 				8B368B81273ABA4100B5C1AC /* WHToast.m in Sources */,
+				8B368BFF273CBA2700B5C1AC /* FEWalletVC.m in Sources */,
 				8B36882C27343B7E00B5C1AC /* UIButton+Frequentclicks.m in Sources */,
 				8B368B82273ABA4100B5C1AC /* FEAlertSubView.m in Sources */,
 				8B368AE7273A182800B5C1AC /* NSData+FEBase64.m in Sources */,

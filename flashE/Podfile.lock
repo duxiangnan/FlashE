@@ -16,6 +16,7 @@ PODS:
     - AFNetworking/NSURLSession
   - DateTools (2.0.0)
   - FDFullscreenPopGesture (1.1)
+  - FFRouter (1.1.1)
   - IQKeyboardManager (6.5.6)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - AFNetworking
   - DateTools
   - FDFullscreenPopGesture
+  - FFRouter
   - IQKeyboardManager
   - Masonry
   - MBProgressHUD
@@ -53,6 +55,7 @@ SPEC REPOS:
     - AFNetworking
     - DateTools
     - FDFullscreenPopGesture
+    - FFRouter
     - IQKeyboardManager
     - Masonry
     - MBProgressHUD
@@ -69,6 +72,7 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  FFRouter: dfda137b8f6817ca92dc9a1151727449548abfd3
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
@@ -81,6 +85,6 @@ SPEC CHECKSUMS:
   YBAttributeTextTapAction: b7e61f0265b5673e7ce7bad7319e8eff9e209a2b
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: c6e949de0756ac178ea0836686a580337bef8362
+PODFILE CHECKSUM: 714fa26456210c5a376e688f174e9b981b54bfb1
 
 COCOAPODS: 1.8.3
