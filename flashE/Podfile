@@ -17,6 +17,7 @@ target 'flashE' do
   pod 'YYModel'
   pod 'YBAttributeTextTapAction'
   pod 'FFRouter'
+  pod 'JXCategoryView'
 end
 
 

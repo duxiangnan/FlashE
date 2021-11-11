@@ -10,23 +10,17 @@
 		55B41FD2E81F5245958EE130 /* libPods-flashE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD85DD360E682DB69B0B9700 /* libPods-flashE.a */; };
 		8B367C02272A381700B5C1AC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B367C01272A381700B5C1AC /* AppDelegate.m */; };
 		8B367C05272A381800B5C1AC /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B367C04272A381800B5C1AC /* SceneDelegate.m */; };
-		8B367C08272A381800B5C1AC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B367C07272A381800B5C1AC /* ViewController.m */; };
-		8B367C0B272A381800B5C1AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B367C09272A381800B5C1AC /* Main.storyboard */; };
 		8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B367C0C272A381900B5C1AC /* Assets.xcassets */; };
 		8B367C10272A381900B5C1AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B367C0E272A381900B5C1AC /* LaunchScreen.storyboard */; };
 		8B367C13272A381A00B5C1AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B367C12272A381A00B5C1AC /* main.m */; };
-		8B3683D42732D7B700B5C1AC /* menuViewContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3683D22732D7B700B5C1AC /* menuViewContorller.m */; };
-		8B3683D52732D7B800B5C1AC /* menuViewContorller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B3683D32732D7B700B5C1AC /* menuViewContorller.xib */; };
 		8B36882A27343B7E00B5C1AC /* UIButton+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36881727343B7E00B5C1AC /* UIButton+BackgroundColor.m */; };
 		8B36882B27343B7E00B5C1AC /* UIButton+FEImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36881B27343B7E00B5C1AC /* UIButton+FEImage.m */; };
 		8B36882C27343B7E00B5C1AC /* UIButton+Frequentclicks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36881C27343B7E00B5C1AC /* UIButton+Frequentclicks.m */; };
 		8B36882D27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36881F27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m */; };
-		8B36882E27343B7E00B5C1AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B36882027343B7E00B5C1AC /* Assets.xcassets */; };
 		8B36882F27343B7E00B5C1AC /* FEBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36882127343B7E00B5C1AC /* FEBaseViewController.m */; };
 		8B36883027343B7E00B5C1AC /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36882327343B7E00B5C1AC /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8B36883127343B7E00B5C1AC /* FEPublicMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36882727343B7E00B5C1AC /* FEPublicMethods.m */; };
 		8B36883827343C0E00B5C1AC /* FEHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36883627343C0E00B5C1AC /* FEHomeVC.m */; };
-		8B36883927343C0E00B5C1AC /* FEHomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B36883727343C0E00B5C1AC /* FEHomeVC.xib */; };
 		8B36883F2738C06E00B5C1AC /* FEHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36883E2738C06E00B5C1AC /* FEHttpManager.m */; };
 		8B368A93273957CC00B5C1AC /* Base64Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368A8F273957CC00B5C1AC /* Base64Util.m */; };
 		8B368A94273957CC00B5C1AC /* MD5Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368A91273957CC00B5C1AC /* MD5Encryption.m */; };
@@ -59,6 +53,8 @@
 		8B368BD8273B9BDB00B5C1AC /* FEAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368BD6273B9BDB00B5C1AC /* FEAccountModel.m */; };
 		8B368BFF273CBA2700B5C1AC /* FEWalletVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368BFD273CBA2700B5C1AC /* FEWalletVC.m */; };
 		8B368C00273CBA2700B5C1AC /* FEWalletVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B368BFE273CBA2700B5C1AC /* FEWalletVC.xib */; };
+		8B368D82273D4C1A00B5C1AC /* menuViewContorller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B368D7F273D4C1A00B5C1AC /* menuViewContorller.xib */; };
+		8B368D83273D4C1A00B5C1AC /* menuViewContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368D81273D4C1A00B5C1AC /* menuViewContorller.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,16 +65,10 @@
 		8B367C01272A381700B5C1AC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8B367C03272A381700B5C1AC /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		8B367C04272A381800B5C1AC /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		8B367C06272A381800B5C1AC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8B367C07272A381800B5C1AC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		8B367C0A272A381800B5C1AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8B367C0C272A381900B5C1AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B367C0F272A381900B5C1AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B367C11272A381900B5C1AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B367C12272A381A00B5C1AC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8B3683D12732D7B700B5C1AC /* menuViewContorller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = menuViewContorller.h; sourceTree = "<group>"; };
-		8B3683D22732D7B700B5C1AC /* menuViewContorller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = menuViewContorller.m; sourceTree = "<group>"; };
-		8B3683D32732D7B700B5C1AC /* menuViewContorller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = menuViewContorller.xib; sourceTree = "<group>"; };
 		8B36881727343B7E00B5C1AC /* UIButton+BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BackgroundColor.m"; sourceTree = "<group>"; };
 		8B36881827343B7E00B5C1AC /* UIButton+Frequentclicks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Frequentclicks.h"; sourceTree = "<group>"; };
 		8B36881927343B7E00B5C1AC /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
@@ -88,7 +78,6 @@
 		8B36881D27343B7E00B5C1AC /* UIButton+BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+BackgroundColor.h"; sourceTree = "<group>"; };
 		8B36881E27343B7E00B5C1AC /* UIButton+FEImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+FEImage.h"; sourceTree = "<group>"; };
 		8B36881F27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
-		8B36882027343B7E00B5C1AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B36882127343B7E00B5C1AC /* FEBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEBaseViewController.m; sourceTree = "<group>"; };
 		8B36882327343B7E00B5C1AC /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		8B36882427343B7E00B5C1AC /* FEPublicMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEPublicMethods.h; sourceTree = "<group>"; };
@@ -98,7 +87,6 @@
 		8B36882927343B7E00B5C1AC /* FEBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEBaseViewController.h; sourceTree = "<group>"; };
 		8B36883527343C0E00B5C1AC /* FEHomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHomeVC.h; sourceTree = "<group>"; };
 		8B36883627343C0E00B5C1AC /* FEHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeVC.m; sourceTree = "<group>"; };
-		8B36883727343C0E00B5C1AC /* FEHomeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEHomeVC.xib; sourceTree = "<group>"; };
 		8B36883D2738C06E00B5C1AC /* FEHttpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHttpManager.h; sourceTree = "<group>"; };
 		8B36883E2738C06E00B5C1AC /* FEHttpManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHttpManager.m; sourceTree = "<group>"; };
 		8B368A8C273957CC00B5C1AC /* Base64Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Util.h; sourceTree = "<group>"; };
@@ -164,6 +152,9 @@
 		8B368BFC273CBA2700B5C1AC /* FEWalletVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEWalletVC.h; sourceTree = "<group>"; };
 		8B368BFD273CBA2700B5C1AC /* FEWalletVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEWalletVC.m; sourceTree = "<group>"; };
 		8B368BFE273CBA2700B5C1AC /* FEWalletVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEWalletVC.xib; sourceTree = "<group>"; };
+		8B368D7F273D4C1A00B5C1AC /* menuViewContorller.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = menuViewContorller.xib; sourceTree = "<group>"; };
+		8B368D80273D4C1A00B5C1AC /* menuViewContorller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuViewContorller.h; sourceTree = "<group>"; };
+		8B368D81273D4C1A00B5C1AC /* menuViewContorller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuViewContorller.m; sourceTree = "<group>"; };
 		CD85DD360E682DB69B0B9700 /* libPods-flashE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flashE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -219,7 +210,6 @@
 			children = (
 				8B36883C2738C03E00B5C1AC /* netWork */,
 				8B36883427343BD900B5C1AC /* scene */,
-				8B36882027343B7E00B5C1AC /* Assets.xcassets */,
 				8B36882927343B7E00B5C1AC /* FEBaseViewController.h */,
 				8B36882127343B7E00B5C1AC /* FEBaseViewController.m */,
 				8B36882227343B7E00B5C1AC /* public */,
@@ -227,16 +217,10 @@
 				8B367C01272A381700B5C1AC /* AppDelegate.m */,
 				8B367C03272A381700B5C1AC /* SceneDelegate.h */,
 				8B367C04272A381800B5C1AC /* SceneDelegate.m */,
-				8B367C06272A381800B5C1AC /* ViewController.h */,
-				8B367C07272A381800B5C1AC /* ViewController.m */,
-				8B367C09272A381800B5C1AC /* Main.storyboard */,
 				8B367C0C272A381900B5C1AC /* Assets.xcassets */,
 				8B367C0E272A381900B5C1AC /* LaunchScreen.storyboard */,
 				8B367C11272A381900B5C1AC /* Info.plist */,
 				8B367C12272A381A00B5C1AC /* main.m */,
-				8B3683D12732D7B700B5C1AC /* menuViewContorller.h */,
-				8B3683D22732D7B700B5C1AC /* menuViewContorller.m */,
-				8B3683D32732D7B700B5C1AC /* menuViewContorller.xib */,
 			);
 			path = flashE;
 			sourceTree = "<group>";
@@ -283,9 +267,10 @@
 		8B36883427343BD900B5C1AC /* scene */ = {
 			isa = PBXGroup;
 			children = (
-				8B368BFB273CBA0900B5C1AC /* wallet */,
-				8B368AFA273A272D00B5C1AC /* login */,
-				8B368AF8273A272400B5C1AC /* home */,
+				8B368D7C273D4BE700B5C1AC /* menuVC */,
+				8B368BFB273CBA0900B5C1AC /* walletVC */,
+				8B368AFA273A272D00B5C1AC /* loginVC */,
+				8B368AF8273A272400B5C1AC /* homeVC */,
 			);
 			path = scene;
 			sourceTree = "<group>";
@@ -358,24 +343,23 @@
 			path = NSString;
 			sourceTree = "<group>";
 		};
-		8B368AF8273A272400B5C1AC /* home */ = {
+		8B368AF8273A272400B5C1AC /* homeVC */ = {
 			isa = PBXGroup;
 			children = (
 				8B36883527343C0E00B5C1AC /* FEHomeVC.h */,
 				8B36883627343C0E00B5C1AC /* FEHomeVC.m */,
-				8B36883727343C0E00B5C1AC /* FEHomeVC.xib */,
 			);
-			path = home;
+			path = homeVC;
 			sourceTree = "<group>";
 		};
-		8B368AFA273A272D00B5C1AC /* login */ = {
+		8B368AFA273A272D00B5C1AC /* loginVC */ = {
 			isa = PBXGroup;
 			children = (
 				8B368AFB273A275000B5C1AC /* FELoginVC.h */,
 				8B368AFC273A275000B5C1AC /* FELoginVC.m */,
 				8B368AFD273A275000B5C1AC /* FELoginVC.xib */,
 			);
-			path = login;
+			path = loginVC;
 			sourceTree = "<group>";
 		};
 		8B368B03273A565400B5C1AC /* Regex */ = {
@@ -454,14 +438,24 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
-		8B368BFB273CBA0900B5C1AC /* wallet */ = {
+		8B368BFB273CBA0900B5C1AC /* walletVC */ = {
 			isa = PBXGroup;
 			children = (
 				8B368BFC273CBA2700B5C1AC /* FEWalletVC.h */,
 				8B368BFD273CBA2700B5C1AC /* FEWalletVC.m */,
 				8B368BFE273CBA2700B5C1AC /* FEWalletVC.xib */,
 			);
-			path = wallet;
+			path = walletVC;
+			sourceTree = "<group>";
+		};
+		8B368D7C273D4BE700B5C1AC /* menuVC */ = {
+			isa = PBXGroup;
+			children = (
+				8B368D80273D4C1A00B5C1AC /* menuViewContorller.h */,
+				8B368D81273D4C1A00B5C1AC /* menuViewContorller.m */,
+				8B368D7F273D4C1A00B5C1AC /* menuViewContorller.xib */,
+			);
+			path = menuVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,12 +519,9 @@
 				8B368C00273CBA2700B5C1AC /* FEWalletVC.xib in Resources */,
 				8B367C10272A381900B5C1AC /* LaunchScreen.storyboard in Resources */,
 				8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */,
-				8B36883927343C0E00B5C1AC /* FEHomeVC.xib in Resources */,
 				8B368AFF273A275000B5C1AC /* FELoginVC.xib in Resources */,
-				8B367C0B272A381800B5C1AC /* Main.storyboard in Resources */,
 				8B368AEE273A1F2500B5C1AC /* definePlist.plist in Resources */,
-				8B3683D52732D7B800B5C1AC /* menuViewContorller.xib in Resources */,
-				8B36882E27343B7E00B5C1AC /* Assets.xcassets in Resources */,
+				8B368D82273D4C1A00B5C1AC /* menuViewContorller.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,7 +578,6 @@
 				8B36882F27343B7E00B5C1AC /* FEBaseViewController.m in Sources */,
 				8B368B80273ABA4100B5C1AC /* WHToastView.m in Sources */,
 				8B368AA127396CFD00B5C1AC /* FEAccountManager.m in Sources */,
-				8B367C08272A381800B5C1AC /* ViewController.m in Sources */,
 				8B36883027343B7E00B5C1AC /* OpenUDID.m in Sources */,
 				8B368BD8273B9BDB00B5C1AC /* FEAccountModel.m in Sources */,
 				8B368B7F273ABA4100B5C1AC /* WHToastConfig.m in Sources */,
@@ -619,8 +609,8 @@
 				8B368A93273957CC00B5C1AC /* Base64Util.m in Sources */,
 				8B368A94273957CC00B5C1AC /* MD5Encryption.m in Sources */,
 				8B367C05272A381800B5C1AC /* SceneDelegate.m in Sources */,
-				8B3683D42732D7B700B5C1AC /* menuViewContorller.m in Sources */,
 				8B368A95273957CC00B5C1AC /* GTMBase64.m in Sources */,
+				8B368D83273D4C1A00B5C1AC /* menuViewContorller.m in Sources */,
 				8B36883127343B7E00B5C1AC /* FEPublicMethods.m in Sources */,
 				8B368B33273AB46C00B5C1AC /* FELineLabel.m in Sources */,
 				8B36882D27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m in Sources */,
@@ -631,14 +621,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8B367C09272A381800B5C1AC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8B367C0A272A381800B5C1AC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8B367C0E272A381900B5C1AC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -770,6 +752,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1000;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = flashE/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -830,6 +815,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1000;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = flashE/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

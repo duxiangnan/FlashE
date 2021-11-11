@@ -18,6 +18,7 @@ PODS:
   - FDFullscreenPopGesture (1.1)
   - FFRouter (1.1.1)
   - IQKeyboardManager (6.5.6)
+  - JXCategoryView (1.5.5)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - MJRefresh (3.5.0)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - FDFullscreenPopGesture
   - FFRouter
   - IQKeyboardManager
+  - JXCategoryView
   - Masonry
   - MBProgressHUD
   - MJRefresh
@@ -57,6 +59,7 @@ SPEC REPOS:
     - FDFullscreenPopGesture
     - FFRouter
     - IQKeyboardManager
+    - JXCategoryView
     - Masonry
     - MBProgressHUD
     - MJRefresh
@@ -74,6 +77,7 @@ SPEC CHECKSUMS:
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FFRouter: dfda137b8f6817ca92dc9a1151727449548abfd3
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
+  JXCategoryView: 0293fcb356f10a5c2e679dac0a1a5f1899ee0c87
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
@@ -85,6 +89,6 @@ SPEC CHECKSUMS:
   YBAttributeTextTapAction: b7e61f0265b5673e7ce7bad7319e8eff9e209a2b
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 714fa26456210c5a376e688f174e9b981b54bfb1
+PODFILE CHECKSUM: dc0615f4fe3f06f34344afd8c393f86188d6936f
 
 COCOAPODS: 1.8.3
