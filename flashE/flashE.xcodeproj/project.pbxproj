@@ -55,6 +55,7 @@
 		8B368C00273CBA2700B5C1AC /* FEWalletVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B368BFE273CBA2700B5C1AC /* FEWalletVC.xib */; };
 		8B368D82273D4C1A00B5C1AC /* menuViewContorller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B368D7F273D4C1A00B5C1AC /* menuViewContorller.xib */; };
 		8B368D83273D4C1A00B5C1AC /* menuViewContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368D81273D4C1A00B5C1AC /* menuViewContorller.m */; };
+		8B368DD0273DFCD800B5C1AC /* FEHomeWorkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368DCF273DFCD800B5C1AC /* FEHomeWorkView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -155,6 +156,8 @@
 		8B368D7F273D4C1A00B5C1AC /* menuViewContorller.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = menuViewContorller.xib; sourceTree = "<group>"; };
 		8B368D80273D4C1A00B5C1AC /* menuViewContorller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuViewContorller.h; sourceTree = "<group>"; };
 		8B368D81273D4C1A00B5C1AC /* menuViewContorller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuViewContorller.m; sourceTree = "<group>"; };
+		8B368DCE273DFCD800B5C1AC /* FEHomeWorkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHomeWorkView.h; sourceTree = "<group>"; };
+		8B368DCF273DFCD800B5C1AC /* FEHomeWorkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkView.m; sourceTree = "<group>"; };
 		CD85DD360E682DB69B0B9700 /* libPods-flashE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flashE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -348,6 +351,8 @@
 			children = (
 				8B36883527343C0E00B5C1AC /* FEHomeVC.h */,
 				8B36883627343C0E00B5C1AC /* FEHomeVC.m */,
+				8B368DCE273DFCD800B5C1AC /* FEHomeWorkView.h */,
+				8B368DCF273DFCD800B5C1AC /* FEHomeWorkView.m */,
 			);
 			path = homeVC;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 				8B368D83273D4C1A00B5C1AC /* menuViewContorller.m in Sources */,
 				8B36883127343B7E00B5C1AC /* FEPublicMethods.m in Sources */,
 				8B368B33273AB46C00B5C1AC /* FELineLabel.m in Sources */,
+				8B368DD0273DFCD800B5C1AC /* FEHomeWorkView.m in Sources */,
 				8B36882D27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m in Sources */,
 				8B368AE6273A182800B5C1AC /* NSData+FECommonCrypto.m in Sources */,
 			);

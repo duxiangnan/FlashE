@@ -44,7 +44,7 @@
 - (void) resetRootVC {
 
     if ([[FEAccountManager sharedFEAccountManager] hasLogin]) {
-        FEHomeVC* homeVC = [[FEHomeVC alloc] initWithNibName:@"FEHomeVC" bundle:nil];
+        FEHomeVC* homeVC = [[FEHomeVC alloc] init];
         self.currentVC = homeVC;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeVC];
         
@@ -64,7 +64,7 @@
             switch (vcType.integerValue) {
                 case 1:{
                     if (![self.currentVC isKindOfClass:[FEHomeVC class]]) {
-                        FEHomeVC* homeVC = [[FEHomeVC alloc] initWithNibName:@"FEHomeVC" bundle:nil];
+                        FEHomeVC* homeVC = [[FEHomeVC alloc] init];
                         self.currentVC = homeVC;
                         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeVC];
                         self.viewDeckController.centerViewController = navigationController;

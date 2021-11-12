@@ -18,6 +18,7 @@ target 'flashE' do
   pod 'YBAttributeTextTapAction'
   pod 'FFRouter'
   pod 'JXCategoryView'
+  pod 'JXPagingView/Pager'
 end
 
 
