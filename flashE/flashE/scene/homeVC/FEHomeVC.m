@@ -25,7 +25,7 @@
 #import "FEHomeWorkCell.h"
 #import <YYModel/YYModel.h>
 
-
+#import <DateTools/DateTools.h>
 @interface FEHomeVC ()<JXCategoryViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView* naviView;
 @property (nonatomic, strong) UITableView *table;
@@ -48,6 +48,9 @@
 @implementation FEHomeVC
 
 - (void)viewDidLoad {
+    
+    
+    
     [super viewDidLoad];
     self.lastIndex = -1;
     self.model = [[FEHomeWorkModel alloc] init];
@@ -219,23 +222,29 @@
     }
     switch (index) {
         case 0:
+            self.emptyTitle = @"暂无待接订单";
             self.currentType = homeWorkWaiting;
             break;
         case 1:
+            self.emptyTitle = @"暂无待取件订单";
             self.currentType = homeWorkWaitFetch;
             break;
         case 2:
+            self.emptyTitle = @"暂无配送中订单";
             self.currentType = homeWorkWaitSend;
             break;
         case 3:
+            self.emptyTitle = @"暂无已取消订单";
             self.currentType = homeWorkCancel;
             break;
         case 4:
+            self.emptyTitle = @"暂无已完成订单";
             self.currentType = homeWorkFinish;
             break;
         default:
             break;
     }
+
     self.lastIndex = index;
     [self requestShowData];
 }

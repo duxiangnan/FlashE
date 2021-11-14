@@ -8,6 +8,11 @@
  头文件中不需要暴露，或者引入任何资源
  */
 #import "defines.h"
+#import "UIFont+fe.h"
+#import "FEPublicMethods.h"
+#import "MBP-umbrella.h"
+#import "NSString-umbrella.h"
+#import "UIButtonModule-umbrella.h"
 #import <Foundation/Foundation.h>
 
 #define KDEBUGMODE @"debug_mode"

@@ -66,6 +66,7 @@
 		8B368F9D2740F5AF00B5C1AC /* JVRefreshStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F952740F5AE00B5C1AC /* JVRefreshStateView.m */; };
 		8B368FA32740FA4000B5C1AC /* FEEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */; };
 		8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB742741540600D8460B /* FEHomeWorkCell.m */; };
+		8B43FB7A2741685000D8460B /* UIFont+fe.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB792741685000D8460B /* UIFont+fe.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -187,6 +188,8 @@
 		8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEEmptyView.m; sourceTree = "<group>"; };
 		8B43FB732741540600D8460B /* FEHomeWorkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHomeWorkCell.h; sourceTree = "<group>"; };
 		8B43FB742741540600D8460B /* FEHomeWorkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkCell.m; sourceTree = "<group>"; };
+		8B43FB782741685000D8460B /* UIFont+fe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+fe.h"; sourceTree = "<group>"; };
+		8B43FB792741685000D8460B /* UIFont+fe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+fe.m"; sourceTree = "<group>"; };
 		CD85DD360E682DB69B0B9700 /* libPods-flashE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flashE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -276,6 +279,7 @@
 		8B36882227343B7E00B5C1AC /* public */ = {
 			isa = PBXGroup;
 			children = (
+				8B43FB772741683000D8460B /* font */,
 				8B368FA02740FA3F00B5C1AC /* emptyView */,
 				8B368F8C2740F5AE00B5C1AC /* refresh */,
 				8B368B78273ABA4100B5C1AC /* Alert */,
@@ -527,6 +531,15 @@
 			path = emptyView;
 			sourceTree = "<group>";
 		};
+		8B43FB772741683000D8460B /* font */ = {
+			isa = PBXGroup;
+			children = (
+				8B43FB782741685000D8460B /* UIFont+fe.h */,
+				8B43FB792741685000D8460B /* UIFont+fe.m */,
+			);
+			path = font;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -659,6 +672,7 @@
 				8B368B36273AB46C00B5C1AC /* UILabel+AttributedString.m in Sources */,
 				8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */,
 				8B368AFE273A275000B5C1AC /* FELoginVC.m in Sources */,
+				8B43FB7A2741685000D8460B /* UIFont+fe.m in Sources */,
 				8B368B16273A62C500B5C1AC /* UIView+Extend.m in Sources */,
 				8B368AF3273A21F300B5C1AC /* NSString+Extend.m in Sources */,
 				8B368B83273ABA4100B5C1AC /* FEAlertView.m in Sources */,
