@@ -9,37 +9,48 @@
 #import <FFRouter/FFRouter.h>
 #import <Masonry/Masonry.h>
 #import "FEDefineModule.h"
+#import "FEPublicMethods.h"
 #import "UIButtonModule-umbrella.h"
-
 #import "FEUIView-umbrella.h"
+#import "FEAccountManager.h"
 
 #import <JXPagingView/JXPagerView.h>
 #import <JXCategoryView/JXCategoryView.h>
 
 #import "FEHomeWorkView.h"
+#import "FEHttpPageManager.h"
+#import "FEHomeWorkModel.h"
+#import "JVRefresh.h"
+#import "MBP-umbrella.h"
+#import "FEHomeWorkCell.h"
+#import <YYModel/YYModel.h>
 
-@interface FEHomeVC ()<JXCategoryListContainerViewDelegate,JXCategoryViewDelegate>
+
+@interface FEHomeVC ()<JXCategoryViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView* naviView;
-/**
- 菜单项View
- */
+@property (nonatomic, strong) UITableView *table;
+
 @property (nonatomic,strong) JXCategoryNumberView *categoryView;
-/**
- 内容View
- */
-@property (nonatomic, strong) JXCategoryListContainerView *pagingView;
-
-@property (nonatomic, strong) NSArray <FEHomeWorkView *> *listViewArray;
 @property (nonatomic,copy) NSArray *itemArr;
-@property (nonatomic,copy) NSArray *countArr;
 
+@property (nonatomic,assign) NSInteger lastIndex;
+
+@property (nonatomic, strong) FEHomeWorkModel* model;
+@property (nonatomic, strong) FEHttpPageManager* pagesManager;
+@property (nonatomic, assign) FEHomeWorkType currentType;
+
+
+
+                       
+                       
 @end
 
 @implementation FEHomeVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.lastIndex = -1;
+    self.model = [[FEHomeWorkModel alloc] init];
     
     [self.view addSubview:self.naviView];
     [self.naviView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -47,22 +58,153 @@
         make.height.mas_equalTo(@(kHomeNavigationHeight));
     }];
     [self.view addSubview:self.categoryView];
-    [self.view addSubview:self.pagingView];
+    
+    if (@available(iOS 11.0, *)) {
+        self.table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
+    [self.view addSubview:self.table];
+    
+    self.currentType = homeWorkWaiting;
+    [self requestShowData];
+    @weakself(self);
+    self.emptyAction = ^{
+        @strongself(weakSelf);
+        [strongSelf requestShowData];
+    };
 }
 - (void) viewDidLayoutSubviews {
-    
-    
+    [super viewDidLayoutSubviews];
+    self.emptyFrame = self.table.frame;
 }
 - (void)naviLeftAction:(id)sender {
     [FFRouter routeURL:@"deckControl://show"];
     
     
-    self.countArr = @[@(0),@([self.countArr[1] integerValue]+1),@(99),@(110),@(0)];
-    self.categoryView.counts = self.countArr;
+//    self.countArr = @[@(0),@([self.countArr[1] integerValue]+1),@(99),@(110),@(0)];
+//    self.categoryView.counts = self.countArr;
+//    [self.categoryView reloadData];
+//
+//
+//    [self.categoryView selectItemAtIndex:4];
+}
+
+- (void) requestShowData {
+    if (self.pagesManager) {
+        [self.pagesManager cancleCurrentRequest];
+        self.pagesManager = nil;
+    }
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    FEAccountModel* account = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
+    param[@"storeId"] = @(account.shopId);
+    param[@"orderStatus"] = @(self.currentType);
+    param[@"pageIndex"] = @(1);
+    param[@"pageSize"] = @(20);
+    
+    self.pagesManager = [[FEHttpPageManager alloc] initWithFunctionId:@"/deer/orders/getOrderList"
+                                                           parameters:param
+                                                            itemClass:[FEHomeWorkOrderModel class]];
+    self.pagesManager.resultName = @"orders";
+    @weakself(self);
+
+    void (^loadMore)(void) = ^{
+        @strongself(weakSelf);
+        if (strongSelf.pagesManager.hasMore) {
+            [strongSelf.pagesManager fetchMoreData:^{
+                NSDictionary* dic = strongSelf.pagesManager.wholeDict[@"data"];
+                [strongSelf resetCountArr:dic[@"counts"]];
+                
+                strongSelf.model.orders = strongSelf.pagesManager.dataArr;
+                [strongSelf.table.mj_footer endRefreshing];
+                [strongSelf.table reloadData];
+                if (strongSelf.pagesManager.networkError) {
+                    [MBProgressHUD showMessage:strongSelf.pagesManager.networkError.localizedDescription];
+                }
+            }];
+        } else {
+            [MBProgressHUD showMessage:@"没有更多内容啦~"];
+            [strongSelf.table.mj_footer endRefreshing];
+            [strongSelf.table reloadData];
+        }
+    };
+
+    void (^loadFirstPage)(void) = ^{
+        @strongself(weakSelf);
+        [strongSelf.pagesManager fetchData:^{
+            
+            NSDictionary* dic = strongSelf.pagesManager.wholeDict[@"data"];
+            [strongSelf resetCountArr:dic[@"counts"]];
+            
+            
+            strongSelf.model.orders = strongSelf.pagesManager.dataArr;
+            if (strongSelf.pagesManager.networkError) {
+                [MBProgressHUD showMessage:weakSelf.pagesManager.networkError.localizedDescription];
+
+                if ([strongSelf.model.orders count] <= 0) {
+                    [strongSelf showEmptyViewWithType:NO];
+                }
+            } else if (strongSelf.model.orders.count == 0) {
+                [strongSelf showEmptyViewWithType:YES];
+            }
+
+            [strongSelf.table reloadData];
+            [strongSelf.table.mj_header endRefreshing];
+            if (strongSelf.pagesManager.hasMore) {
+                strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
+                                                                           noMoreDataString:@"没有更多数据"];
+            }
+        }];
+    };
+
+    self.table.mj_header = [JVRefreshHeaderView headerWithRefreshingBlock:loadFirstPage];
+    loadFirstPage();
+    
+}
+
+- (void) resetCountArr:(NSDictionary*)countDic {
+    FEHomeWorkCountModel* contModel = [FEHomeWorkCountModel yy_modelWithDictionary:countDic];
+    self.model.counts = contModel;
+    self.categoryView.counts = [self countArr];
     [self.categoryView reloadData];
+}
+
+
+
+#pragma mark - tableView delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
+    FEHomeWorkCell * cell = [tableView dequeueReusableCellWithIdentifier:@"FEHomeWorkCell"];
+    [cell setModel:self.model.orders[indexPath.row]];
+    return cell;
+
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.model.orders.count;
+}
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    FEHomeWorkOrderModel* item = self.model.orders[indexPath.row];
+    [FEHomeWorkCell calculationCellHeighti:item];
+    return item.workCellH;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
-    [self.categoryView selectItemAtIndex:4];
 }
 
 
@@ -72,39 +214,47 @@
 
 - (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index {
     self.navigationController.interactivePopGestureRecognizer.enabled = (index == 0);
-    NSLog(@"滚动索引 %d",index);
+    if (self.lastIndex == index) {
+        return;
+    }
+    switch (index) {
+        case 0:
+            self.currentType = homeWorkWaiting;
+            break;
+        case 1:
+            self.currentType = homeWorkWaitFetch;
+            break;
+        case 2:
+            self.currentType = homeWorkWaitSend;
+            break;
+        case 3:
+            self.currentType = homeWorkCancel;
+            break;
+        case 4:
+            self.currentType = homeWorkFinish;
+            break;
+        default:
+            break;
+    }
+    self.lastIndex = index;
+    [self requestShowData];
 }
 
-#pragma mark - JXCategoryListContainerViewDelegate
-- (NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView {
-    return self.itemArr.count;
-}
-
-- (id<JXCategoryListContentViewDelegate>)listContainerView:(JXCategoryListContainerView *)listContainerView initListForIndex:(NSInteger)index {
-
-    return self.listViewArray[index];
-}
+//#pragma mark - JXCategoryListContainerViewDelegate
+//- (NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView {
+//    return self.itemArr.count;
+//}
+//
+//- (id<JXCategoryListContentViewDelegate>)listContainerView:(JXCategoryListContainerView *)listContainerView initListForIndex:(NSInteger)index {
+//
+//    return self.table;
+//}
 
 
 #pragma mark 懒加载
-/**
-总视图
- */
--(JXCategoryListContainerView *)pagingView{
-    if(!_pagingView){
-        //
-        _pagingView = [[JXCategoryListContainerView alloc] initWithType:JXCategoryListContainerType_ScrollView delegate:self];
-        _pagingView.frame = CGRectMake(0, kHomeNavigationHeight + 40,
-                                       kScreenWidth, kScreenHeight - kHomeNavigationHeight - 40);
-        _pagingView.backgroundColor = self.view.backgroundColor;
-        _pagingView.defaultSelectedIndex = 0;
-    }
-    return _pagingView;
-}
 
-/**
- 菜单项视图View
- */
+
+
 -(JXCategoryNumberView *)categoryView{
     if(!_categoryView){
         _categoryView = [[JXCategoryNumberView alloc] initWithFrame:CGRectMake(0, kHomeNavigationHeight, kScreenWidth, 40)];
@@ -118,11 +268,12 @@
         _categoryView.titleSelectedFont = [UIFont boldSystemFontOfSize:16];
         _categoryView.titleColorGradientEnabled = YES;
         _categoryView.defaultSelectedIndex = 0;
+        self.lastIndex = _categoryView.defaultSelectedIndex;
         JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
         lineView.indicatorColor = UIColorFromRGB(0x12B398);
         lineView.indicatorWidth = 36;
         _categoryView.indicators = @[lineView];
-        _categoryView.listContainer = self.pagingView;
+//        _categoryView.listContainer = self.pagingView;
         
         self.navigationController.interactivePopGestureRecognizer.enabled = (_categoryView.selectedIndex == 0);
         
@@ -152,30 +303,7 @@
     return _categoryView;
 }
 
--(NSArray<UIView *> *)listViewArray{
-    if(!_listViewArray){
-        // 内容视图（通过PageType属性区分页面）
-//        CGRect rect=CGRectMake(0, 0, kScreenWidth, kScreenHeight-CGRectGetMaxY(self.naviView.frame)-40);
-        FEHomeWorkView *work1 = [[FEHomeWorkView alloc] init];
-        work1.type = homeWorkWaiting;
-        work1.view.backgroundColor = UIColor.redColor;
-        FEHomeWorkView *work2 = [[FEHomeWorkView alloc] init];
-        work2.type = homeWorkWaitFetch;
-        work2.view.backgroundColor = UIColor.blueColor;
-        FEHomeWorkView *work3 = [[FEHomeWorkView alloc] init];
-        work3.type = homeWorkWaitSend;
-        work3.view.backgroundColor = UIColor.yellowColor;
-        FEHomeWorkView *work4 = [[FEHomeWorkView alloc] init];
-        work4.type = homeWorkCancel;
-        work4.view.backgroundColor = UIColor.greenColor;
-        FEHomeWorkView *work5 = [[FEHomeWorkView alloc] init];
-        work5.type = homeWorkFinish;
-        work5.view.backgroundColor = UIColor.cyanColor;
-        
-        _listViewArray = @[work1, work2,work3,work4,work5];
-    }
-    return _listViewArray;
-}
+
 
 -(NSArray *)itemArr{
     if(!_itemArr){
@@ -185,10 +313,17 @@
 }
 
 - (NSArray*) countArr {
-    if (!_countArr) {
-        _countArr = @[@(0),@(1),@(99),@(110),@(0)];
+    if (self.model.counts) {
+        NSMutableArray* count = [NSMutableArray array];
+        [count addObject:@(self.model.counts.waitGrep)];
+        [count addObject:@(self.model.counts.waitPickup)];
+        [count addObject:@(self.model.counts.delivery)];
+        [count addObject:@(self.model.counts.cancel)];
+        [count addObject:@(self.model.counts.finish)];
+        return count;
+    } else {
+        return @[@(0),@(0),@(0),@(0),@(0)];
     }
-    return _countArr;
 }
 
 - (UIView*) naviView {
@@ -226,5 +361,30 @@
     }
     return _naviView;
 }
-
+- (UITableView *) table
+{
+    if (_table == nil) {
+        _table = [[UITableView alloc] initWithFrame:
+                  CGRectMake(0, CGRectGetMaxY(self.categoryView.frame),
+                             kScreenWidth, kScreenHeight-CGRectGetMaxY(self.categoryView.frame))
+                                                      style:UITableViewStylePlain];
+        _table.delegate = self;
+        _table.dataSource = self;
+        _table.backgroundColor = self.view.backgroundColor;
+        _table.tableFooterView = [UIView new];
+        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _table.separatorColor = [UIColor clearColor];
+        
+        _table.estimatedRowHeight = 0;
+        _table.estimatedSectionHeaderHeight = 0;
+        _table.estimatedSectionFooterHeight = 0;
+        if (@available(iOS 11.0, *)) {
+            _table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
+        
+    }
+    return _table;
+}
 @end

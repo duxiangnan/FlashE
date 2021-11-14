@@ -56,6 +56,16 @@
 		8B368D82273D4C1A00B5C1AC /* menuViewContorller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B368D7F273D4C1A00B5C1AC /* menuViewContorller.xib */; };
 		8B368D83273D4C1A00B5C1AC /* menuViewContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368D81273D4C1A00B5C1AC /* menuViewContorller.m */; };
 		8B368DD0273DFCD800B5C1AC /* FEHomeWorkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368DCF273DFCD800B5C1AC /* FEHomeWorkView.m */; };
+		8B368F822740AD6600B5C1AC /* FEHomeWorkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F812740AD6600B5C1AC /* FEHomeWorkModel.m */; };
+		8B368F882740BCEC00B5C1AC /* FEHttpPageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F852740BCEC00B5C1AC /* FEHttpPageManager.m */; };
+		8B368F982740F5AF00B5C1AC /* JVRefreshStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B368F8E2740F5AE00B5C1AC /* JVRefreshStateView.xib */; };
+		8B368F992740F5AF00B5C1AC /* JVRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F8F2740F5AE00B5C1AC /* JVRefreshHeaderView.m */; };
+		8B368F9A2740F5AF00B5C1AC /* JVRotateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F902740F5AE00B5C1AC /* JVRotateView.m */; };
+		8B368F9B2740F5AF00B5C1AC /* vsp_JV_loading-ios-rotate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B368F922740F5AE00B5C1AC /* vsp_JV_loading-ios-rotate.png */; };
+		8B368F9C2740F5AF00B5C1AC /* JVRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F942740F5AE00B5C1AC /* JVRefreshFooterView.m */; };
+		8B368F9D2740F5AF00B5C1AC /* JVRefreshStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F952740F5AE00B5C1AC /* JVRefreshStateView.m */; };
+		8B368FA32740FA4000B5C1AC /* FEEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */; };
+		8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB742741540600D8460B /* FEHomeWorkCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +168,25 @@
 		8B368D81273D4C1A00B5C1AC /* menuViewContorller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuViewContorller.m; sourceTree = "<group>"; };
 		8B368DCE273DFCD800B5C1AC /* FEHomeWorkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHomeWorkView.h; sourceTree = "<group>"; };
 		8B368DCF273DFCD800B5C1AC /* FEHomeWorkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkView.m; sourceTree = "<group>"; };
+		8B368F802740AD6500B5C1AC /* FEHomeWorkModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHomeWorkModel.h; sourceTree = "<group>"; };
+		8B368F812740AD6600B5C1AC /* FEHomeWorkModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkModel.m; sourceTree = "<group>"; };
+		8B368F842740BCEB00B5C1AC /* FEHttpPageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEHttpPageManager.h; sourceTree = "<group>"; };
+		8B368F852740BCEC00B5C1AC /* FEHttpPageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEHttpPageManager.m; sourceTree = "<group>"; };
+		8B368F8D2740F5AE00B5C1AC /* JVRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVRefreshFooterView.h; sourceTree = "<group>"; };
+		8B368F8E2740F5AE00B5C1AC /* JVRefreshStateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JVRefreshStateView.xib; sourceTree = "<group>"; };
+		8B368F8F2740F5AE00B5C1AC /* JVRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVRefreshHeaderView.m; sourceTree = "<group>"; };
+		8B368F902740F5AE00B5C1AC /* JVRotateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVRotateView.m; sourceTree = "<group>"; };
+		8B368F912740F5AE00B5C1AC /* JVRefreshStateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVRefreshStateView.h; sourceTree = "<group>"; };
+		8B368F922740F5AE00B5C1AC /* vsp_JV_loading-ios-rotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vsp_JV_loading-ios-rotate.png"; sourceTree = "<group>"; };
+		8B368F932740F5AE00B5C1AC /* JVRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVRefresh.h; sourceTree = "<group>"; };
+		8B368F942740F5AE00B5C1AC /* JVRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVRefreshFooterView.m; sourceTree = "<group>"; };
+		8B368F952740F5AE00B5C1AC /* JVRefreshStateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVRefreshStateView.m; sourceTree = "<group>"; };
+		8B368F962740F5AE00B5C1AC /* JVRotateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVRotateView.h; sourceTree = "<group>"; };
+		8B368F972740F5AE00B5C1AC /* JVRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVRefreshHeaderView.h; sourceTree = "<group>"; };
+		8B368FA12740FA3F00B5C1AC /* FEEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEEmptyView.h; sourceTree = "<group>"; };
+		8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEEmptyView.m; sourceTree = "<group>"; };
+		8B43FB732741540600D8460B /* FEHomeWorkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHomeWorkCell.h; sourceTree = "<group>"; };
+		8B43FB742741540600D8460B /* FEHomeWorkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkCell.m; sourceTree = "<group>"; };
 		CD85DD360E682DB69B0B9700 /* libPods-flashE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flashE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -247,6 +276,8 @@
 		8B36882227343B7E00B5C1AC /* public */ = {
 			isa = PBXGroup;
 			children = (
+				8B368FA02740FA3F00B5C1AC /* emptyView */,
+				8B368F8C2740F5AE00B5C1AC /* refresh */,
 				8B368B78273ABA4100B5C1AC /* Alert */,
 				8B368B6D273ABA4000B5C1AC /* MBPProgress */,
 				8B368B2A273AB46B00B5C1AC /* UIlabel */,
@@ -281,6 +312,8 @@
 		8B36883C2738C03E00B5C1AC /* netWork */ = {
 			isa = PBXGroup;
 			children = (
+				8B368F842740BCEB00B5C1AC /* FEHttpPageManager.h */,
+				8B368F852740BCEC00B5C1AC /* FEHttpPageManager.m */,
 				8B36883D2738C06E00B5C1AC /* FEHttpManager.h */,
 				8B36883E2738C06E00B5C1AC /* FEHttpManager.m */,
 			);
@@ -353,6 +386,10 @@
 				8B36883627343C0E00B5C1AC /* FEHomeVC.m */,
 				8B368DCE273DFCD800B5C1AC /* FEHomeWorkView.h */,
 				8B368DCF273DFCD800B5C1AC /* FEHomeWorkView.m */,
+				8B368F802740AD6500B5C1AC /* FEHomeWorkModel.h */,
+				8B368F812740AD6600B5C1AC /* FEHomeWorkModel.m */,
+				8B43FB732741540600D8460B /* FEHomeWorkCell.h */,
+				8B43FB742741540600D8460B /* FEHomeWorkCell.m */,
 			);
 			path = homeVC;
 			sourceTree = "<group>";
@@ -463,6 +500,33 @@
 			path = menuVC;
 			sourceTree = "<group>";
 		};
+		8B368F8C2740F5AE00B5C1AC /* refresh */ = {
+			isa = PBXGroup;
+			children = (
+				8B368F932740F5AE00B5C1AC /* JVRefresh.h */,
+				8B368F972740F5AE00B5C1AC /* JVRefreshHeaderView.h */,
+				8B368F8F2740F5AE00B5C1AC /* JVRefreshHeaderView.m */,
+				8B368F922740F5AE00B5C1AC /* vsp_JV_loading-ios-rotate.png */,
+				8B368F8D2740F5AE00B5C1AC /* JVRefreshFooterView.h */,
+				8B368F942740F5AE00B5C1AC /* JVRefreshFooterView.m */,
+				8B368F912740F5AE00B5C1AC /* JVRefreshStateView.h */,
+				8B368F952740F5AE00B5C1AC /* JVRefreshStateView.m */,
+				8B368F8E2740F5AE00B5C1AC /* JVRefreshStateView.xib */,
+				8B368F962740F5AE00B5C1AC /* JVRotateView.h */,
+				8B368F902740F5AE00B5C1AC /* JVRotateView.m */,
+			);
+			path = refresh;
+			sourceTree = "<group>";
+		};
+		8B368FA02740FA3F00B5C1AC /* emptyView */ = {
+			isa = PBXGroup;
+			children = (
+				8B368FA12740FA3F00B5C1AC /* FEEmptyView.h */,
+				8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */,
+			);
+			path = emptyView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -521,6 +585,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B368F982740F5AF00B5C1AC /* JVRefreshStateView.xib in Resources */,
+				8B368F9B2740F5AF00B5C1AC /* vsp_JV_loading-ios-rotate.png in Resources */,
 				8B368C00273CBA2700B5C1AC /* FEWalletVC.xib in Resources */,
 				8B367C10272A381900B5C1AC /* LaunchScreen.storyboard in Resources */,
 				8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */,
@@ -580,6 +646,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B36883F2738C06E00B5C1AC /* FEHttpManager.m in Sources */,
+				8B368F9A2740F5AF00B5C1AC /* JVRotateView.m in Sources */,
 				8B36882F27343B7E00B5C1AC /* FEBaseViewController.m in Sources */,
 				8B368B80273ABA4100B5C1AC /* WHToastView.m in Sources */,
 				8B368AA127396CFD00B5C1AC /* FEAccountManager.m in Sources */,
@@ -590,20 +657,26 @@
 				8B36882A27343B7E00B5C1AC /* UIButton+BackgroundColor.m in Sources */,
 				8B368AA227396CFD00B5C1AC /* FEAddressModel.m in Sources */,
 				8B368B36273AB46C00B5C1AC /* UILabel+AttributedString.m in Sources */,
+				8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */,
 				8B368AFE273A275000B5C1AC /* FELoginVC.m in Sources */,
 				8B368B16273A62C500B5C1AC /* UIView+Extend.m in Sources */,
 				8B368AF3273A21F300B5C1AC /* NSString+Extend.m in Sources */,
 				8B368B83273ABA4100B5C1AC /* FEAlertView.m in Sources */,
 				8B367C02272A381700B5C1AC /* AppDelegate.m in Sources */,
 				8B36882B27343B7E00B5C1AC /* UIButton+FEImage.m in Sources */,
+				8B368F882740BCEC00B5C1AC /* FEHttpPageManager.m in Sources */,
+				8B368F992740F5AF00B5C1AC /* JVRefreshHeaderView.m in Sources */,
 				8B368AED273A1F2500B5C1AC /* FEDefineModule.m in Sources */,
 				8B368B7D273ABA4100B5C1AC /* MBProgressHUD+Extend.m in Sources */,
 				8B368B7E273ABA4100B5C1AC /* UIImage+WHToast.m in Sources */,
 				8B36883827343C0E00B5C1AC /* FEHomeVC.m in Sources */,
+				8B368F9C2740F5AF00B5C1AC /* JVRefreshFooterView.m in Sources */,
 				8B368B17273A62C500B5C1AC /* UIView+Inspectable.m in Sources */,
+				8B368F9D2740F5AF00B5C1AC /* JVRefreshStateView.m in Sources */,
 				8B368B34273AB46C00B5C1AC /* FECanCopyLabel.m in Sources */,
 				8B368B35273AB46C00B5C1AC /* FEVerticalAlignmentLabel.m in Sources */,
 				8B368B81273ABA4100B5C1AC /* WHToast.m in Sources */,
+				8B368F822740AD6600B5C1AC /* FEHomeWorkModel.m in Sources */,
 				8B368BFF273CBA2700B5C1AC /* FEWalletVC.m in Sources */,
 				8B36882C27343B7E00B5C1AC /* UIButton+Frequentclicks.m in Sources */,
 				8B368B82273ABA4100B5C1AC /* FEAlertSubView.m in Sources */,
@@ -617,6 +690,7 @@
 				8B368A95273957CC00B5C1AC /* GTMBase64.m in Sources */,
 				8B368D83273D4C1A00B5C1AC /* menuViewContorller.m in Sources */,
 				8B36883127343B7E00B5C1AC /* FEPublicMethods.m in Sources */,
+				8B368FA32740FA4000B5C1AC /* FEEmptyView.m in Sources */,
 				8B368B33273AB46C00B5C1AC /* FELineLabel.m in Sources */,
 				8B368DD0273DFCD800B5C1AC /* FEHomeWorkView.m in Sources */,
 				8B36882D27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m in Sources */,

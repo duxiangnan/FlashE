@@ -31,6 +31,16 @@
         self.isHiddenBackButton = self.navigationController.viewControllers.count == 1;
     }
     self.fd_prefersNavigationBarHidden = YES;
+    
+    
+    self.emptyFrame = self.view.bounds;
+    self.emptyImage = @"FEEmpty_icon";
+    self.emptyTitle = @"暂无数据";
+    self.emptyDesc = @"";
+    
+    self.errorImage = @"Wifi-Error";;
+    self.errorTitle = @"请检查网络后，再次尝试";
+    self.errorDesc = @"";
 }
 
 
@@ -88,5 +98,26 @@
     self.navigationItem.leftBarButtonItem = backItem;
 }
 
+
+
+
+- (void)showEmptyViewWithType:(BOOL)isEmpty {
+    CGRect frame = self.emptyFrame;
+    NSString* imageName = self.errorImage;
+    NSString* emptyTitle = self.errorTitle;
+    NSString* desc = self.errorDesc;
+    if (isEmpty) {
+        imageName = self.emptyImage;
+        emptyTitle = self.emptyTitle;
+        desc = self.emptyDesc;
+    }
+    self.emptyView = [[FEEmptyView alloc] initWithFrame:frame emptyImage:imageName title:emptyTitle desc:desc];
+    [self.emptyView removeFromSuperview];
+    [self.view addSubview:self.emptyView];
+    self.emptyView.onTapAction = self.emptyAction;
+}
+- (void) hiddenEmptyView {
+    [self.emptyView emptyHidden];
+}
 
 @end

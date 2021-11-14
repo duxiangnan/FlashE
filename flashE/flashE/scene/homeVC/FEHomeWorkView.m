@@ -15,6 +15,12 @@
 
 @implementation FEHomeWorkView
 
+
+
+
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear:animated];
+//}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -32,7 +38,7 @@
  @return UIView
  */
 - (UIView *)listView {
-    return self.view;
+    return self;
 }
 
 /**
@@ -44,6 +50,8 @@
 - (UIScrollView *)listScrollView {
     return self.table;
 }
+
+
 
 /**
  当listView内部持有的UIScrollView或UITableView或UICollectionView的代理方法`scrollViewDidScroll`回调时，需要调用该代理方法传入的callback
