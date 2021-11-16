@@ -14,6 +14,7 @@
 #import "NSString-umbrella.h"
 #import "UIButtonModule-umbrella.h"
 #import <Foundation/Foundation.h>
+#import "FEUIView-umbrella.h"
 
 #define KDEBUGMODE @"debug_mode"
 #define KAPOLLOMODE @"apollo_mode"

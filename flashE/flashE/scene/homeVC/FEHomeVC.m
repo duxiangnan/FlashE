@@ -94,6 +94,18 @@
 //    [self.categoryView selectItemAtIndex:4];
 }
 
+
+- (void)cellCommond:(FEHomeWorkOrderModel*) model type:(FEHomeWorkCommodType)type {
+    
+};
+- (void)cellStatusFresh:(FEHomeWorkOrderModel*) model {
+    
+    
+}
+- (void)cellPhone:(FEHomeWorkOrderModel*) model{
+    
+}
+
 - (void) requestShowData {
     if (self.pagesManager) {
         [self.pagesManager cancleCurrentRequest];
@@ -101,15 +113,15 @@
     }
     NSMutableDictionary* param = [NSMutableDictionary dictionary];
     FEAccountModel* account = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
-    param[@"storeId"] = @(account.shopId);
-    param[@"orderStatus"] = @(self.currentType);
-    param[@"pageIndex"] = @(1);
-    param[@"pageSize"] = @(20);
+    param[@"storeId"] = [NSString stringWithFormat:@"%ld",account.shopId];
+    param[@"orderStatus"] = [NSString stringWithFormat:@"%ld",self.currentType];
+    param[@"pageIndex"] = @"1";
+    param[@"pageSize"] = @"20";
     
     self.pagesManager = [[FEHttpPageManager alloc] initWithFunctionId:@"/deer/orders/getOrderList"
                                                            parameters:param
                                                             itemClass:[FEHomeWorkOrderModel class]];
-    self.pagesManager.resultName = @"orders";
+    self.pagesManager.resultName = @"data.orders";
     @weakself(self);
 
     void (^loadMore)(void) = ^{
@@ -120,28 +132,39 @@
                 [strongSelf resetCountArr:dic[@"counts"]];
                 
                 strongSelf.model.orders = strongSelf.pagesManager.dataArr;
-                [strongSelf.table.mj_footer endRefreshing];
+                if ([strongSelf.pagesManager hasMore]) {
+                    [strongSelf.table.mj_footer endRefreshing];
+                } else {
+                    [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
+                }
+                
                 [strongSelf.table reloadData];
                 if (strongSelf.pagesManager.networkError) {
                     [MBProgressHUD showMessage:strongSelf.pagesManager.networkError.localizedDescription];
                 }
             }];
-        } else {
-            [MBProgressHUD showMessage:@"没有更多内容啦~"];
-            [strongSelf.table.mj_footer endRefreshing];
-            [strongSelf.table reloadData];
         }
     };
 
     void (^loadFirstPage)(void) = ^{
         @strongself(weakSelf);
+        [strongSelf hiddenEmptyView];
         [strongSelf.pagesManager fetchData:^{
             
             NSDictionary* dic = strongSelf.pagesManager.wholeDict[@"data"];
-            [strongSelf resetCountArr:dic[@"counts"]];
-            
+            [strongSelf resetCountArr:dic[@"count"]];
             
             strongSelf.model.orders = strongSelf.pagesManager.dataArr;
+            
+            if (strongSelf.pagesManager.hasMore) {
+                strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
+                                                                           noMoreDataString:@"没有更多数据"];
+                [strongSelf.table.mj_header endRefreshing];
+            } else {
+                [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
+            }
+            
+            [strongSelf.table reloadData];
             if (strongSelf.pagesManager.networkError) {
                 [MBProgressHUD showMessage:weakSelf.pagesManager.networkError.localizedDescription];
 
@@ -150,13 +173,6 @@
                 }
             } else if (strongSelf.model.orders.count == 0) {
                 [strongSelf showEmptyViewWithType:YES];
-            }
-
-            [strongSelf.table reloadData];
-            [strongSelf.table.mj_header endRefreshing];
-            if (strongSelf.pagesManager.hasMore) {
-                strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
-                                                                           noMoreDataString:@"没有更多数据"];
             }
         }];
     };
@@ -168,7 +184,7 @@
 
 - (void) resetCountArr:(NSDictionary*)countDic {
     FEHomeWorkCountModel* contModel = [FEHomeWorkCountModel yy_modelWithDictionary:countDic];
-    self.model.counts = contModel;
+    self.model.count = contModel;
     self.categoryView.counts = [self countArr];
     [self.categoryView reloadData];
 }
@@ -186,7 +202,21 @@
 {
     
     FEHomeWorkCell * cell = [tableView dequeueReusableCellWithIdentifier:@"FEHomeWorkCell"];
-    [cell setModel:self.model.orders[indexPath.row]];
+    FEHomeWorkOrderModel* item = self.model.orders[indexPath.row];
+    [cell setModel:item];
+    @weakself(self);
+    cell.cellCommondActoin = ^(FEHomeWorkCommodType type) {
+        @strongself(weakSelf);
+        [strongSelf cellCommond:item type:type];
+    };
+    cell.cellStatusFreshAction = ^{
+        @strongself(weakSelf);
+        [strongSelf cellStatusFresh:item];
+    };
+    cell.cellPhoneAction = ^{
+        @strongself(weakSelf);
+        [strongSelf cellPhone:item];
+    };
     return cell;
 
 }
@@ -207,7 +237,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    FEHomeWorkOrderModel* item = self.model.orders[indexPath.row];
 }
 
 
@@ -322,13 +352,13 @@
 }
 
 - (NSArray*) countArr {
-    if (self.model.counts) {
+    if (self.model.count) {
         NSMutableArray* count = [NSMutableArray array];
-        [count addObject:@(self.model.counts.waitGrep)];
-        [count addObject:@(self.model.counts.waitPickup)];
-        [count addObject:@(self.model.counts.delivery)];
-        [count addObject:@(self.model.counts.cancel)];
-        [count addObject:@(self.model.counts.finish)];
+        [count addObject:@(self.model.count.waitGrep)];
+        [count addObject:@(self.model.count.waitPickup)];
+        [count addObject:@(self.model.count.delivery)];
+        [count addObject:@(self.model.count.cancel)];
+        [count addObject:@(self.model.count.finish)];
         return count;
     } else {
         return @[@(0),@(0),@(0),@(0),@(0)];
@@ -392,7 +422,7 @@
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        
+        [_table registerClass:[FEHomeWorkCell class] forCellReuseIdentifier:@"FEHomeWorkCell"];
     }
     return _table;
 }

@@ -12,11 +12,22 @@
 @property(nonatomic, assign) CGFloat imageW;
 @property(nonatomic, assign) CGFloat imageH;
 
+@property(nonatomic,copy) NSString* imageName;
+@property(nonatomic,copy) NSString* title;
+@property(nonatomic,copy) NSString* desc;
+
+
+//@property (nonatomic, copy) NSString    *imageName;
+//@property (nonatomic, copy) NSString    *title;
+//@property (nonatomic, copy) NSString    *desc;
+
 @property (nonatomic, copy) void (^onTapAction)();
 
 - (instancetype)initWithFrame:(CGRect)frame emptyImage:(NSString *)imageName title:(NSString *)title desc:(NSString *)desc;
 
 - (void)emptyHidden;
+
+
 
 
 @end

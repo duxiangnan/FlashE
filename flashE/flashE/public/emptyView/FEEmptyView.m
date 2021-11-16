@@ -22,9 +22,6 @@
 #import <Masonry/Masonry.h>
 
 @interface FEEmptyView ()
-@property (nonatomic, copy) NSString    *imageName;
-@property (nonatomic, copy) NSString    *title;
-@property (nonatomic, copy) NSString    *desc;
 
 @end
 
@@ -32,9 +29,9 @@
 
 - (instancetype)initWithFrame:(CGRect)frame emptyImage:(NSString *)imageName title:(NSString *)title desc:(NSString *)desc {
     if (self = [super initWithFrame:frame]) {
-        self.imageName = imageName;
-        self.title = title;
-        self.desc = desc;
+        _imageName = imageName;
+        _title = title;
+        _desc = desc;
         self.frame = frame;
         [self initUI];
         UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] init];
@@ -57,7 +54,7 @@
 
     UILabel *titleLB = [[UILabel alloc]init];
     titleLB.tag = 11;
-    titleLB.text = self.title;
+    titleLB.text = _title;
     titleLB.numberOfLines = 0;
     titleLB.textColor = UIColorFromRGB(0x666666);
     titleLB.font = [UIFont systemFontOfSize:16];
@@ -67,7 +64,7 @@
     UILabel *descLB = [[UILabel alloc]init];
     descLB.tag = 12;
     descLB.numberOfLines = 0;
-    descLB.text = self.desc;
+    descLB.text = _desc;
     descLB.textColor = UIColorFromRGB(0x666666);
     descLB.font = [UIFont systemFontOfSize:16];
     [descLB setTextAlignment:NSTextAlignmentCenter];
@@ -106,5 +103,23 @@
 
 - (void) tapAction:(UITapGestureRecognizer*)tap {
     !self.onTapAction?:self.onTapAction();
+}
+
+- (void)setImageName:(NSString *)imageName {
+    _imageName = imageName;
+    UIImageView* view = [self viewWithTag:10];
+    view.image = [UIImage imageNamed:imageName];
+}
+
+- (void)setTitle:(NSString *)title{
+    _title = title;
+    UILabel* lb = [self viewWithTag:11];
+    lb.text = title;
+    
+}
+- (void)setDesc:(NSString *)desc {
+    _desc = desc;
+    UILabel* lb = [self viewWithTag:12];
+    lb.text = desc;
 }
 @end

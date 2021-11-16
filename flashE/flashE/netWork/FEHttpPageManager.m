@@ -58,7 +58,7 @@
 
 - (void)fetchMoreData:(void (^)(void))completion
 {
-    [self _fetchDataList:(_pageCurrent + 1) completion:completion];
+    [self _fetchDataList:_pageCurrent + 1 completion:completion];
 }
 
 - (void)resetParameters:(NSDictionary *)parameters {
@@ -84,9 +84,9 @@
         @strongself(weakSelf);
         strongSelf.wholeDict = responseObject;
         
-        NSArray* arr = responseObject[strongSelf.resultName];
+        NSArray* arr = [responseObject valueForKeyPath:strongSelf.resultName];
         NSArray* items = [NSArray yy_modelArrayWithClass:strongSelf.itemClass json:arr];
-
+        self.haveMore = arr.count > 0;
         strongSelf.pageCurrent = page;
         if (page <= 1) {
             strongSelf.pageCurrent = 1;

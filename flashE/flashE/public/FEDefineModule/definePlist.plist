@@ -11,20 +11,20 @@
 	<key>VSP_MD5_KEY</key>
 	<string>UQXaVIAkOB+bVh51JgOW1D6jjpWbSzhgUdgh49sizrRIBEibFskgGVfJVFoAkt2x</string>
 	<key>definePlistNumber</key>
-	<integer>1</integer>
+	<integer>2</integer>
 	<key>yufabaseUrl</key>
 	<dict>
 		<key>VSP_BASE_SERVER_URL</key>
-		<string>http://www.xiaoluex.com</string>
+		<string>http://www.test-xiaoluex.com</string>
 		<key>VSPCookieDomain</key>
-		<string>xiaoluex.com</string>
+		<string>test-xiaoluex.com</string>
 	</dict>
 	<key>baseUrl</key>
 	<dict>
 		<key>VSP_BASE_SERVER_URL</key>
-		<string>http://www.xiaoluex.com</string>
+		<string>http://www.test-xiaoluex.com</string>
 		<key>VSPCookieDomain</key>
-		<string>xiaoluex.com</string>
+		<string>test-xiaoluex.com</string>
 	</dict>
 </dict>
 </plist>

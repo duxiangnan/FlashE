@@ -11,7 +11,7 @@
 
 @property (nonatomic, strong) NSArray<FEHomeWorkOrderModel*> *orders;
 
-@property (nonatomic, strong) FEHomeWorkCountModel *counts;
+@property (nonatomic, strong) FEHomeWorkCountModel *count;
 
 @end
 
@@ -32,13 +32,12 @@
 @interface FEHomeWorkOrderModel : NSObject
 
 @property (nonatomic, assign) long long  cancelTime;
-@property (nonatomic, copy) NSString *  cancelTimeStr;
 
 @property (nonatomic, copy) NSString *fromAddressDetail;
 
 @property (nonatomic, assign) NSInteger weight;
 
-@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, assign) NSInteger status;// 10:待接单  20:待取单 40:配送中 60:已取消 50:已完成
 
 @property (nonatomic, copy) NSString *statusName;
 
@@ -49,7 +48,6 @@
 @property (nonatomic, copy) NSString *goodName;
 
 @property (nonatomic, assign) long long  grebTime;
-@property (nonatomic, copy) NSString *  grebTimeStr;
 
 @property (nonatomic, copy) NSString *storeName;
 
@@ -58,7 +56,6 @@
 @property (nonatomic, copy) NSString *courierName;
 
 @property (nonatomic, assign) long long  pickupTime;
-@property (nonatomic, copy) NSString *  pickupTimeStr;
 
 @property (nonatomic, copy) NSString *logistics;
 
@@ -79,7 +76,7 @@
 @property (nonatomic, copy) NSString *  finishTimeStr;
 
 @property (nonatomic, assign) long long  systemTime;
-@property (nonatomic, copy) NSString *  systemTimeStr;
+@property (nonatomic, copy) NSString *  showStuseTimeStr;
 
 @property (nonatomic, copy) NSString *orderId;
 

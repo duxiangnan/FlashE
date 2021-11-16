@@ -119,5 +119,17 @@
 - (void) hiddenEmptyView {
     [self.emptyView emptyHidden];
 }
-
+- (void)setEmptyTitle:(NSString *)emptyTitle {
+    _emptyTitle = emptyTitle;
+    self.emptyView.title = emptyTitle;
+}
+- (void)setEmptyDesc:(NSString *)emptyDesc{
+    _emptyDesc = emptyDesc;
+    self.emptyView.desc = emptyDesc;
+}
+- (void)setEmptyImage:(NSString *)emptyImage{
+    _emptyImage = emptyImage;
+    
+    self.emptyView.imageName = emptyImage;
+}
 @end

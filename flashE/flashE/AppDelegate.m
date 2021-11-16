@@ -15,6 +15,7 @@
 #import "FEWalletVC.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <FFRouter/FFRouter.h>
+//#import "FEDefineModule.h"
 
 @interface AppDelegate ()
 
@@ -27,6 +28,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    
+//    [FEDefineModule setDebug_mode:@"1"];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;

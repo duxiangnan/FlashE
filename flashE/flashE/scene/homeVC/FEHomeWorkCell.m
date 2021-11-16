@@ -46,7 +46,7 @@
         
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
         [self.contentView addSubview:self.bgView];
         
         [self.bgView addSubview:self.statusTimeLB];
@@ -63,15 +63,16 @@
         [self.bgView addSubview:self.centerLine];
         [self.bgView addSubview:self.orderTimeLB];
         [self.bgView addSubview:self.commondView];
-        [self setUpLayout];
     }
         
     return self;
 }
-- (void) setUpLayout{
+- (void) layoutSubviews{
+    [super layoutSubviews];
     [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.contentView).offset(10);
         make.right.equalTo(self.contentView.mas_right).offset(-10);
+        make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
     [self.statusTimeLB mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -80,25 +81,25 @@
         make.height.mas_equalTo(@(20));
     }];
     [self.statusFreshBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.statusLB.mas_right).offset(5);
+        make.left.equalTo(self.statusTimeLB.mas_right).offset(5);
         make.width.height.mas_equalTo(@(15));
-        make.centerY.equalTo(self.statusLB.mas_centerY);
+        make.centerY.equalTo(self.statusTimeLB.mas_centerY);
     }];
     [self.statusLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.accessoryImage.mas_left).offset(-5);
-        make.left.equalTo(self.statusFreshBtn.mas_right).offset(5);
-        make.centerY.equalTo(self.statusLB.mas_centerY);
+//        make.left.equalTo(self.statusFreshBtn.mas_right).offset(5);
+        make.centerY.equalTo(self.statusTimeLB.mas_centerY);
     }];
     [self.accessoryImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(@(5));
-        make.height.mas_equalTo(@(9));
-        make.centerY.equalTo(self.statusLB.mas_centerY);
-        make.right.equalTo(self.bgView.mas_right).offset(-16);
+        make.width.mas_equalTo(@(12));
+        make.height.mas_equalTo(@(12));
+        make.centerY.equalTo(self.statusTimeLB.mas_centerY);
+        make.right.equalTo(self.bgView.mas_right).offset(-10);
     }];
     
     
     [self.sendImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.statusLB.mas_left);
+        make.left.equalTo(self.statusTimeLB.mas_left);
         make.width.height.mas_equalTo(@(18));
         make.centerY.equalTo(self.sendNameLB.mas_centerY);
     }];
@@ -110,24 +111,24 @@
     [self.sendDescLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.sendNameLB);
         make.top.equalTo(self.sendNameLB.mas_bottom);
-        make.height.mas_equalTo(@(20));
+//        make.height.mas_equalTo(@(20));
     }];
     
     
     [self.reciveImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.statusLB.mas_left);
+        make.left.equalTo(self.statusTimeLB.mas_left);
         make.width.height.mas_equalTo(@(18));
         make.centerY.equalTo(self.reciveNameLB.mas_centerY);
     }];
     [self.reciveNameLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.reciveImage.mas_right).offset(10);
-        make.top.equalTo(self.reciveDescLB.mas_bottom).offset(15);
+        make.top.equalTo(self.sendDescLB.mas_bottom).offset(15);
         make.right.equalTo(self.bgView.mas_right).offset(-16);
     }];
     [self.reciveDescLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.reciveNameLB);
         make.top.equalTo(self.reciveNameLB.mas_bottom);
-        make.height.mas_equalTo(@(20));
+//        make.height.mas_equalTo(@(20));
     }];
     
     [self.centerLine mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -144,46 +145,112 @@
     }];
     
     [self.commondView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.centerLine.mas_bottom).offset(10);
+        make.top.equalTo(self.centerLine.mas_bottom).offset(5);
         make.left.equalTo(self.orderTimeLB.mas_right);
-        make.right.equalTo(self.accessoryImage.mas_right);
+        make.right.equalTo(self.bgView.mas_right).offset(-16);
         make.height.mas_equalTo(@(30));
     }];
     
 }
 + (void) calculationCellHeighti:(FEHomeWorkOrderModel*)model{
-    if (model.workCellH != 0) {
+    if (model.workCellH == 0) {
     
         CGFloat width = kScreenWidth - 10*2 - 16*2 - 18 - 10;
         CGFloat heigt = 10;
-        heigt += 20;
+        heigt += (20 + 10);
+        
+        CGSize size;
         //send
-        CGSize size = [model.fromAddress sizeWithFont:[UIFont mediumFont:15] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
-        heigt += (MIN(34, ceil(size.height)));
         heigt += 20;
-        //recive
-        size = [model.toAdress sizeWithFont:[UIFont mediumFont:15] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+        if (model.storeName.length > 0){
+            size = [model.storeName sizeWithFont:[UIFont mediumFont:15] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+            heigt += (MIN(34, ceil(size.height)));
+        }
+        
+        NSString* str = [NSString stringWithFormat:@"%@%@",
+                         [FEPublicMethods SafeString:model.fromAddress],
+                         [FEPublicMethods SafeString:model.fromAddressDetail]];
+        if (str.length > 0){
+            size = [str sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+            heigt += (MIN(34, ceil(size.height)));
+        }
+        
         heigt += 15;
-        heigt += (MIN(34, ceil(size.height)));
-        heigt += 20;
-        //centerLine
+        //recive
+        str = [NSString stringWithFormat:@"%@%@",
+                           [FEPublicMethods SafeString:model.toAdress],
+                           [FEPublicMethods SafeString:model.toAdressDetail]];
+        if (str.length > 0){
+            size = [str sizeWithFont:[UIFont mediumFont:15] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+            heigt += (MIN(34, ceil(size.height)));
+        }
+        
+        str = [NSString stringWithFormat:@"%@%@",
+                           [FEPublicMethods SafeString:model.toUserName],
+                           [FEPublicMethods SafeString:model.toUserMobile]];
+        if (str.length > 0){
+            size = [str sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(CGFLOAT_MAX, 15)];
+            heigt += (MIN(34, ceil(size.height)));
+        }
+        
         heigt += (15 + 0.5);
         
         size = [model.createTimeStr sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(CGFLOAT_MAX, 15)];
         model.orderTimeMaxX = MIN(ceil(size.width), 100) + 16;
-        if (1) {
-            heigt += (10 + 15 + 10);
-        } else {
+//        if (1) {
+//            heigt += (10 + 15 + 10);
+//        } else {
             heigt += (5 + 30 + 5);
-            
-            NSMutableArray* arr = [NSMutableArray array];
-            FEHomeWorkCellCommond* item = [FEHomeWorkCellCommond new];
-            item.commodType = 1;
-            item.commodName = @"";
-            size = [model.fromAddress sizeWithFont:[UIFont mediumFont:15] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
-            item.commodWidth = ceil(size.width) + 30;
-            model.commonds = arr.copy;
+        // 10,//待接单  20, //待取单 //配送中 //已取消 //已完成
+        switch (model.status) {
+            case 10:{//待接单
+                FEHomeWorkCellCommond* item = [FEHomeWorkCellCommond new];
+                item.commodType = FEHomeWorkCommodCancel;
+                item.commodName = @"取消订单";
+                size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+                item.commodWidth = ceil(size.width) + 30;
+                
+                FEHomeWorkCellCommond* item1 = [FEHomeWorkCellCommond new];
+                item1.commodType = FEHomeWorkCommodAddCheck;
+                item1.commodName = @"加小费";
+                size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+                item1.commodWidth = ceil(size.width) + 30;
+                model.commonds = @[item,item1];
+            }break;
+            case 20:
+            case 40:{//待取单
+                FEHomeWorkCellCommond* item = [FEHomeWorkCellCommond new];
+                item.commodType = FEHomeWorkCommodCancel;
+                item.commodName = @"取消订单";
+                size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+                item.commodWidth = ceil(size.width) + 30;
+                
+                FEHomeWorkCellCommond* item1 = [FEHomeWorkCellCommond new];
+                item1.commodType = FEHomeWorkCommodCallRider;
+                item1.commodName = @"联系骑手";
+                size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+                item1.commodWidth = ceil(size.width) + 30;
+                model.commonds = @[item,item1];
+            }break;
+            case 50:
+            case 60:{
+                FEHomeWorkCellCommond* item = [FEHomeWorkCellCommond new];
+                item.commodType = FEHomeWorkCommodRetry;
+                item.commodName = @"重新发单";
+                size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+                item.commodWidth = ceil(size.width) + 30;
+                
+                FEHomeWorkCellCommond* item1 = [FEHomeWorkCellCommond new];
+                item1.commodType = FEHomeWorkCommodCallRider;
+                item1.commodName = @"联系骑手";
+                size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+                item1.commodWidth = ceil(size.width) + 30;
+                model.commonds = @[item,item1];
+            }break;
+            default:
+                break;
         }
+//        }
         model.workCellH = heigt;
     }
 }
@@ -192,6 +259,25 @@
 - (void) setModel:(FEHomeWorkOrderModel*) model {
     _model = model;
     
+    self.statusTimeLB.text = model.showStuseTimeStr;
+    self.statusLB.text = [FEPublicMethods SafeString:model.statusName];
+    
+    self.sendNameLB.text = model.storeName;
+    self.sendDescLB.text = [NSString stringWithFormat:@"%@%@",
+                            [FEPublicMethods SafeString:model.fromAddress],
+                            [FEPublicMethods SafeString:model.fromAddressDetail]];
+    
+    self.reciveNameLB.text = [NSString stringWithFormat:@"%@%@",
+                              [FEPublicMethods SafeString:model.toAdress],
+                              [FEPublicMethods SafeString:model.toAdressDetail]];
+    self.reciveDescLB.text = [NSString stringWithFormat:@"%@%@",
+                              [FEPublicMethods SafeString:model.toUserName],
+                              [FEPublicMethods SafeString:model.toUserMobile]];
+    
+    self.orderTimeLB.text = [FEPublicMethods SafeString:model.createTimeStr];
+    
+    [self resetCommondView:model];
+
 }
 - (void) resetCommondView:(FEHomeWorkOrderModel*) model {
     [self.commondView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -201,13 +287,16 @@
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:item.commodName forState:UIControlStateNormal];
         [btn setTitleColor:UIColorFromRGB(0x12B398) forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:15];
+        btn.titleLabel.font = [UIFont regularFont:13];
         btn.tag = item.commodType;
         [btn addTarget:self action:@selector(commondActoin:) forControlEvents:UIControlEventTouchUpInside];
         btn.frame = CGRectMake(offW - item.commodWidth, 0, item.commodWidth, 30);
-        btn.layer.cornerRadius = 15;
-        btn.layer.masksToBounds = YES;
-        
+//        btn.layer.cornerRadius = 15;
+//        btn.layer.masksToBounds = YES;
+
+        btn.cornerRadius = 15;
+        btn.borderColor = UIColorFromRGB(0x12B398);
+        btn.borderWidth = 0.5;
         offW -= item.commodWidth;
         offW -= 10;
         [self.commondView addSubview:btn];
@@ -218,29 +307,20 @@
     
 }
 - (void) commondActoin:(UIButton*)btn {
-    NSInteger type = btn.tag;
-    switch (type) {
-        case 1:{
-            
-        }break;
-            
-        default:
-            break;
-    }
+    !_cellCommondActoin?:_cellCommondActoin(btn.tag);
 }
 - (void) statusFreshAction:(id)sender {
-    
-    
+    !_cellStatusFreshAction?:_cellStatusFreshAction();
 }
 - (void) reciveDescAction:(UITapGestureRecognizer*)tap {
-    
-    
+    !_cellPhoneAction?:_cellPhoneAction();
 }
 
 -(UIView*) bgView {
     if(!_bgView){
         _bgView = [UIView new];
         _bgView.backgroundColor = UIColor.whiteColor;
+        _bgView.cornerRadius = 15;
     }
     return _bgView;
 }
@@ -256,7 +336,7 @@
 -(UILabel*) statusLB{
     if (!_statusLB) {
         _statusLB = [UILabel new];
-        _statusTimeLB.font = [UIFont regularFont:13];
+        _statusLB.font = [UIFont regularFont:13];
         _statusLB.textColor = UIColorFromRGB(0x12B398);
     }
     return _statusLB;
@@ -274,6 +354,7 @@
         [_statusFreshBtn addTarget:self action:@selector(statusFreshAction:)
                   forControlEvents:UIControlEventTouchUpInside];
         [_statusFreshBtn setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
+        [_statusFreshBtn setImage:[UIImage imageNamed:@"VSP_loading-ios-1"] forState:UIControlStateNormal];
     }
     return _statusFreshBtn;
 }
@@ -299,6 +380,7 @@
     if (!_sendDescLB) {
         _sendDescLB = [UILabel new];
         _sendDescLB.font = [UIFont regularFont:13];
+        _sendDescLB.numberOfLines = 2;
         _sendDescLB.textColor = UIColorFromRGB(0x777777);
     }
     return _sendDescLB;
@@ -325,10 +407,11 @@
         _reciveDescLB = [UILabel new];
         
         _reciveDescLB.font = [UIFont regularFont:13];
+        _reciveDescLB.numberOfLines = 2;
         _reciveDescLB.textColor = UIColorFromRGB(0x777777);
         
         UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] init];
-        [tap addTarget:self action:@selector(reciveDescAction)];
+        [tap addTarget:self action:@selector(reciveDescAction:)];
         [_reciveDescLB addGestureRecognizer:tap];
     }
     return _reciveDescLB;
@@ -361,6 +444,7 @@
         _commondView.showsVerticalScrollIndicator = NO;
         _commondView.showsHorizontalScrollIndicator = NO;
         _commondView.scrollEnabled = NO;
+        
     }
     return _commondView;
 }

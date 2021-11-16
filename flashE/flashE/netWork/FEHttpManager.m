@@ -9,14 +9,15 @@
 #include "FEPublicMethods.h"
 #import "MD5Encryption.h"
 #import "FEDefineModule.h"
-
+#import "FEAccountManager.h"
 NSString *const FEHTTPAPIErrorDomain = @"FEHTTPAPIErrorDomain";
 
 
 
 NSDictionary *FERequestEncryption(NSDictionary *body,NSMutableDictionary* wrapper)
 {
-    NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"FEUserToken"];
+    FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
+    NSString* token = [FEPublicMethods SafeString:acc.token];
     NSString* version = [FEPublicMethods clientVersion];
     NSString* timeSpan = [NSString stringWithFormat:@"%0.f",[[NSDate date] timeIntervalSince1970]*1000];
     NSString* sig = [NSString stringWithFormat:@"token=%@&version=%@&timeSpan=%@",
@@ -26,6 +27,15 @@ NSDictionary *FERequestEncryption(NSDictionary *body,NSMutableDictionary* wrappe
     wrapper[@"version"] = version;
     wrapper[@"timeSpan"] = timeSpan;
     wrapper[@"signKey"] = [MD5Encryption md5by32:sig];
+    
+//    [wrapper enumerateKeysAndObjectsUsingBlock:^(NSString* _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+//        [[FEHttpManager defaultClient].requestSerializer setValue:obj forHTTPHeaderField:key];
+//    }];
+    [[FEHttpManager defaultClient].requestSerializer setValue:token forHTTPHeaderField:@"token"];
+//    [[FEHttpManager defaultClient].requestSerializer setValue:version forHTTPHeaderField:@"version"];
+//    [[FEHttpManager defaultClient].requestSerializer setValue:timeSpan forHTTPHeaderField:@"timeSpan"];
+    
+    
     return wrapper;
 }
 
@@ -255,6 +265,8 @@ void FEResponseAnalysis(id responseObject, FEHTTPAPISuccessBlock successBlock, F
         [acceptableCTs addObject:@"application/json"];
         [apiClient.responseSerializer setAcceptableContentTypes:acceptableCTs];
     });
+    
+    
     return apiClient;
 }
 
