@@ -39,7 +39,7 @@
     self.emptyDesc = @"";
     
     self.errorImage = @"Wifi-Error";;
-    self.errorTitle = @"请检查网络后，再次尝试";
+    self.errorTitle = @"请检查网络连接后，再次尝试";
     self.errorDesc = @"";
 }
 

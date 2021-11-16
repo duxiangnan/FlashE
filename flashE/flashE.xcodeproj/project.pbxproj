@@ -65,6 +65,7 @@
 		8B368F9C2740F5AF00B5C1AC /* JVRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F942740F5AE00B5C1AC /* JVRefreshFooterView.m */; };
 		8B368F9D2740F5AF00B5C1AC /* JVRefreshStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F952740F5AE00B5C1AC /* JVRefreshStateView.m */; };
 		8B368FA32740FA4000B5C1AC /* FEEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */; };
+		8B43017E274427BF00D8460B /* FEOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43017C274427BE00D8460B /* FEOrderDetailModel.m */; };
 		8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB742741540600D8460B /* FEHomeWorkCell.m */; };
 		8B43FB7A2741685000D8460B /* UIFont+fe.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB792741685000D8460B /* UIFont+fe.m */; };
 /* End PBXBuildFile section */
@@ -186,6 +187,8 @@
 		8B368F972740F5AE00B5C1AC /* JVRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVRefreshHeaderView.h; sourceTree = "<group>"; };
 		8B368FA12740FA3F00B5C1AC /* FEEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEEmptyView.h; sourceTree = "<group>"; };
 		8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEEmptyView.m; sourceTree = "<group>"; };
+		8B43017C274427BE00D8460B /* FEOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEOrderDetailModel.m; sourceTree = "<group>"; };
+		8B43017D274427BE00D8460B /* FEOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEOrderDetailModel.h; sourceTree = "<group>"; };
 		8B43FB732741540600D8460B /* FEHomeWorkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHomeWorkCell.h; sourceTree = "<group>"; };
 		8B43FB742741540600D8460B /* FEHomeWorkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkCell.m; sourceTree = "<group>"; };
 		8B43FB782741685000D8460B /* UIFont+fe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+fe.h"; sourceTree = "<group>"; };
@@ -305,6 +308,7 @@
 		8B36883427343BD900B5C1AC /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				8B43017B274427A000D8460B /* orderDetail */,
 				8B368D7C273D4BE700B5C1AC /* menuVC */,
 				8B368BFB273CBA0900B5C1AC /* walletVC */,
 				8B368AFA273A272D00B5C1AC /* loginVC */,
@@ -531,6 +535,15 @@
 			path = emptyView;
 			sourceTree = "<group>";
 		};
+		8B43017B274427A000D8460B /* orderDetail */ = {
+			isa = PBXGroup;
+			children = (
+				8B43017D274427BE00D8460B /* FEOrderDetailModel.h */,
+				8B43017C274427BE00D8460B /* FEOrderDetailModel.m */,
+			);
+			path = orderDetail;
+			sourceTree = "<group>";
+		};
 		8B43FB772741683000D8460B /* font */ = {
 			isa = PBXGroup;
 			children = (
@@ -708,6 +721,7 @@
 				8B368B33273AB46C00B5C1AC /* FELineLabel.m in Sources */,
 				8B368DD0273DFCD800B5C1AC /* FEHomeWorkView.m in Sources */,
 				8B36882D27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m in Sources */,
+				8B43017E274427BF00D8460B /* FEOrderDetailModel.m in Sources */,
 				8B368AE6273A182800B5C1AC /* NSData+FECommonCrypto.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
