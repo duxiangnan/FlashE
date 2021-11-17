@@ -15,6 +15,8 @@
 #import "UIButtonModule-umbrella.h"
 #import <Foundation/Foundation.h>
 #import "FEUIView-umbrella.h"
+#import "FEAlertView.h"
+#import <FFRouter/FFRouter.h>
 
 #define KDEBUGMODE @"debug_mode"
 #define KAPOLLOMODE @"apollo_mode"

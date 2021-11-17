@@ -21,6 +21,7 @@
     [aCoder encodeObject:_storeName forKey:@"storeName"];
     [aCoder encodeFloat:_balance forKey:@"balance"];
     [aCoder encodeObject:_token forKey:@"token"];
+    [aCoder encodeInteger:_status forKey:@"status"];
     
 }
 
@@ -35,6 +36,7 @@
         self.storeName = [aDecoder decodeObjectForKey:@"storeName"];
         self.balance = [aDecoder decodeFloatForKey:@"balance"];
         self.token = [aDecoder decodeObjectForKey:@"token"];
+        self.status = [aDecoder decodeIntegerForKey:@"status"];
     }
 
     return self;
@@ -50,6 +52,7 @@
     copy.storeName = self.storeName;
     copy.balance = self.balance;
     copy.token = self.token;
+    copy.status = self.status;
     return copy;
 }
 @end

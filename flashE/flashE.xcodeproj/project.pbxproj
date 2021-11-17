@@ -66,6 +66,8 @@
 		8B368F9D2740F5AF00B5C1AC /* JVRefreshStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F952740F5AE00B5C1AC /* JVRefreshStateView.m */; };
 		8B368FA32740FA4000B5C1AC /* FEEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */; };
 		8B43017E274427BF00D8460B /* FEOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43017C274427BE00D8460B /* FEOrderDetailModel.m */; };
+		8B43035A27455F6D00D8460B /* FECreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43035827455F6D00D8460B /* FECreateStoreViewController.m */; };
+		8B43035B27455F6D00D8460B /* FECreateStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */; };
 		8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB742741540600D8460B /* FEHomeWorkCell.m */; };
 		8B43FB7A2741685000D8460B /* UIFont+fe.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB792741685000D8460B /* UIFont+fe.m */; };
 /* End PBXBuildFile section */
@@ -189,6 +191,9 @@
 		8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEEmptyView.m; sourceTree = "<group>"; };
 		8B43017C274427BE00D8460B /* FEOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEOrderDetailModel.m; sourceTree = "<group>"; };
 		8B43017D274427BE00D8460B /* FEOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEOrderDetailModel.h; sourceTree = "<group>"; };
+		8B43035727455F6D00D8460B /* FECreateStoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FECreateStoreViewController.h; sourceTree = "<group>"; };
+		8B43035827455F6D00D8460B /* FECreateStoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FECreateStoreViewController.m; sourceTree = "<group>"; };
+		8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FECreateStoreViewController.xib; sourceTree = "<group>"; };
 		8B43FB732741540600D8460B /* FEHomeWorkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHomeWorkCell.h; sourceTree = "<group>"; };
 		8B43FB742741540600D8460B /* FEHomeWorkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkCell.m; sourceTree = "<group>"; };
 		8B43FB782741685000D8460B /* UIFont+fe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+fe.h"; sourceTree = "<group>"; };
@@ -308,6 +313,7 @@
 		8B36883427343BD900B5C1AC /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				8B43035627455F1800D8460B /* createStore */,
 				8B43017B274427A000D8460B /* orderDetail */,
 				8B368D7C273D4BE700B5C1AC /* menuVC */,
 				8B368BFB273CBA0900B5C1AC /* walletVC */,
@@ -544,6 +550,16 @@
 			path = orderDetail;
 			sourceTree = "<group>";
 		};
+		8B43035627455F1800D8460B /* createStore */ = {
+			isa = PBXGroup;
+			children = (
+				8B43035727455F6D00D8460B /* FECreateStoreViewController.h */,
+				8B43035827455F6D00D8460B /* FECreateStoreViewController.m */,
+				8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */,
+			);
+			path = createStore;
+			sourceTree = "<group>";
+		};
 		8B43FB772741683000D8460B /* font */ = {
 			isa = PBXGroup;
 			children = (
@@ -618,6 +634,7 @@
 				8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */,
 				8B368AFF273A275000B5C1AC /* FELoginVC.xib in Resources */,
 				8B368AEE273A1F2500B5C1AC /* definePlist.plist in Resources */,
+				8B43035B27455F6D00D8460B /* FECreateStoreViewController.xib in Resources */,
 				8B368D82273D4C1A00B5C1AC /* menuViewContorller.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -675,6 +692,7 @@
 				8B368F9A2740F5AF00B5C1AC /* JVRotateView.m in Sources */,
 				8B36882F27343B7E00B5C1AC /* FEBaseViewController.m in Sources */,
 				8B368B80273ABA4100B5C1AC /* WHToastView.m in Sources */,
+				8B43035A27455F6D00D8460B /* FECreateStoreViewController.m in Sources */,
 				8B368AA127396CFD00B5C1AC /* FEAccountManager.m in Sources */,
 				8B36883027343B7E00B5C1AC /* OpenUDID.m in Sources */,
 				8B368BD8273B9BDB00B5C1AC /* FEAccountModel.m in Sources */,

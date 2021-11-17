@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "FEHttpManager.h"
 #import "FEEmptyView.h"
-
+#import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FEBaseViewController : UIViewController

@@ -29,6 +29,7 @@
 @interface FEHomeVC ()<JXCategoryViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView* naviView;
 @property (nonatomic, strong) UITableView *table;
+@property (nonatomic, strong) UIView* bottomView;
 
 @property (nonatomic,strong) JXCategoryNumberView *categoryView;
 @property (nonatomic,copy) NSArray *itemArr;
@@ -69,7 +70,7 @@
     }
     
     [self.view addSubview:self.table];
-    
+    [self.view addSubview:self.bottomView];
     self.currentType = homeWorkWaiting;
     [self requestShowData];
     @weakself(self);
@@ -92,6 +93,27 @@
 //
 //
 //    [self.categoryView selectItemAtIndex:4];
+}
+
+- (void) creatOrderAction:(UIButton*)btn {
+
+    FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
+    if (acc.storeId == 0) {
+        //创建店铺
+        FEAlertView* alert = [[FEAlertView alloc] initWithTitle:@"提示" message:@"如需发单请先创建店铺"];
+        [alert addAction:[FEAlertAction actionWithTitle:@"取消" style:FEAlertActionStyleCancel handler:^(FEAlertAction *action) {
+            
+        }]];
+        [alert addAction:[FEAlertAction actionWithTitle:@"去创建" style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
+            
+            FEBaseViewController* vc = [FFRouter routeObjectURL:@"createStore://newStoreVC"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }]];
+        [alert show];
+    } else {
+        //创建订单
+    }
+    
 }
 
 
@@ -238,6 +260,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FEHomeWorkOrderModel* item = self.model.orders[indexPath.row];
+    
+//#waring 订单详情
+    
+    
 }
 
 
@@ -403,10 +429,11 @@
 - (UITableView *) table
 {
     if (_table == nil) {
+        CGFloat height = kScreenHeight-CGRectGetMaxY(self.categoryView.frame) - 54 - kHomeIndicatorHeight;
         _table = [[UITableView alloc] initWithFrame:
                   CGRectMake(0, CGRectGetMaxY(self.categoryView.frame),
-                             kScreenWidth, kScreenHeight-CGRectGetMaxY(self.categoryView.frame))
-                                                      style:UITableViewStylePlain];
+                             kScreenWidth, height)
+                      style:UITableViewStylePlain];
         _table.delegate = self;
         _table.dataSource = self;
         _table.backgroundColor = self.view.backgroundColor;
@@ -425,5 +452,21 @@
         [_table registerClass:[FEHomeWorkCell class] forCellReuseIdentifier:@"FEHomeWorkCell"];
     }
     return _table;
+}
+- (UIView*) bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.table.frame), kScreenWidth, 54 + kHomeIndicatorHeight)];
+        _bottomView.backgroundColor = UIColor.clearColor;
+
+        UIButton* newBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [newBtn setBackgroundColor:UIColorFromRGB(0x283C50)];
+        [newBtn setTitle:@"立即发单" forState:UIControlStateNormal];
+        newBtn.titleLabel.font = [UIFont mediumFont:16];
+        newBtn.frame = CGRectMake(kScreenWidth/4, 10, kScreenWidth/2, 44);
+        newBtn.cornerRadius = 22;
+        [newBtn addTarget:self action:@selector(creatOrderAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_bottomView addSubview:newBtn];
+    }
+    return _bottomView;
 }
 @end
