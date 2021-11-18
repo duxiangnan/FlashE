@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		55B41FD2E81F5245958EE130 /* libPods-flashE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD85DD360E682DB69B0B9700 /* libPods-flashE.a */; };
 		8B367C02272A381700B5C1AC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B367C01272A381700B5C1AC /* AppDelegate.m */; };
-		8B367C05272A381800B5C1AC /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B367C04272A381800B5C1AC /* SceneDelegate.m */; };
 		8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B367C0C272A381900B5C1AC /* Assets.xcassets */; };
 		8B367C10272A381900B5C1AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B367C0E272A381900B5C1AC /* LaunchScreen.storyboard */; };
 		8B367C13272A381A00B5C1AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B367C12272A381A00B5C1AC /* main.m */; };
@@ -70,6 +69,9 @@
 		8B43035B27455F6D00D8460B /* FECreateStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */; };
 		8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB742741540600D8460B /* FEHomeWorkCell.m */; };
 		8B43FB7A2741685000D8460B /* UIFont+fe.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB792741685000D8460B /* UIFont+fe.m */; };
+		8BCFAA7D2746AE80004F9B75 /* FEStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAA7B2746AE80004F9B75 /* FEStoreModel.m */; };
+		8BCFAAB22746C3BA004F9B75 /* FEStoreDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAAB02746C3BA004F9B75 /* FEStoreDetailVC.m */; };
+		8BCFAAB32746C3BA004F9B75 /* FEStoreDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BCFAAB12746C3BA004F9B75 /* FEStoreDetailVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,8 +80,6 @@
 		8B367BFD272A381700B5C1AC /* flashE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flashE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B367C00272A381700B5C1AC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8B367C01272A381700B5C1AC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8B367C03272A381700B5C1AC /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		8B367C04272A381800B5C1AC /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		8B367C0C272A381900B5C1AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B367C0F272A381900B5C1AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B367C11272A381900B5C1AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -198,6 +198,11 @@
 		8B43FB742741540600D8460B /* FEHomeWorkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkCell.m; sourceTree = "<group>"; };
 		8B43FB782741685000D8460B /* UIFont+fe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+fe.h"; sourceTree = "<group>"; };
 		8B43FB792741685000D8460B /* UIFont+fe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+fe.m"; sourceTree = "<group>"; };
+		8BCFAA7B2746AE80004F9B75 /* FEStoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEStoreModel.m; sourceTree = "<group>"; };
+		8BCFAA7C2746AE80004F9B75 /* FEStoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEStoreModel.h; sourceTree = "<group>"; };
+		8BCFAAAF2746C3B9004F9B75 /* FEStoreDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEStoreDetailVC.h; sourceTree = "<group>"; };
+		8BCFAAB02746C3BA004F9B75 /* FEStoreDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEStoreDetailVC.m; sourceTree = "<group>"; };
+		8BCFAAB12746C3BA004F9B75 /* FEStoreDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEStoreDetailVC.xib; sourceTree = "<group>"; };
 		CD85DD360E682DB69B0B9700 /* libPods-flashE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flashE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -258,8 +263,6 @@
 				8B36882227343B7E00B5C1AC /* public */,
 				8B367C00272A381700B5C1AC /* AppDelegate.h */,
 				8B367C01272A381700B5C1AC /* AppDelegate.m */,
-				8B367C03272A381700B5C1AC /* SceneDelegate.h */,
-				8B367C04272A381800B5C1AC /* SceneDelegate.m */,
 				8B367C0C272A381900B5C1AC /* Assets.xcassets */,
 				8B367C0E272A381900B5C1AC /* LaunchScreen.storyboard */,
 				8B367C11272A381900B5C1AC /* Info.plist */,
@@ -313,7 +316,7 @@
 		8B36883427343BD900B5C1AC /* scene */ = {
 			isa = PBXGroup;
 			children = (
-				8B43035627455F1800D8460B /* createStore */,
+				8B43035627455F1800D8460B /* store */,
 				8B43017B274427A000D8460B /* orderDetail */,
 				8B368D7C273D4BE700B5C1AC /* menuVC */,
 				8B368BFB273CBA0900B5C1AC /* walletVC */,
@@ -550,14 +553,19 @@
 			path = orderDetail;
 			sourceTree = "<group>";
 		};
-		8B43035627455F1800D8460B /* createStore */ = {
+		8B43035627455F1800D8460B /* store */ = {
 			isa = PBXGroup;
 			children = (
+				8BCFAA7C2746AE80004F9B75 /* FEStoreModel.h */,
+				8BCFAA7B2746AE80004F9B75 /* FEStoreModel.m */,
 				8B43035727455F6D00D8460B /* FECreateStoreViewController.h */,
 				8B43035827455F6D00D8460B /* FECreateStoreViewController.m */,
 				8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */,
+				8BCFAAAF2746C3B9004F9B75 /* FEStoreDetailVC.h */,
+				8BCFAAB02746C3BA004F9B75 /* FEStoreDetailVC.m */,
+				8BCFAAB12746C3BA004F9B75 /* FEStoreDetailVC.xib */,
 			);
-			path = createStore;
+			path = store;
 			sourceTree = "<group>";
 		};
 		8B43FB772741683000D8460B /* font */ = {
@@ -633,6 +641,7 @@
 				8B367C10272A381900B5C1AC /* LaunchScreen.storyboard in Resources */,
 				8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */,
 				8B368AFF273A275000B5C1AC /* FELoginVC.xib in Resources */,
+				8BCFAAB32746C3BA004F9B75 /* FEStoreDetailVC.xib in Resources */,
 				8B368AEE273A1F2500B5C1AC /* definePlist.plist in Resources */,
 				8B43035B27455F6D00D8460B /* FECreateStoreViewController.xib in Resources */,
 				8B368D82273D4C1A00B5C1AC /* menuViewContorller.xib in Resources */,
@@ -696,6 +705,7 @@
 				8B368AA127396CFD00B5C1AC /* FEAccountManager.m in Sources */,
 				8B36883027343B7E00B5C1AC /* OpenUDID.m in Sources */,
 				8B368BD8273B9BDB00B5C1AC /* FEAccountModel.m in Sources */,
+				8BCFAAB22746C3BA004F9B75 /* FEStoreDetailVC.m in Sources */,
 				8B368B7F273ABA4100B5C1AC /* WHToastConfig.m in Sources */,
 				8B368AD0273A16DE00B5C1AC /* FEAESCrypt.m in Sources */,
 				8B36882A27343B7E00B5C1AC /* UIButton+BackgroundColor.m in Sources */,
@@ -706,6 +716,7 @@
 				8B43FB7A2741685000D8460B /* UIFont+fe.m in Sources */,
 				8B368B16273A62C500B5C1AC /* UIView+Extend.m in Sources */,
 				8B368AF3273A21F300B5C1AC /* NSString+Extend.m in Sources */,
+				8BCFAA7D2746AE80004F9B75 /* FEStoreModel.m in Sources */,
 				8B368B83273ABA4100B5C1AC /* FEAlertView.m in Sources */,
 				8B367C02272A381700B5C1AC /* AppDelegate.m in Sources */,
 				8B36882B27343B7E00B5C1AC /* UIButton+FEImage.m in Sources */,
@@ -731,7 +742,6 @@
 				8B368B06273A565400B5C1AC /* RegexKitLite.m in Sources */,
 				8B368A93273957CC00B5C1AC /* Base64Util.m in Sources */,
 				8B368A94273957CC00B5C1AC /* MD5Encryption.m in Sources */,
-				8B367C05272A381800B5C1AC /* SceneDelegate.m in Sources */,
 				8B368A95273957CC00B5C1AC /* GTMBase64.m in Sources */,
 				8B368D83273D4C1A00B5C1AC /* menuViewContorller.m in Sources */,
 				8B36883127343B7E00B5C1AC /* FEPublicMethods.m in Sources */,
@@ -878,6 +888,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1000;
+				DISPLAY_NAME_NEW = "小鹿急送_dev";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -941,6 +952,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1000;
+				DISPLAY_NAME_NEW = "小鹿急送";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";

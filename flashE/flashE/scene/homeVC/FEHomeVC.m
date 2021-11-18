@@ -100,13 +100,13 @@
     FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
     if (acc.storeId == 0) {
         //创建店铺
-        FEAlertView* alert = [[FEAlertView alloc] initWithTitle:@"提示" message:@"如需发单请先创建店铺"];
+        FEAlertView* alert = [[FEAlertView alloc] initWithTitle:@"温馨提示" message:@"如需发单请先创建店铺"];
         [alert addAction:[FEAlertAction actionWithTitle:@"取消" style:FEAlertActionStyleCancel handler:^(FEAlertAction *action) {
             
         }]];
         [alert addAction:[FEAlertAction actionWithTitle:@"去创建" style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
             
-            FEBaseViewController* vc = [FFRouter routeObjectURL:@"createStore://newStoreVC"];
+            FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://createStore"];
             [self.navigationController pushViewController:vc animated:YES];
         }]];
         [alert show];

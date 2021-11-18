@@ -20,7 +20,7 @@
 - (BOOL)isAdURL;
 - (BOOL)isEmail;
 - (BOOL)isNum;
-- (BOOL)validPassword;
+- (BOOL)isMobilePhone:(NSString *)mobile;
 
 
 - (NSString *)stringToPhoneFormat;

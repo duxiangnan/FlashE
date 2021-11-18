@@ -64,9 +64,10 @@
     return [self isMatchedByRegex:REGEX_num1];
 }
 
-- (BOOL)validPassword {
-    //    @"^[A-Za-z0-9]{6,20}$"
-    return [self isMatchedByRegex:@"^.{6,20}$"];
+- (BOOL)isMobilePhone:(NSString *)mobile {
+    NSString *phoneRegex = @"1[3456789]([0-9]){9}";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
+    return [phoneTest evaluateWithObject:mobile];
 }
 
 

@@ -17,6 +17,9 @@
 #import "FEUIView-umbrella.h"
 #import "FEAlertView.h"
 #import <FFRouter/FFRouter.h>
+#import <YYModel/YYModel.h>
+#import "FEAccountManager.h"
+
 
 #define KDEBUGMODE @"debug_mode"
 #define KAPOLLOMODE @"apollo_mode"
