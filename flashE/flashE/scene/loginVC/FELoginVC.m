@@ -61,10 +61,11 @@
         }
     }];
     
-    self.checkAgreementBtn.selected = YES;
 
 }
-
+- (IBAction)checkAgreenAction:(id)sender {
+    self.checkAgreementBtn.selected = !self.checkAgreementBtn.selected;
+}
 
 - (IBAction)loginSubmitAction:(id)sender {
     

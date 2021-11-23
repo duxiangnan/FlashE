@@ -19,10 +19,8 @@ typedef enum : NSUInteger {
 @interface FEHomeWorkCell : UITableViewCell
 
 @property (nonatomic,copy) void(^cellCommondActoin)(FEHomeWorkCommodType type);
-@property (nonatomic,copy) void(^cellStatusFreshAction)(void);
-@property (nonatomic,copy) void(^cellPhoneAction)(void);
 
-+ (void) calculationCellHeighti:(FEHomeWorkOrderModel*)model;
++ (void) calculationCellHeight:(FEHomeWorkOrderModel*)model;
 - (void) setModel:(FEHomeWorkOrderModel*) model;
 
 

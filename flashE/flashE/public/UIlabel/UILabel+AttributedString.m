@@ -15,17 +15,16 @@
         return;
     }
 
-    NSAttributedString          *attriText = self.attributedText;
-    NSMutableAttributedString   *ret = [[NSMutableAttributedString alloc]init];
+    NSAttributedString *attriText = self.attributedText;
+    NSMutableAttributedString *ret = [[NSMutableAttributedString alloc]init];
 
     if (attriText.string.length > 0) {
         [ret appendAttributedString:attriText];
     }
 
-    NSDictionary *attriDic =  @{NSFontAttributeName:font,
+    NSDictionary *attriDic = @{NSFontAttributeName:font,
                                 NSForegroundColorAttributeName:color};
-    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc]
-        initWithString:txt attributes:attriDic];
+    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:txt attributes:attriDic];
     [ret appendAttributedString:attriString];
     self.attributedText = ret;
 }
@@ -35,8 +34,8 @@
         return;
     }
 
-    NSAttributedString          *attriText = self.attributedText;
-    NSMutableAttributedString   *ret = [[NSMutableAttributedString alloc]init];
+    NSAttributedString *attriText = self.attributedText;
+    NSMutableAttributedString *ret = [[NSMutableAttributedString alloc]init];
 
     if (attriText.string.length > 0) {
         [ret appendAttributedString:attriText];
@@ -53,20 +52,18 @@
         return;
     }
 
-    NSAttributedString          *attriText = self.attributedText;
-    NSMutableAttributedString   *ret = [[NSMutableAttributedString alloc]init];
+    NSAttributedString *attriText = self.attributedText;
+    NSMutableAttributedString *ret = [[NSMutableAttributedString alloc]init];
 
     if (attriText.string.length > 0) {
         [ret appendAttributedString:attriText];
     }
 
-     NSDictionary *attriDic =  @{NSFontAttributeName:font,
+     NSDictionary *attriDic = @{NSFontAttributeName:font,
                                  NSForegroundColorAttributeName:color,
-                                 NSUnderlineStyleAttributeName:
-                                     [NSNumber numberWithInteger:NSUnderlineStyleSingle]
+                                 NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]
      };
-    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc]
-        initWithString:attrTxt attributes:attriDic];
+    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:attrTxt attributes:attriDic];
     [ret appendAttributedString:attriString];
     self.attributedText = ret;
 }

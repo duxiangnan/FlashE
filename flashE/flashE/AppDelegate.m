@@ -12,15 +12,18 @@
 #import <ViewDeck/ViewDeck.h>
 #import "menuViewContorller.h"
 #import "FEHomeVC.h"
-#import "FEWalletVC.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <FFRouter/FFRouter.h>
 //#import "FEDefineModule.h"
 
-@interface AppDelegate ()
+#import "WXApiManager.h"
+
+static NSString* APP_ID = @"";
+static NSString* UNIVERSAL_LINK = @"";
+@interface AppDelegate ()<WXApiDelegate>
 
 @property (nonatomic) IIViewDeckController *viewDeckController;
-@property (nonatomic) UIViewController *currentVC;
+
 
 @end
 
@@ -42,14 +45,23 @@
     [self resetRootVC];
 
     [self.window makeKeyAndVisible];
+    
+    [WXApi registerApp:APP_ID universalLink:UNIVERSAL_LINK];
+    
+    [WXApi startLogByLevel:WXLogLevelNormal logBlock:^(NSString *log) {
+        NSLog(@"log : %@", log);
+    }];
+    
+    
     return YES;
 }
-
+- (UINavigationController*) getViewDeckNavi {
+    return self.viewDeckController.centerViewController;
+}
 - (void) resetRootVC {
 
     if ([[FEAccountManager sharedFEAccountManager] hasLogin]) {
-        FEHomeVC* homeVC = [[FEHomeVC alloc] init];
-        self.currentVC = homeVC;
+        UIViewController* homeVC = [FFRouter routeObjectURL:@"home://createhome"];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeVC];
         
         menuViewContorller* vc = [[menuViewContorller alloc] initWithNibName:@"menuViewContorller" bundle:nil];
@@ -67,26 +79,23 @@
             NSString* vcType = routerParameters[@"vcType"];
             switch (vcType.integerValue) {
                 case 1:{
-                    if (![self.currentVC isKindOfClass:[FEHomeVC class]]) {
-                        FEHomeVC* homeVC = [[FEHomeVC alloc] init];
-                        self.currentVC = homeVC;
-                        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeVC];
-                        self.viewDeckController.centerViewController = navigationController;
-                    }
                     [self.viewDeckController closeSide:YES];
+                    UIViewController* vc = [FFRouter routeObjectURL:@"store://createStoreManager"];
+                    [[self getViewDeckNavi] pushViewController:vc animated:YES];
+                    
                 }break;
                 case 2:{
-                    if (![self.currentVC isKindOfClass:[FEWalletVC class]]) {
-                        UIViewController* vc = [[FEWalletVC alloc] init];
-                        self.currentVC = vc;
-                        vc.view.backgroundColor = UIColor.redColor;
-                        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-                        self.viewDeckController.centerViewController = navigationController;
-                    }
                     [self.viewDeckController closeSide:YES];
+                    UIViewController* vc = [FFRouter routeObjectURL:@"recharge://createRechange"];
+                    [[self getViewDeckNavi] pushViewController:vc animated:YES];
                 }break;
-                case 3:{}break;
-                case 4:{}break;
+                case 3:{
+                    
+                }break;
+                case 4:{
+                    
+                        
+                }break;
                 case 5:{}break;
                 case 6:{}break;
                 default:
@@ -180,11 +189,20 @@
 
 #endif
 
+
+
+
 - (BOOL)myApplication:(UIApplication *)application openURL:(NSURL *)url {
     
     
-    return YES;
+    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
+
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler {
+    return [WXApi handleOpenUniversalLink:userActivity delegate:self];
+}
+
 
 
 - (void) loginSucAction:(NSNotification*)noti {

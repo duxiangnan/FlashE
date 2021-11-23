@@ -22,6 +22,9 @@
 @property (nonatomic, strong) NSError           *networkError;
 @property (nonatomic, copy) NSMutableDictionary *parameters;
 @property (nonatomic, assign) BOOL haveMore;
+@property (nonatomic, copy) NSString* pageIndex;
+@property (nonatomic, copy) NSString* pageSize;
+
 @end
 
 @implementation FEHttpPageManager
@@ -36,11 +39,16 @@
         _parameters = [NSMutableDictionary dictionary];
         [_parameters addEntriesFromDictionary:parameters];
         _itemClass = itemClass;
+        self.pageIndex = @"pageIndex";
+        self.pageSize = @"pageSize";
     }
 
     return self;
 }
-
+- (void) setkeyIndex:(NSString*)key size:(NSString*)sizeKey {
+    self.pageIndex = key;
+    self.pageSize = sizeKey;
+}
 - (void)dealloc
 {
     [_urlTask cancel];
@@ -83,9 +91,20 @@
         // trackMyOrder 物流信息做特殊处理
         @strongself(weakSelf);
         strongSelf.wholeDict = responseObject;
-        
         NSArray* arr = [responseObject valueForKeyPath:strongSelf.resultName];
-        NSArray* items = [NSArray yy_modelArrayWithClass:strongSelf.itemClass json:arr];
+        
+        NSArray* items = nil;
+        if([arr isKindOfClass:[NSArray class]]){
+            if (strongSelf.itemClass) {
+                items = [NSArray yy_modelArrayWithClass:strongSelf.itemClass json:arr];
+            } else {
+                items = arr;
+            }
+        } else {
+            arr = nil;
+        }
+        
+        
         self.haveMore = arr.count > 0;
         strongSelf.pageCurrent = page;
         if (page <= 1) {
@@ -102,17 +121,25 @@
     };
 
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:_parameters];
-    param[@"pageIndex"] = @(page);
-    if (!param[@"pageSize"]) {
-        param[@"pageSize"] = @(20);
+    param[self.pageIndex] = @(page);
+    if (!param[self.pageSize]) {
+        param[self.pageSize] = @(20);
+    }
+    if(self.requestMethod == 0){
+        _urlTask = [[FEHttpManager defaultClient] POST:self.functionId
+                parameters:param
+                   success:success
+                   failure:failure
+                    cancle:self.cancleBlock];
+
+    } else {
+        _urlTask = [[FEHttpManager defaultClient] GET:self.functionId
+                                           parameters:param
+                                              success:success
+                                              failure:failure
+                                               cancle:self.cancleBlock];
     }
     
-    _urlTask = [[FEHttpManager defaultClient] POST:self.functionId
-            parameters:param
-               success:success
-               failure:failure
-                cancle:self.cancleBlock];
-
     
   
 }

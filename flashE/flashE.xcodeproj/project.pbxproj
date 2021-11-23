@@ -25,7 +25,6 @@
 		8B368A94273957CC00B5C1AC /* MD5Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368A91273957CC00B5C1AC /* MD5Encryption.m */; };
 		8B368A95273957CC00B5C1AC /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368A92273957CC00B5C1AC /* GTMBase64.m */; };
 		8B368AA127396CFD00B5C1AC /* FEAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368A9D27396CFD00B5C1AC /* FEAccountManager.m */; };
-		8B368AA227396CFD00B5C1AC /* FEAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368A9E27396CFD00B5C1AC /* FEAddressModel.m */; };
 		8B368AD0273A16DE00B5C1AC /* FEAESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368ACE273A16DE00B5C1AC /* FEAESCrypt.m */; };
 		8B368AE6273A182800B5C1AC /* NSData+FECommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368AE3273A182800B5C1AC /* NSData+FECommonCrypto.m */; };
 		8B368AE7273A182800B5C1AC /* NSData+FEBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368AE4273A182800B5C1AC /* NSData+FEBase64.m */; };
@@ -50,8 +49,6 @@
 		8B368B83273ABA4100B5C1AC /* FEAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368B7C273ABA4100B5C1AC /* FEAlertView.m */; };
 		8B368BA3273AC8AE00B5C1AC /* NSString+FESize.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368BA2273AC8AE00B5C1AC /* NSString+FESize.m */; };
 		8B368BD8273B9BDB00B5C1AC /* FEAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368BD6273B9BDB00B5C1AC /* FEAccountModel.m */; };
-		8B368BFF273CBA2700B5C1AC /* FEWalletVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368BFD273CBA2700B5C1AC /* FEWalletVC.m */; };
-		8B368C00273CBA2700B5C1AC /* FEWalletVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B368BFE273CBA2700B5C1AC /* FEWalletVC.xib */; };
 		8B368D82273D4C1A00B5C1AC /* menuViewContorller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B368D7F273D4C1A00B5C1AC /* menuViewContorller.xib */; };
 		8B368D83273D4C1A00B5C1AC /* menuViewContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368D81273D4C1A00B5C1AC /* menuViewContorller.m */; };
 		8B368DD0273DFCD800B5C1AC /* FEHomeWorkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368DCF273DFCD800B5C1AC /* FEHomeWorkView.m */; };
@@ -69,9 +66,43 @@
 		8B43035B27455F6D00D8460B /* FECreateStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */; };
 		8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB742741540600D8460B /* FEHomeWorkCell.m */; };
 		8B43FB7A2741685000D8460B /* UIFont+fe.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB792741685000D8460B /* UIFont+fe.m */; };
-		8BCFAA7D2746AE80004F9B75 /* FEStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAA7B2746AE80004F9B75 /* FEStoreModel.m */; };
+		8BADD5D4274B484500FDDA68 /* FERechargeRecodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BADD5D3274B484500FDDA68 /* FERechargeRecodeCell.xib */; };
+		8BADD5D7274B4A1200FDDA68 /* FERechargeRecodeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BADD5D6274B4A1200FDDA68 /* FERechargeRecodeInfoCell.xib */; };
+		8BADD5DD274B67F100FDDA68 /* FERechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD5DA274B67F000FDDA68 /* FERechargeModel.m */; };
+		8BADD5DE274B67F100FDDA68 /* FERechargeRecodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD5DC274B67F000FDDA68 /* FERechargeRecodeModel.m */; };
+		8BADD5E2274B70CC00FDDA68 /* FERechargeHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD5E1274B70CC00FDDA68 /* FERechargeHeaderCell.m */; };
+		8BADD5E6274B715500FDDA68 /* FERechargeRecodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD5E5274B715500FDDA68 /* FERechargeRecodeCell.m */; };
+		8BADD5F2274BC13A00FDDA68 /* FERechargeHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BADD5F1274BC13A00FDDA68 /* FERechargeHeaderCell.xib */; };
+		8BADD710274D362500FDDA68 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD70F274D362500FDDA68 /* Security.framework */; };
+		8BADD712274D363100FDDA68 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD711274D363100FDDA68 /* CoreGraphics.framework */; };
+		8BADD714274D363B00FDDA68 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD713274D363B00FDDA68 /* WebKit.framework */; };
+		8BADD720274D3AEA00FDDA68 /* WXApiResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD71B274D3AEA00FDDA68 /* WXApiResponseHandler.m */; };
+		8BADD721274D3AEA00FDDA68 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD71C274D3AEA00FDDA68 /* WXApiRequestHandler.m */; };
+		8BADD722274D3AEA00FDDA68 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD71F274D3AEA00FDDA68 /* WXApiManager.m */; };
+		8BADD726274D407600FDDA68 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD725274D407600FDDA68 /* CoreTelephony.framework */; };
+		8BADD729274D40B900FDDA68 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD728274D40B900FDDA68 /* CFNetwork.framework */; };
+		8BADD741274D421100FDDA68 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD73E274D421100FDDA68 /* libWeChatSDK.a */; };
+		8BADD758274D560C00FDDA68 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD757274D560C00FDDA68 /* CoreLocation.framework */; };
+		8BADD760274D567D00FDDA68 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD75F274D567D00FDDA68 /* MAMapKit.framework */; };
+		8BADD764274D572E00FDDA68 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD762274D572E00FDDA68 /* AMapFoundationKit.framework */; };
+		8BADD765274D572E00FDDA68 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD763274D572E00FDDA68 /* AMapSearchKit.framework */; };
+		8BADD768274D577200FDDA68 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD767274D576400FDDA68 /* libc++.tbd */; };
+		8BADD76C274D578C00FDDA68 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD76A274D577D00FDDA68 /* libz.tbd */; };
+		8BCFAA7D2746AE80004F9B75 /* FEStorePartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAA7B2746AE80004F9B75 /* FEStorePartModel.m */; };
 		8BCFAAB22746C3BA004F9B75 /* FEStoreDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAAB02746C3BA004F9B75 /* FEStoreDetailVC.m */; };
 		8BCFAAB32746C3BA004F9B75 /* FEStoreDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BCFAAB12746C3BA004F9B75 /* FEStoreDetailVC.xib */; };
+		8BCFAC392748C66F004F9B75 /* FESearchAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAC372748C66F004F9B75 /* FESearchAddressVC.m */; };
+		8BCFAC3A2748C66F004F9B75 /* FESearchAddressVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BCFAC382748C66F004F9B75 /* FESearchAddressVC.xib */; };
+		8BCFAC3E2748C8FD004F9B75 /* FEAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAC3C2748C8FD004F9B75 /* FEAddressModel.m */; };
+		8BCFAC46274903B7004F9B75 /* FEStoreTypeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAC44274903B7004F9B75 /* FEStoreTypeVC.m */; };
+		8BCFAC47274903B7004F9B75 /* FEStoreTypeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BCFAC45274903B7004F9B75 /* FEStoreTypeVC.xib */; };
+		8BCFAC4D274914C1004F9B75 /* FERechargeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAC4B274914C1004F9B75 /* FERechargeVC.m */; };
+		8BCFAC4E274914C1004F9B75 /* FERechargeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BCFAC4C274914C1004F9B75 /* FERechargeVC.xib */; };
+		8BCFAC57274915E6004F9B75 /* FEStoreManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAC55274915E6004F9B75 /* FEStoreManagerVC.m */; };
+		8BCFAC58274915E6004F9B75 /* FEStoreManagerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BCFAC56274915E6004F9B75 /* FEStoreManagerVC.xib */; };
+		8BCFAC5D274919C6004F9B75 /* FEMyStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAC5C274919C6004F9B75 /* FEMyStoreModel.m */; };
+		8BCFAC6C274A9242004F9B75 /* FESearchCityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAC6A274A9242004F9B75 /* FESearchCityVC.m */; };
+		8BCFAC6D274A9242004F9B75 /* FESearchCityVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BCFAC6B274A9242004F9B75 /* FESearchCityVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,8 +144,6 @@
 		8B368A92273957CC00B5C1AC /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		8B368A9B27396CFD00B5C1AC /* FEAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEAccountManager.h; sourceTree = "<group>"; };
 		8B368A9D27396CFD00B5C1AC /* FEAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEAccountManager.m; sourceTree = "<group>"; };
-		8B368A9E27396CFD00B5C1AC /* FEAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEAddressModel.m; sourceTree = "<group>"; };
-		8B368AA027396CFD00B5C1AC /* FEAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEAddressModel.h; sourceTree = "<group>"; };
 		8B368ACE273A16DE00B5C1AC /* FEAESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEAESCrypt.m; sourceTree = "<group>"; };
 		8B368ACF273A16DE00B5C1AC /* FEAESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEAESCrypt.h; sourceTree = "<group>"; };
 		8B368AE2273A182800B5C1AC /* NSData+FEBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FEBase64.h"; sourceTree = "<group>"; };
@@ -164,9 +193,6 @@
 		8B368BA2273AC8AE00B5C1AC /* NSString+FESize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FESize.m"; sourceTree = "<group>"; };
 		8B368BD6273B9BDB00B5C1AC /* FEAccountModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEAccountModel.m; sourceTree = "<group>"; };
 		8B368BD7273B9BDB00B5C1AC /* FEAccountModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEAccountModel.h; sourceTree = "<group>"; };
-		8B368BFC273CBA2700B5C1AC /* FEWalletVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEWalletVC.h; sourceTree = "<group>"; };
-		8B368BFD273CBA2700B5C1AC /* FEWalletVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEWalletVC.m; sourceTree = "<group>"; };
-		8B368BFE273CBA2700B5C1AC /* FEWalletVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEWalletVC.xib; sourceTree = "<group>"; };
 		8B368D7F273D4C1A00B5C1AC /* menuViewContorller.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = menuViewContorller.xib; sourceTree = "<group>"; };
 		8B368D80273D4C1A00B5C1AC /* menuViewContorller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuViewContorller.h; sourceTree = "<group>"; };
 		8B368D81273D4C1A00B5C1AC /* menuViewContorller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuViewContorller.m; sourceTree = "<group>"; };
@@ -198,11 +224,63 @@
 		8B43FB742741540600D8460B /* FEHomeWorkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkCell.m; sourceTree = "<group>"; };
 		8B43FB782741685000D8460B /* UIFont+fe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+fe.h"; sourceTree = "<group>"; };
 		8B43FB792741685000D8460B /* UIFont+fe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+fe.m"; sourceTree = "<group>"; };
-		8BCFAA7B2746AE80004F9B75 /* FEStoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEStoreModel.m; sourceTree = "<group>"; };
-		8BCFAA7C2746AE80004F9B75 /* FEStoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEStoreModel.h; sourceTree = "<group>"; };
+		8BADD5D3274B484500FDDA68 /* FERechargeRecodeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FERechargeRecodeCell.xib; sourceTree = "<group>"; };
+		8BADD5D6274B4A1200FDDA68 /* FERechargeRecodeInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FERechargeRecodeInfoCell.xib; sourceTree = "<group>"; };
+		8BADD5D9274B67F000FDDA68 /* FERechargeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FERechargeModel.h; sourceTree = "<group>"; };
+		8BADD5DA274B67F000FDDA68 /* FERechargeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FERechargeModel.m; sourceTree = "<group>"; };
+		8BADD5DB274B67F000FDDA68 /* FERechargeRecodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FERechargeRecodeModel.h; sourceTree = "<group>"; };
+		8BADD5DC274B67F000FDDA68 /* FERechargeRecodeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FERechargeRecodeModel.m; sourceTree = "<group>"; };
+		8BADD5E0274B70CC00FDDA68 /* FERechargeHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FERechargeHeaderCell.h; sourceTree = "<group>"; };
+		8BADD5E1274B70CC00FDDA68 /* FERechargeHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FERechargeHeaderCell.m; sourceTree = "<group>"; };
+		8BADD5E4274B715500FDDA68 /* FERechargeRecodeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FERechargeRecodeCell.h; sourceTree = "<group>"; };
+		8BADD5E5274B715500FDDA68 /* FERechargeRecodeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FERechargeRecodeCell.m; sourceTree = "<group>"; };
+		8BADD5F1274BC13A00FDDA68 /* FERechargeHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FERechargeHeaderCell.xib; sourceTree = "<group>"; };
+		8BADD70F274D362500FDDA68 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		8BADD711274D363100FDDA68 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8BADD713274D363B00FDDA68 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		8BADD71A274D3AEA00FDDA68 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		8BADD71B274D3AEA00FDDA68 /* WXApiResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiResponseHandler.m; sourceTree = "<group>"; };
+		8BADD71C274D3AEA00FDDA68 /* WXApiRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiRequestHandler.m; sourceTree = "<group>"; };
+		8BADD71D274D3AEA00FDDA68 /* WXApiRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiRequestHandler.h; sourceTree = "<group>"; };
+		8BADD71E274D3AEA00FDDA68 /* WXApiResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiResponseHandler.h; sourceTree = "<group>"; };
+		8BADD71F274D3AEA00FDDA68 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
+		8BADD725274D407600FDDA68 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		8BADD728274D40B900FDDA68 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		8BADD73D274D421100FDDA68 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		8BADD73E274D421100FDDA68 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		8BADD73F274D421100FDDA68 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		8BADD740274D421100FDDA68 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		8BADD757274D560C00FDDA68 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8BADD75F274D567D00FDDA68 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
+		8BADD762274D572E00FDDA68 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		8BADD763274D572E00FDDA68 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
+		8BADD767274D576400FDDA68 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		8BADD76A274D577D00FDDA68 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		8BCFAA7B2746AE80004F9B75 /* FEStorePartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEStorePartModel.m; sourceTree = "<group>"; };
+		8BCFAA7C2746AE80004F9B75 /* FEStorePartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEStorePartModel.h; sourceTree = "<group>"; };
 		8BCFAAAF2746C3B9004F9B75 /* FEStoreDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEStoreDetailVC.h; sourceTree = "<group>"; };
 		8BCFAAB02746C3BA004F9B75 /* FEStoreDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEStoreDetailVC.m; sourceTree = "<group>"; };
 		8BCFAAB12746C3BA004F9B75 /* FEStoreDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEStoreDetailVC.xib; sourceTree = "<group>"; };
+		8BCFAC362748C66F004F9B75 /* FESearchAddressVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FESearchAddressVC.h; sourceTree = "<group>"; };
+		8BCFAC372748C66F004F9B75 /* FESearchAddressVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FESearchAddressVC.m; sourceTree = "<group>"; };
+		8BCFAC382748C66F004F9B75 /* FESearchAddressVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FESearchAddressVC.xib; sourceTree = "<group>"; };
+		8BCFAC3C2748C8FD004F9B75 /* FEAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEAddressModel.m; sourceTree = "<group>"; };
+		8BCFAC3D2748C8FD004F9B75 /* FEAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEAddressModel.h; sourceTree = "<group>"; };
+		8BCFAC412748DF4C004F9B75 /* FEUILable-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FEUILable-umbrella.h"; sourceTree = "<group>"; };
+		8BCFAC43274903B7004F9B75 /* FEStoreTypeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEStoreTypeVC.h; sourceTree = "<group>"; };
+		8BCFAC44274903B7004F9B75 /* FEStoreTypeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEStoreTypeVC.m; sourceTree = "<group>"; };
+		8BCFAC45274903B7004F9B75 /* FEStoreTypeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEStoreTypeVC.xib; sourceTree = "<group>"; };
+		8BCFAC4A274914C1004F9B75 /* FERechargeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FERechargeVC.h; sourceTree = "<group>"; };
+		8BCFAC4B274914C1004F9B75 /* FERechargeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FERechargeVC.m; sourceTree = "<group>"; };
+		8BCFAC4C274914C1004F9B75 /* FERechargeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FERechargeVC.xib; sourceTree = "<group>"; };
+		8BCFAC54274915E6004F9B75 /* FEStoreManagerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEStoreManagerVC.h; sourceTree = "<group>"; };
+		8BCFAC55274915E6004F9B75 /* FEStoreManagerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEStoreManagerVC.m; sourceTree = "<group>"; };
+		8BCFAC56274915E6004F9B75 /* FEStoreManagerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEStoreManagerVC.xib; sourceTree = "<group>"; };
+		8BCFAC5B274919C6004F9B75 /* FEMyStoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEMyStoreModel.h; sourceTree = "<group>"; };
+		8BCFAC5C274919C6004F9B75 /* FEMyStoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEMyStoreModel.m; sourceTree = "<group>"; };
+		8BCFAC69274A9241004F9B75 /* FESearchCityVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FESearchCityVC.h; sourceTree = "<group>"; };
+		8BCFAC6A274A9242004F9B75 /* FESearchCityVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FESearchCityVC.m; sourceTree = "<group>"; };
+		8BCFAC6B274A9242004F9B75 /* FESearchCityVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FESearchCityVC.xib; sourceTree = "<group>"; };
 		CD85DD360E682DB69B0B9700 /* libPods-flashE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flashE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -211,7 +289,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BADD765274D572E00FDDA68 /* AMapSearchKit.framework in Frameworks */,
+				8BADD741274D421100FDDA68 /* libWeChatSDK.a in Frameworks */,
+				8BADD729274D40B900FDDA68 /* CFNetwork.framework in Frameworks */,
+				8BADD758274D560C00FDDA68 /* CoreLocation.framework in Frameworks */,
+				8BADD76C274D578C00FDDA68 /* libz.tbd in Frameworks */,
+				8BADD760274D567D00FDDA68 /* MAMapKit.framework in Frameworks */,
+				8BADD712274D363100FDDA68 /* CoreGraphics.framework in Frameworks */,
+				8BADD768274D577200FDDA68 /* libc++.tbd in Frameworks */,
+				8BADD710274D362500FDDA68 /* Security.framework in Frameworks */,
+				8BADD726274D407600FDDA68 /* CoreTelephony.framework in Frameworks */,
+				8BADD714274D363B00FDDA68 /* WebKit.framework in Frameworks */,
 				55B41FD2E81F5245958EE130 /* libPods-flashE.a in Frameworks */,
+				8BADD764274D572E00FDDA68 /* AMapFoundationKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +311,14 @@
 		03D9A17157ED9F839F7CDBA9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8BADD76A274D577D00FDDA68 /* libz.tbd */,
+				8BADD767274D576400FDDA68 /* libc++.tbd */,
+				8BADD757274D560C00FDDA68 /* CoreLocation.framework */,
+				8BADD728274D40B900FDDA68 /* CFNetwork.framework */,
+				8BADD725274D407600FDDA68 /* CoreTelephony.framework */,
+				8BADD713274D363B00FDDA68 /* WebKit.framework */,
+				8BADD711274D363100FDDA68 /* CoreGraphics.framework */,
+				8BADD70F274D362500FDDA68 /* Security.framework */,
 				CD85DD360E682DB69B0B9700 /* libPods-flashE.a */,
 			);
 			name = Frameworks;
@@ -256,6 +354,7 @@
 		8B367BFF272A381700B5C1AC /* flashE */ = {
 			isa = PBXGroup;
 			children = (
+				8BADD5F7274CB45100FDDA68 /* third */,
 				8B36883C2738C03E00B5C1AC /* netWork */,
 				8B36883427343BD900B5C1AC /* scene */,
 				8B36882927343B7E00B5C1AC /* FEBaseViewController.h */,
@@ -316,10 +415,10 @@
 		8B36883427343BD900B5C1AC /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				8BCFAC49274914A7004F9B75 /* recharge */,
 				8B43035627455F1800D8460B /* store */,
-				8B43017B274427A000D8460B /* orderDetail */,
+				8BCFAC6427494D70004F9B75 /* order */,
 				8B368D7C273D4BE700B5C1AC /* menuVC */,
-				8B368BFB273CBA0900B5C1AC /* walletVC */,
 				8B368AFA273A272D00B5C1AC /* loginVC */,
 				8B368AF8273A272400B5C1AC /* homeVC */,
 			);
@@ -358,8 +457,6 @@
 				8B368BD6273B9BDB00B5C1AC /* FEAccountModel.m */,
 				8B368A9B27396CFD00B5C1AC /* FEAccountManager.h */,
 				8B368A9D27396CFD00B5C1AC /* FEAccountManager.m */,
-				8B368AA027396CFD00B5C1AC /* FEAddressModel.h */,
-				8B368A9E27396CFD00B5C1AC /* FEAddressModel.m */,
 			);
 			path = account;
 			sourceTree = "<group>";
@@ -464,6 +561,7 @@
 				8B368B2B273AB46B00B5C1AC /* FELineLabel.m */,
 				8B368B2E273AB46B00B5C1AC /* UILabel+AttributedString.h */,
 				8B368B32273AB46B00B5C1AC /* UILabel+AttributedString.m */,
+				8BCFAC412748DF4C004F9B75 /* FEUILable-umbrella.h */,
 			);
 			path = UIlabel;
 			sourceTree = "<group>";
@@ -495,16 +593,6 @@
 				8B368B79273ABA4100B5C1AC /* FEAlertSubView.m */,
 			);
 			path = Alert;
-			sourceTree = "<group>";
-		};
-		8B368BFB273CBA0900B5C1AC /* walletVC */ = {
-			isa = PBXGroup;
-			children = (
-				8B368BFC273CBA2700B5C1AC /* FEWalletVC.h */,
-				8B368BFD273CBA2700B5C1AC /* FEWalletVC.m */,
-				8B368BFE273CBA2700B5C1AC /* FEWalletVC.xib */,
-			);
-			path = walletVC;
 			sourceTree = "<group>";
 		};
 		8B368D7C273D4BE700B5C1AC /* menuVC */ = {
@@ -556,14 +644,8 @@
 		8B43035627455F1800D8460B /* store */ = {
 			isa = PBXGroup;
 			children = (
-				8BCFAA7C2746AE80004F9B75 /* FEStoreModel.h */,
-				8BCFAA7B2746AE80004F9B75 /* FEStoreModel.m */,
-				8B43035727455F6D00D8460B /* FECreateStoreViewController.h */,
-				8B43035827455F6D00D8460B /* FECreateStoreViewController.m */,
-				8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */,
-				8BCFAAAF2746C3B9004F9B75 /* FEStoreDetailVC.h */,
-				8BCFAAB02746C3BA004F9B75 /* FEStoreDetailVC.m */,
-				8BCFAAB12746C3BA004F9B75 /* FEStoreDetailVC.xib */,
+				8BCFAC52274915BF004F9B75 /* myStore */,
+				8BCFAC50274915AA004F9B75 /* createStore */,
 			);
 			path = store;
 			sourceTree = "<group>";
@@ -575,6 +657,117 @@
 				8B43FB792741685000D8460B /* UIFont+fe.m */,
 			);
 			path = font;
+			sourceTree = "<group>";
+		};
+		8BADD5F7274CB45100FDDA68 /* third */ = {
+			isa = PBXGroup;
+			children = (
+				8BADD75E274D567D00FDDA68 /* MAMap */,
+				8BADD719274D3AEA00FDDA68 /* weichat */,
+			);
+			path = third;
+			sourceTree = "<group>";
+		};
+		8BADD719274D3AEA00FDDA68 /* weichat */ = {
+			isa = PBXGroup;
+			children = (
+				8BADD73E274D421100FDDA68 /* libWeChatSDK.a */,
+				8BADD740274D421100FDDA68 /* WechatAuthSDK.h */,
+				8BADD73F274D421100FDDA68 /* WXApi.h */,
+				8BADD73D274D421100FDDA68 /* WXApiObject.h */,
+				8BADD71A274D3AEA00FDDA68 /* WXApiManager.h */,
+				8BADD71F274D3AEA00FDDA68 /* WXApiManager.m */,
+				8BADD71D274D3AEA00FDDA68 /* WXApiRequestHandler.h */,
+				8BADD71C274D3AEA00FDDA68 /* WXApiRequestHandler.m */,
+				8BADD71E274D3AEA00FDDA68 /* WXApiResponseHandler.h */,
+				8BADD71B274D3AEA00FDDA68 /* WXApiResponseHandler.m */,
+			);
+			path = weichat;
+			sourceTree = "<group>";
+		};
+		8BADD75E274D567D00FDDA68 /* MAMap */ = {
+			isa = PBXGroup;
+			children = (
+				8BADD762274D572E00FDDA68 /* AMapFoundationKit.framework */,
+				8BADD763274D572E00FDDA68 /* AMapSearchKit.framework */,
+				8BADD75F274D567D00FDDA68 /* MAMapKit.framework */,
+			);
+			path = MAMap;
+			sourceTree = "<group>";
+		};
+		8BCFAC49274914A7004F9B75 /* recharge */ = {
+			isa = PBXGroup;
+			children = (
+				8BADD5D9274B67F000FDDA68 /* FERechargeModel.h */,
+				8BADD5DA274B67F000FDDA68 /* FERechargeModel.m */,
+				8BADD5DB274B67F000FDDA68 /* FERechargeRecodeModel.h */,
+				8BADD5DC274B67F000FDDA68 /* FERechargeRecodeModel.m */,
+				8BCFAC4A274914C1004F9B75 /* FERechargeVC.h */,
+				8BCFAC4B274914C1004F9B75 /* FERechargeVC.m */,
+				8BCFAC4C274914C1004F9B75 /* FERechargeVC.xib */,
+				8BADD5E0274B70CC00FDDA68 /* FERechargeHeaderCell.h */,
+				8BADD5E1274B70CC00FDDA68 /* FERechargeHeaderCell.m */,
+				8BADD5F1274BC13A00FDDA68 /* FERechargeHeaderCell.xib */,
+				8BADD5E4274B715500FDDA68 /* FERechargeRecodeCell.h */,
+				8BADD5E5274B715500FDDA68 /* FERechargeRecodeCell.m */,
+				8BADD5D3274B484500FDDA68 /* FERechargeRecodeCell.xib */,
+				8BADD5D6274B4A1200FDDA68 /* FERechargeRecodeInfoCell.xib */,
+			);
+			path = recharge;
+			sourceTree = "<group>";
+		};
+		8BCFAC50274915AA004F9B75 /* createStore */ = {
+			isa = PBXGroup;
+			children = (
+				8BCFAC3D2748C8FD004F9B75 /* FEAddressModel.h */,
+				8BCFAC3C2748C8FD004F9B75 /* FEAddressModel.m */,
+				8B43035727455F6D00D8460B /* FECreateStoreViewController.h */,
+				8B43035827455F6D00D8460B /* FECreateStoreViewController.m */,
+				8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */,
+				8BCFAAAF2746C3B9004F9B75 /* FEStoreDetailVC.h */,
+				8BCFAAB02746C3BA004F9B75 /* FEStoreDetailVC.m */,
+				8BCFAAB12746C3BA004F9B75 /* FEStoreDetailVC.xib */,
+				8BCFAC362748C66F004F9B75 /* FESearchAddressVC.h */,
+				8BCFAC372748C66F004F9B75 /* FESearchAddressVC.m */,
+				8BCFAC382748C66F004F9B75 /* FESearchAddressVC.xib */,
+				8BCFAC43274903B7004F9B75 /* FEStoreTypeVC.h */,
+				8BCFAC44274903B7004F9B75 /* FEStoreTypeVC.m */,
+				8BCFAC45274903B7004F9B75 /* FEStoreTypeVC.xib */,
+				8BCFAA7C2746AE80004F9B75 /* FEStorePartModel.h */,
+				8BCFAA7B2746AE80004F9B75 /* FEStorePartModel.m */,
+				8BCFAC69274A9241004F9B75 /* FESearchCityVC.h */,
+				8BCFAC6A274A9242004F9B75 /* FESearchCityVC.m */,
+				8BCFAC6B274A9242004F9B75 /* FESearchCityVC.xib */,
+			);
+			path = createStore;
+			sourceTree = "<group>";
+		};
+		8BCFAC52274915BF004F9B75 /* myStore */ = {
+			isa = PBXGroup;
+			children = (
+				8BCFAC5B274919C6004F9B75 /* FEMyStoreModel.h */,
+				8BCFAC5C274919C6004F9B75 /* FEMyStoreModel.m */,
+				8BCFAC54274915E6004F9B75 /* FEStoreManagerVC.h */,
+				8BCFAC55274915E6004F9B75 /* FEStoreManagerVC.m */,
+				8BCFAC56274915E6004F9B75 /* FEStoreManagerVC.xib */,
+			);
+			path = myStore;
+			sourceTree = "<group>";
+		};
+		8BCFAC6427494D70004F9B75 /* order */ = {
+			isa = PBXGroup;
+			children = (
+				8BCFAC6627494D75004F9B75 /* createOrder */,
+				8B43017B274427A000D8460B /* orderDetail */,
+			);
+			path = order;
+			sourceTree = "<group>";
+		};
+		8BCFAC6627494D75004F9B75 /* createOrder */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = createOrder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -636,15 +829,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B368F982740F5AF00B5C1AC /* JVRefreshStateView.xib in Resources */,
+				8BCFAC3A2748C66F004F9B75 /* FESearchAddressVC.xib in Resources */,
 				8B368F9B2740F5AF00B5C1AC /* vsp_JV_loading-ios-rotate.png in Resources */,
-				8B368C00273CBA2700B5C1AC /* FEWalletVC.xib in Resources */,
+				8BCFAC4E274914C1004F9B75 /* FERechargeVC.xib in Resources */,
+				8BADD5D4274B484500FDDA68 /* FERechargeRecodeCell.xib in Resources */,
 				8B367C10272A381900B5C1AC /* LaunchScreen.storyboard in Resources */,
+				8BCFAC47274903B7004F9B75 /* FEStoreTypeVC.xib in Resources */,
+				8BCFAC58274915E6004F9B75 /* FEStoreManagerVC.xib in Resources */,
+				8BADD5F2274BC13A00FDDA68 /* FERechargeHeaderCell.xib in Resources */,
+				8BCFAC6D274A9242004F9B75 /* FESearchCityVC.xib in Resources */,
 				8B367C0D272A381900B5C1AC /* Assets.xcassets in Resources */,
 				8B368AFF273A275000B5C1AC /* FELoginVC.xib in Resources */,
 				8BCFAAB32746C3BA004F9B75 /* FEStoreDetailVC.xib in Resources */,
 				8B368AEE273A1F2500B5C1AC /* definePlist.plist in Resources */,
 				8B43035B27455F6D00D8460B /* FECreateStoreViewController.xib in Resources */,
 				8B368D82273D4C1A00B5C1AC /* menuViewContorller.xib in Resources */,
+				8BADD5D7274B4A1200FDDA68 /* FERechargeRecodeInfoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,24 +901,33 @@
 				8B368F9A2740F5AF00B5C1AC /* JVRotateView.m in Sources */,
 				8B36882F27343B7E00B5C1AC /* FEBaseViewController.m in Sources */,
 				8B368B80273ABA4100B5C1AC /* WHToastView.m in Sources */,
+				8BADD720274D3AEA00FDDA68 /* WXApiResponseHandler.m in Sources */,
 				8B43035A27455F6D00D8460B /* FECreateStoreViewController.m in Sources */,
+				8BCFAC46274903B7004F9B75 /* FEStoreTypeVC.m in Sources */,
 				8B368AA127396CFD00B5C1AC /* FEAccountManager.m in Sources */,
 				8B36883027343B7E00B5C1AC /* OpenUDID.m in Sources */,
 				8B368BD8273B9BDB00B5C1AC /* FEAccountModel.m in Sources */,
+				8BADD5DE274B67F100FDDA68 /* FERechargeRecodeModel.m in Sources */,
 				8BCFAAB22746C3BA004F9B75 /* FEStoreDetailVC.m in Sources */,
 				8B368B7F273ABA4100B5C1AC /* WHToastConfig.m in Sources */,
 				8B368AD0273A16DE00B5C1AC /* FEAESCrypt.m in Sources */,
 				8B36882A27343B7E00B5C1AC /* UIButton+BackgroundColor.m in Sources */,
-				8B368AA227396CFD00B5C1AC /* FEAddressModel.m in Sources */,
+				8BCFAC5D274919C6004F9B75 /* FEMyStoreModel.m in Sources */,
 				8B368B36273AB46C00B5C1AC /* UILabel+AttributedString.m in Sources */,
 				8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */,
 				8B368AFE273A275000B5C1AC /* FELoginVC.m in Sources */,
 				8B43FB7A2741685000D8460B /* UIFont+fe.m in Sources */,
+				8BCFAC6C274A9242004F9B75 /* FESearchCityVC.m in Sources */,
 				8B368B16273A62C500B5C1AC /* UIView+Extend.m in Sources */,
+				8BADD722274D3AEA00FDDA68 /* WXApiManager.m in Sources */,
+				8BADD721274D3AEA00FDDA68 /* WXApiRequestHandler.m in Sources */,
 				8B368AF3273A21F300B5C1AC /* NSString+Extend.m in Sources */,
-				8BCFAA7D2746AE80004F9B75 /* FEStoreModel.m in Sources */,
+				8BCFAA7D2746AE80004F9B75 /* FEStorePartModel.m in Sources */,
 				8B368B83273ABA4100B5C1AC /* FEAlertView.m in Sources */,
+				8BCFAC3E2748C8FD004F9B75 /* FEAddressModel.m in Sources */,
+				8BCFAC4D274914C1004F9B75 /* FERechargeVC.m in Sources */,
 				8B367C02272A381700B5C1AC /* AppDelegate.m in Sources */,
+				8BADD5DD274B67F100FDDA68 /* FERechargeModel.m in Sources */,
 				8B36882B27343B7E00B5C1AC /* UIButton+FEImage.m in Sources */,
 				8B368F882740BCEC00B5C1AC /* FEHttpPageManager.m in Sources */,
 				8B368F992740F5AF00B5C1AC /* JVRefreshHeaderView.m in Sources */,
@@ -733,10 +942,11 @@
 				8B368B35273AB46C00B5C1AC /* FEVerticalAlignmentLabel.m in Sources */,
 				8B368B81273ABA4100B5C1AC /* WHToast.m in Sources */,
 				8B368F822740AD6600B5C1AC /* FEHomeWorkModel.m in Sources */,
-				8B368BFF273CBA2700B5C1AC /* FEWalletVC.m in Sources */,
 				8B36882C27343B7E00B5C1AC /* UIButton+Frequentclicks.m in Sources */,
+				8BADD5E2274B70CC00FDDA68 /* FERechargeHeaderCell.m in Sources */,
 				8B368B82273ABA4100B5C1AC /* FEAlertSubView.m in Sources */,
 				8B368AE7273A182800B5C1AC /* NSData+FEBase64.m in Sources */,
+				8BADD5E6274B715500FDDA68 /* FERechargeRecodeCell.m in Sources */,
 				8B368BA3273AC8AE00B5C1AC /* NSString+FESize.m in Sources */,
 				8B367C13272A381A00B5C1AC /* main.m in Sources */,
 				8B368B06273A565400B5C1AC /* RegexKitLite.m in Sources */,
@@ -748,8 +958,10 @@
 				8B368FA32740FA4000B5C1AC /* FEEmptyView.m in Sources */,
 				8B368B33273AB46C00B5C1AC /* FELineLabel.m in Sources */,
 				8B368DD0273DFCD800B5C1AC /* FEHomeWorkView.m in Sources */,
+				8BCFAC57274915E6004F9B75 /* FEStoreManagerVC.m in Sources */,
 				8B36882D27343B7E00B5C1AC /* UIButton+EnlargeTouchArea.m in Sources */,
 				8B43017E274427BF00D8460B /* FEOrderDetailModel.m in Sources */,
+				8BCFAC392748C66F004F9B75 /* FESearchAddressVC.m in Sources */,
 				8B368AE6273A182800B5C1AC /* NSData+FECommonCrypto.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -889,14 +1101,46 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1000;
 				DISPLAY_NAME_NEW = "小鹿急送_dev";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/flashE/third/MAMap",
+				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/DateTools\"",
+					"\"${PODS_ROOT}/Headers/Public/FDFullscreenPopGesture\"",
+					"\"${PODS_ROOT}/Headers/Public/FFRouter\"",
+					"\"${PODS_ROOT}/Headers/Public/IQKeyboardManager\"",
+					"\"${PODS_ROOT}/Headers/Public/JXCategoryView\"",
+					"\"${PODS_ROOT}/Headers/Public/JXPagingView\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/MMPopupView\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/TZImagePickerController\"",
+					"\"${PODS_ROOT}/Headers/Public/ViewDeck\"",
+					"\"${PODS_ROOT}/Headers/Public/YBAttributeTextTapAction\"",
+					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
+					"\"${PODS_ROOT}/third/MAMap",
+				);
 				INFOPLIST_FILE = flashE/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/flashE/third/weichat",
+					"$(PROJECT_DIR)/flashE/third/MAMap",
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
@@ -937,6 +1181,7 @@
 					"\"SystemConfiguration\"",
 					"-framework",
 					"\"UIKit\"",
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaolu.shansong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -953,14 +1198,46 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1000;
 				DISPLAY_NAME_NEW = "小鹿急送";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/flashE/third/MAMap",
+				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/DateTools\"",
+					"\"${PODS_ROOT}/Headers/Public/FDFullscreenPopGesture\"",
+					"\"${PODS_ROOT}/Headers/Public/FFRouter\"",
+					"\"${PODS_ROOT}/Headers/Public/IQKeyboardManager\"",
+					"\"${PODS_ROOT}/Headers/Public/JXCategoryView\"",
+					"\"${PODS_ROOT}/Headers/Public/JXPagingView\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/MMPopupView\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/TZImagePickerController\"",
+					"\"${PODS_ROOT}/Headers/Public/ViewDeck\"",
+					"\"${PODS_ROOT}/Headers/Public/YBAttributeTextTapAction\"",
+					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
+					"\"${PODS_ROOT}/third/MAMap",
+				);
 				INFOPLIST_FILE = flashE/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/flashE/third/weichat",
+					"$(PROJECT_DIR)/flashE/third/MAMap",
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
@@ -1001,6 +1278,7 @@
 					"\"SystemConfiguration\"",
 					"-framework",
 					"\"UIKit\"",
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaolu.shansong;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -187,20 +187,9 @@
     NSDictionary* item = self.showArr[indexPath.row];
     NSNumber* type = item[@"type"];
     
-    switch (type.integerValue) {
-        case 1:{
-            [FFRouter routeURL:@"deckControl://changeSecen?vcType=1"];
-        }break;
-        case 2:{
-            [FFRouter routeURL:@"deckControl://changeSecen?vcType=2"];
-        }break;
-        case 3:{}break;
-        case 4:{}break;
-        case 5:{}break;
-        case 6:{}break;
-        default:
-            break;
-    }
+    NSString* url = [NSString stringWithFormat:@"deckControl://changeSecen?vcType=%d",type.integerValue];
+    [FFRouter routeURL:url];
+    
 }
 
 

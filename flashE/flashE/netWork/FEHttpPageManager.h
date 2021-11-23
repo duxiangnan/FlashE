@@ -22,14 +22,13 @@
 @interface FEHttpPageManager : NSObject
 
 @property (nonatomic, copy, readonly) NSArray   *dataArr;
-
 @property (nonatomic, strong, readonly) NSError *networkError;
 @property (nonatomic, strong, readonly) Class  itemClass;
 @property (nonatomic, copy) NSString*  resultName;
+@property (nonatomic, assign) NSInteger requestMethod;//请求方式 0：post  1:get  default 0
 
 
 @property (nonatomic, assign) NSInteger pageCurrent;
-
 @property (nonatomic, strong) NSDictionary  *wholeDict;// 整体的字典内容
 @property (nonatomic, copy) FEHTTPAPICancel cancleBlock;//cance回调
 
@@ -46,5 +45,6 @@
 - (instancetype)initWithFunctionId:(NSString *)functionId parameters:(NSDictionary *)parameters
                          itemClass:(Class)itemClass;
 
+- (void) setkeyIndex:(NSString*)key size:(NSString*)sizeKey;
 - (void)cancleCurrentRequest;
 @end

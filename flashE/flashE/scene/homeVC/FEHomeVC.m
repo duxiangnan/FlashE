@@ -23,7 +23,7 @@
 #import "JVRefresh.h"
 #import "MBP-umbrella.h"
 #import "FEHomeWorkCell.h"
-#import <YYModel/YYModel.h>
+
 
 #import <DateTools/DateTools.h>
 @interface FEHomeVC ()<JXCategoryViewDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -47,7 +47,21 @@
 @end
 
 @implementation FEHomeVC
++(void)load {
+    static NSObject* obj = nil;
+    static dispatch_once_t onceToken;
 
+    dispatch_once(&onceToken, ^{
+        obj = [[NSObject alloc] init];
+        
+    
+        [FFRouter registerObjectRouteURL:@"home://createhome" handler:^id(NSDictionary *routerParameters) {
+            FEHomeVC* vc = [[FEHomeVC alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            return vc;
+        }];
+    });
+}
 - (void)viewDidLoad {
     
     
@@ -72,12 +86,16 @@
     [self.view addSubview:self.table];
     [self.view addSubview:self.bottomView];
     self.currentType = homeWorkWaiting;
-    [self requestShowData];
+    
     @weakself(self);
     self.emptyAction = ^{
         @strongself(weakSelf);
         [strongSelf requestShowData];
     };
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self requestShowData];
 }
 - (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
@@ -118,15 +136,55 @@
 
 
 - (void)cellCommond:(FEHomeWorkOrderModel*) model type:(FEHomeWorkCommodType)type {
-    
+    @weakself(self);
+    switch (type) {
+        case FEHomeWorkCommodAddCheck:{
+            NSMutableDictionary* param = [NSMutableDictionary dictionary];
+            param[@"orderId"] = model.orderId;
+            param[@"amount"] = @(2);
+            
+            [[FEHttpManager defaultClient] POST:@"/deer/orders/createTipsOrder" parameters:param
+                                        success:^(NSInteger code, id  _Nonnull response) {
+                @strongself(weakSelf);
+                [MBProgressHUD showMessage:response[@"msg"]];
+                [strongSelf requestShowData];
+            } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+                [MBProgressHUD showMessage:error.localizedDescription];
+            } cancle:^{
+                
+            }];
+        }break;
+        case FEHomeWorkCommodRetry:{
+            
+        }break;
+        case FEHomeWorkCommodCallRider:{
+            NSString* phone = [NSString stringWithFormat:@"tel://%@",model.courierMobile];
+            [FEPublicMethods openUrlInSafari:phone];
+        }break;
+        case FEHomeWorkCommodCancel:{
+            NSMutableDictionary* param = [NSMutableDictionary dictionary];
+            param[@"orderId"] = model.orderId;
+            param[@"reason"] = @"不要配送";
+            
+            [[FEHttpManager defaultClient] POST:@"/deer/orders/cancleOrder" parameters:param
+                                        success:^(NSInteger code, id  _Nonnull response) {
+                @strongself(weakSelf);
+                NSDictionary* dic = response[@"data"];
+                FEAlertView* alter = [[FEAlertView alloc] initWithTitle:dic[@"title"] message:dic[@"cancelTips"]];
+                [alter addAction:[FEAlertAction actionWithTitle:@"知道了" style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
+                    [strongSelf requestShowData];
+                }]];
+                
+            } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+                [MBProgressHUD showMessage:error.localizedDescription];
+            } cancle:^{
+            }];
+        }
+        default:
+            break;
+    }
 };
-- (void)cellStatusFresh:(FEHomeWorkOrderModel*) model {
-    
-    
-}
-- (void)cellPhone:(FEHomeWorkOrderModel*) model{
-    
-}
+
 
 - (void) requestShowData {
     if (self.pagesManager) {
@@ -231,14 +289,6 @@
         @strongself(weakSelf);
         [strongSelf cellCommond:item type:type];
     };
-    cell.cellStatusFreshAction = ^{
-        @strongself(weakSelf);
-        [strongSelf cellStatusFresh:item];
-    };
-    cell.cellPhoneAction = ^{
-        @strongself(weakSelf);
-        [strongSelf cellPhone:item];
-    };
     return cell;
 
 }
@@ -253,7 +303,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FEHomeWorkOrderModel* item = self.model.orders[indexPath.row];
-    [FEHomeWorkCell calculationCellHeighti:item];
+    [FEHomeWorkCell calculationCellHeight:item];
     return item.workCellH;
 }
 
