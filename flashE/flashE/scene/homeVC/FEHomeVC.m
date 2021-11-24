@@ -311,6 +311,15 @@
 {
     FEHomeWorkOrderModel* item = self.model.orders[indexPath.row];
     
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    param[@"orderId"] = item.orderId;
+    param[@"actionComplate"] = ^(NSString* orderId) {
+        
+    };
+    
+    UIViewController* vc = [FFRouter routeObjectURL:@"order://createOrderDetail" withParameters:param];
+    [self.navigationController pushViewController:vc animated:YES];
+    
 //#waring 订单详情
     
     

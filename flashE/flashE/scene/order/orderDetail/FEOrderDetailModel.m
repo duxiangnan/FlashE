@@ -6,9 +6,11 @@
 @implementation FEOrderDetailModel
 
 + (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass{
-    return @{@"logistics" : [FEOrderDtailLogisticModel class], @"routes" : [FEOrderDtailRouteModel class]};
+    return @{@"logistics" : [FEOrderDtailLogisticModel class]};
 }
-
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper{
+    return @{@"ID":@"id"};
+}
 
 @end
 
@@ -18,9 +20,5 @@
 @end
 
 
-@implementation FEOrderDtailRouteModel
-
-
-@end
 
 
