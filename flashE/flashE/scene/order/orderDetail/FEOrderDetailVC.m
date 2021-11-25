@@ -12,13 +12,14 @@
 #import "FEOrderDetailLogisticsCell.h"
 #import "FEOrderDetailAddressCell.h"
 #import "FEOrderDetailInfoCell.h"
-
+#import "FEOrderDetailLinkCell.h"
 
 typedef enum : NSUInteger {
     FEOrderDetailCellHeader = 0,
     FEOrderDetailCellLogistics,
     FEOrderDetailCellAddress,
     FEOrderDetailCellInfo,
+    FEOrderDetailCellLink,//联系商家客服
     
     
 } FEOrderDetailCellType;
@@ -90,6 +91,9 @@ typedef enum : NSUInteger {
        forCellReuseIdentifier:@"FEOrderDetailAddressCell"];
     [self.table registerNib:[UINib nibWithNibName:@"FEOrderDetailInfoCell" bundle:nil]
        forCellReuseIdentifier:@"FEOrderDetailInfoCell"];
+    [self.table registerNib:[UINib nibWithNibName:@"FEOrderDetailLinkCell" bundle:nil]
+       forCellReuseIdentifier:@"FEOrderDetailLinkCell"];
+    
     
     
     @weakself(self);
@@ -111,45 +115,122 @@ typedef enum : NSUInteger {
     
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+- (void) defalutModel{
+    NSString* str = @"{\"status\": 200,\
+    \"msg\": null,\
+    \"data\": {\
+        \"orderId\": 299270617637594130,\
+        \"storeId\": \"1477\",\
+        \"storeName\": \"小鹿奶茶1\",\
+        \"fromAddress\": \"海淀区中关村软件园\",\
+        \"fromAddressDetail\": \"1号楼\",\
+        \"status\": 10,\
+        \"toAdress\": \"西二旗地铁\",\
+        \"toAdressDetail\": null,\
+        \"toUserName\": null,\
+        \"toUserMobile\": null,\
+        \"createTime\": 1628477918000,\
+        \"systemTime\": 1628391518000,\
+        \"courierName\": null,\
+        \"courierMobile\": \"18601227599\",\
+        \"appointType\": 0,\
+        \"appointDate\": 0,\
+        \"grebTime\": null,\
+        \"pickupTime\": 1628391640000,\
+        \"cancelTime\": 0,\
+        \"finishTime\": 1628391760000,\
+        \"goodName\": \"食品\",\
+        \"weight\": 1,\
+        \"fromLongitude\": \"116.411168\",\
+        \"fromLatitude\": \"40.051158\",\
+        \"toLongitude\": \"116.411268\",\
+        \"toLatitude\": \"40.051258\",\
+        \"scheduleTitle\": \"\",\
+        \"scheduleInfo\": \"\",\
+      \"tipAmount\":2.00,\
+      \"backAmount\":1.00,\
+        \"logistics\": [\
+            {\
+                \"logistic\": \"达达\",\
+                \"distance\": 211232,\
+                \"coupon\": 0,\
+                \"amount\": 1200,\
+                \"status\": 50,\
+                \"phone\": \"400-991-9512\"\
+            }\
+        ],\
+        \"routes\": [\
+            {\
+                \"name\": \"下单时间\",\
+                \"time\": \"04:19\"\
+            },\
+            {\
+                \"name\": \"接单时间\",\
+                \"time\": \"04:19\"\
+            },\
+            {\
+                \"name\": \"取件时间\",\
+                \"time\": \"04:19\"\
+            },\
+            {\
+                \"name\": \"完单时间\",\
+                \"time\": \"04:19\"\
+            }\
+        ]}}";
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary* dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    self.model = [FEOrderDetailModel yy_modelWithDictionary:dic[@"data"]];
+    [self calculataionModel];
+    
+}
 - (void) requestShowData {
-    NSMutableDictionary* param = [NSMutableDictionary dictionary];
-    param[@"orderId"] = self.orderId;
-    @weakself(self);
-    [[FEHttpManager defaultClient] GET:@"/deer/orders/getDetail" parameters:param success:^(NSInteger code, id  _Nonnull response) {
-        @strongself(weakSelf);
-        strongSelf.model = [FEOrderDetailModel yy_modelWithDictionary:response[@"data"]];
-        
-    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
-        [MBProgressHUD showMessage:error.localizedDescription];
-    } cancle:^{
-        
-    }];
+    [self performSelector:@selector(defalutModel) withObject:nil afterDelay:0.1];
+    
+    
+//
+//    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+//    param[@"orderId"] = self.orderId;
+//    @weakself(self);
+//    [[FEHttpManager defaultClient] GET:@"/deer/orders/getDetail" parameters:param success:^(NSInteger code, id  _Nonnull response) {
+//        @strongself(weakSelf);
+//        strongSelf.model = [FEOrderDetailModel yy_modelWithDictionary:response[@"data"]];
+//
+//    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+//        [MBProgressHUD showMessage:error.localizedDescription];
+//    } cancle:^{
+//
+//    }];
 }
 - (void) calculataionModel{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.cellModel = [NSMutableArray array];
+        NSMutableArray*arr = [NSMutableArray array];
         if(self.model) {
             FEOrderDetailCellModel* item = [FEOrderDetailCellModel new];
             item.type = FEOrderDetailCellHeader;
             item.cellHeight = [FEOrderDetailHeaderCell calculationCellHeight:self.model];
-            [self.cellModel addObject:item];
+            [arr addObject:item];
             
             item = [FEOrderDetailCellModel new];
             item.type = FEOrderDetailCellLogistics;
             item.cellHeight = [FEOrderDetailLogisticsCell calculationCellHeight:self.model];
-            [self.cellModel addObject:item];
+            [arr addObject:item];
             
             item = [FEOrderDetailCellModel new];
             item.type = FEOrderDetailCellAddress;
             item.cellHeight = [FEOrderDetailAddressCell calculationCellHeight:self.model];
-            [self.cellModel addObject:item];
+            [arr addObject:item];
             
             item = [FEOrderDetailCellModel new];
             item.type = FEOrderDetailCellInfo;
             item.cellHeight = [FEOrderDetailInfoCell calculationCellHeight:self.model];
-            [self.cellModel addObject:item];
+            [arr addObject:item];
+            
+            item = [FEOrderDetailCellModel new];
+            item.type = FEOrderDetailCellLink;
+            item.cellHeight = 80;
+            [arr addObject:item];
         }
+        self.cellModel = arr;
         
         dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -162,6 +243,60 @@ typedef enum : NSUInteger {
     });
     
 }
+
+
+- (void)cellCommond:(FEOrderDetailModel*) model type:(FEOrderCommondType)type {
+    @weakself(self);
+    switch (type) {
+        case FEOrderCommondAddCheck:{
+            NSMutableDictionary* param = [NSMutableDictionary dictionary];
+            param[@"orderId"] = @(model.orderId);
+            param[@"amount"] = @(2);
+            
+            [[FEHttpManager defaultClient] POST:@"/deer/orders/createTipsOrder" parameters:param
+                                        success:^(NSInteger code, id  _Nonnull response) {
+                @strongself(weakSelf);
+                [MBProgressHUD showMessage:response[@"msg"]];
+                [strongSelf requestShowData];
+            } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+                [MBProgressHUD showMessage:error.localizedDescription];
+            } cancle:^{
+                
+            }];
+        }break;
+        case FEOrderCommondRetry:{
+            
+        }break;
+        case FEOrderCommondCallRider:{
+            NSString* phone = [NSString stringWithFormat:@"tel://%@",model.courierMobile];
+            [FEPublicMethods openUrlInSafari:phone];
+        }break;
+        case FEOrderCommondCancel:{
+            NSMutableDictionary* param = [NSMutableDictionary dictionary];
+            param[@"orderId"] = @(model.orderId);
+            param[@"reason"] = @"不要配送";
+            
+            [[FEHttpManager defaultClient] POST:@"/deer/orders/cancleOrder" parameters:param
+                                        success:^(NSInteger code, id  _Nonnull response) {
+                @strongself(weakSelf);
+                NSDictionary* dic = response[@"data"];
+                FEAlertView* alter = [[FEAlertView alloc] initWithTitle:dic[@"title"] message:dic[@"cancelTips"]];
+                [alter addAction:[FEAlertAction actionWithTitle:@"知道了" style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
+                    [strongSelf requestShowData];
+                }]];
+                
+            } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+                [MBProgressHUD showMessage:error.localizedDescription];
+            } cancle:^{
+            }];
+        }
+        default:
+            break;
+    }
+};
+
+
+
 #pragma mark - tableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -171,37 +306,60 @@ typedef enum : NSUInteger {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell* tmpCell = nil;
     FEOrderDetailCellModel* item = self.cellModel[indexPath.row];
     if (item) {
         switch (item.type) {
             case FEOrderDetailCellHeader:{
                 FEOrderDetailHeaderCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FEOrderDetailHeaderCell"];
                 [cell setModel:self.model];
+                @weakself(self);
+                cell.refreshActoin = ^{
+                    @strongself(weakSelf);
+                    [strongSelf requestShowData];
+                };
+                cell.cellCommondActoin = ^(FEOrderCommondType type) {
+                    @strongself(weakSelf);
+                    [strongSelf cellCommond:self.model type:type];
+                };
+                tmpCell = cell;
             }break;
             case FEOrderDetailCellLogistics:{
                 FEOrderDetailLogisticsCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FEOrderDetailLogisticsCell"];
                 [cell setModel:self.model];
+                tmpCell = cell;
             }break;
             case FEOrderDetailCellAddress:{
                 FEOrderDetailAddressCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FEOrderDetailAddressCell"];
                 [cell setModel:self.model];
+                tmpCell = cell;
             }break;
             case FEOrderDetailCellInfo:{
                 FEOrderDetailInfoCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FEOrderDetailInfoCell"];
                 [cell setModel:self.model];
+                tmpCell = cell;
             }break;
-            default:
-                break;
+            case FEOrderDetailCellLink: {
+                FEOrderDetailLinkCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FEOrderDetailLinkCell"];
+                [cell setModel:self.model];
+                tmpCell = cell;
+            }break;
+            default:{
+                tmpCell = [tableView dequeueReusableCellWithIdentifier:@"defaultCell"];
+                if (!tmpCell) {
+                    tmpCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell"];
+                }
+            }break;
         }
     }
-    return nil;
+    return tmpCell;
 
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 1;
+    return self.cellModel.count;
 }
 
 

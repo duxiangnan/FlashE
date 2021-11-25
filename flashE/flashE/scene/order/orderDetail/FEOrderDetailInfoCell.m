@@ -37,10 +37,16 @@
 
 +(CGFloat) calculationCellHeight:(FEOrderDetailModel*)model {
     
-    return 0;
+    return 150;
 }
 - (void) setModel:(FEOrderDetailModel*)model {
     _model = model;
+    self.orderCreatTimeLB.text = [FEPublicMethods SafeString:self.model.createTimeStr];
+    self.orderQujianDateLB.text = @"";//self.model.appointType?;//0及时单；1预约单
+    self.goodWeightLB.text = [NSString stringWithFormat:@"%@/%ld公斤",self.model.goodName,(long)self.model.weight];
+    self.remarkLB.text = [FEPublicMethods SafeString:self.model.remark];
+    
+    
 }
 
 @end

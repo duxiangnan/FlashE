@@ -37,12 +37,26 @@
 
 +(CGFloat) calculationCellHeight:(FEOrderDetailModel*)model {
     
-    return 0;
+    return 150;
 }
 - (void) setModel:(FEOrderDetailModel*)model {
     _model = model;
+    
+    self.fromNameLB.text = [FEPublicMethods SafeString:model.storeName];
+    self.fromeDescLB.text = [FEPublicMethods SafeString:model.fromAddressDetail];
+    
+    
+    self.toNameLB.text = [NSString stringWithFormat:@"%@　%@",
+                              [FEPublicMethods SafeString:model.toAdress],
+                              [FEPublicMethods SafeString:model.toAdressDetail]];
+    self.toDeasLB.text = [NSString stringWithFormat:@"%@　%@",
+                              [FEPublicMethods SafeString:model.toUserName],
+                              [FEPublicMethods SafeString:model.toUserMobile]];
+    
 }
 - (IBAction)phoneAcion:(id)sender {
+    NSString* phone = [NSString stringWithFormat:@"tel://%@",self.model.toUserMobile];
+    [FEPublicMethods openUrlInSafari:phone];
 }
 
 

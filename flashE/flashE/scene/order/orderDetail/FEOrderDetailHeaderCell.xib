@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,8 +18,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9R-DS-QgF" customClass="MAMapView">
-                        <rect key="frame" x="0.0" y="0.0" width="378" height="343"/>
+                        <rect key="frame" x="0.0" y="0.0" width="378" height="339"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="339" id="zmU-g1-0ia"/>
+                        </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDO-tl-YK0">
                         <rect key="frame" x="330" y="269" width="42" height="42"/>
@@ -37,26 +39,29 @@
                         <rect key="frame" x="10" y="319" width="358" height="145"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等待骑手接单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ld-sz-Qh6">
-                                <rect key="frame" x="16" y="20" width="108" height="25.5"/>
+                                <rect key="frame" x="16" y="20" width="108" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="PYX-xl-PYB"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell_more" translatesAutoresizingMaskIntoConstraints="NO" id="P5R-rH-d7j">
-                                <rect key="frame" x="129" y="24" width="18" height="18"/>
+                                <rect key="frame" x="129" y="26" width="18" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="fuT-qN-buZ"/>
                                     <constraint firstAttribute="width" constant="18" id="hJD-4a-OvD"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在为您呼叫以下平台，请耐心等待。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cch-CD-mdd">
-                                <rect key="frame" x="16" y="45.5" width="326" height="18.5"/>
+                                <rect key="frame" x="16" y="50" width="326" height="18.5"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMJ-VQ-7Kd">
-                                <rect key="frame" x="16" y="74" width="326" height="30"/>
+                                <rect key="frame" x="16" y="78.5" width="326" height="30"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="QrD-CD-Sky"/>
@@ -92,18 +97,17 @@
                     <constraint firstAttribute="bottom" secondItem="WWZ-vI-LC1" secondAttribute="bottom" id="V8E-3I-Vvg"/>
                     <constraint firstItem="u9R-DS-QgF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="XMz-2p-7y8"/>
                     <constraint firstItem="WWZ-vI-LC1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="cy1-BA-7Dw"/>
-                    <constraint firstItem="WWZ-vI-LC1" firstAttribute="top" secondItem="u9R-DS-QgF" secondAttribute="bottom" constant="-24" id="m7A-rG-S5V"/>
                     <constraint firstItem="WWZ-vI-LC1" firstAttribute="top" secondItem="hDO-tl-YK0" secondAttribute="bottom" constant="8" id="nPD-ss-Mtc"/>
                     <constraint firstItem="u9R-DS-QgF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zh3-s8-q54"/>
                 </constraints>
             </tableViewCellContentView>
-            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
                 <outlet property="StatusDesLB" destination="Cch-CD-mdd" id="Gi7-rs-rvy"/>
                 <outlet property="bottomView" destination="WWZ-vI-LC1" id="agz-NE-A5M"/>
                 <outlet property="bottomViewH" destination="cKf-fl-V57" id="38g-BK-qVP"/>
                 <outlet property="freshBtn" destination="hDO-tl-YK0" id="5at-Sn-V1t"/>
                 <outlet property="mapView" destination="u9R-DS-QgF" id="8EC-J0-xha"/>
+                <outlet property="mapViewH" destination="zmU-g1-0ia" id="XYd-dQ-cUn"/>
                 <outlet property="statusNameLB" destination="3Ld-sz-Qh6" id="xy8-Md-EmC"/>
                 <outlet property="statusView" destination="jMJ-VQ-7Kd" id="8Wy-NK-QNF"/>
                 <outlet property="statusViewH" destination="QrD-CD-Sky" id="zOo-Iy-jm1"/>

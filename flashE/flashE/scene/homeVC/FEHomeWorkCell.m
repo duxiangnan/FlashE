@@ -157,7 +157,7 @@
         
         heigt += 15;
         //recive
-        NSString* str = [NSString stringWithFormat:@"%@%@",
+        NSString* str = [NSString stringWithFormat:@"%@　%@",
                            [FEPublicMethods SafeString:model.toAdress],
                            [FEPublicMethods SafeString:model.toAdressDetail]];
         if (str.length > 0){
@@ -165,7 +165,7 @@
             heigt += (MIN(34, ceil(size.height)));
         }
         
-        str = [NSString stringWithFormat:@"%@%@",
+        str = [NSString stringWithFormat:@"%@　%@",
                            [FEPublicMethods SafeString:model.toUserName],
                            [FEPublicMethods SafeString:model.toUserMobile]];
         if (str.length > 0){
@@ -184,14 +184,14 @@
         // 10,//待接单  20, //待取单 //配送中 //已取消 //已完成
         switch (model.status) {
             case 10:{//待接单
-                FEHomeWorkCellCommond* item = [FEHomeWorkCellCommond new];
-                item.commodType = FEHomeWorkCommodCancel;
+                FEOrderCommond* item = [FEOrderCommond new];
+                item.commodType = FEOrderCommondCancel;
                 item.commodName = @"取消订单";
                 size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
                 item.commodWidth = ceil(size.width) + 30;
                 
-                FEHomeWorkCellCommond* item1 = [FEHomeWorkCellCommond new];
-                item1.commodType = FEHomeWorkCommodAddCheck;
+                FEOrderCommond* item1 = [FEOrderCommond new];
+                item1.commodType = FEOrderCommondAddCheck;
                 item1.commodName = @"加小费";
                 size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
                 item1.commodWidth = ceil(size.width) + 30;
@@ -199,14 +199,14 @@
             }break;
             case 20:
             case 40:{//待取单
-                FEHomeWorkCellCommond* item = [FEHomeWorkCellCommond new];
-                item.commodType = FEHomeWorkCommodCancel;
+                FEOrderCommond* item = [FEOrderCommond new];
+                item.commodType = FEOrderCommondCancel;
                 item.commodName = @"取消订单";
                 size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
                 item.commodWidth = ceil(size.width) + 30;
                 
-                FEHomeWorkCellCommond* item1 = [FEHomeWorkCellCommond new];
-                item1.commodType = FEHomeWorkCommodCallRider;
+                FEOrderCommond* item1 = [FEOrderCommond new];
+                item1.commodType = FEOrderCommondCallRider;
                 item1.commodName = @"联系骑手";
                 size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
                 item1.commodWidth = ceil(size.width) + 30;
@@ -214,14 +214,14 @@
             }break;
             case 50:
             case 60:{
-                FEHomeWorkCellCommond* item = [FEHomeWorkCellCommond new];
-                item.commodType = FEHomeWorkCommodRetry;
+                FEOrderCommond* item = [FEOrderCommond new];
+                item.commodType = FEOrderCommondRetry;
                 item.commodName = @"重新发单";
                 size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
                 item.commodWidth = ceil(size.width) + 30;
                 
-                FEHomeWorkCellCommond* item1 = [FEHomeWorkCellCommond new];
-                item1.commodType = FEHomeWorkCommodCallRider;
+                FEOrderCommond* item1 = [FEOrderCommond new];
+                item1.commodType = FEOrderCommondCallRider;
                 item1.commodName = @"联系骑手";
                 size = [item.commodName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
                 item1.commodWidth = ceil(size.width) + 30;
@@ -244,10 +244,10 @@
     
     self.sendNameLB.text = model.storeName;
     
-    self.reciveNameLB.text = [NSString stringWithFormat:@"%@%@",
+    self.reciveNameLB.text = [NSString stringWithFormat:@"%@　%@",
                               [FEPublicMethods SafeString:model.toAdress],
                               [FEPublicMethods SafeString:model.toAdressDetail]];
-    self.reciveDescLB.text = [NSString stringWithFormat:@"%@%@",
+    self.reciveDescLB.text = [NSString stringWithFormat:@"%@　%@",
                               [FEPublicMethods SafeString:model.toUserName],
                               [FEPublicMethods SafeString:model.toUserMobile]];
     
@@ -260,7 +260,7 @@
     [self.commondView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     CGFloat offx = kScreenWidth - 10*2 - 16;
     CGFloat offW = offx - model.orderTimeMaxX;
-    for (FEHomeWorkCellCommond* item in model.commonds) {
+    for (FEOrderCommond* item in model.commonds) {
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:item.commodName forState:UIControlStateNormal];
         [btn setTitleColor:UIColorFromRGB(0x12B398) forState:UIControlStateNormal];

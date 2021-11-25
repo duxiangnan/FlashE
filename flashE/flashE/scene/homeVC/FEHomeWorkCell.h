@@ -6,19 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FEOrderCommond.h"
 NS_ASSUME_NONNULL_BEGIN
 @class FEHomeWorkOrderModel;
 
-typedef enum : NSUInteger {
-    FEHomeWorkCommodCancel,//取消订单
-    FEHomeWorkCommodAddCheck,//加小费
-    FEHomeWorkCommodCallRider,//联系骑手
-    FEHomeWorkCommodRetry,//重新发送
-} FEHomeWorkCommodType;
+
 @interface FEHomeWorkCell : UITableViewCell
 
-@property (nonatomic,copy) void(^cellCommondActoin)(FEHomeWorkCommodType type);
+@property (nonatomic,copy) void(^cellCommondActoin)(FEOrderCommondType type);
 
 + (void) calculationCellHeight:(FEHomeWorkOrderModel*)model;
 - (void) setModel:(FEHomeWorkOrderModel*) model;

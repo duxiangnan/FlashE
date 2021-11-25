@@ -135,10 +135,10 @@
 }
 
 
-- (void)cellCommond:(FEHomeWorkOrderModel*) model type:(FEHomeWorkCommodType)type {
+- (void)cellCommond:(FEHomeWorkOrderModel*) model type:(FEOrderCommondType)type {
     @weakself(self);
     switch (type) {
-        case FEHomeWorkCommodAddCheck:{
+        case FEOrderCommondAddCheck:{
             NSMutableDictionary* param = [NSMutableDictionary dictionary];
             param[@"orderId"] = model.orderId;
             param[@"amount"] = @(2);
@@ -154,14 +154,14 @@
                 
             }];
         }break;
-        case FEHomeWorkCommodRetry:{
+        case FEOrderCommondRetry:{
             
         }break;
-        case FEHomeWorkCommodCallRider:{
+        case FEOrderCommondCallRider:{
             NSString* phone = [NSString stringWithFormat:@"tel://%@",model.courierMobile];
             [FEPublicMethods openUrlInSafari:phone];
         }break;
-        case FEHomeWorkCommodCancel:{
+        case FEOrderCommondCancel:{
             NSMutableDictionary* param = [NSMutableDictionary dictionary];
             param[@"orderId"] = model.orderId;
             param[@"reason"] = @"不要配送";
@@ -285,7 +285,7 @@
     FEHomeWorkOrderModel* item = self.model.orders[indexPath.row];
     [cell setModel:item];
     @weakself(self);
-    cell.cellCommondActoin = ^(FEHomeWorkCommodType type) {
+    cell.cellCommondActoin = ^(FEOrderCommondType type) {
         @strongself(weakSelf);
         [strongSelf cellCommond:item type:type];
     };

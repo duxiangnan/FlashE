@@ -106,3 +106,9 @@ return shared##_classname_;\
 
 #define AppPath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
 
+
+
+#define waitServerSure @“”
+
+
+

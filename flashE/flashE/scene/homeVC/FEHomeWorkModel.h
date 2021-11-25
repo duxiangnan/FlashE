@@ -4,8 +4,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "FEOrderCommond.h"
 
-@class FEHomeWorkCountModel,FEHomeWorkOrderModel,FEHomeWorkCellCommond;
+@class FEHomeWorkCountModel,FEHomeWorkOrderModel,FEOrderCommond;
 
 @interface FEHomeWorkModel : NSObject
 
@@ -85,13 +86,8 @@
 
 @property (nonatomic, assign) CGFloat workCellH;
 @property (nonatomic, assign) CGFloat orderTimeMaxX;
-@property (nonatomic, copy) NSArray<FEHomeWorkCellCommond*>* commonds;
+@property (nonatomic, copy) NSArray<FEOrderCommond*>* commonds;
 @end
 
 
-@interface FEHomeWorkCellCommond : NSObject
-@property(nonatomic, assign) int commodType;
-@property(nonatomic, copy) NSString* commodName;
-@property(nonatomic, assign) CGFloat commodWidth;
 
-@end
