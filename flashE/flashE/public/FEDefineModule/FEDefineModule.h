@@ -18,6 +18,9 @@
 #import "FEUIView-umbrella.h"
 #import "UIButtonModule-umbrella.h"
 #import "FEUILable-umbrella.h"
+#import "NSObject+userObject.h"
+#import "UITextView+Placeholder.h"
+
 
 #import "FEPublicMethods.h"
 #import "FEAlertView.h"

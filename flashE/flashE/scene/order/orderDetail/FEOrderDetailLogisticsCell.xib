@@ -117,8 +117,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d69-0p-DFF">
-                                <rect key="frame" x="10" y="70" width="399" height="172"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d69-0p-DFF">
+                                <rect key="frame" x="16" y="70" width="387" height="172"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="KGk-i7-Jjw" id="Lkz-QE-JhU"/>
@@ -133,8 +133,8 @@
                             <constraint firstAttribute="trailing" secondItem="xj6-D3-VO7" secondAttribute="trailing" id="Gsx-6W-tKj"/>
                             <constraint firstAttribute="trailing" secondItem="Wey-W8-8FI" secondAttribute="trailing" constant="16" id="HbE-be-h0k"/>
                             <constraint firstItem="Wey-W8-8FI" firstAttribute="leading" secondItem="OjH-fo-EGt" secondAttribute="leading" constant="16" id="JhW-gX-c2c"/>
-                            <constraint firstAttribute="trailing" secondItem="d69-0p-DFF" secondAttribute="trailing" constant="10" id="PVj-ha-fjF"/>
-                            <constraint firstItem="d69-0p-DFF" firstAttribute="leading" secondItem="OjH-fo-EGt" secondAttribute="leading" constant="10" id="hTo-t4-9DS"/>
+                            <constraint firstAttribute="trailing" secondItem="d69-0p-DFF" secondAttribute="trailing" constant="16" id="PVj-ha-fjF"/>
+                            <constraint firstItem="d69-0p-DFF" firstAttribute="leading" secondItem="OjH-fo-EGt" secondAttribute="leading" constant="16" id="hTo-t4-9DS"/>
                             <constraint firstAttribute="bottom" secondItem="Wey-W8-8FI" secondAttribute="bottom" constant="20" id="j14-hL-4UZ"/>
                             <constraint firstItem="d69-0p-DFF" firstAttribute="top" secondItem="xj6-D3-VO7" secondAttribute="bottom" id="rAR-Kn-GaI"/>
                             <constraint firstItem="xj6-D3-VO7" firstAttribute="top" secondItem="OjH-fo-EGt" secondAttribute="top" constant="20" id="xzP-5B-w44"/>

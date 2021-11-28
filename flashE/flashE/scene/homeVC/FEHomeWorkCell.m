@@ -326,7 +326,7 @@
 -(UIImageView*) sendImage{
     if (!_sendImage) {
         _sendImage = [UIImageView new];
-        _sendImage.image = [UIImage imageNamed:@"home_send"];
+        _sendImage.image = [UIImage imageNamed:@"home_dian"];
     }
     return _sendImage;
 }

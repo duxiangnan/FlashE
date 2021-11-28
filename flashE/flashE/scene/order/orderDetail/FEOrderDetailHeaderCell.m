@@ -8,10 +8,10 @@
 #import "FEOrderDetailHeaderCell.h"
 #import "FEDefineModule.h"
 #import "FEOrderDetailModel.h"
-#import "FEMapAnnotationView.h"
 
+#import "FEMapView.h"
 
-@interface FEOrderDetailHeaderCell ()
+@interface FEOrderDetailHeaderCell ()<MAMapViewDelegate>
 @property (nonatomic, strong)FEOrderDetailModel* model;
 
 @property (nonatomic, weak) IBOutlet MAMapView *mapView;
@@ -40,6 +40,10 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
     
+    self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.mapView.delegate = self;
+    self.mapView.showsCompass = NO;
+    self.mapView.scaleOrigin = CGPointMake(16, kScreenHeight/3);
 }
 
 
@@ -123,6 +127,22 @@
     _model = model;
 
     self.mapView.hidden = model.orderDetailHeaderMapH == 0;
+    if (!self.mapView.hidden) {
+        CLLocationCoordinate2D locOne = CLLocationCoordinate2DMake(model.fromLatitude.doubleValue, model.fromLongitude.doubleValue);
+        NSDictionary* userInfo = @{@"image":[UIImage imageNamed:@"fe_order_map_fa"],
+                                   @"title":model.showStuseTimeStr};
+        [self addAnnotationWithCooordinate:locOne userInfo:userInfo];
+        [self.mapView setCenterCoordinate:locOne animated:YES];
+        [self.mapView setZoomLevel:12];
+        
+        
+        CLLocationCoordinate2D locTow = CLLocationCoordinate2DMake(model.toLatitude.doubleValue, model.toLongitude.doubleValue);
+        userInfo = @{@"image":[UIImage imageNamed:@"fe_order_map_1"]};
+        [self addAnnotationWithCooordinate:locTow userInfo:userInfo];
+        
+        
+        
+    }
     self.mapViewH.constant = model.orderDetailHeaderMapH;
     self.bottomViewH.constant = model.orderDetailHeaderBottomH;
     
@@ -164,6 +184,39 @@
 }
 - (void) commondActoin:(UIButton*)btn {
     !_cellCommondActoin?:_cellCommondActoin(btn.tag);
+}
+
+#pragma mark  map function
+
+-(void)addAnnotationWithCooordinate:(CLLocationCoordinate2D)coordinate userInfo:(NSDictionary*)userInfo
+{
+    MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
+    annotation.coordinate = coordinate;
+    annotation.userObject = userInfo;
+    [self.mapView addAnnotation:annotation];
+}
+
+
+
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MAPointAnnotation class]])
+    {
+        static NSString *customReuseIndetifier = @"FEMapView";
+        FEMapView *annotationView = (FEMapView*)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndetifier];
+        if (annotationView == nil)
+        {
+            annotationView = [[FEMapView alloc] initWithAnnotation:annotation reuseIdentifier:customReuseIndetifier];
+        }
+        NSDictionary* userInfo = ((NSObject*)annotation).userObject;
+        annotationView.portrait = userInfo[@"image"];
+        annotationView.name = userInfo[@"title"];
+        annotationView.centerOffset = CGPointMake(0, -annotationView.bounds.size.height/2);
+        NSLog(@"tiit %@",annotation.title);
+        return annotationView;
+    }
+    
+    return nil;
 }
 
 

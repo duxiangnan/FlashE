@@ -92,6 +92,7 @@
         [MBProgressHUD hideProgress];
         FEAccountModel* account = [FEAccountModel yy_modelWithDictionary:responseDict[@"data"]];
         account.token = @"b12fd1f16d7a0a976d4bbd0f1c90a2f3e69a6d4d79b3a0da2ca655b3df1bcf0f9cac5cbd0ddc81322f54e1b887e3a7fc7a8aa23d6fe856e0";
+        account.status = 1;
         [FEAccountManager saveIuputPin:account.mobile];
         [[FEAccountManager sharedFEAccountManager] setLoginInfo:account];
         [strongSelf stopTimer];//停止倒计时

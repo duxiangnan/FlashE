@@ -160,6 +160,8 @@ typedef struct HWTitleInfo HWTitleInfo;
 + (NSArray*) getUniversallyUA:(NSString*)webUA;
 
 //限定文本最大字长
-+ (BOOL) limitTextInput:(UITextField*) textView replacementText:(NSString *)text max:(NSInteger)limtNum;
++ (BOOL) limitTextField:(UITextField*) textView replacementText:(NSString *)text max:(NSInteger)limtNum;
+
++ (BOOL) limitTextView:(UITextView*) textView replacementText:(NSString *)text max:(NSInteger)limtNum;
 @end
 NS_ASSUME_NONNULL_END

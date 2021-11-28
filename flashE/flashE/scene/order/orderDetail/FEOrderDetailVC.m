@@ -143,7 +143,7 @@ typedef enum : NSUInteger {
         \"weight\": 1,\
         \"fromLongitude\": \"116.411168\",\
         \"fromLatitude\": \"40.051158\",\
-        \"toLongitude\": \"116.411268\",\
+        \"toLongitude\": \"116.521268\",\
         \"toLatitude\": \"40.051258\",\
         \"scheduleTitle\": \"\",\
         \"scheduleInfo\": \"\",\
@@ -244,25 +244,74 @@ typedef enum : NSUInteger {
     
 }
 
+- (void) addCheckAction:(FEOrderDetailModel*)model view:(UIView*)view{
+    UIAlertController* actionView = [UIAlertController alertControllerWithTitle:@"选择小费额度"
+                                        message:nil
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *_Nonnull action) {}]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"2元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:2];
+    }]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"5元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:5];
+    }]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"10元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:10];
+    }]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"15元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:15];
+    }]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"25元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:25];
+    }]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"50元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:50];
+    }]];
+    if (actionView.popoverPresentationController) {
 
-- (void)cellCommond:(FEOrderDetailModel*) model type:(FEOrderCommondType)type {
+        UIPopoverPresentationController *popover = actionView.popoverPresentationController;
+        popover.sourceView = view;
+        popover.sourceRect = CGRectMake(0,CGRectGetHeight(view.frame)/2,0,0);
+        popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    }
+    [self presentViewController:actionView animated:YES completion:nil];
+}
+- (void) requestAddCheck:(FEOrderDetailModel*) model check:(NSInteger) check {
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    param[@"orderId"] = @(model.orderId);
+    param[@"amount"] = @(check);
+    @weakself(self);
+    [[FEHttpManager defaultClient] POST:@"/deer/orders/createTipsOrder" parameters:param
+                                success:^(NSInteger code, id  _Nonnull response) {
+        @strongself(weakSelf);
+        [MBProgressHUD showMessage:response[@"msg"]];
+        [strongSelf requestShowData];
+    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+        [MBProgressHUD showMessage:error.localizedDescription];
+    } cancle:^{
+        
+    }];
+}
+
+- (void)cellCommond:(FEOrderDetailModel*) model type:(FEOrderCommondType)type view:(UIView*)view{
     @weakself(self);
     switch (type) {
         case FEOrderCommondAddCheck:{
-            NSMutableDictionary* param = [NSMutableDictionary dictionary];
-            param[@"orderId"] = @(model.orderId);
-            param[@"amount"] = @(2);
-            
-            [[FEHttpManager defaultClient] POST:@"/deer/orders/createTipsOrder" parameters:param
-                                        success:^(NSInteger code, id  _Nonnull response) {
-                @strongself(weakSelf);
-                [MBProgressHUD showMessage:response[@"msg"]];
-                [strongSelf requestShowData];
-            } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
-                [MBProgressHUD showMessage:error.localizedDescription];
-            } cancle:^{
-                
-            }];
+            [self addCheckAction:model view:view];
         }break;
         case FEOrderCommondRetry:{
             
@@ -320,7 +369,7 @@ typedef enum : NSUInteger {
                 };
                 cell.cellCommondActoin = ^(FEOrderCommondType type) {
                     @strongself(weakSelf);
-                    [strongSelf cellCommond:self.model type:type];
+                    [strongSelf cellCommond:self.model type:type view:cell];
                 };
                 tmpCell = cell;
             }break;

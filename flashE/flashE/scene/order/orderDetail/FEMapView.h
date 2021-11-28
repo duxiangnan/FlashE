@@ -1,5 +1,5 @@
 //
-//  FEMapAnnotationView.h
+//  FEMapView.h
 //  CustomAnnotationDemo
 //
 //  Created by songjian on 13-3-11.
@@ -7,13 +7,13 @@
 //
 
 #import <MAMapKit/MAMapKit.h>
-
-@interface FEMapAnnotationView : MAAnnotationView
+@class FEOrderDetailModel;
+@interface FEMapView : MAAnnotationView
 
 @property (nonatomic, copy) NSString *name;
 
 @property (nonatomic, strong) UIImage *portrait;
 
-@property (nonatomic, strong) UIView *calloutView;
+@property (nonatomic, strong) FEOrderDetailModel* model;
 
 @end

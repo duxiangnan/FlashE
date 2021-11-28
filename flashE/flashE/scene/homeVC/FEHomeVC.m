@@ -130,29 +130,89 @@
         [alert show];
     } else {
         //创建订单
+        @weakself(self);
+        NSMutableDictionary* arg = [NSMutableDictionary dictionary];
+        arg[@"actionComplate"] = ^(NSString* orderId) {
+            @strongself(weakSelf);
+            [strongSelf requestShowData];
+        };
+        FEBaseViewController* vc = [FFRouter routeObjectURL:@"order://createOrder" withParameters:arg];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        
     }
     
 }
+- (void) addCheckAction:(FEHomeWorkOrderModel*)model view:(UIView*)view{
+    UIAlertController* actionView = [UIAlertController alertControllerWithTitle:@"选择小费额度"
+                                        message:nil
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *_Nonnull action) {}]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"2元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:2];
+    }]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"5元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:5];
+    }]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"10元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:10];
+    }]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"15元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:15];
+    }]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"25元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:25];
+    }]];
+    [actionView addAction:[UIAlertAction actionWithTitle:@"50元"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *_Nonnull action) {
+        [self requestAddCheck:model check:50];
+    }]];
+    if (actionView.popoverPresentationController) {
 
-
-- (void)cellCommond:(FEHomeWorkOrderModel*) model type:(FEOrderCommondType)type {
+        UIPopoverPresentationController *popover = actionView.popoverPresentationController;
+        popover.sourceView = view;
+        popover.sourceRect = CGRectMake(0,CGRectGetHeight(view.frame)/2,0,0);
+        popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    }
+    [self presentViewController:actionView animated:YES completion:nil];
+    
+//    2，5，10，15，25，50
+}
+- (void) requestAddCheck:(FEHomeWorkOrderModel*) model check:(NSInteger) check {
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    param[@"orderId"] = model.orderId;
+    param[@"amount"] = @(check);
+    @weakself(self);
+    [[FEHttpManager defaultClient] POST:@"/deer/orders/createTipsOrder" parameters:param
+                                success:^(NSInteger code, id  _Nonnull response) {
+        @strongself(weakSelf);
+        [MBProgressHUD showMessage:response[@"msg"]];
+        [strongSelf requestShowData];
+    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+        [MBProgressHUD showMessage:error.localizedDescription];
+    } cancle:^{
+        
+    }];
+}
+- (void)cellCommond:(FEHomeWorkOrderModel*) model type:(FEOrderCommondType)type view:(UIView*)view {
     @weakself(self);
     switch (type) {
         case FEOrderCommondAddCheck:{
-            NSMutableDictionary* param = [NSMutableDictionary dictionary];
-            param[@"orderId"] = model.orderId;
-            param[@"amount"] = @(2);
+            [self addCheckAction:model view:view];
             
-            [[FEHttpManager defaultClient] POST:@"/deer/orders/createTipsOrder" parameters:param
-                                        success:^(NSInteger code, id  _Nonnull response) {
-                @strongself(weakSelf);
-                [MBProgressHUD showMessage:response[@"msg"]];
-                [strongSelf requestShowData];
-            } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
-                [MBProgressHUD showMessage:error.localizedDescription];
-            } cancle:^{
-                
-            }];
         }break;
         case FEOrderCommondRetry:{
             
@@ -287,7 +347,7 @@
     @weakself(self);
     cell.cellCommondActoin = ^(FEOrderCommondType type) {
         @strongself(weakSelf);
-        [strongSelf cellCommond:item type:type];
+        [strongSelf cellCommond:item type:type view:cell];
     };
     return cell;
 
@@ -313,8 +373,10 @@
     
     NSMutableDictionary* param = [NSMutableDictionary dictionary];
     param[@"orderId"] = item.orderId;
+    @weakself(self);
     param[@"actionComplate"] = ^(NSString* orderId) {
-        
+        @strongself(weakSelf);
+        [strongSelf requestShowData];
     };
     
     UIViewController* vc = [FFRouter routeObjectURL:@"order://createOrderDetail" withParameters:param];

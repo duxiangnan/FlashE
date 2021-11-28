@@ -148,7 +148,22 @@
 @end
 
 @implementation FESearchAddressVC
++(void)load {
+    static NSObject* obj = nil;
+    static dispatch_once_t onceToken;
 
+    dispatch_once(&onceToken, ^{
+        obj = [[NSObject alloc] init];
+        
+    
+        [FFRouter registerObjectRouteURL:@"store://createSearchAddress" handler:^id(NSDictionary *routerParameters) {
+            FESearchAddressVC* vc = [[FESearchAddressVC alloc] initWithNibName:@"FESearchAddressVC" bundle:nil];
+            vc.selectedAction = routerParameters[@"selectedAction"];
+            vc.hidesBottomBarWhenPushed = YES;
+            return vc;
+        }];
+    });
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.fd_prefersNavigationBarHidden = YES;

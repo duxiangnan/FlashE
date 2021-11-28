@@ -228,10 +228,10 @@
     
     
 - (void) gotoSearchAddress{
-    FESearchAddressVC* vc = [[FESearchAddressVC alloc] initWithNibName:@"FESearchAddressVC" bundle:nil];
-    vc.hidesBottomBarWhenPushed = YES;
+    
+    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
     @weakself(self);
-    vc.selectedAction = ^(FEAddressModel * _Nonnull model , NSDictionary* city) {
+    arg[@"selectedAction"] = ^(FEAddressModel * _Nonnull model , NSDictionary* city) {
         @strongself(weakSelf);
         if(model.name.length > 0 && model.address.length>0){
             strongSelf.dianNameLB.text = model.name;
@@ -244,10 +244,10 @@
             strongSelf.inputModel.latitude = model.latitude;
             strongSelf.inputModel.cityName = model.cityname;
             strongSelf.inputModel.cityId = ((NSNumber*)city[@"code"]).integerValue;
-            
         }
         
     };
+    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://createSearchAddress" withParameters:arg];
     [self.navigationController pushViewController:vc animated:YES];
 
 }
@@ -371,10 +371,10 @@
     }
     
     if (textField == self.dianNameTF) {
-        return [FEPublicMethods limitTextInput:textField replacementText:string max:50 ];
+        return [FEPublicMethods limitTextField:textField replacementText:string max:50 ];
     }
     if (textField == self.dianPhoneTF) {
-        return [FEPublicMethods limitTextInput:textField replacementText:string max:11];
+        return [FEPublicMethods limitTextField:textField replacementText:string max:11];
     }
     
     return YES;
