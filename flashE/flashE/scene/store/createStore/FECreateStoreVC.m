@@ -1,11 +1,11 @@
 //
-//  FECreateStoreViewController.m
+//  FECreateStoreVC.m
 //  flashE
 //
 //  Created by duxiangnan on 2021/11/18.
 //
 
-#import "FECreateStoreViewController.h"
+#import "FECreateStoreVC.h"
 #import "FEDefineModule.h"
 #import "FEStorePartModel.h"
 #import <Photos/PHPhotoLibrary.h>
@@ -15,7 +15,7 @@
 #import "FESearchAddressVC.h"
 #import "FEStoreTypeVC.h"
 
-@interface FECreateStoreViewController ()
+@interface FECreateStoreVC ()
 @property (nonatomic, strong) FEStorePartModel* inputModel;
 
 @property (nonatomic, weak) IBOutlet UIScrollView* scrollView;
@@ -65,7 +65,7 @@
 @property (nonatomic, strong) FEStoreTypeVC* typeVC;//店铺类型模型
 @end
 
-@implementation FECreateStoreViewController
+@implementation FECreateStoreVC
 +(void)load {
     static NSObject* obj = nil;
     static dispatch_once_t onceToken;
@@ -75,7 +75,8 @@
         
     
         [FFRouter registerObjectRouteURL:@"store://createStore" handler:^id(NSDictionary *routerParameters) {
-            FECreateStoreViewController* vc = [[FECreateStoreViewController alloc] initWithNibName:@"FECreateStoreViewController" bundle:nil];
+            FECreateStoreVC* vc = [[FECreateStoreVC alloc] initWithNibName:@"FECreateStoreVC" bundle:nil];
+            vc.createComplate = routerParameters[@"createComplate"];
             vc.hidesBottomBarWhenPushed = YES;
             return vc;
         }];
@@ -304,10 +305,12 @@
     {
         @strongself(weakSelf);
         [MBProgressHUD hideProgressOnView:strongSelf.view];
-        NSDictionary* dic = ((NSDictionary*)response)[@"data"];
-        FEStorePartModel* mode = [FEStorePartModel yy_modelWithDictionary:dic];
-        self.inputModel.ID = mode.ID;
-        [FFRouter routeObjectURL:@"store://storeDetail" withParameters:@{@"ID":@(mode.ID)}];
+//        NSDictionary* dic = ((NSDictionary*)response)[@"data"];
+//        FEStorePartModel* mode = [FEStorePartModel yy_modelWithDictionary:dic];
+//        self.inputModel.ID = mode.ID;
+//        [FFRouter routeObjectURL:@"store://storeDetail" withParameters:@{@"ID":@(mode.ID)}];
+        
+        !strongSelf.createComplate?:strongSelf.createComplate();
         
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
         @strongself(weakSelf);

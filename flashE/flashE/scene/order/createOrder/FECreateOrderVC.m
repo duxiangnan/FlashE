@@ -436,6 +436,7 @@
         _remarkVC.remarkAction = ^(NSString * _Nonnull remark) {
             @strongself(weakSelf);
             strongSelf.model.remark = remark;
+            strongSelf.remarkLB.text = remark;
         };
     }
     return _remarkVC;

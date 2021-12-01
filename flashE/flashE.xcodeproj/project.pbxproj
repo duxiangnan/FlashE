@@ -62,8 +62,8 @@
 		8B368F9D2740F5AF00B5C1AC /* JVRefreshStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368F952740F5AE00B5C1AC /* JVRefreshStateView.m */; };
 		8B368FA32740FA4000B5C1AC /* FEEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */; };
 		8B43017E274427BF00D8460B /* FEOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43017C274427BE00D8460B /* FEOrderDetailModel.m */; };
-		8B43035A27455F6D00D8460B /* FECreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43035827455F6D00D8460B /* FECreateStoreViewController.m */; };
-		8B43035B27455F6D00D8460B /* FECreateStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */; };
+		8B43035A27455F6D00D8460B /* FECreateStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43035827455F6D00D8460B /* FECreateStoreVC.m */; };
+		8B43035B27455F6D00D8460B /* FECreateStoreVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B43035927455F6D00D8460B /* FECreateStoreVC.xib */; };
 		8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB742741540600D8460B /* FEHomeWorkCell.m */; };
 		8B43FB7A2741685000D8460B /* UIFont+fe.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB792741685000D8460B /* UIFont+fe.m */; };
 		8B664D5D2753ADD200583D3E /* FECreateOrderStoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B664D5B2753ADD200583D3E /* FECreateOrderStoreCell.m */; };
@@ -74,6 +74,8 @@
 		8B664D6E2753C1B500583D3E /* FECreateOrderReciveAddressInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B664D6C2753C1B500583D3E /* FECreateOrderReciveAddressInfoVC.m */; };
 		8B664D6F2753C1B500583D3E /* FECreateOrderReciveAddressInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B664D6D2753C1B500583D3E /* FECreateOrderReciveAddressInfoVC.xib */; };
 		8B664D732753C22B00583D3E /* FEReciverAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B664D722753C22B00583D3E /* FEReciverAddressModel.m */; };
+		8B6F5D15275535FD009B7606 /* FEStoreDetailCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F5D14275535FD009B7606 /* FEStoreDetailCellView.m */; };
+		8B6F5D19275537A7009B7606 /* FEStoreDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F5D17275537A7009B7606 /* FEStoreDetailModel.m */; };
 		8B7A711F274F6FCE003CF41C /* FEOrderDetailLogisticsItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B7A711E274F6FCE003CF41C /* FEOrderDetailLogisticsItemCell.xib */; };
 		8B7A7123274FF221003CF41C /* FEOrderCommond.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A7122274FF221003CF41C /* FEOrderCommond.m */; };
 		8B7A712827500BF8003CF41C /* FEOrderDetailLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A712627500BF8003CF41C /* FEOrderDetailLinkCell.m */; };
@@ -247,9 +249,9 @@
 		8B368FA22740FA3F00B5C1AC /* FEEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEEmptyView.m; sourceTree = "<group>"; };
 		8B43017C274427BE00D8460B /* FEOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEOrderDetailModel.m; sourceTree = "<group>"; };
 		8B43017D274427BE00D8460B /* FEOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEOrderDetailModel.h; sourceTree = "<group>"; };
-		8B43035727455F6D00D8460B /* FECreateStoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FECreateStoreViewController.h; sourceTree = "<group>"; };
-		8B43035827455F6D00D8460B /* FECreateStoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FECreateStoreViewController.m; sourceTree = "<group>"; };
-		8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FECreateStoreViewController.xib; sourceTree = "<group>"; };
+		8B43035727455F6D00D8460B /* FECreateStoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FECreateStoreVC.h; sourceTree = "<group>"; };
+		8B43035827455F6D00D8460B /* FECreateStoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FECreateStoreVC.m; sourceTree = "<group>"; };
+		8B43035927455F6D00D8460B /* FECreateStoreVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FECreateStoreVC.xib; sourceTree = "<group>"; };
 		8B43FB732741540600D8460B /* FEHomeWorkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEHomeWorkCell.h; sourceTree = "<group>"; };
 		8B43FB742741540600D8460B /* FEHomeWorkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkCell.m; sourceTree = "<group>"; };
 		8B43FB782741685000D8460B /* UIFont+fe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+fe.h"; sourceTree = "<group>"; };
@@ -267,6 +269,10 @@
 		8B664D6D2753C1B500583D3E /* FECreateOrderReciveAddressInfoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FECreateOrderReciveAddressInfoVC.xib; sourceTree = "<group>"; };
 		8B664D712753C22B00583D3E /* FEReciverAddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEReciverAddressModel.h; sourceTree = "<group>"; };
 		8B664D722753C22B00583D3E /* FEReciverAddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEReciverAddressModel.m; sourceTree = "<group>"; };
+		8B6F5D13275535FD009B7606 /* FEStoreDetailCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEStoreDetailCellView.h; sourceTree = "<group>"; };
+		8B6F5D14275535FD009B7606 /* FEStoreDetailCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEStoreDetailCellView.m; sourceTree = "<group>"; };
+		8B6F5D17275537A7009B7606 /* FEStoreDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEStoreDetailModel.m; sourceTree = "<group>"; };
+		8B6F5D18275537A7009B7606 /* FEStoreDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEStoreDetailModel.h; sourceTree = "<group>"; };
 		8B7A711E274F6FCE003CF41C /* FEOrderDetailLogisticsItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEOrderDetailLogisticsItemCell.xib; sourceTree = "<group>"; };
 		8B7A7121274FF221003CF41C /* FEOrderCommond.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEOrderCommond.h; sourceTree = "<group>"; };
 		8B7A7122274FF221003CF41C /* FEOrderCommond.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEOrderCommond.m; sourceTree = "<group>"; };
@@ -841,9 +847,9 @@
 			children = (
 				8BCFAC3D2748C8FD004F9B75 /* FEAddressModel.h */,
 				8BCFAC3C2748C8FD004F9B75 /* FEAddressModel.m */,
-				8B43035727455F6D00D8460B /* FECreateStoreViewController.h */,
-				8B43035827455F6D00D8460B /* FECreateStoreViewController.m */,
-				8B43035927455F6D00D8460B /* FECreateStoreViewController.xib */,
+				8B43035727455F6D00D8460B /* FECreateStoreVC.h */,
+				8B43035827455F6D00D8460B /* FECreateStoreVC.m */,
+				8B43035927455F6D00D8460B /* FECreateStoreVC.xib */,
 				8BCFAAAF2746C3B9004F9B75 /* FEStoreDetailVC.h */,
 				8BCFAAB02746C3BA004F9B75 /* FEStoreDetailVC.m */,
 				8BCFAAB12746C3BA004F9B75 /* FEStoreDetailVC.xib */,
@@ -858,6 +864,10 @@
 				8BCFAC69274A9241004F9B75 /* FESearchCityVC.h */,
 				8BCFAC6A274A9242004F9B75 /* FESearchCityVC.m */,
 				8BCFAC6B274A9242004F9B75 /* FESearchCityVC.xib */,
+				8B6F5D13275535FD009B7606 /* FEStoreDetailCellView.h */,
+				8B6F5D14275535FD009B7606 /* FEStoreDetailCellView.m */,
+				8B6F5D18275537A7009B7606 /* FEStoreDetailModel.h */,
+				8B6F5D17275537A7009B7606 /* FEStoreDetailModel.m */,
 			);
 			path = createStore;
 			sourceTree = "<group>";
@@ -991,7 +1001,7 @@
 				8B7A712927500BF8003CF41C /* FEOrderDetailLinkCell.xib in Resources */,
 				8B368AEE273A1F2500B5C1AC /* definePlist.plist in Resources */,
 				8BA1CD1927536981004D3C35 /* FEWeightSettingView.xib in Resources */,
-				8B43035B27455F6D00D8460B /* FECreateStoreViewController.xib in Resources */,
+				8B43035B27455F6D00D8460B /* FECreateStoreVC.xib in Resources */,
 				8BADD97A274E9D1200FDDA68 /* FEOrderDetailAddressCell.xib in Resources */,
 				8B368D82273D4C1A00B5C1AC /* menuViewContorller.xib in Resources */,
 				8BADD5D7274B4A1200FDDA68 /* FERechargeRecodeInfoCell.xib in Resources */,
@@ -1057,7 +1067,8 @@
 				8B368B80273ABA4100B5C1AC /* WHToastView.m in Sources */,
 				8BADD965274E8E2200FDDA68 /* FEOrderDetailVC.m in Sources */,
 				8BADD720274D3AEA00FDDA68 /* WXApiResponseHandler.m in Sources */,
-				8B43035A27455F6D00D8460B /* FECreateStoreViewController.m in Sources */,
+				8B43035A27455F6D00D8460B /* FECreateStoreVC.m in Sources */,
+				8B6F5D19275537A7009B7606 /* FEStoreDetailModel.m in Sources */,
 				8BCFAC46274903B7004F9B75 /* FEStoreTypeVC.m in Sources */,
 				8B368AA127396CFD00B5C1AC /* FEAccountManager.m in Sources */,
 				8B36883027343B7E00B5C1AC /* OpenUDID.m in Sources */,
@@ -1114,6 +1125,7 @@
 				8B368B82273ABA4100B5C1AC /* FEAlertSubView.m in Sources */,
 				8B368AE7273A182800B5C1AC /* NSData+FEBase64.m in Sources */,
 				8BADD5E6274B715500FDDA68 /* FERechargeRecodeCell.m in Sources */,
+				8B6F5D15275535FD009B7606 /* FEStoreDetailCellView.m in Sources */,
 				8B368BA3273AC8AE00B5C1AC /* NSString+FESize.m in Sources */,
 				8B367C13272A381A00B5C1AC /* main.m in Sources */,
 				8B664D6E2753C1B500583D3E /* FECreateOrderReciveAddressInfoVC.m in Sources */,

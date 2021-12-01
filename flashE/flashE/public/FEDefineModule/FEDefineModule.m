@@ -68,9 +68,6 @@
     NSDictionary* param = [[NSUserDefaults standardUserDefaults] objectForKey:[FEDefineModule baseUrlKey]];
    return [param objectForKey:@"VSP_BASE_SERVER_URL"];
 }
-+ (NSString *)VSPCookieDomain{
-    NSDictionary* param = [[NSUserDefaults standardUserDefaults] objectForKey:[FEDefineModule baseUrlKey]];
-    return [param objectForKey:@"VSPCookieDomain"];
-}
+
 
 @end

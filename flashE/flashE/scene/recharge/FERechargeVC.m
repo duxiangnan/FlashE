@@ -113,7 +113,7 @@
     param[@"amount"] = @(item.amount);
     
     
-    [[FEHttpManager defaultClient] POST:@"//deer/recharge/userRecharge" parameters:nil
+    [[FEHttpManager defaultClient] POST:@"/deer/recharge/userRecharge" parameters:param
                                success:^(NSInteger code, id  _Nonnull response) {
         @strongself(weakSelf);
         NSDictionary* dic = response[@"data"];

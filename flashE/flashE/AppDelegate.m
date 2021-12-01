@@ -14,7 +14,9 @@
 #import "FEHomeVC.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <FFRouter/FFRouter.h>
-//#import "FEDefineModule.h"
+#import "FEDefineModule.h"
+
+
 
 #import "WXApiManager.h"
 
@@ -33,7 +35,7 @@ static NSString* UNIVERSAL_LINK = @"";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     
-//    [FEDefineModule setDebug_mode:@"1"];
+    [FEDefineModule setDebug_mode:@"1"];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;

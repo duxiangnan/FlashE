@@ -100,7 +100,7 @@ return shared##_classname_;\
 
 #define k_Height_NavBar_WhenHidden(hidden) (KIsPhoneSeries ? (hidden ? 44.0 : 88.0) : (hidden ? 20.0 : 64.0))
 
-#define AppDelegate [[UIApplication sharedApplication] delegate]
+#define MyAppDelegate [[UIApplication sharedApplication] delegate]
 
 #define FE_WINDOW [[[UIApplication sharedApplication] delegate] window]
 

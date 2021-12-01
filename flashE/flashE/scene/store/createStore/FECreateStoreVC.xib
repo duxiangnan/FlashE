@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FECreateStoreViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FECreateStoreVC">
             <connections>
                 <outlet property="cell0H" destination="EoI-aH-jxm" id="GFc-N8-NsT"/>
                 <outlet property="cell0T" destination="3rL-Ih-1IU" id="7ZI-bJ-bZ6"/>

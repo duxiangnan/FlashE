@@ -38,6 +38,7 @@ NSInteger FECreateOrderRemarkMax = 120;
 - (IBAction)submitAction:(id)sender {
     [self.view endEditing:YES];
     !self.remarkAction?:self.remarkAction(self.textView.text);
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 -(void) setRemark:(NSString *)remark {
@@ -53,7 +54,7 @@ NSInteger FECreateOrderRemarkMax = 120;
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     
-    self.leftNumLB.text = [NSString stringWithFormat:@"%lu", (unsigned long)textView.text.length];
+    self.leftNumLB.text = [NSString stringWithFormat:@"%lu",FECreateOrderRemarkMax-textView.text.length];
 }
 
 - (void)textViewDidChangeText:(NSNotification *)notification {

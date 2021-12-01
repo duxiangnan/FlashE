@@ -31,7 +31,7 @@
 #import <YYModel/YYModel.h>
 #import <Masonry/Masonry.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
-
+#import <SDWebImage/SDWebImage.h>
 #import "FEAccountManager.h"
 
 #define KDEBUGMODE @"debug_mode"
@@ -45,7 +45,6 @@
 + (NSString *)VSP_MD5_KEY;
 //baseUrl
 + (NSString *)VSP_BASE_SERVER_URL;
-+ (NSString *)VSPCookieDomain;
 
 
 

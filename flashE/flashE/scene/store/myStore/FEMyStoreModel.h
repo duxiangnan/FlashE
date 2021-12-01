@@ -36,7 +36,7 @@
 
 
 
-@property (nonatomic, strong) NSArray *logistics;
+@property (nonatomic, strong) NSArray<FELogisticsModel*> *logistics;
 
 
 
