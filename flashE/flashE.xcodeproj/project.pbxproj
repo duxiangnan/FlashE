@@ -66,6 +66,7 @@
 		8B43035B27455F6D00D8460B /* FECreateStoreVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B43035927455F6D00D8460B /* FECreateStoreVC.xib */; };
 		8B43FB752741540600D8460B /* FEHomeWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB742741540600D8460B /* FEHomeWorkCell.m */; };
 		8B43FB7A2741685000D8460B /* UIFont+fe.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B43FB792741685000D8460B /* UIFont+fe.m */; };
+		8B44BAD4275926C9005E81C9 /* FEStoreCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B44BAD3275926C9005E81C9 /* FEStoreCityModel.m */; };
 		8B664D5D2753ADD200583D3E /* FECreateOrderStoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B664D5B2753ADD200583D3E /* FECreateOrderStoreCell.m */; };
 		8B664D5E2753ADD200583D3E /* FECreateOrderStoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B664D5C2753ADD200583D3E /* FECreateOrderStoreCell.xib */; };
 		8B664D632753B88600583D3E /* FECreateOrderRemarkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B664D612753B88600583D3E /* FECreateOrderRemarkVC.m */; };
@@ -256,6 +257,8 @@
 		8B43FB742741540600D8460B /* FEHomeWorkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEHomeWorkCell.m; sourceTree = "<group>"; };
 		8B43FB782741685000D8460B /* UIFont+fe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+fe.h"; sourceTree = "<group>"; };
 		8B43FB792741685000D8460B /* UIFont+fe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+fe.m"; sourceTree = "<group>"; };
+		8B44BAD2275926C9005E81C9 /* FEStoreCityModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEStoreCityModel.h; sourceTree = "<group>"; };
+		8B44BAD3275926C9005E81C9 /* FEStoreCityModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEStoreCityModel.m; sourceTree = "<group>"; };
 		8B664D5A2753ADD200583D3E /* FECreateOrderStoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FECreateOrderStoreCell.h; sourceTree = "<group>"; };
 		8B664D5B2753ADD200583D3E /* FECreateOrderStoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FECreateOrderStoreCell.m; sourceTree = "<group>"; };
 		8B664D5C2753ADD200583D3E /* FECreateOrderStoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FECreateOrderStoreCell.xib; sourceTree = "<group>"; };
@@ -868,6 +871,8 @@
 				8B6F5D14275535FD009B7606 /* FEStoreDetailCellView.m */,
 				8B6F5D18275537A7009B7606 /* FEStoreDetailModel.h */,
 				8B6F5D17275537A7009B7606 /* FEStoreDetailModel.m */,
+				8B44BAD2275926C9005E81C9 /* FEStoreCityModel.h */,
+				8B44BAD3275926C9005E81C9 /* FEStoreCityModel.m */,
 			);
 			path = createStore;
 			sourceTree = "<group>";
@@ -1117,6 +1122,7 @@
 				8B368B34273AB46C00B5C1AC /* FECanCopyLabel.m in Sources */,
 				8B368B35273AB46C00B5C1AC /* FEVerticalAlignmentLabel.m in Sources */,
 				8B368B81273ABA4100B5C1AC /* WHToast.m in Sources */,
+				8B44BAD4275926C9005E81C9 /* FEStoreCityModel.m in Sources */,
 				8BADD96B274E9B2900FDDA68 /* FEOrderDetailHeaderCell.m in Sources */,
 				8BADD973274E9CED00FDDA68 /* FEOrderDetailLogisticsCell.m in Sources */,
 				8B368F822740AD6600B5C1AC /* FEHomeWorkModel.m in Sources */,

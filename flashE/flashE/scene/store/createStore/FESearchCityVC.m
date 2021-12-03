@@ -9,13 +9,13 @@
 
 #import "FEDefineModule.h"
 #import "FEHttpPageManager.h"
+#import "FEStoreCityModel.h"
 
 
 @interface FESearchCityCell : UITableViewCell
-@property (nonatomic,strong) NSDictionary* model;
+@property (nonatomic,strong) FEStoreCityItemModel* model;
 @property (nonatomic, strong) UILabel* name;
 
-- (void) setModel:(NSDictionary*) model search:(NSString*)key;
 @end
 @implementation FESearchCityCell
 
@@ -26,7 +26,7 @@
     if (self) {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColor.whiteColor;
         
         [self.contentView addSubview:self.name];
     }
@@ -40,10 +40,10 @@
         make.right.equalTo(self.contentView.mas_right).offset(-16);
     }];
 }
-- (void) setModel:(NSDictionary*) model{
+- (void) setModel:(FEStoreCityItemModel*) model{
     _model = model;
     
-    self.name.text = [FEPublicMethods SafeString:model[@"name"]];
+    self.name.text = [FEPublicMethods SafeString:model.name];
     
 }
 
@@ -51,7 +51,7 @@
 - (UILabel*) name {
     if (!_name) {
         _name = [[UILabel alloc] init];
-        _name.font = [UIFont regularFont:12];
+        _name.font = [UIFont regularFont:14];
         _name.textColor = UIColorFromRGB(0x333333);
     }
     return _name;
@@ -69,7 +69,6 @@
 @property (nonatomic, strong) NSString* searchKey;
 @property (nonatomic,copy) NSArray<NSDictionary*>* list;
 @property (nonatomic,copy) NSArray<NSDictionary*>* showList;
-@property (nonatomic,strong) FEHttpPageManager* pagesManager;
 
 @end
 
@@ -100,107 +99,69 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    self.emptyFrame = self.table.frame;
+}
 - (IBAction)cancleAvtion:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void) requestShowData {
-//    if (self.searchTF.text.length == 0) {
-//        [MBProgressHUD showMessage:@"先输入搜索关键字"];
-//        return;
-//    }
-    if (self.pagesManager) {
-        [self.pagesManager cancleCurrentRequest];
-        self.pagesManager = nil;
-    }
+    
     NSMutableDictionary* param = [NSMutableDictionary dictionary];
     param[@"name"] = [FEPublicMethods SafeString:self.searchKey];
     
-    self.pagesManager = [[FEHttpPageManager alloc] initWithFunctionId:@"/deer/address/queryCity"
-                                                           parameters:param
-                                                            itemClass:nil];
-    [self.pagesManager setkeyIndex:@"index" size:@"pageSize"];
-
-    self.pagesManager.resultName = @"data";
-    self.pagesManager.requestMethod = 1;
+    
     @weakself(self);
-
-    void (^loadMore)(void) = ^{
+    [[FEHttpManager defaultClient] GET:@"/deer/address/queryCity"
+                            parameters:param
+                               success:^(NSInteger code, id  _Nonnull response) {
         @strongself(weakSelf);
-        if (strongSelf.pagesManager.hasMore) {
-            [strongSelf.pagesManager fetchMoreData:^{
-                strongSelf.list = strongSelf.pagesManager.dataArr;
-                if ([strongSelf.pagesManager hasMore]) {
-                    [strongSelf.table.mj_footer endRefreshing];
-                } else {
-                    [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
-                }
-                [strongSelf filtCitys];
-                [strongSelf.table reloadData];
-                if (strongSelf.pagesManager.networkError) {
-                    [MBProgressHUD showMessage:strongSelf.pagesManager.networkError.localizedDescription];
-                }
+        NSDictionary* data = response[@"data"];
+        NSArray* keys = data.allKeys;
+//        if(keys.count>0){
+            keys =  [keys sortedArrayUsingComparator:^NSComparisonResult(NSString* obj1, NSString* obj2) {
+                return [obj1 compare:obj2]; // 升序
             }];
+//        }
+        NSMutableArray* tmp = [NSMutableArray array];
+        for (int i = 0; i<keys.count;i++) {
+            NSArray* items = data[keys[i]];
+
+            NSArray* citys = [NSArray yy_modelArrayWithClass:[FEStoreCityItemModel class] json:items];
+            FEStoreCityModel* model = [FEStoreCityModel new];
+            model.key = keys[i];
+            model.citys = citys;
+            [tmp addObject:model];
         }
-    };
-
-    void (^loadFirstPage)(void) = ^{
+        strongSelf.list = tmp;
+        [strongSelf.table reloadData];
+        if (strongSelf.list.count == 0) {
+            [strongSelf showEmptyViewWithType:YES];
+        } else{
+            [strongSelf hiddenEmptyView];
+        }
+    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+    
         @strongself(weakSelf);
-        [strongSelf hiddenEmptyView];
-        [strongSelf.pagesManager fetchData:^{
-            
-            strongSelf.list = strongSelf.pagesManager.dataArr;
-            
-            if (strongSelf.pagesManager.hasMore) {
-                strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
-                                                                           noMoreDataString:@"没有更多数据"];
-                [strongSelf.table.mj_header endRefreshing];
-            } else {
-                [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
-            }
-            [strongSelf filtCitys];
-            [strongSelf.table reloadData];
-            if (strongSelf.pagesManager.networkError) {
-                [MBProgressHUD showMessage:weakSelf.pagesManager.networkError.localizedDescription];
+        [MBProgressHUD showMessage:error.localizedDescription];
+        if (strongSelf.list.count == 0) {
+            [strongSelf showEmptyViewWithType:NO];
+        } else{
+            [strongSelf hiddenEmptyView];
+        }
+    } cancle:^{
+        
+    }];
 
-                if ([strongSelf.list count] <= 0) {
-                    [strongSelf showEmptyViewWithType:NO];
-                }
-            } else if (strongSelf.list.count == 0) {
-                [strongSelf showEmptyViewWithType:YES];
-            }
-        }];
-    };
-
-    self.table.mj_header = [JVRefreshHeaderView headerWithRefreshingBlock:loadFirstPage];
-    loadFirstPage();
-    
 }
-    
-- (void) filtCitys {
-    NSMutableArray* list = [NSMutableArray array];
-    if (self.searchTF.text.length > 0) {
-        [self.list enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString* name = obj[@"name"];
-            
-            if ([name containsString:self.searchTF.text ]) {
-                [list addObject:obj];
-            }
-        }];
-        self.showList = list.copy;
-    } else {
-        self.showList = self.list;
-    }
-    
-}
-
 
 #pragma mark - UITextField delegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.searchKey = [self.searchTF.text trimWhitespace];
     [self requestShowData];
-//    [self.table reloadData];
-    
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -210,22 +171,50 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.list.count;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return self.list.count>0?30:0.1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.1;
+}
+
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    FEStoreCityModel* item = self.list[section];
+    UIView* view = [[UIView alloc] init];
+    if (item) {
+        view.frame = CGRectMake(0, 0, kScreenWidth, 30);
+        view.backgroundColor = UIColorFromRGB(0xF6F7F9);
+        
+        UILabel* lb = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, kScreenWidth-16*2, 20)];
+        lb.text = item.key;
+        lb.textColor = UIColorFromRGB(0x777777);
+        lb.font = [UIFont regularFont:13];
+        [view addSubview:lb];
+    }
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     FESearchCityCell * cell = [tableView dequeueReusableCellWithIdentifier:@"FESearchCityCell"];
-    NSDictionary* item = self.list[indexPath.row];
-    [cell setModel:item];
+    FEStoreCityModel* item = self.list[indexPath.section];
+    if (item) {
+        FEStoreCityItemModel* city = item.citys[indexPath.row];
+        [cell setModel:city];
+    }
     return cell;
 
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.list.count;
+    FEStoreCityModel* item = self.list[section];
+    return item.citys.count;
 }
 
 
@@ -237,9 +226,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary* item = self.list[indexPath.row];
-    
-    !self.selectedAction?:self.selectedAction(item);
+    FEStoreCityModel* item = self.list[indexPath.section];
+    if (item) {
+        FEStoreCityItemModel* city = item.citys[indexPath.row];
+        !self.selectedAction?:self.selectedAction(city);
+    }
     [self cancleAvtion:nil];
 }
 

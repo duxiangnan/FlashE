@@ -14,6 +14,8 @@
 
 #import "FESearchAddressVC.h"
 #import "FEStoreTypeVC.h"
+#import "FEStoreCityModel.h"
+
 
 @interface FECreateStoreVC ()
 @property (nonatomic, strong) FEStorePartModel* inputModel;
@@ -232,7 +234,7 @@
     
     NSMutableDictionary* arg = [NSMutableDictionary dictionary];
     @weakself(self);
-    arg[@"selectedAction"] = ^(FEAddressModel * _Nonnull model , NSDictionary* city) {
+    arg[@"selectedAction"] = ^(FEAddressModel * _Nonnull model , FEStoreCityItemModel* city) {
         @strongself(weakSelf);
         if(model.name.length > 0 && model.address.length>0){
             strongSelf.dianNameLB.text = model.name;
@@ -244,7 +246,7 @@
             strongSelf.inputModel.longitude = model.longitude;
             strongSelf.inputModel.latitude = model.latitude;
             strongSelf.inputModel.cityName = model.cityname;
-            strongSelf.inputModel.cityId = ((NSNumber*)city[@"code"]).integerValue;
+            strongSelf.inputModel.cityId = city.ID;
         }
         
     };
@@ -300,17 +302,22 @@
     }
     
     
-    self.submitTask = [[FEHttpManager defaultClient] POST:fouction parameters:param
-      success:^(NSInteger code, id  _Nonnull response)
-    {
+    self.submitTask = [[FEHttpManager defaultClient] POST:fouction
+                                               parameters:param
+      success:^(NSInteger code, id  _Nonnull response) {
         @strongself(weakSelf);
+        
+        if (acc.storeId == 0) {
+            [FFRouter routeURL:@"deckControl://updateAccount"];
+        }
         [MBProgressHUD hideProgressOnView:strongSelf.view];
 //        NSDictionary* dic = ((NSDictionary*)response)[@"data"];
 //        FEStorePartModel* mode = [FEStorePartModel yy_modelWithDictionary:dic];
-//        self.inputModel.ID = mode.ID;
-//        [FFRouter routeObjectURL:@"store://storeDetail" withParameters:@{@"ID":@(mode.ID)}];
+////        self.inputModel.ID = mode.ID;
+////        [FFRouter routeObjectURL:@"store://storeDetail" withParameters:@{@"ID":@(mode.ID)}];
         
         !strongSelf.createComplate?:strongSelf.createComplate();
+        [strongSelf.navigationController popViewControllerAnimated:YES];
         
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
         @strongself(weakSelf);

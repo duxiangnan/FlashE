@@ -8,6 +8,7 @@
 #import "FECreateOrderReciveAddressInfoVC.h"
 #import "FEDefineModule.h"
 #import "FEAddressModel.h"
+#import "FEStoreCityModel.h"
 
 @interface FECreateOrderReciveAddressInfoVC ()
 
@@ -40,10 +41,10 @@
 - (IBAction)nameAction:(id)sender {
     NSMutableDictionary* arg = [NSMutableDictionary dictionary];
     @weakself(self);
-    arg[@"selectedAction"] = ^(FEAddressModel * _Nonnull model , NSDictionary* city) {
+    arg[@"selectedAction"] = ^(FEAddressModel * _Nonnull model , FEStoreCityItemModel* city) {
         @strongself(weakSelf);
         strongSelf.item = model;
-        strongSelf.cityCode = ((NSNumber*)city[@"code"]).integerValue;
+        strongSelf.cityCode = city.ID;
         
         strongSelf.model.address = model.name;
         strongSelf.model.cityId = strongSelf.cityCode;

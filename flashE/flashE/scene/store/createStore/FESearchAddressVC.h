@@ -9,10 +9,10 @@
 #import "FEAddressModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class FEStoreCityItemModel;
 @interface FESearchAddressVC : FEBaseViewController
 
-@property (nonatomic, copy) void(^selectedAction)(FEAddressModel*model,NSDictionary* city);
+@property (nonatomic, copy) void(^selectedAction)(FEAddressModel*model,FEStoreCityItemModel* city);
 @end
 
 NS_ASSUME_NONNULL_END

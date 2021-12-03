@@ -9,6 +9,8 @@
 #import "FEDefineModule.h"
 #import "FEHttpPageManager.h"
 #import "FESearchCityVC.h"
+#import "FEStoreCityModel.h"
+
 
 
 @interface FESearchAddressCell : UITableViewCell
@@ -144,7 +146,8 @@
 @property (nonatomic,strong) FEHttpPageManager* pagesManager;
 
 @property (weak, nonatomic) IBOutlet UIButton *cityBtn;
-@property (nonatomic ,copy) NSDictionary* cityDic;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cityBtnW;
+@property (nonatomic ,strong) FEStoreCityItemModel* cityDic;
 @end
 
 @implementation FESearchAddressVC
@@ -184,15 +187,16 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(textChange:)
-//                                                 name:UITextFieldTextDidChangeNotification
-//                                               object:nil];
+    
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 //    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    self.emptyFrame = self.table.frame;
 }
 - (IBAction)cancleAvtion:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -202,82 +206,87 @@
         [MBProgressHUD showMessage:@"先输入搜索关键字"];
         return;
     }
-        if (self.pagesManager) {
-            [self.pagesManager cancleCurrentRequest];
-            self.pagesManager = nil;
-        }
-        NSMutableDictionary* param = [NSMutableDictionary dictionary];
-        param[@"content"] = self.searchKey;
-        param[@"index"] = @"1";
-        param[@"pageSize"] = @"20";
-        param[@"cityName"] = [FEPublicMethods SafeString:self.cityDic[@"name"]];
-        
-        
-        self.pagesManager = [[FEHttpPageManager alloc] initWithFunctionId:@"/deer/address/searchAddress"
-                                                               parameters:param
-                                                                itemClass:[FEAddressModel class]];
-        self.pagesManager.resultName = @"data";
-        self.pagesManager.requestMethod = 1;
-        @weakself(self);
+    if (self.pagesManager) {
+        [self.pagesManager cancleCurrentRequest];
+        self.pagesManager = nil;
+    }
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    param[@"content"] = self.searchKey;
+    param[@"index"] = @"1";
+    param[@"pageSize"] = @"20";
+    param[@"cityName"] = [FEPublicMethods SafeString:self.cityDic.name];
+    
+    
+    self.pagesManager = [[FEHttpPageManager alloc] initWithFunctionId:@"/deer/address/searchAddress"
+                                                           parameters:param
+                                                            itemClass:[FEAddressModel class]];
+    self.pagesManager.resultName = @"data";
+    self.pagesManager.requestMethod = 1;
+    @weakself(self);
 
-        void (^loadMore)(void) = ^{
-            @strongself(weakSelf);
-            if (strongSelf.pagesManager.hasMore) {
-                [strongSelf.pagesManager fetchMoreData:^{
-                    strongSelf.list = strongSelf.pagesManager.dataArr;
-                    if ([strongSelf.pagesManager hasMore]) {
-                        [strongSelf.table.mj_footer endRefreshing];
-                    } else {
-                        [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
-                    }
-                    
-                    [strongSelf.table reloadData];
-                    if (strongSelf.pagesManager.networkError) {
-                        [MBProgressHUD showMessage:strongSelf.pagesManager.networkError.localizedDescription];
-                    }
-                }];
-            }
-        };
-
-        void (^loadFirstPage)(void) = ^{
-            @strongself(weakSelf);
-            [strongSelf hiddenEmptyView];
-            [strongSelf.pagesManager fetchData:^{
-                
+    void (^loadMore)(void) = ^{
+        @strongself(weakSelf);
+        if (strongSelf.pagesManager.hasMore) {
+            [strongSelf.pagesManager fetchMoreData:^{
                 strongSelf.list = strongSelf.pagesManager.dataArr;
-                
-                if (strongSelf.pagesManager.hasMore) {
-                    strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
-                                                                               noMoreDataString:@"没有更多数据"];
-                    [strongSelf.table.mj_header endRefreshing];
+                if ([strongSelf.pagesManager hasMore]) {
+                    [strongSelf.table.mj_footer endRefreshing];
                 } else {
                     [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
                 }
                 
                 [strongSelf.table reloadData];
                 if (strongSelf.pagesManager.networkError) {
-                    [MBProgressHUD showMessage:weakSelf.pagesManager.networkError.localizedDescription];
-
-                    if ([strongSelf.list count] <= 0) {
-                        [strongSelf showEmptyViewWithType:NO];
-                    }
-                } else if (strongSelf.list.count == 0) {
-                    [strongSelf showEmptyViewWithType:YES];
+                    [MBProgressHUD showMessage:strongSelf.pagesManager.networkError.localizedDescription];
                 }
             }];
-        };
+        }
+    };
 
-        self.table.mj_header = [JVRefreshHeaderView headerWithRefreshingBlock:loadFirstPage];
-        loadFirstPage();
-        
-    }
+    void (^loadFirstPage)(void) = ^{
+        @strongself(weakSelf);
+        [strongSelf hiddenEmptyView];
+        [strongSelf.pagesManager fetchData:^{
+            
+            strongSelf.list = strongSelf.pagesManager.dataArr;
+            
+            if (strongSelf.pagesManager.hasMore) {
+                strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
+                                                                           noMoreDataString:@"没有更多数据"];
+                [strongSelf.table.mj_header endRefreshing];
+            } else {
+                [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
+            }
+            
+            [strongSelf.table reloadData];
+            if (strongSelf.pagesManager.networkError) {
+                [MBProgressHUD showMessage:weakSelf.pagesManager.networkError.localizedDescription];
+
+                if ([strongSelf.list count] <= 0) {
+                    [strongSelf showEmptyViewWithType:NO];
+                }
+            } else if (strongSelf.list.count == 0) {
+                [strongSelf showEmptyViewWithType:YES];
+            }
+        }];
+    };
+
+    self.table.mj_header = [JVRefreshHeaderView headerWithRefreshingBlock:loadFirstPage];
+    loadFirstPage();
+    
+}
     
 - (IBAction)cityAction:(id)sender {
     FESearchCityVC* vc = [[FESearchCityVC alloc] initWithNibName:@"FESearchCityVC" bundle:nil];
     @weakself(self);
-    vc.selectedAction = ^(NSDictionary * _Nonnull model) {
+    vc.selectedAction = ^(FEStoreCityItemModel* model) {
         @strongself(weakSelf);
+        
         self.cityDic = model;
+        NSString* city = self.cityDic.name;
+        CGSize size = [city sizeWithFont:self.cityBtn.titleLabel.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 30)];
+//        self.cityBtnW.constant = MAX(ceil(size.width)+20, 40);
+        [self.cityBtn setTitle:city forState:UIControlStateNormal];
     };
     vc.hidesBottomBarWhenPushed = YES;
     

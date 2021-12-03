@@ -39,39 +39,36 @@ NSDictionary *FERequestEncryption(NSDictionary *body,NSMutableDictionary* wrappe
     return wrapper;
 }
 
+NSDictionary* correctResponse(NSDictionary* dic) {
+    NSMutableDictionary* resp = [NSMutableDictionary dictionaryWithDictionary:dic];
+    id data = resp[@"data"];
+    if ([data isKindOfClass:[NSNull class]]) {
+        [resp removeObjectForKey:@"data"];
+        return resp.copy;
+    }
+    return dic;
+}
 
 void FEResponseAnalysis(id responseObject, FEHTTPAPISuccessBlock successBlock, FEHTTPAPIFailBlock failureBlock)
 {
-    
-//    "status": 200,
-//       "msg": null,
-//       "data"
-//    "
-
-    if ([responseObject isKindOfClass:[NSDictionary class]] &&
-        responseObject[@"status"] && [responseObject[@"status"] integerValue] != 200) {
-        NSDictionary *resultDict = (NSDictionary *)responseObject;
-        int code = [resultDict[@"status"] intValue];
+    NSDictionary* response = correctResponse((NSDictionary*)responseObject);
+    if (response[@"status"] && [response[@"status"] integerValue] != 200) {
+        
+        int code = [response[@"status"] intValue];
         if (failureBlock) {
-            NSString* message = @"";
-            if (resultDict && [resultDict isKindOfClass:[NSDictionary class]]) {
-                NSString* tmp = resultDict[@"msg"];
-                if ([tmp isKindOfClass:[NSString class]] && (tmp.length > 0)) {
-                    message = tmp;
-                }
-            } else {
+            NSString* message = response[@"msg"];
+            if (![message isKindOfClass:[NSString class]] || message.length == 0) {
                 message = [NSString stringWithFormat:@"请检查您的网络环境,稍后重试～%d",code];
             }
             NSDictionary *userInfo = @{NSLocalizedDescriptionKey:message};
             NSError *error = [NSError errorWithDomain:@"FEHTTPAPIErrorDomain" code:code
                                              userInfo:userInfo];
-            failureBlock(error, resultDict);
+            failureBlock(error, response);
         }
     } else if (successBlock) {
-        successBlock(200, responseObject);
+        successBlock(200, response);
     }
 }
-
 @implementation FEHttpDataManager
 
 + (instancetype)shared;

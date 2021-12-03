@@ -77,6 +77,9 @@ static NSString* UNIVERSAL_LINK = @"";
         [FFRouter registerRouteURL:@"deckControl://show" handler:^(NSDictionary *routerParameters) {
             [self.viewDeckController openSide:IIViewDeckSideLeft animated:YES];
         }];
+        [FFRouter registerRouteURL:@"deckControl://updateAccount" handler:^(NSDictionary *routerParameters) {
+            [self requestUpdateAccount];
+        }];
         [FFRouter registerRouteURL:@"deckControl://changeSecen" handler:^(NSDictionary *routerParameters) {
             NSString* vcType = routerParameters[@"vcType"];
             switch (vcType.integerValue) {
@@ -123,7 +126,9 @@ static NSString* UNIVERSAL_LINK = @"";
 }
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 
-    
+    if ([[FEAccountManager sharedFEAccountManager] hasLogin]) {
+        [self requestUpdateAccount];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -213,5 +218,22 @@ static NSString* UNIVERSAL_LINK = @"";
 
 - (void) logoutAction:(NSNotification*)noti {
     [self resetRootVC];
+}
+
+- (void) requestUpdateAccount {
+    
+    FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
+    [[FEHttpManager defaultClient] GET:@"/deer/user/queryUserById?"
+                            parameters:@{@"id":@(acc.ID)} success:^(NSInteger code, id  _Nonnull response) {
+        NSDictionary* data = response[@"data"];
+        FEAccountModel* model = [FEAccountModel yy_modelWithDictionary:data];
+        
+        [[FEAccountManager sharedFEAccountManager] setLoginInfo:model];
+    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+        
+    } cancle:^{
+    
+    }];
+    
 }
 @end

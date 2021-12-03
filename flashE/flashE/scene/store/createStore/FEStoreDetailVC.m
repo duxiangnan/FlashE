@@ -64,7 +64,10 @@
     };
 }
 
-
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    self.emptyFrame = self.table.frame;
+}
 -(void) requestData {
     @weakself(self);
     [[FEHttpManager defaultClient] POST:@"/deer/store/queryStoreById"

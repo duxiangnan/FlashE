@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FESearchAddressVC">
             <connections>
                 <outlet property="cityBtn" destination="Ici-0Q-goR" id="e8E-cp-73p"/>
+                <outlet property="cityBtnW" destination="6hB-C1-yIW" id="18J-nY-qQY"/>
                 <outlet property="headerH" destination="oUW-9B-Fwz" id="cWW-PW-2Rx"/>
                 <outlet property="searchTF" destination="Puw-xC-JZB" id="Yga-nw-gY1"/>
                 <outlet property="table" destination="x7e-Pr-yfn" id="o0n-29-Lb5"/>
@@ -28,18 +29,21 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eqo-qG-m5r">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ici-0Q-goR">
-                                    <rect key="frame" x="0.0" y="0.0" width="16" height="44"/>
+                                <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ici-0Q-goR">
+                                    <rect key="frame" x="16" y="0.0" width="60" height="44"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="16" id="ZUX-YY-6wg"/>
+                                        <constraint firstAttribute="width" constant="60" id="6hB-C1-yIW"/>
                                     </constraints>
-                                    <state key="normal" title="Button"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="选择城市">
+                                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
                                     <connections>
                                         <action selector="cityAction:" destination="-1" eventType="touchUpInside" id="lKH-B3-RBe"/>
                                     </connections>
                                 </button>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入地址关键字" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Puw-xC-JZB">
-                                    <rect key="frame" x="16" y="11.5" width="333" height="21.5"/>
+                                    <rect key="frame" x="86" y="11.5" width="263" height="21.5"/>
                                     <color key="backgroundColor" red="0.96862745098039216" green="0.97254901960784312" blue="0.97647058823529409" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
@@ -70,13 +74,13 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstItem="Puw-xC-JZB" firstAttribute="leading" secondItem="eqo-qG-m5r" secondAttribute="leading" constant="16" id="5ul-5k-2w4"/>
                                 <constraint firstAttribute="bottom" secondItem="Ici-0Q-goR" secondAttribute="bottom" id="8ml-b6-51q"/>
-                                <constraint firstItem="Ici-0Q-goR" firstAttribute="leading" secondItem="eqo-qG-m5r" secondAttribute="leading" id="Jy9-Ze-MpP"/>
+                                <constraint firstItem="Ici-0Q-goR" firstAttribute="leading" secondItem="eqo-qG-m5r" secondAttribute="leading" constant="16" id="Jy9-Ze-MpP"/>
                                 <constraint firstAttribute="height" constant="44" id="RyK-F3-3Eg"/>
                                 <constraint firstItem="Ici-0Q-goR" firstAttribute="top" secondItem="eqo-qG-m5r" secondAttribute="top" id="WEU-73-0Tx"/>
                                 <constraint firstItem="Puw-xC-JZB" firstAttribute="centerY" secondItem="eqo-qG-m5r" secondAttribute="centerY" id="XiR-C8-eCt"/>
                                 <constraint firstAttribute="trailing" secondItem="fgv-Bs-vOd" secondAttribute="trailing" constant="16" id="ZwW-sc-rbG"/>
+                                <constraint firstItem="Puw-xC-JZB" firstAttribute="leading" secondItem="Ici-0Q-goR" secondAttribute="trailing" constant="10" id="oVZ-uL-Ken"/>
                                 <constraint firstItem="fgv-Bs-vOd" firstAttribute="leading" secondItem="Puw-xC-JZB" secondAttribute="trailing" constant="5" id="y9W-wa-lJx"/>
                                 <constraint firstItem="fgv-Bs-vOd" firstAttribute="centerY" secondItem="eqo-qG-m5r" secondAttribute="centerY" id="zVv-uz-sLU"/>
                             </constraints>
@@ -110,7 +114,7 @@
                 <constraint firstItem="iFT-CN-XTi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="t5A-9g-5GL"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
-            <point key="canvasLocation" x="77" y="109"/>
+            <point key="canvasLocation" x="76.811594202898561" y="108.48214285714285"/>
         </view>
     </objects>
     <resources>
