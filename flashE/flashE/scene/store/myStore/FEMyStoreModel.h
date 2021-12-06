@@ -64,6 +64,7 @@
 @end
 
 
+
 @interface FELogisticsModel : NSObject
 
 @property (nonatomic, assign) NSInteger status;//审核状态

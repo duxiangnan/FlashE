@@ -72,7 +72,7 @@
     [self.nameLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bgView.mas_left).offset(16);
         make.right.equalTo(self.bgView.mas_right).offset(-16);
-        make.top.equalTo(self.bgView).offset(10);
+        make.top.equalTo(self.bgView.mas_top).offset(10);
         make.height.mas_equalTo(@(20));
     }];
     [self.addressImage mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,6 +138,7 @@
     CGSize size = [model.categoryName sizeWithFont:self.categoryLB.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 15)];
     
     self.categoryLBW = MAX(ceil(size.width)+15, 34);
+    self.categoryLB.text = model.categoryName;
     [self.categoryLB mas_updateConstraints:^(MASConstraintMaker *make) {
         
 //        make.left.equalTo(self.phoneLB.mas_right).offset(10);
@@ -196,21 +197,23 @@
         _categoryLB.textColor = UIColorFromRGB(0x12B398);
         _categoryLB.font = [UIFont regularFont:10];
         _categoryLB.frame = CGRectMake(0, 0, 34, 15);
+        _categoryLB.textAlignment = NSTextAlignmentCenter;
         _categoryLB.cornerRadius = 7.5;
         _categoryLB.borderWidth = 1;
         _categoryLB.borderColor = UIColorFromRGB(0x12B398);
         _categoryLB.backgroundColor = UIColorFromRGBA(0x12B398,0.1);
     }
-    return _nameLB;
+    return _categoryLB;
 }
 - (UILabel*) isDefaultLB {
     if (!_isDefaultLB) {
         _isDefaultLB = [[UILabel alloc] init];
         _isDefaultLB.frame = CGRectMake(0, 0, 34, 15);
         _isDefaultLB.cornerRadius = 7.5;
-        _isDefaultLB.textColor = UIColorFromRGB(0x000000);
+        _isDefaultLB.textColor = UIColorFromRGB(0xffffff);
         _isDefaultLB.font = [UIFont regularFont:10];
         _isDefaultLB.text = @"默认";
+        _isDefaultLB.textAlignment = NSTextAlignmentCenter;
         _isDefaultLB.backgroundColor = UIColorFromRGB(0x12B398);
     }
     return _isDefaultLB;
@@ -409,13 +412,18 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 120;
+    return 130;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    !self.selectedAction?:self.selectedAction(self.list[indexPath.row]);
-    [self.navigationController popViewControllerAnimated:YES];
+
+    FEMyStoreModel* item = self.list[indexPath.row];
+    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
+    arg[@"ID"] = @(item.ID);
+    
+    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://storeDetail" withParameters:arg];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

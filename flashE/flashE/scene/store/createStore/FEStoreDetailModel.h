@@ -36,7 +36,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *latitude;
 
 @property (nonatomic, assign) NSInteger category;
-
+@property (nonatomic, copy) NSString *categoryName;
 @property (nonatomic, copy) NSString *name;
 
 @property (nonatomic, assign) NSInteger delFlag;
@@ -72,6 +72,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSArray<FESoreDetailCellModle*> *cells;
 
 @end
+
+
 @interface FESoreDetailLogisticModle : NSObject
 
 @property (nonatomic, assign) NSInteger status;

@@ -612,7 +612,6 @@
             strongSelf.model.cityName = model.cityName;
             strongSelf.model.category = model.category;
             strongSelf.model.categoryName = model.categoryName;
-#warning  店铺id使用问题
             strongSelf.model.storeId = model.shopId;
             [strongSelf.popupController dismiss];
             [strongSelf freshSubViewData];

@@ -15,6 +15,8 @@
 #import "FESearchAddressVC.h"
 
 #import "FEStoreCityModel.h"
+#import "FEStoreDetailModel.h"
+
 
 
 @interface FECreateStoreVC ()
@@ -79,6 +81,7 @@
         [FFRouter registerObjectRouteURL:@"store://createStore" handler:^id(NSDictionary *routerParameters) {
             FECreateStoreVC* vc = [[FECreateStoreVC alloc] initWithNibName:@"FECreateStoreVC" bundle:nil];
             vc.createComplate = routerParameters[@"createComplate"];
+            vc.model = routerParameters[@"model"];
             vc.hidesBottomBarWhenPushed = YES;
             return vc;
         }];
@@ -150,6 +153,44 @@
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
+
+- (void)setModel:(FEStoreDetailModel *)model {
+    _model = model;
+    if (!model) {
+        return;
+    }
+    self.inputModel.ID = model.ID;
+    self.inputModel.category = model.category;
+    self.inputModel.businessLicense = model.categoryName;
+    self.inputModel.cityName = model.cityName;
+    self.inputModel.mobile = model.mobile;
+    self.inputModel.longitude = model.longitude;
+    self.inputModel.latitude = model.latitude;
+    self.inputModel.defaultStore = model.defaultStore;
+    self.inputModel.addressDetail = model.addressDetail;
+    self.inputModel.address = model.address;
+    self.inputModel.reverseIdcard = model.reverseIdcard;
+    self.inputModel.shopId = model.shopId;
+    self.inputModel.facade = model.facade;
+    self.inputModel.cityId = model.cityId;
+    self.inputModel.name = model.name;
+    self.inputModel.frontIdcard = model.frontIdcard;
+
+ 
+    self.dianNameTF.text = model.name;
+    self.dianNameLB.text = model.address;
+    self.dianDetailLB.text = model.addressDetail;
+    self.dianTypeLB.text = model.categoryName;
+    self.dianPhoneTF.text = model.mobile;
+
+//    [self.zhengZMBtn setImage:[] forState:<#(UIControlState)#>];
+//    self.zhengFMBtn;
+//    self.yingyeBtn;
+//    self.dianBtn;
+    self.defaultAddressSw.on = model.defaultStore==1;
+}
+
+
 
 - (IBAction)dianNameAction:(id)sender {
     [self.view endEditing:YES];
@@ -228,8 +269,6 @@
     
 }
     
-    
-    
 - (void) gotoSearchAddress{
     
     NSMutableDictionary* arg = [NSMutableDictionary dictionary];
@@ -276,6 +315,16 @@
     FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
 
     NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    if (self.model) {
+        param[@"ID"] = @(self.inputModel.ID);
+        param[@"shopId"] = @(self.inputModel.shopId);
+        param[@"thirdStoreId"] = self.model.thirdStoreId;
+        param[@"bdCode"] = self.model.bdCode;
+        param[@"frontIdcard"] = self.inputModel.frontIdcard;
+        param[@"reverseIdcard"] = self.inputModel.reverseIdcard;
+        param[@"businessLicense"] = self.inputModel.businessLicense;
+        param[@"facade"] = self.inputModel.facade;
+    }
     param[@"name"] = self.inputModel.name;
     param[@"userId"] = @(acc.ID);
     param[@"cityId"] = @(self.inputModel.cityId);
@@ -289,17 +338,22 @@
     param[@"defaultStore"] = @(self.inputModel.defaultStore);
    
     
+    
+    
     [MBProgressHUD showProgressOnView:self.view];
+    NSString* fouction = nil;
     @weakself(self);
-    
-    NSString* fouction = @"/deer/store/addStore";
-    if (acc.storeId == 0) {
-        fouction = @"/deer/shop/register";
+    if (self.model) {
+        fouction = @"/deer/store/modifyStoreById";
     } else {
-        param[@"shopId"] = @(acc.shopId);
+        fouction = @"/deer/store/addStore";
+        if (acc.storeId == 0) {
+            fouction = @"/deer/shop/register";
+        } else {
+            param[@"shopId"] = @(acc.shopId);
+        }
+        
     }
-    
-    
     self.submitTask = [[FEHttpManager defaultClient] POST:fouction
                                                parameters:param
       success:^(NSInteger code, id  _Nonnull response) {
@@ -309,10 +363,6 @@
             [FFRouter routeURL:@"deckControl://updateAccount"];
         }
         [MBProgressHUD hideProgressOnView:strongSelf.view];
-//        NSDictionary* dic = ((NSDictionary*)response)[@"data"];
-//        FEStorePartModel* mode = [FEStorePartModel yy_modelWithDictionary:dic];
-////        self.inputModel.ID = mode.ID;
-////        [FFRouter routeObjectURL:@"store://storeDetail" withParameters:@{@"ID":@(mode.ID)}];
         
         !strongSelf.createComplate?:strongSelf.createComplate();
         [strongSelf.navigationController popViewControllerAnimated:YES];

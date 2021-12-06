@@ -38,6 +38,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"店铺详情";
+    self.fd_prefersNavigationBarHidden = NO;
     self.table.tableFooterView = [UIView new];
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.table.separatorColor = [UIColor clearColor];
@@ -62,15 +64,26 @@
         @strongself(weakSelf);
         [strongSelf requestData];
     };
+    
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestData];
+}
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     self.emptyFrame = self.table.frame;
 }
+
+- (void) gotoModifyStore{
+    
+    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://createStore" withParameters:@{@"model":self.model}];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 -(void) requestData {
     @weakself(self);
-    [[FEHttpManager defaultClient] POST:@"/deer/store/queryStoreById"
+    [[FEHttpManager defaultClient] GET:@"/deer/store/queryStoreById"
                              parameters:@{@"id":@(self.ID)}
                                 success:^(NSInteger code, id  _Nonnull response) {
         NSDictionary* data = response[@"data"];
@@ -86,12 +99,12 @@
         item.type = FESoreDetailCellTypeZJ;
         CGFloat width = (kScreenWidth - 16*2 - 10*2 - 10)/2 ;
         CGFloat height = width*106/156;
-        item.cellHeight = 60+height;
+        item.cellHeight = 0;//60+height;
         [arr addObject:item];
         
         item = [FESoreDetailCellModle new];
         item.type = FESoreDetailCellTypeZH;
-        item.cellHeight = 60+height;
+        item.cellHeight = 0;//60+height;
         [arr addObject:item];
         
         item = [FESoreDetailCellModle new];
@@ -120,7 +133,22 @@
     }];
 }
 
-
+- (void) deleteRequest{
+    
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    param[@"id"] = @(self.model.ID);
+    @weakself(self);
+    [[FEHttpManager defaultClient] POST:@"/deer/store/deleteStoreById" parameters:param
+                                success:^(NSInteger code, id  _Nonnull response) {
+        [MBProgressHUD showMessage:@"删除成功"];
+        @strongself(weakSelf);
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+        [MBProgressHUD showMessage:error.localizedDescription];
+    } cancle:^{
+        
+    }];
+}
 #pragma mark - tableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -154,10 +182,11 @@
             @weakself(self);
             cell.modifyActionBlock = ^{
                 @strongself(weakSelf);
-              
+                [strongSelf gotoModifyStore];
             };
             cell.deleteActionBlock = ^{
                 @strongself(weakSelf);
+                [strongSelf deleteRequest];
             };
             tmpCell = cell;
         }break;

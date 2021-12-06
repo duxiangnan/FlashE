@@ -105,6 +105,7 @@
     self.phoneLB.text = model.mobile;
     CGSize size = [model.categoryName sizeWithFont:self.categoryLB.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 15)];
     
+    self.categoryLB.text = model.categoryName;
     self.categoryLBW = MAX(ceil(size.width)+15, 34);
     [self.categoryLB mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(self.categoryLBW);
@@ -161,6 +162,7 @@
 - (UILabel*) categoryLB {
     if (!_categoryLB) {
         _categoryLB = [[UILabel alloc] init];
+        _categoryLB.textAlignment = NSTextAlignmentCenter;
         _categoryLB.textColor = UIColorFromRGB(0x12B398);
         _categoryLB.font = [UIFont regularFont:10];
         _categoryLB.frame = CGRectMake(0, 0, 34, 15);
@@ -169,14 +171,15 @@
         _categoryLB.borderColor = UIColorFromRGB(0x12B398);
         _categoryLB.backgroundColor = UIColorFromRGBA(0x12B398,0.1);
     }
-    return _nameLB;
+    return _categoryLB;
 }
 - (UILabel*) isDefaultLB {
     if (!_isDefaultLB) {
         _isDefaultLB = [[UILabel alloc] init];
+        _isDefaultLB.textAlignment = NSTextAlignmentCenter;
         _isDefaultLB.frame = CGRectMake(0, 0, 34, 15);
         _isDefaultLB.cornerRadius = 7.5;
-        _isDefaultLB.textColor = UIColorFromRGB(0x000000);
+        _isDefaultLB.textColor = UIColorFromRGB(0xffffff);
         _isDefaultLB.font = [UIFont regularFont:10];
         _isDefaultLB.text = @"默认";
         _isDefaultLB.backgroundColor = UIColorFromRGB(0x12B398);
@@ -422,7 +425,7 @@
         make.width.mas_equalTo(@(width));
         make.height.mas_equalTo(40);
         make.top.equalTo(self.contentView.mas_top).offset(10);
-        make.left.equalTo(self.contentView.mas_left).offset(-16);
+        make.left.equalTo(self.contentView.mas_left).offset(16);
         
     }];
     
