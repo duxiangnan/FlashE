@@ -10,7 +10,9 @@
 #import "FEDefineModule.h"
 #import "FEHttpPageManager.h"
 #import "FEStoreCityModel.h"
-
+#import <SCIndexView/SCIndexView.h>
+#import <SCIndexView/UITableView+SCIndexView.h>
+#import <SCIndexView/SCIndexViewConfiguration.h>
 
 @interface FESearchCityCell : UITableViewCell
 @property (nonatomic,strong) FEStoreCityItemModel* model;
@@ -67,8 +69,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerH;
 @property (weak, nonatomic) IBOutlet UITextField *searchTF;
 @property (nonatomic, strong) NSString* searchKey;
-@property (nonatomic,copy) NSArray<NSDictionary*>* list;
-@property (nonatomic,copy) NSArray<NSDictionary*>* showList;
+@property (nonatomic,copy) NSArray<FEStoreCityModel*>* list;
+@property (nonatomic,copy) NSArray* indexlist;
+
+@property (nonatomic,copy) NSArray<FEStoreCityModel*>* showList;
 
 @end
 
@@ -85,10 +89,21 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     [self.table registerClass:[FESearchCityCell class] forCellReuseIdentifier:@"FESearchCityCell"];
+    
+    
+    SCIndexViewConfiguration *indexViewConfiguration = [SCIndexViewConfiguration configuration];
+    self.table.sc_indexViewConfiguration = indexViewConfiguration;
+    self.table.sc_translucentForTableViewInNavigationBar = YES;
+    self.table.sc_indexViewDataSource = self.indexlist;
+
+    
+    
     @weakself(self);
     self.emptyAction = ^{
         @strongself(weakSelf);
-        [strongSelf requestShowData];
+        if (self.list.count == 0) {
+            [strongSelf requestShowData];
+        }
     };
     [self requestShowData];
 }
@@ -110,33 +125,25 @@
 - (void) requestShowData {
     
     NSMutableDictionary* param = [NSMutableDictionary dictionary];
-    param[@"name"] = [FEPublicMethods SafeString:self.searchKey];
-    
-    
     @weakself(self);
     [[FEHttpManager defaultClient] GET:@"/deer/address/queryCity"
                             parameters:param
                                success:^(NSInteger code, id  _Nonnull response) {
         @strongself(weakSelf);
-        NSDictionary* data = response[@"data"];
-        NSArray* keys = data.allKeys;
-//        if(keys.count>0){
-            keys =  [keys sortedArrayUsingComparator:^NSComparisonResult(NSString* obj1, NSString* obj2) {
-                return [obj1 compare:obj2]; // 升序
-            }];
-//        }
-        NSMutableArray* tmp = [NSMutableArray array];
-        for (int i = 0; i<keys.count;i++) {
-            NSArray* items = data[keys[i]];
-
-            NSArray* citys = [NSArray yy_modelArrayWithClass:[FEStoreCityItemModel class] json:items];
-            FEStoreCityModel* model = [FEStoreCityModel new];
-            model.key = keys[i];
-            model.citys = citys;
-            [tmp addObject:model];
-        }
-        strongSelf.list = tmp;
-        [strongSelf.table reloadData];
+        NSArray* data = response[@"data"];
+        strongSelf.list = [NSArray yy_modelArrayWithClass:[FEStoreCityModel class] json:data];
+        
+//        strongSelf.list = [strongSelf.list sortedArrayUsingComparator:^NSComparisonResult(FEStoreCityModel* obj1, FEStoreCityModel* obj2) {
+//            return [obj1.index compare:obj2.index];
+//        }];
+//        NSMutableArray* indexArr = [NSMutableArray array];
+//        [strongSelf.list enumerateObjectsUsingBlock:^(FEStoreCityModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            [indexArr addObject:obj.index];
+//        }];
+//        strongSelf.indexlist = indexArr;
+//        strongSelf.table.sc_indexViewDataSource = strongSelf.indexlist;
+//        [strongSelf.table reloadData];
+        [strongSelf filledShowList];
         if (strongSelf.list.count == 0) {
             [strongSelf showEmptyViewWithType:YES];
         } else{
@@ -157,11 +164,42 @@
 
 }
 
+-(void) filledShowList {
+    NSMutableArray* tmp = [NSMutableArray array];
+    if (self.searchKey.length == 0) {
+        tmp = self.list;
+    } else {
+        [self.list enumerateObjectsUsingBlock:^(FEStoreCityModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableArray* items = [NSMutableArray array];
+            [obj.cities enumerateObjectsUsingBlock:^(FEStoreCityItemModel * item, NSUInteger idx, BOOL * _Nonnull stopItem) {
+                if ([item.name containsString:self.searchKey]) {
+                    [items addObject:item];
+                }
+            }];
+            if (items.count > 0) {
+                FEStoreCityModel* newObj = [FEStoreCityModel new];
+                newObj.index = obj.index;
+                newObj.cities = items;
+                [tmp addObject:newObj];
+            }
+        }];
+    }
+    
+    
+    NSMutableArray* indexArr = [NSMutableArray array];
+    [tmp enumerateObjectsUsingBlock:^(FEStoreCityModel* obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [indexArr addObject:obj.index];
+    }];
+    self.showList = tmp;
+    self.table.sc_indexViewDataSource = indexArr;
+    [self.table reloadData];
+}
+
 #pragma mark - UITextField delegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.searchKey = [self.searchTF.text trimWhitespace];
-    [self requestShowData];
+    [self filledShowList];
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -171,12 +209,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.list.count;
+    return self.showList.count;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return self.list.count>0?30:0.1;
+    return self.showList.count>0?30:0.1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.1;
@@ -184,14 +222,14 @@
 
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    FEStoreCityModel* item = self.list[section];
+    FEStoreCityModel* item = self.showList[section];
     UIView* view = [[UIView alloc] init];
     if (item) {
         view.frame = CGRectMake(0, 0, kScreenWidth, 30);
         view.backgroundColor = UIColorFromRGB(0xF6F7F9);
         
         UILabel* lb = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, kScreenWidth-16*2, 20)];
-        lb.text = item.key;
+        lb.text = item.index;
         lb.textColor = UIColorFromRGB(0x777777);
         lb.font = [UIFont regularFont:13];
         [view addSubview:lb];
@@ -202,9 +240,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FESearchCityCell * cell = [tableView dequeueReusableCellWithIdentifier:@"FESearchCityCell"];
-    FEStoreCityModel* item = self.list[indexPath.section];
+    FEStoreCityModel* item = self.showList[indexPath.section];
     if (item) {
-        FEStoreCityItemModel* city = item.citys[indexPath.row];
+        FEStoreCityItemModel* city = item.cities[indexPath.row];
         [cell setModel:city];
     }
     return cell;
@@ -213,8 +251,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    FEStoreCityModel* item = self.list[section];
-    return item.citys.count;
+    FEStoreCityModel* item = self.showList[section];
+    return item.cities.count;
 }
 
 
@@ -226,9 +264,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FEStoreCityModel* item = self.list[indexPath.section];
+    FEStoreCityModel* item = self.showList[indexPath.section];
     if (item) {
-        FEStoreCityItemModel* city = item.citys[indexPath.row];
+        FEStoreCityItemModel* city = item.cities[indexPath.row];
         !self.selectedAction?:self.selectedAction(city);
     }
     [self cancleAvtion:nil];

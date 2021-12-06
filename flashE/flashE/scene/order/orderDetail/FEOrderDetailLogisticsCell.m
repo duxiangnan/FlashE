@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *tipLB;
 
 @property (weak, nonatomic) IBOutlet UILabel *StatusLB;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *StatusLBW;
 
 
 - (void) setModel:(FEOrderDtailLogisticModel*)model;
@@ -28,13 +28,15 @@
 @implementation FEOrderDetailLogisticsItemCell
 - (void) setModel:(FEOrderDtailLogisticModel*)model {
     _model = model;
-    
-    
+    NSString* image = [[FEAccountManager sharedFEAccountManager] getPlatFormInfo:model.logistic type:FEPlatforeKeyFlage];
+    self.statusImage.image = [UIImage imageNamed:image];
     self.nameLB.text = [FEPublicMethods SafeString:model.logisticName];
     self.lineView.hidden = NO;
     self.priceLB.text = [NSString stringWithFormat:@"%.2f元",model.amount];
     self.tipLB.text = @"";
-    self.StatusLB.text = [FEPublicMethods SafeString:model.orderStatusName];    
+    self.StatusLB.text = [FEPublicMethods SafeString:model.orderStatusName];
+    CGSize size = [self.StatusLB.text sizeWithFont:self.StatusLB.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 20)];
+    self.StatusLBW.constant = ceil(size.width);
 }
 
 @end
@@ -67,6 +69,7 @@
     self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
     [self.table registerNib:[UINib nibWithNibName:@"FEOrderDetailLogisticsItemCell" bundle:nil] forCellReuseIdentifier:@"FEOrderDetailLogisticsItemCell"];
     
+//    self.table.selection = UITableViewCellSelectionStyleNone;
     self.table.tableFooterView = [UIView new];
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.table.separatorColor = [UIColor clearColor];
@@ -102,6 +105,7 @@
     self.headerViewH.constant = model.orderDetailLogisticHeaderH;
     self.orderInfoLb.text = [NSString stringWithFormat:@"本单由“%@”为您配送",model.logisticName];
     self.orderNumLB.text = [NSString stringWithFormat:@"单号：%lld",model.orderId];
+#warning waitServerSure totalAmountLB.text
     self.totalAmountLB.text = @"未知字段";
     self.table.hidden = model.orderDetailLogisticTableH == 0;
 
@@ -152,6 +156,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 @end

@@ -121,6 +121,7 @@
 		8BADD97A274E9D1200FDDA68 /* FEOrderDetailAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BADD978274E9D1200FDDA68 /* FEOrderDetailAddressCell.xib */; };
 		8BADD97F274E9D4000FDDA68 /* FEOrderDetailInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD97D274E9D4000FDDA68 /* FEOrderDetailInfoCell.m */; };
 		8BADD980274E9D4000FDDA68 /* FEOrderDetailInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BADD97E274E9D4000FDDA68 /* FEOrderDetailInfoCell.xib */; };
+		8BC05309275BB575004804A9 /* FECreateOrderLogisticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC05308275BB575004804A9 /* FECreateOrderLogisticModel.m */; };
 		8BCFAA7D2746AE80004F9B75 /* FEStorePartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAA7B2746AE80004F9B75 /* FEStorePartModel.m */; };
 		8BCFAAB22746C3BA004F9B75 /* FEStoreDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAAB02746C3BA004F9B75 /* FEStoreDetailVC.m */; };
 		8BCFAAB32746C3BA004F9B75 /* FEStoreDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BCFAAB12746C3BA004F9B75 /* FEStoreDetailVC.xib */; };
@@ -342,6 +343,8 @@
 		8BADD97C274E9D4000FDDA68 /* FEOrderDetailInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEOrderDetailInfoCell.h; sourceTree = "<group>"; };
 		8BADD97D274E9D4000FDDA68 /* FEOrderDetailInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEOrderDetailInfoCell.m; sourceTree = "<group>"; };
 		8BADD97E274E9D4000FDDA68 /* FEOrderDetailInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEOrderDetailInfoCell.xib; sourceTree = "<group>"; };
+		8BC05307275BB575004804A9 /* FECreateOrderLogisticModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FECreateOrderLogisticModel.h; sourceTree = "<group>"; };
+		8BC05308275BB575004804A9 /* FECreateOrderLogisticModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FECreateOrderLogisticModel.m; sourceTree = "<group>"; };
 		8BCFAA7B2746AE80004F9B75 /* FEStorePartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEStorePartModel.m; sourceTree = "<group>"; };
 		8BCFAA7C2746AE80004F9B75 /* FEStorePartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEStorePartModel.h; sourceTree = "<group>"; };
 		8BCFAAAF2746C3B9004F9B75 /* FEStoreDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEStoreDetailVC.h; sourceTree = "<group>"; };
@@ -901,6 +904,8 @@
 		8BCFAC6627494D75004F9B75 /* createOrder */ = {
 			isa = PBXGroup;
 			children = (
+				8BC05307275BB575004804A9 /* FECreateOrderLogisticModel.h */,
+				8BC05308275BB575004804A9 /* FECreateOrderLogisticModel.m */,
 				8BA1CD0E2752B1DB004D3C35 /* FECreateOrderVC.h */,
 				8BA1CD0F2752B1DB004D3C35 /* FECreateOrderVC.m */,
 				8BA1CD102752B1DB004D3C35 /* FECreateOrderVC.xib */,
@@ -1110,6 +1115,7 @@
 				8B368F992740F5AF00B5C1AC /* JVRefreshHeaderView.m in Sources */,
 				8B664D632753B88600583D3E /* FECreateOrderRemarkVC.m in Sources */,
 				8B368AED273A1F2500B5C1AC /* FEDefineModule.m in Sources */,
+				8BC05309275BB575004804A9 /* FECreateOrderLogisticModel.m in Sources */,
 				8B368B7D273ABA4100B5C1AC /* MBProgressHUD+Extend.m in Sources */,
 				8BA1CD0C2752AF57004D3C35 /* NSObject+userObject.m in Sources */,
 				8B368B7E273ABA4100B5C1AC /* UIImage+WHToast.m in Sources */,

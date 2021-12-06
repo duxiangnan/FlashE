@@ -36,18 +36,13 @@
             NSInteger date = [systemD minutesFrom:tmpD];
             self.showStuseTimeStr = [NSString stringWithFormat:@"已呼叫%ld分钟",date];
         }break;
-        case 20:{
+        case 20:
+        case 30:{
             double tmpL = ((NSNumber*)dic[@"grebTime"]).longValue/1000;
             NSDate* tmpD = [[NSDate alloc] initWithTimeIntervalSince1970:tmpL];
             NSInteger date = [systemD minutesFrom:tmpD];
             self.showStuseTimeStr = [NSString stringWithFormat:@"已等待%ld分钟",date];
         }break;
-//        case 30:{
-//            double tmpL = ((NSNumber*)dic[@"grebTime"]).longValue/1000;
-//            NSDate* tmpD = [[NSDate alloc] initWithTimeIntervalSince1970:tmpL];
-//            NSInteger date = [systemD minutesFrom:tmpD];
-//            self.showStuseTimeStr = [NSString stringWithFormat:@"已到店%ld分钟",date];
-//        }break;
         case 40:{
             double tmpL = ((NSNumber*)dic[@"pickupTime"]).longValue/1000;
             NSDate* tmpD = [[NSDate alloc] initWithTimeIntervalSince1970:tmpL];
@@ -59,7 +54,8 @@
             NSDate* tmpD = [[NSDate alloc] initWithTimeIntervalSince1970:tmpL];
             self.showStuseTimeStr = [NSString stringWithFormat:@"%@已完成",[tmpD formattedDateWithFormat:@"MM-dd HH:mm"]];
         }break;
-        case 60:{
+        case 60:
+        case 70:{
                 double tmpL = ((NSNumber*)dic[@"cancelTime"]).longValue/1000;
                 NSDate* tmpD = [[NSDate alloc] initWithTimeIntervalSince1970:tmpL];
                 self.showStuseTimeStr = [NSString stringWithFormat:@"%@已取消",[tmpD formattedDateWithFormat:@"MM-dd HH:mm"]];

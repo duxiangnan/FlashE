@@ -115,92 +115,127 @@ typedef enum : NSUInteger {
     
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (void) defalutModel{
-    NSString* str = @"{\"status\": 200,\
-    \"msg\": null,\
-    \"data\": {\
-        \"orderId\": 299270617637594130,\
-        \"storeId\": \"1477\",\
-        \"storeName\": \"小鹿奶茶1\",\
-        \"fromAddress\": \"海淀区中关村软件园\",\
-        \"fromAddressDetail\": \"1号楼\",\
-        \"status\": 10,\
-        \"toAdress\": \"西二旗地铁\",\
-        \"toAdressDetail\": null,\
-        \"toUserName\": null,\
-        \"toUserMobile\": null,\
-        \"createTime\": 1628477918000,\
-        \"systemTime\": 1628391518000,\
-        \"courierName\": null,\
-        \"courierMobile\": \"18601227599\",\
-        \"appointType\": 0,\
-        \"appointDate\": 0,\
-        \"grebTime\": null,\
-        \"pickupTime\": 1628391640000,\
-        \"cancelTime\": 0,\
-        \"finishTime\": 1628391760000,\
-        \"goodName\": \"食品\",\
-        \"weight\": 1,\
-        \"fromLongitude\": \"116.411168\",\
-        \"fromLatitude\": \"40.051158\",\
-        \"toLongitude\": \"116.521268\",\
-        \"toLatitude\": \"40.051258\",\
-        \"scheduleTitle\": \"\",\
-        \"scheduleInfo\": \"\",\
-      \"tipAmount\":2.00,\
-      \"backAmount\":1.00,\
-        \"logistics\": [\
-            {\
-                \"logistic\": \"达达\",\
-                \"distance\": 211232,\
-                \"coupon\": 0,\
-                \"amount\": 1200,\
-                \"status\": 50,\
-                \"phone\": \"400-991-9512\"\
-            }\
-        ],\
-        \"routes\": [\
-            {\
-                \"name\": \"下单时间\",\
-                \"time\": \"04:19\"\
-            },\
-            {\
-                \"name\": \"接单时间\",\
-                \"time\": \"04:19\"\
-            },\
-            {\
-                \"name\": \"取件时间\",\
-                \"time\": \"04:19\"\
-            },\
-            {\
-                \"name\": \"完单时间\",\
-                \"time\": \"04:19\"\
-            }\
-        ]}}";
-    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary* dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    self.model = [FEOrderDetailModel yy_modelWithDictionary:dic[@"data"]];
-    [self calculataionModel];
-    
-}
+//- (void) defalutModel{
+//    NSString* str = @"{\"status\": 200,\
+//    \"msg\": null,\
+//    \"data\": {\
+//        \"orderId\": 299270617637594130,\
+//        \"storeId\": \"1477\",\
+//        \"storeName\": \"小鹿奶茶1\",\
+//        \"fromAddress\": \"海淀区中关村软件园\",\
+//        \"fromAddressDetail\": \"1号楼\",\
+//        \"status\": 10,\
+//        \"toAdress\": \"西二旗地铁\",\
+//        \"toAdressDetail\": null,\
+//        \"toUserName\": null,\
+//        \"toUserMobile\": null,\
+//        \"createTime\": 1628477918000,\
+//        \"systemTime\": 1628391518000,\
+//        \"courierName\": null,\
+//        \"courierMobile\": \"18601227599\",\
+//        \"appointType\": 0,\
+//        \"appointDate\": 0,\
+//        \"grebTime\": null,\
+//        \"pickupTime\": 1628391640000,\
+//        \"cancelTime\": 0,\
+//        \"finishTime\": 1628391760000,\
+//        \"goodName\": \"食品\",\
+//        \"weight\": 1,\
+//        \"fromLongitude\": \"116.411168\",\
+//        \"fromLatitude\": \"40.051158\",\
+//        \"toLongitude\": \"116.521268\",\
+//        \"toLatitude\": \"40.051258\",\
+//        \"scheduleTitle\": \"\",\
+//        \"scheduleInfo\": \"\",\
+//      \"tipAmount\":2.00,\
+//      \"backAmount\":1.00,\
+//        \"logistics\": [\
+//            {\
+//                \"logistic\": \"达达\",\
+//                \"distance\": 211232,\
+//                \"coupon\": 0,\
+//                \"amount\": 1200,\
+//                \"status\": 50,\
+//                \"phone\": \"400-991-9512\"\
+//            }\
+//        ],\
+//        \"routes\": [\
+//            {\
+//                \"name\": \"下单时间\",\
+//                \"time\": \"04:19\"\
+//            },\
+//            {\
+//                \"name\": \"接单时间\",\
+//                \"time\": \"04:19\"\
+//            },\
+//            {\
+//                \"name\": \"取件时间\",\
+//                \"time\": \"04:19\"\
+//            },\
+//            {\
+//                \"name\": \"完单时间\",\
+//                \"time\": \"04:19\"\
+//            }\
+//        ]}}";
+//    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+//    NSDictionary* dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+//    self.model = [FEOrderDetailModel yy_modelWithDictionary:dic[@"data"]];
+//    [self calculataionModel];
+//
+//}
 - (void) requestShowData {
-    [self performSelector:@selector(defalutModel) withObject:nil afterDelay:0.1];
-    
-    
-//
-//    NSMutableDictionary* param = [NSMutableDictionary dictionary];
-//    param[@"orderId"] = self.orderId;
-//    @weakself(self);
-//    [[FEHttpManager defaultClient] GET:@"/deer/orders/getDetail" parameters:param success:^(NSInteger code, id  _Nonnull response) {
-//        @strongself(weakSelf);
-//        strongSelf.model = [FEOrderDetailModel yy_modelWithDictionary:response[@"data"]];
-//
-//    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
-//        [MBProgressHUD showMessage:error.localizedDescription];
-//    } cancle:^{
-//
-//    }];
+
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    param[@"orderId"] = self.orderId;
+    @weakself(self);
+    [[FEHttpManager defaultClient] GET:@"/deer/orders/getDetail" parameters:param success:^(NSInteger code, id  _Nonnull response) {
+        @strongself(weakSelf);
+        strongSelf.model = [FEOrderDetailModel yy_modelWithDictionary:response[@"data"]];
+        if (strongSelf.model.status == 20 || strongSelf.model.status == 30 || strongSelf.model.status == 40 ){
+//            10代接单；20已接单；30已到店；40配送中；50已完成；60已取消；70配送失败
+            [strongSelf requestCourierLocation];
+        } else {
+            [strongSelf calculataionModel];
+            [strongSelf.table reloadData];
+        }
+        
+    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+        [MBProgressHUD showMessage:error.localizedDescription];
+    } cancle:^{
+
+    }];
 }
+
+- (void) requestCourierLocation {
+    
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    param[@"orderId"] = self.orderId;
+    @weakself(self);
+    [[FEHttpManager defaultClient] GET:@"/deer/orders/getCourierLocation" parameters:param success:^(NSInteger code, id  _Nonnull response) {
+        @strongself(weakSelf);
+        NSDictionary* data = response[@"data"];
+        if (data) {
+            strongSelf.model.orderId = ((NSNumber*)data[@"orderId"]).longLongValue;
+            strongSelf.model.status = ((NSNumber*)data[@"orderStatus"]).integerValue;
+            strongSelf.model.statusName = [FEPublicMethods SafeString:data[@"statusName"]];
+            strongSelf.model.courierName = [FEPublicMethods SafeString:data[@"statusName"]];
+            strongSelf.model.courierMobile = [FEPublicMethods SafeString:data[@"courierMobile"]];
+            strongSelf.model.courierLatitude = [FEPublicMethods SafeString:data[@"latitude"]];
+            strongSelf.model.courierLongitude = [FEPublicMethods SafeString:data[@"longitude"]];
+            strongSelf.model.systemTime = ((NSNumber*)data[@"uploadTime"]).longLongValue;
+        }
+    
+        [strongSelf.model makeUpdaSubKey];
+        [strongSelf calculataionModel];
+        
+    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+        [MBProgressHUD showMessage:error.localizedDescription];
+    } cancle:^{
+
+    }];
+    
+}
+
 - (void) calculataionModel{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray*arr = [NSMutableArray array];
@@ -227,7 +262,7 @@ typedef enum : NSUInteger {
             
             item = [FEOrderDetailCellModel new];
             item.type = FEOrderDetailCellLink;
-            item.cellHeight = 80;
+            item.cellHeight = self.model.logistic.length>0?80:0;
             [arr addObject:item];
         }
         self.cellModel = arr;
@@ -329,11 +364,15 @@ typedef enum : NSUInteger {
                                         success:^(NSInteger code, id  _Nonnull response) {
                 @strongself(weakSelf);
                 NSDictionary* dic = response[@"data"];
-                FEAlertView* alter = [[FEAlertView alloc] initWithTitle:dic[@"title"] message:dic[@"cancelTips"]];
-                [alter addAction:[FEAlertAction actionWithTitle:@"知道了" style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
+                
+                NSString* title = [FEPublicMethods SafeString:dic[@"title"] withDefault:@"取消结果"];
+                NSString* msg = [FEPublicMethods SafeString:dic[@"cancelTips"] withDefault:@"取消成功"];
+                FEAlertView* alter = [[FEAlertView alloc] initWithTitle:title message:msg];
+                [alter addAction:[FEAlertAction actionWithTitle:@"知道了"
+                              style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
                     [strongSelf requestShowData];
                 }]];
-                
+                [alter show];
             } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
                 [MBProgressHUD showMessage:error.localizedDescription];
             } cancle:^{
@@ -365,7 +404,7 @@ typedef enum : NSUInteger {
                 @weakself(self);
                 cell.refreshActoin = ^{
                     @strongself(weakSelf);
-                    [strongSelf requestShowData];
+                    [strongSelf requestCourierLocation];
                 };
                 cell.cellCommondActoin = ^(FEOrderCommondType type) {
                     @strongself(weakSelf);

@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface FEStoreCityModel : NSObject
-@property(nonatomic,copy) NSString* key;
-@property(nonatomic,copy) NSArray<FEStoreCityItemModel*>* citys;
+@property(nonatomic,copy) NSString* index;
+@property(nonatomic,copy) NSArray<FEStoreCityItemModel*>* cities;
 @end
 
 NS_ASSUME_NONNULL_END

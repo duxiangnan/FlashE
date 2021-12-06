@@ -13,57 +13,188 @@
 #import "FEMyStoreModel.h"
 #import "FECreateOrderRemarkVC.h"
 #import "FECreateOrderReciveAddressInfoVC.h"
+#import "FECreateOrderLogisticModel.h"
 
-@interface FECreateOrderLogisticsModel : NSObject
-@property (nonatomic, copy) NSString* logisticId;
-@property (nonatomic, copy) NSString* logisticName;
-@property (nonatomic, copy) NSString* logisticImage;
-@property (nonatomic, copy) NSString* logisticDescImage;
 
-@property (nonatomic, assign) NSInteger status;//cell选择状态 0：未选择，1:选中，-1:无效
+@interface FECreateOrderLogisticCell:UITableViewCell
+
+@property (nonatomic,strong) FECreateOrderLogisticDetailsModel* model;
+
+
+@property (strong, nonatomic) UIImageView *flagImage;
+@property (strong, nonatomic) UIImageView *flagSubImage;
+@property (strong, nonatomic) UILabel *logisticLB;
+@property (strong, nonatomic) UILabel *distanceLB;
+@property (strong, nonatomic) UILabel *amountLB;
+@property (strong, nonatomic) UILabel *realAmountLB;
+@property (strong, nonatomic) UIImageView *statusImage;
+
+
+
+
 @end
 
-@implementation FECreateOrderLogisticsModel
+@implementation FECreateOrderLogisticCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+
+    if (self) {
+        self.accessoryType = UITableViewCellAccessoryNone;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.contentView.backgroundColor = UIColor.whiteColor;
+        
+        
+        [self.contentView addSubview:self.flagImage];
+        [self.contentView addSubview:self.flagSubImage];
+        [self.contentView addSubview:self.logisticLB];
+        [self.contentView addSubview:self.distanceLB];
+        [self.contentView addSubview:self.amountLB];
+        [self.contentView addSubview:self.realAmountLB];
+        [self.contentView addSubview:self.statusImage];
+        self.flagSubImage.image = [UIImage imageNamed:@"logistic_oneToOne"];
+        
+        
+       
+        
+    }
+    return self;
+    
+    
+    
+}
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self.flagImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.left.equalTo(self.contentView.mas_left).offset(16);
+        make.width.height.mas_equalTo(@(26));
+    }];
+    
+    [self.logisticLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.flagImage.mas_right).offset(5);
+        make.bottom.equalTo(self.flagImage.mas_centerY);
+        make.height.mas_equalTo(20);
+    }];
+    [self.flagSubImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.logisticLB.mas_right).offset(5);
+        make.centerY.equalTo(self.logisticLB.mas_centerY);
+        make.height.mas_equalTo(14.5);
+        make.width.mas_equalTo(62);
+    }];
+    
+    [self.distanceLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.logisticLB.mas_bottom);
+        make.left.equalTo(self.logisticLB.mas_left);
+        make.height.mas_equalTo(20);
+    }];
+    
+    [self.realAmountLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.logisticLB.mas_centerY);
+        make.right.equalTo(self.statusImage.mas_left).offset(-10);
+        make.height.mas_equalTo(20);
+    }];
+    [self.amountLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.realAmountLB.mas_bottom);
+        make.right.equalTo(self.realAmountLB.mas_right);
+        make.height.mas_equalTo(20);
+    }];
+    
+    [self.statusImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(20);
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.right.equalTo(self.contentView.mas_right).offset(-16);
+        
+    }];
+}
+
+- (void)setModel:(FECreateOrderLogisticDetailsModel *)model {
+    _model = model;
+    
+    NSString* image = [[FEAccountManager sharedFEAccountManager] getPlatFormInfo:model.logistic type:FEPlatforeKeyFlage];
+    self.flagImage.image = [UIImage imageNamed:image];
+    self.flagSubImage.hidden = ![model.logistic isEqualToString:@"bingex"];
+    
+    self.logisticLB.text = [FEPublicMethods SafeString:model.logisticName];
+    self.distanceLB.text = [NSString stringWithFormat:@"%f公里",model.distance];
+    self.amountLB.attributedText = nil;
+    [self.amountLB appendAttriString:@"优惠价" color:UIColorFromRGB(0x333333) font:[UIFont systemFontOfSize:10]];
+    [self.amountLB appendAttriString:[NSString stringWithFormat:@"%f",model.realAmount - model.coupon] color:UIColorFromRGB(0x333333) font:[UIFont systemFontOfSize:20]];
+    [self.amountLB appendAttriString:@"元" color:UIColorFromRGB(0x333333) font:[UIFont systemFontOfSize:10]];
+    
+    self.realAmountLB.attributedText = nil;
+    [self.realAmountLB appendUnderLineAttriString:@"原价" color:UIColorFromRGB(0x333333) font:[UIFont systemFontOfSize:10]];
+    [self.realAmountLB appendUnderLineAttriString:[NSString stringWithFormat:@"%f",model.amount] color:UIColorFromRGB(0x333333) font:[UIFont systemFontOfSize:20]];
+    [self.realAmountLB appendUnderLineAttriString:@"元" color:UIColorFromRGB(0x333333) font:[UIFont systemFontOfSize:10]];
+    
+    
+    self.contentView.backgroundColor = UIColor.whiteColor;
+    if (model.status == 1) {
+        self.statusImage.image = [UIImage imageNamed:@"checkbox_selected"];
+        self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
+    } else if (model.status == 0) {
+        self.statusImage.image = [UIImage imageNamed:@"checkbox_default"];
+    } else{
+        self.statusImage.image = nil;
+    }
+    
+}
+
+
+
+- (UIImageView *)flagImage {
+    if (!_flagImage) {
+        _flagImage = [[UIImageView alloc] init];
+    }
+    return _flagImage;
+}
+- (UIImageView *)flagSubImage {
+    if (!_flagSubImage) {
+        _flagSubImage = [[UIImageView alloc] init];
+    }
+    return _flagSubImage;
+}
+- (UILabel *)logisticLB {
+    if (!_logisticLB) {
+        _logisticLB = [[UILabel alloc] init];
+        _logisticLB.font = [UIFont mediumFont:15];
+        _logisticLB.textColor = UIColorFromRGB(0x333333);
+    }
+    return _logisticLB;
+}
+- (UILabel *)distanceLB {
+    if (!_distanceLB) {
+        _distanceLB = [[UILabel alloc] init];
+        _distanceLB.font = [UIFont regularFont:10];
+        _distanceLB.textColor = UIColorFromRGB(0x777777);
+    }
+    return _distanceLB;
+}
+- (UILabel *)amountLB {
+    if (!_amountLB) {
+        _amountLB = [[UILabel alloc] init];
+    }
+    return _amountLB;
+}
+- (UILabel *)realAmountLB {
+    if (!_realAmountLB) {
+        _realAmountLB = [[UILabel alloc] init];
+    }
+    return _realAmountLB;
+}
+- (UIImageView *)statusImage {
+    if (!_statusImage) {
+        _statusImage = [[UIImageView alloc] init];
+    }
+    return _statusImage;
+}
 @end
 
-
-
-@interface FECreateOrderModel : NSObject
-@property (nonatomic, assign) long long storeId;//店铺ID
-@property (nonatomic, assign) long long cityId;//城市ID
-@property (nonatomic, copy) NSString* cityName;//城市名称
-
-@property (nonatomic, copy) NSString* toAddress;//收件地址
-@property (nonatomic, copy) NSString* toAddressDetail;//收件地址详情
-@property (nonatomic, copy) NSString* toUserName;//收件人
-@property (nonatomic, copy) NSString* toMobile;//收件人手机号
-@property (nonatomic, assign) double toLng;//收件经度
-@property (nonatomic, assign) double toLat;//收件纬度
-@property (nonatomic, assign) NSInteger additionFee;//小费
-
-@property (nonatomic, assign) NSInteger appointType;//预约类型0及时单；1预约单
-@property (nonatomic, assign) double fromLng;//下单地址经度
-@property (nonatomic, assign) double fromLat;//下单地址纬度
-@property (nonatomic, copy) NSString* fromAddress;//发件地址
-@property (nonatomic, copy) NSString* fromName;//下单人
-@property (nonatomic, copy) NSString* fromMobile;//下单人手机号
-
-
-@property (nonatomic, assign) NSInteger category;//物品类型
-@property (nonatomic, copy) NSString* categoryName;//物品类型名称
-@property (nonatomic, assign) NSInteger weight;//重量
-@property (nonatomic, copy) NSString* remark;//备注
-@property (nonatomic, assign) NSArray<FECreateOrderLogisticsModel*>* logistics;//选择下单平台
-
-@end
-@implementation FECreateOrderModel
-
-@end
 
 
 @interface FECreateOrderVC ()
 @property (nonatomic,strong) FECreateOrderModel* model;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scroll;
 
 
@@ -79,6 +210,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoViewT;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoViewH;
 @property (weak, nonatomic) IBOutlet UILabel *weightLB;
+@property (weak, nonatomic) IBOutlet UILabel *catagroyLB;
 @property (weak, nonatomic) IBOutlet UILabel *remarkLB;
 @property (weak, nonatomic) IBOutlet UILabel *tipLB;//小费
 
@@ -86,6 +218,12 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *platformViewT;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *platformViewH;
 @property (weak, nonatomic) IBOutlet UITableView *platformTable;
+
+
+@property (weak, nonatomic) IBOutlet UIView *platformTipView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *platformTipViewT;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *platformTipViewH;
+
 
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewT;
@@ -124,7 +262,7 @@
     [super viewDidLoad];
     self.fd_prefersNavigationBarHidden = NO;
     self.title = @"发单";
-    
+    [self.platformTable registerClass:[FECreateOrderLogisticCell class] forCellReuseIdentifier:@"FECreateOrderLogisticCell"];
     self.model = [FECreateOrderModel new];
     [self freshSubView];
     
@@ -135,15 +273,9 @@
     self.addressViewH.constant = 140;
     
     self.infoViewT.constant = 10;
-    self.infoViewH.constant = 140;
+    self.infoViewH.constant = 180;
     
-    if ( self.model.logistics.count > 0) {
-        self.platformViewT.constant = 10;
-        self.platformViewH.constant = 60 + self.model.logistics.count*30;
-    } else {
-        self.platformViewT.constant = 0;
-        self.platformViewH.constant = 0;
-    }
+    
     
     self.bottomViewT.constant = 10;
     self.bottomViewH.constant = 10 + 48 + 10 + kHomeIndicatorHeight;
@@ -151,6 +283,7 @@
     CGFloat height = self.addressViewT.constant + self.addressViewH.constant +
     self.infoViewT.constant + self.infoViewH.constant +
     self.platformViewT.constant + self.platformViewH.constant +
+    self.platformTipViewT.constant + self.platformTipViewH.constant +
     self.bottomViewT.constant + self.bottomViewH.constant;
     if (height < kScreenHeight - kHomeNavigationHeight) {
         self.scroll.scrollEnabled = NO;
@@ -160,42 +293,84 @@
     }
     self.scroll.contentSize = CGSizeMake(kScreenWidth, height);
     
-    
+    [self freshSubViewData];
 }
 - (void) freshSubViewData {
     
-    UIColor* emptyColor = UIColorFromRGB(0x777777);
-    UIColor* filledColor = UIColorFromRGB(0x333333);
-    if (self.model.fromName.length > 0) {
-        self.addressFromTitleLB.textColor = filledColor;
-        self.addressFromTitleLB.text = self.model.fromName;
+    if ( self.model.logistics.details.count > 0) {
+        self.platformViewT.constant = 10;
+        self.platformViewH.constant = 60 + self.model.logistics.details.count*60;
+        
+        self.platformTipViewT.constant = 10;
+        self.platformTipViewH.constant = 130;
+        
+    } else {
+        self.platformViewT.constant = 0;
+        self.platformViewH.constant = 0;
+        
+        self.platformTipViewT.constant = 0;
+        self.platformTipViewH.constant = 0;
     }
     
+    UIColor* emptyColor = UIColorFromRGB(0x777777);
+    UIColor* filledColor = UIColorFromRGB(0x333333);
+    self.addressFromTitleLB.text = [FEPublicMethods SafeString:self.model.fromName withDefault:@"请选择店铺"];
+    self.addressFromDescLB.text = [FEPublicMethods SafeString:self.model.fromName withDefault:@"请选择店铺地址"];
     
-    self.weightLB.text = [NSString stringWithFormat:@"%ld",self.model.weight];
-//    @property (weak, nonatomic) IBOutlet UILabel *addressFromTitleLB;
-//    @property (weak, nonatomic) IBOutlet UILabel *addressFromDescLB;
-//    @property (weak, nonatomic) IBOutlet UILabel *addressToTitleLB;
-//    @property (weak, nonatomic) IBOutlet UILabel *addressToDescLB;
-//
-//    @property (weak, nonatomic) IBOutlet UIView *infoView;
-//    @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoViewT;
-//    @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoViewH;
-//    @property (weak, nonatomic) IBOutlet UILabel *weightLB;
-//    @property (weak, nonatomic) IBOutlet UILabel *remarkLB;
-//    @property (weak, nonatomic) IBOutlet UILabel *tipLB;//小费
-//
-//    @property (weak, nonatomic) IBOutlet UIView *platformView;
-//    @property (weak, nonatomic) IBOutlet NSLayoutConstraint *platformViewT;
-//    @property (weak, nonatomic) IBOutlet NSLayoutConstraint *platformViewH;
-//    @property (weak, nonatomic) IBOutlet UITableView *platformTable;
-//
-//    @property (weak, nonatomic) IBOutlet UIView *bottomView;
-//    @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewT;
-//    @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewH;
-//    @property (weak, nonatomic) IBOutlet UILabel *submitInfoLB;
-//
+    NSString* tmp = [NSString stringWithFormat:@"%@%@",[FEPublicMethods SafeString:self.model.toAddress],[FEPublicMethods SafeString:self.model.toAddressDetail]];
+    self.addressToTitleLB.text = [FEPublicMethods SafeString:tmp withDefault:@"请选择店铺"];
+    tmp = [FEPublicMethods SafeString:self.model.toUserName];
+    if (self.model.toMobile.length > 0) {
+        tmp = [tmp stringByAppendingFormat:@" %@",self.model.toMobile];
+    }
+    self.addressToDescLB.text = [FEPublicMethods SafeString:tmp withDefault:@"收件人"];
     
+    
+    self.catagroyLB.text = [FEPublicMethods SafeString:self.model.categoryName withDefault:@"选择类型"];
+    self.catagroyLB.textColor = self.model.category<=0?emptyColor:filledColor;
+
+    if (self.model.weight<=0) {
+        self.weightLB.text = @"选择重量";
+        self.weightLB.textColor = emptyColor;
+    } else {
+        self.weightLB.text = [NSString stringWithFormat:@"%ld公斤",self.model.weight];
+        self.weightLB.textColor = filledColor;
+    }
+
+    self.remarkLB.text = [FEPublicMethods SafeString:self.model.remark withDefault:@"添加备注信息"];
+    self.remarkLB.textColor = self.model.remark.length==0?emptyColor:filledColor;
+    
+    
+    if (self.model.additionFee <= 0) {
+        self.tipLB.text = @"加小费更容易被接单";
+        self.tipLB.textColor = emptyColor;
+    } else {
+        self.tipLB.text = [NSString stringWithFormat:@"%ld元",self.model.additionFee];
+        self.tipLB.textColor = filledColor;
+    }
+    
+    __block CGFloat realAmount = 0;
+    __block CGFloat selectedAmount = 0;
+    
+    [self.model.logistics.details enumerateObjectsUsingBlock:^
+    (FECreateOrderLogisticDetailsModel * obj, NSUInteger idx, BOOL * stop) {
+        realAmount = MAX(realAmount, obj.realAmount);
+        if (obj.status == 1) {
+            selectedAmount = MAX(selectedAmount, obj.realAmount);
+        }
+    }];
+    CGFloat amount = 0;
+    if (selectedAmount > 0) {
+        amount = selectedAmount;
+    } else {
+        amount = realAmount;
+    }
+    if (amount > 0) {
+        self.submitInfoLB.text = [NSString stringWithFormat:@"需支付最高金额%f元",amount + self.model.accessibilityTraits];
+    } else {
+        self.submitInfoLB.text = @"";
+    }
+    [self.platformTable reloadData];
     
 }
 - (void) setTipInfo:(NSInteger)tip {
@@ -221,15 +396,34 @@
 
 - (IBAction)weightAction:(id)sender {
     
-    self.weightView.currentWeight = self.model.weight;
-    _popupController = [[zhPopupController alloc] initWithView:self.weightView
-                                                          size:self.weightView.bounds.size];
-    _popupController.presentationStyle = zhPopupSlideStyleFromBottom;
-    _popupController.layoutType = zhPopupLayoutTypeBottom;
-    _popupController.presentationTransformScale = 1.25;
-    _popupController.dismissonTransformScale = 0.85;
-    [_popupController showInView:self.view.window completion:NULL];
+        self.weightView.currentWeight = self.model.weight;
+        _popupController = [[zhPopupController alloc] initWithView:self.weightView
+                                                              size:self.weightView.bounds.size];
+        _popupController.presentationStyle = zhPopupSlideStyleFromBottom;
+        _popupController.layoutType = zhPopupLayoutTypeBottom;
+        _popupController.presentationTransformScale = 1.25;
+        _popupController.dismissonTransformScale = 0.85;
+        [_popupController showInView:self.view.window completion:NULL];
     
+}
+
+- (IBAction)categoryAction:(id)sender {
+    
+    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
+    @weakself(self);
+    arg[@"title"] = @"物品类型";
+    arg[@"selectedAction"] =  ^(NSDictionary * _Nonnull item) {
+        @strongself(weakSelf);
+        
+        strongSelf.model.category = ((NSNumber*)item[@"code"]).intValue;
+        strongSelf.model.categoryName = item[@"name"];
+        [strongSelf freshSubViewData];
+        [strongSelf reqestCalculateFee];
+    };
+    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://storeType"
+                                         withParameters:arg];
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 - (IBAction)remarkAction:(id)sender {
     self.remarkVC.remark = self.model.remark;
@@ -308,7 +502,7 @@
     param[@"category"] = @(self.model.category);
     param[@"weight"] = @(self.model.weight);
     NSMutableArray* tmp = [NSMutableArray array];
-    for (FECreateOrderLogisticsModel* item in self.model.logistics) {
+    for (FECreateOrderLogisticDetailsModel* item in self.model.logistics.details) {
         if (item.status == 1) {
             [tmp addObject:item.logisticName];
         }
@@ -346,36 +540,38 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
-//    FEHomeWorkCell * cell = [tableView dequeueReusableCellWithIdentifier:@"FEHomeWorkCell"];
-//    FEHomeWorkOrderModel* item = self.model.orders[indexPath.row];
-//    [cell setModel:item];
+    
+    FECreateOrderLogisticCell * cell = [tableView dequeueReusableCellWithIdentifier:@"FECreateOrderLogisticCell"];
+    FECreateOrderLogisticDetailsModel* item = self.model.logistics.details[indexPath.row];
+    [cell setModel:item];
 //    @weakself(self);
 //    cell.cellCommondActoin = ^(FEOrderCommondType type) {
 //        @strongself(weakSelf);
 //        [strongSelf cellCommond:item type:type view:cell];
 //    };
-//    return cell;
+    return cell;
 
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.model.logistics.count;
+    return self.model.logistics.details.count;
 }
 
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FECreateOrderLogisticsModel* item = self.model.logistics[indexPath.row];
+//    FECreateOrderLogisticDetailsModel* item = self.model.logistics.details[indexPath.row];
 //    [FEHomeWorkCell calculationCellHeight:item];
-    return 0;
+    return 60;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    FECreateOrderLogisticDetailsModel* item = self.model.logistics.details[indexPath.row];
+    item.status = (item.status + 1) %2;
+    [self freshSubViewData];
     
 }
 
@@ -389,7 +585,9 @@
             @strongself(weakSelf);
             strongSelf.model.weight = weight;
             [strongSelf freshSubViewData];
+            [strongSelf reqestCalculateFee];
             [strongSelf.popupController dismiss];
+            
         };
         _weightView.cancleAction = ^{
             @strongself(weakSelf);
@@ -416,10 +614,15 @@
             strongSelf.model.categoryName = model.categoryName;
 #warning  店铺id使用问题
             strongSelf.model.storeId = model.shopId;
-            
-            strongSelf.addressFromTitleLB.text = strongSelf.model.fromName;
-            strongSelf.addressFromDescLB.text = [NSString stringWithFormat:@"%@ %@",model.address,model.addressDetail];
             [strongSelf.popupController dismiss];
+            [strongSelf freshSubViewData];
+            [strongSelf reqestCalculateFee];
+        };
+        _storeView.storeManageAction = ^{
+            @strongself(weakSelf);
+            [strongSelf.popupController dismiss];
+            FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://createStoreManager"];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
         };
         _storeView.cancleAction = ^{
             @strongself(weakSelf);
@@ -454,13 +657,71 @@
             strongSelf.model.toMobile = model.mobile;
             strongSelf.model.toLng = model.longitude.doubleValue;
             strongSelf.model.toLat = model.latitude.doubleValue;
-            strongSelf.addressToTitleLB.text = [NSString stringWithFormat:@"%@ %@",model.address,model.addressDetail];
-            strongSelf.addressToDescLB.text = [NSString stringWithFormat:@"%@ %@",model.name,model.mobile];
             
+            [strongSelf freshSubViewData];
+            [strongSelf reqestCalculateFee];
         };
     }
     return _reciveAddressInfoVC;
 }
 
+- (void) reqestCalculateFee {
+    if (self.model.toAddress.length == 0 ||
+        self.model.cityId == 0 ||
+        self.model.storeId == 0 ||
+        self.model.fromAddress.length == 0 ||
+        self.model.toUserName.length == 0 ||
+        self.model.toMobile.length == 0 ) {
+        return;
+    }
+    
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    param[@"toLng"] = @(self.model.toLat);
+    param[@"toLat"] = @(self.model.toLat);
+    param[@"cityName"] = [FEPublicMethods SafeString:self.model.cityName];
+    param[@"fromAddress"] = self.model.fromAddress;
+    param[@"additionFee"] = @(self.model.additionFee);
+    param[@"cityId"] = @(self.model.cityId);
+    param[@"storeId"] = @(self.model.storeId);
+    param[@"toAddress"] = self.model.toAddress;
+    param[@"toAddressDetail"] = self.model.toAddressDetail;
+    param[@"toUserName"] = self.model.toUserName;
+    param[@"toMobile"] = self.model.toMobile;
+    param[@"fromName"] = self.model.fromName;
+    param[@"fromMobile"] = self.model.fromMobile;
+    param[@"appointType"] = @(self.model.appointType);
+    param[@"fromLng"] = @(self.model.fromLng);
+    param[@"fromLat"] = @(self.model.fromLat);
+    param[@"category"] = @(self.model.category);
+    param[@"weight"] = @(self.model.weight);
+    param[@"logistics"] = @[@"uupt",@"fengka",@"mtps",@"dada",@"bingex",@"shunfeng"];
+   
+    @weakself(self);
+    [[FEHttpManager defaultClient] POST:@"/deer/orders/calculateFee" parameters:param
+                                success:^(NSInteger code, id  _Nonnull response) {
+        @strongself(weakSelf);
+        NSDictionary* data = response[@"data"];
+        FECreateOrderLogisticModel* model = strongSelf.model.logistics;
+        strongSelf.model.logistics = [FECreateOrderLogisticModel yy_modelWithDictionary:data];
+        
+        [strongSelf.model.logistics.details enumerateObjectsUsingBlock:
+         ^(FECreateOrderLogisticDetailsModel * item, NSUInteger idxItem, BOOL * stopItem) {
+            
+            [model.details enumerateObjectsUsingBlock:
+             ^(FECreateOrderLogisticDetailsModel * obj, NSUInteger idxObj, BOOL * stopObj) {
+                if ([item.logistic isEqualToString:obj.logistic]) {
+                    item.status = obj.status;
+                    *stopObj = YES;
+                }
+            }];
+        }];
+        [strongSelf freshSubViewData];
+    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+    
+    } cancle:^{
+    
+    }];
+    
+}
 
 @end

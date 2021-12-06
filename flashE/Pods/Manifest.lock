@@ -25,6 +25,7 @@ PODS:
   - MJRefresh (3.5.0)
   - MMPopupView (1.7.2):
     - Masonry
+  - SCIndexView (2.2.4)
   - SDCycleScrollView (1.82):
     - SDWebImage (>= 5.0.0)
   - SDWebImage (5.9.5):
@@ -48,6 +49,7 @@ DEPENDENCIES:
   - MBProgressHUD
   - MJRefresh
   - MMPopupView
+  - SCIndexView
   - SDCycleScrollView (>= 1.82)
   - SDWebImage
   - TZImagePickerController
@@ -69,6 +71,7 @@ SPEC REPOS:
     - MBProgressHUD
     - MJRefresh
     - MMPopupView
+    - SCIndexView
     - SDCycleScrollView
     - SDWebImage
     - TZImagePickerController
@@ -89,6 +92,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
+  SCIndexView: 20eba7a5ba1ffdf49a208031a82bf0549c0f9935
   SDCycleScrollView: a0d74c3384caa72bdfc81470bdbc8c14b3e1fbcf
   SDWebImage: 0b2ba0d56479bf6a45ecddbfd5558bea93150d25
   TZImagePickerController: 679ae9fa11e189a9a81291ae96f0a4463be8edc1
@@ -97,6 +101,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   zhPopupController: 600aee950c86442c5cca0b078d94c71fe0e1c51e
 
-PODFILE CHECKSUM: cd0bc567b05303fdcb53a58a6876b8585bc4fab0
+PODFILE CHECKSUM: 35b4fcdc164f9b14b0a2464f7a2d16bde382a5ee
 
 COCOAPODS: 1.8.3

@@ -20,7 +20,7 @@ target 'flashE' do
   pod 'JXCategoryView'
   pod 'JXPagingView/Pager'
   pod 'zhPopupController', '~> 2.0'
-  
+  pod 'SCIndexView'
 end
 
 

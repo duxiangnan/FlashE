@@ -67,10 +67,25 @@
 @end
 
 @implementation FEStoreTypeVC
++(void)load {
+    static NSObject* obj = nil;
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+        obj = [[NSObject alloc] init];
+        [FFRouter registerObjectRouteURL:@"store://storeType" handler:^id(NSDictionary *routerParameters) {
+            FEStoreTypeVC* vc = [[FEStoreTypeVC alloc] initWithNibName:@"FEStoreTypeVC" bundle:nil];
+            vc.selectedAction = routerParameters[@"selectedAction"];
+            vc.title = [FEPublicMethods SafeString:routerParameters[@"title"] withDefault:@"选择店铺类型"];
+            vc.hidesBottomBarWhenPushed = YES;
+            return vc;
+        }];
+    });
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"选择店铺类型";
     self.fd_prefersNavigationBarHidden = NO;
     if (@available(iOS 11.0, *)) {
         self.table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

@@ -13,7 +13,7 @@
 #import <TZImagePickerController/TZImagePickerController.h>
 
 #import "FESearchAddressVC.h"
-#import "FEStoreTypeVC.h"
+
 #import "FEStoreCityModel.h"
 
 
@@ -64,7 +64,7 @@
 
 @property (nonatomic, strong) NSURLSessionDataTask* submitTask;
 @property (nonatomic, assign) NSInteger btnType;//图片选取索引
-@property (nonatomic, strong) FEStoreTypeVC* typeVC;//店铺类型模型
+
 @end
 
 @implementation FECreateStoreVC
@@ -257,19 +257,17 @@
 
 - (void) showInputType {
     
-    
-    if (!self.typeVC) {
-        self.typeVC = [[FEStoreTypeVC alloc] initWithNibName:@"FEStoreTypeVC" bundle:nil];
-        self.typeVC.hidesBottomBarWhenPushed = YES;
-        @weakself(self);
-        self.typeVC.selectedAction = ^(NSDictionary * _Nonnull item) {
-            @strongself(weakSelf);
-            strongSelf.inputModel.category = ((NSNumber*)item[@"code"]).intValue;
-            strongSelf.dianTypeLB.text = item[@"name"];
-            strongSelf.dianTypeLB.textColor = UIColorFromRGB(0x333333);
-        };
-    }
-    [self.navigationController pushViewController:self.typeVC animated:YES];
+    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
+    @weakself(self);
+    arg[@"selectedAction"] =  ^(NSDictionary * _Nonnull item) {
+        @strongself(weakSelf);
+        strongSelf.inputModel.category = ((NSNumber*)item[@"code"]).intValue;
+        strongSelf.dianTypeLB.text = item[@"name"];
+        strongSelf.dianTypeLB.textColor = UIColorFromRGB(0x333333);
+    };
+    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://storeType"
+                                         withParameters:arg];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

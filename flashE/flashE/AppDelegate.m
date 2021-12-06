@@ -227,8 +227,15 @@ static NSString* UNIVERSAL_LINK = @"";
                             parameters:@{@"id":@(acc.ID)} success:^(NSInteger code, id  _Nonnull response) {
         NSDictionary* data = response[@"data"];
         FEAccountModel* model = [FEAccountModel yy_modelWithDictionary:data];
-        
-        [[FEAccountManager sharedFEAccountManager] setLoginInfo:model];
+        FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
+        acc.type = model.type;
+        acc.shopId = model.shopId;
+        acc.storeId = model.storeId;
+        acc.loginName = model.loginName;
+        acc.storeName = model.storeName;
+        acc.mobile = model.mobile;
+        acc.balance = model.balance;
+        [[FEAccountManager sharedFEAccountManager] setLoginInfo:acc];
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
         
     } cancle:^{

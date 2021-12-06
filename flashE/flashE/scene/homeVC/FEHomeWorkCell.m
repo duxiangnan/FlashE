@@ -198,6 +198,7 @@
                 model.commonds = @[item,item1];
             }break;
             case 20:
+            case 30:
             case 40:{//待取单
                 FEOrderCommond* item = [FEOrderCommond new];
                 item.commodType = FEOrderCommondCancel;
@@ -213,7 +214,8 @@
                 model.commonds = @[item,item1];
             }break;
             case 50:
-            case 60:{
+            case 60:
+            case 70:{
                 FEOrderCommond* item = [FEOrderCommond new];
                 item.commodType = FEOrderCommondRetry;
                 item.commodName = @"重新发单";

@@ -230,11 +230,13 @@
                                         success:^(NSInteger code, id  _Nonnull response) {
                 @strongself(weakSelf);
                 NSDictionary* dic = response[@"data"];
-                FEAlertView* alter = [[FEAlertView alloc] initWithTitle:dic[@"title"] message:dic[@"cancelTips"]];
+                NSString* title = [FEPublicMethods SafeString:dic[@"title"] withDefault:@"取消结果"];
+                NSString* msg = [FEPublicMethods SafeString:dic[@"cancelTips"] withDefault:@"取消成功"];
+                FEAlertView* alter = [[FEAlertView alloc] initWithTitle:title message:msg];
                 [alter addAction:[FEAlertAction actionWithTitle:@"知道了" style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
                     [strongSelf requestShowData];
                 }]];
-                
+                [alter show];
             } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
                 [MBProgressHUD showMessage:error.localizedDescription];
             } cancle:^{

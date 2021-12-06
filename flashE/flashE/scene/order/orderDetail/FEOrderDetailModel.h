@@ -14,6 +14,8 @@
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, copy) NSString *statusName;//订单状态名称
 @property (nonatomic, assign) NSInteger appointType;//0及时单；1预约单
+@property (nonatomic, assign) NSInteger appointDate;//预约时间
+@property (nonatomic, copy) NSString* appointDateStr;
 @property (nonatomic, copy) NSString *scheduleTitle;//订单进度
 @property (nonatomic, copy) NSString *scheduleInfo;//进度内容
 
@@ -38,6 +40,9 @@
 
 @property (nonatomic, copy) NSString *courierName;//骑手姓名
 @property (nonatomic, copy) NSString *courierMobile;//骑手电话
+@property (nonatomic, copy) NSString *courierLatitude;//骑手
+@property (nonatomic, copy) NSString *courierLongitude;//骑手
+
 
 @property (nonatomic, assign) long long createTime;//下单时间
 @property (nonatomic, copy) NSString *createTimeStr;//下单时间文案
@@ -47,7 +52,6 @@
 @property (nonatomic, assign) long long cancelTime;//取消时间
 @property (nonatomic, assign) long long finishTime;//完成时间
 @property (nonatomic, assign) long long systemTime;//系统时间
-@property (nonatomic, assign) NSInteger appointDate;//预约时间
 
 
 
@@ -62,8 +66,8 @@
 
 
 @property (nonatomic, copy) NSString *showStuseTimeStr;//状态时间
-@property (nonatomic, copy) NSString *orderStatusTipName;//状态提示
-@property (nonatomic, copy) NSString *orderStatusDescName;//状态详细提示
+//@property (nonatomic, copy) NSString *orderStatusTipName;//状态提示
+//@property (nonatomic, copy) NSString *orderStatusDescName;//状态详细提示
 @property (nonatomic, copy) NSArray<FEOrderCommond*>* commonds;//订单cell命令按钮
 
 @property (nonatomic, assign) CGFloat orderDetailHeaderCellH;
@@ -74,6 +78,8 @@
 @property (nonatomic, assign) CGFloat orderDetailLogisticTableH;
 @property (nonatomic, assign) CGFloat orderDetailLogisticHeaderH;
 @property (nonatomic, assign) CGFloat orderDetailLogisticBottomH;
+
+-(void) makeUpdaSubKey;//更新model 展示信息
 @end
 
 

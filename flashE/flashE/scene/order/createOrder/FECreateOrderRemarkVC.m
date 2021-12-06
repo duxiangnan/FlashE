@@ -7,7 +7,7 @@
 
 #import "FECreateOrderRemarkVC.h"
 #import "FEDefineModule.h"
-NSInteger FECreateOrderRemarkMax = 120;
+NSInteger FECreateOrderRemarkMax = 150;
 @interface FECreateOrderRemarkVC ()
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *leftNumLB;

@@ -22,8 +22,12 @@ NSDictionary *FERequestEncryption(NSDictionary *body,NSMutableDictionary* wrappe
     NSString* timeSpan = [NSString stringWithFormat:@"%0.f",[[NSDate date] timeIntervalSince1970]*1000];
     NSString* sig = [NSString stringWithFormat:@"token=%@&version=%@&timeSpan=%@",
                     token,version,timeSpan];
+    NSString* ID = [NSString stringWithFormat:@"%ld",acc.ID];
+    NSString* shopId = [NSString stringWithFormat:@"%ld",acc.shopId];
     [wrapper addEntriesFromDictionary:body];
     wrapper[@"token"] = token;
+    wrapper[@"shopId"] = shopId;
+    wrapper[@"userId"] = ID;
     wrapper[@"version"] = version;
     wrapper[@"timeSpan"] = timeSpan;
     wrapper[@"signKey"] = [MD5Encryption md5by32:sig];
@@ -32,8 +36,10 @@ NSDictionary *FERequestEncryption(NSDictionary *body,NSMutableDictionary* wrappe
 //        [[FEHttpManager defaultClient].requestSerializer setValue:obj forHTTPHeaderField:key];
 //    }];
     [[FEHttpManager defaultClient].requestSerializer setValue:token forHTTPHeaderField:@"token"];
-//    [[FEHttpManager defaultClient].requestSerializer setValue:version forHTTPHeaderField:@"version"];
-//    [[FEHttpManager defaultClient].requestSerializer setValue:timeSpan forHTTPHeaderField:@"timeSpan"];
+    [[FEHttpManager defaultClient].requestSerializer setValue:version forHTTPHeaderField:@"version"];
+    [[FEHttpManager defaultClient].requestSerializer setValue:timeSpan forHTTPHeaderField:@"timeSpan"];
+    [[FEHttpManager defaultClient].requestSerializer setValue:ID forHTTPHeaderField:@"ID"];
+    [[FEHttpManager defaultClient].requestSerializer setValue:shopId forHTTPHeaderField:@"shopId"];
     
     
     return wrapper;

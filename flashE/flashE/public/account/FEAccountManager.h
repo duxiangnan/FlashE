@@ -11,7 +11,11 @@
 #import "FEAddressModel.h"
 
 
-
+typedef enum : NSUInteger {
+    FEPlatforeKeyPhone = 0,//平台客服电话
+    FEPlatforeKeyFlage,//平台图片
+    
+} FEPlatforeKey;
 @interface FEAccountManager : NSObject
 + (instancetype)sharedFEAccountManager;
 
@@ -25,4 +29,7 @@
 // 登录信息
 - (void)setLoginInfo:(FEAccountModel *)model;
 - (FEAccountModel *)getLoginInfo;
+
+
+- (NSString*) getPlatFormInfo:(NSString*)plat type:(FEPlatforeKey)type;
 @end

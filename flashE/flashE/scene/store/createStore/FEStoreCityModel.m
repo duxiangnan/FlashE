@@ -21,4 +21,10 @@
 
 @implementation FEStoreCityModel
 
+
++ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass{
+    return @{@"cities" : [FEStoreCityItemModel class]};
+}
+
+
 @end

@@ -14,6 +14,8 @@
 @interface FEAccountManager ()
 
 @property (nonatomic, strong) FEAccountModel *account;// 登陆信息
+@property (nonatomic, strong) NSDictionary* platFormInfo;
+
 @end
 
 @implementation FEAccountManager
@@ -121,6 +123,33 @@
         [user synchronize];
     }
 }
-
+- (NSString*) getPlatFormInfo:(NSString*)plat type:(FEPlatforeKey)type {
+    
+    if (!_platFormInfo) {
+        
+    
+        _platFormInfo = @{
+            @"bingex":@{@"phone":@"4006126688",@"flage":@"logistic_shansong"},//闪送
+            @"shunfeng":@{@"phone":@"9533868",@"flage":@"logistic_shunfeng"},//顺丰同城
+            @"mtps":@{@"phone":@"10107888",@"flage":@"logistic_meituan"},//美团跑腿
+            @"fengka":@{@"phone":@"4008827777",@"flage":@"logistic_fengxiao"},//蜂鸟即配
+            @"dada":@{@"phone":@"4009919512",@"flage":@"logistic_dada"},//达达
+            @"uupt":@{@"phone":@"4006997999",@"flage":@"logistic_uu"}//UU跑腿
+        };
+    }
+    NSDictionary* tmp = _platFormInfo[plat];
+    switch (type) {
+        case FEPlatforeKeyPhone:
+            return tmp[@"phone"];
+            break;
+        case FEPlatforeKeyFlage:
+            return tmp[@"flage"];
+            break;
+        default:
+            break;
+    }
+    return @"";
+    
+}
 
 @end

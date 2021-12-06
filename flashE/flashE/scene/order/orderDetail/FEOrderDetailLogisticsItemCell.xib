@@ -77,6 +77,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="StatusLB" destination="9c8-q9-6Cf" id="uEA-yy-YaH"/>
+                <outlet property="StatusLBW" destination="wce-I7-q8u" id="ZNw-zC-Ooj"/>
                 <outlet property="lineView" destination="c3X-gP-aXH" id="vfh-yf-moI"/>
                 <outlet property="nameLB" destination="uzG-RO-2lj" id="1cX-cm-IvK"/>
                 <outlet property="priceLB" destination="pUg-3E-8QJ" id="rXx-AV-CS4"/>

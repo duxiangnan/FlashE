@@ -37,16 +37,21 @@
 
 - (IBAction)phoneAcion:(id)sender {
 //    waitServerSure phoneDic
-    NSDictionary* phoneDic = @{
-        @"1":@"4006126688",//闪送
-        @"2":@"顺丰同城：9533868",//顺丰同城
-        @"3":@"10107888",//美团跑腿
-        @"4":@"4008827777",//蜂鸟即配
-        @"5":@"4009919512",//达达
-        @"6":@"4006997999",//UU跑腿
-    };
-    NSString* phone = [NSString stringWithFormat:@"tel://%@",phoneDic[@"1"]];
-    [FEPublicMethods openUrlInSafari:phone];
+    
+    NSString* phone = [[FEAccountManager sharedFEAccountManager] getPlatFormInfo:self.model.logistic type:FEPlatforeKeyPhone];
+    if (phone.length == 0) {
+        NSDictionary* phoneDic = @{
+            @"bingex":@"4006126688",//闪送
+            @"shunfeng":@"9533868",//顺丰同城
+            @"mtps":@"10107888",//美团跑腿
+            @"fengka":@"4008827777",//蜂鸟即配
+            @"dada":@"4009919512",//达达
+            @"uupt":@"4006997999",//UU跑腿
+        };
+        phone = phoneDic[self.model.logistic];
+    }
+    NSString* phoneUrl = [NSString stringWithFormat:@"tel://%@",phone];
+    [FEPublicMethods openUrlInSafari:phoneUrl];
 }
 
 @end

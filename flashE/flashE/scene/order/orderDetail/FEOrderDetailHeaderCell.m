@@ -61,7 +61,7 @@
     }
 
     heigt += 30;
-    CGSize size = [model.orderStatusDescName sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
+    CGSize size = [model.scheduleInfo sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
     heigt += ceil(size.height);
 
     // 10,//待接单  20, //待取单 //配送中 //已取消 //已完成
@@ -81,6 +81,7 @@
             model.commonds = @[item,item1];
         }break;
         case 20:
+        case 30:
         case 40:{//待取单
             FEOrderCommond* item = [FEOrderCommond new];
             item.commodType = FEOrderCommondCancel;
@@ -96,7 +97,8 @@
             model.commonds = @[item,item1];
         }break;
         case 50:
-        case 60:{
+        case 60:
+        case 70:{
             FEOrderCommond* item = [FEOrderCommond new];
             item.commodType = FEOrderCommondRetry;
             item.commodName = @"重新发单";
@@ -146,8 +148,8 @@
     self.mapViewH.constant = model.orderDetailHeaderMapH;
     self.bottomViewH.constant = model.orderDetailHeaderBottomH;
     
-    self.statusNameLB.text = model.orderStatusTipName;
-    self.StatusDesLB.text = model.orderStatusDescName;
+    self.statusNameLB.text = model.scheduleTitle;
+    self.StatusDesLB.text = model.scheduleInfo;
 
     self.statusView.hidden = model.commonds.count == 0;
     [self resetCommondView:model];

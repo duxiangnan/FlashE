@@ -87,8 +87,8 @@
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="加小费可更快被接单" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KqT-yz-BAd">
-                                <rect key="frame" x="208" y="111" width="117" height="18.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="加小费可更快被接单" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KqT-yz-BAd">
+                                <rect key="frame" x="91" y="110" width="234" height="18.5"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -103,14 +103,15 @@
                             <constraint firstItem="yIQ-fW-Ro9" firstAttribute="leading" secondItem="xq9-5b-eWt" secondAttribute="leading" constant="16" id="F83-oe-Uqo"/>
                             <constraint firstItem="yIQ-fW-Ro9" firstAttribute="top" secondItem="ega-Qq-Mve" secondAttribute="bottom" constant="10" id="VTz-yB-RVu"/>
                             <constraint firstAttribute="trailing" secondItem="Ed5-3T-xkK" secondAttribute="trailing" constant="16" id="dNj-1K-YQc"/>
+                            <constraint firstItem="KqT-yz-BAd" firstAttribute="top" secondItem="LOa-CN-SrF" secondAttribute="top" id="fMQ-hh-2tC"/>
                             <constraint firstItem="ega-Qq-Mve" firstAttribute="top" secondItem="xq9-5b-eWt" secondAttribute="top" constant="20" id="gGH-Lg-cT2"/>
                             <constraint firstItem="sxq-Kf-5wH" firstAttribute="centerY" secondItem="ega-Qq-Mve" secondAttribute="centerY" id="kIR-mH-NI8"/>
                             <constraint firstItem="1Aj-Ig-D2e" firstAttribute="centerY" secondItem="gHz-M1-Nma" secondAttribute="centerY" id="kTE-MM-4i2"/>
                             <constraint firstAttribute="trailing" secondItem="sxq-Kf-5wH" secondAttribute="trailing" constant="16" id="mQx-7M-Nwa"/>
                             <constraint firstAttribute="trailing" secondItem="KqT-yz-BAd" secondAttribute="trailing" constant="16" id="nP0-PD-4aN"/>
                             <constraint firstItem="ega-Qq-Mve" firstAttribute="leading" secondItem="xq9-5b-eWt" secondAttribute="leading" constant="16" id="o8P-sY-hYh"/>
+                            <constraint firstItem="KqT-yz-BAd" firstAttribute="leading" secondItem="LOa-CN-SrF" secondAttribute="trailing" constant="5" id="pG8-AZ-rfF"/>
                             <constraint firstItem="1Aj-Ig-D2e" firstAttribute="leading" secondItem="xq9-5b-eWt" secondAttribute="leading" constant="16" id="qgk-01-TPP"/>
-                            <constraint firstItem="LOa-CN-SrF" firstAttribute="centerY" secondItem="KqT-yz-BAd" secondAttribute="centerY" id="vWZ-RO-WGm"/>
                             <constraint firstItem="Ed5-3T-xkK" firstAttribute="centerY" secondItem="yIQ-fW-Ro9" secondAttribute="centerY" id="woR-GM-qfm"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
