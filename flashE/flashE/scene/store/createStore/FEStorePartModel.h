@@ -10,6 +10,7 @@
 @property (nonatomic, assign) NSInteger ID;
 
 @property (nonatomic, assign) NSInteger category;
+@property (nonatomic, copy) NSString * categoryName;
 
 @property (nonatomic, copy) NSString *businessLicense;
 

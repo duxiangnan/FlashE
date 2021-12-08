@@ -22,9 +22,11 @@
 @property (nonatomic, assign) NSInteger additionFee;//小费
 
 @property (nonatomic, assign) NSInteger appointType;//预约类型0及时单；1预约单
+@property (nonatomic, assign) NSInteger appointDate;//预约时间
 @property (nonatomic, assign) double fromLng;//下单地址经度
 @property (nonatomic, assign) double fromLat;//下单地址纬度
 @property (nonatomic, copy) NSString* fromAddress;//发件地址
+@property (nonatomic, copy) NSString* fromAddressDetail;//发件地址
 @property (nonatomic, copy) NSString* fromName;//下单人
 @property (nonatomic, copy) NSString* fromMobile;//下单人手机号
 

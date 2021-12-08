@@ -14,7 +14,8 @@
 #import "FECreateOrderRemarkVC.h"
 #import "FECreateOrderReciveAddressInfoVC.h"
 #import "FECreateOrderLogisticModel.h"
-
+#import "FEOrderDetailModel.h"
+#import "FEHomeWorkModel.h"
 
 @interface FECreateOrderLogisticCell:UITableViewCell
 
@@ -263,7 +264,9 @@
     self.fd_prefersNavigationBarHidden = NO;
     self.title = @"发单";
     [self.platformTable registerClass:[FECreateOrderLogisticCell class] forCellReuseIdentifier:@"FECreateOrderLogisticCell"];
-    self.model = [FECreateOrderModel new];
+    if(!self.model) {
+        self.model = [FECreateOrderModel new];
+    }
     [self freshSubView];
     
 }
@@ -373,6 +376,92 @@
     [self.platformTable reloadData];
     
 }
+
+- (void)setOrderDetailModel:(FEOrderDetailModel *)orderDetailModel {
+    _orderDetailModel = orderDetailModel;
+    if(!self.model) {
+        self.model = [FECreateOrderModel new];
+    }
+
+    self.model.appointType = orderDetailModel.appointType;
+    self.model.appointDate = orderDetailModel.appointDate;
+//    self.model.categoryName = orderDetailModel.goodName;
+    self.model.weight = orderDetailModel.weight;
+    
+
+    self.model.storeId = orderDetailModel.storeId.integerValue;
+//    self.model.cityId = orderDetailModel.;//城市ID
+//    @property (nonatomic, copy) NSString* cityName;//城市名称
+
+    self.model.toAddress = orderDetailModel.toAdress;
+    self.model.toAddressDetail = orderDetailModel.toAdressDetail;
+    self.model.toUserName = orderDetailModel.toUserName;
+    self.model.toMobile = orderDetailModel.toUserMobile;
+    self.model.toLng = orderDetailModel.toLongitude.doubleValue;
+    self.model.toLat = orderDetailModel.toLatitude.doubleValue;
+    self.model.additionFee = orderDetailModel.tipAmount;//小费
+
+    
+    self.model.fromLng = orderDetailModel.fromLongitude.doubleValue;
+    self.model.fromLat = orderDetailModel.fromLatitude.doubleValue;
+    self.model.fromAddress = orderDetailModel.fromAddress;
+//    self.model.fromName = orderDetailModel.;//下单人
+//    self.model.fromMobile = orderDetailModel.;//下单人手机号
+
+
+//    self.model.category = orderDetailModel.;//物品类型
+//    self.model.categoryName = orderDetailModel.;//物品类型名称
+    
+    self.model.remark = orderDetailModel.remark;//备注
+//    self.model.logistics = orderDetailModel.logistic;//选择下单平台
+    
+    
+    
+    
+}
+- (void)setOrderListModel:(FEHomeWorkOrderModel *)orderListModel {
+    _orderListModel = orderListModel;
+    if(!self.model) {
+        self.model = [FECreateOrderModel new];
+    }
+    
+//    
+//    self.model.appointType = orderListModel.appointType;
+//    self.model.appointDate = orderListModel.appointDate;
+////    self.model.categoryName = orderListModel.goodName;
+//    self.model.weight = orderListModel.weight;
+//    
+//
+//    self.model.storeId = orderListModel.storeId.integerValue;
+////    self.model.cityId = orderListModel.;//城市ID
+////    @property (nonatomic, copy) NSString* cityName;//城市名称
+//
+//    self.model.toAddress = orderListModel.toAdress;
+//    self.model.toAddressDetail = orderListModel.toAdressDetail;
+//    self.model.toUserName = orderListModel.toUserName;
+//    self.model.toMobile = orderListModel.toUserMobile;
+//    self.model.toLng = orderListModel.toLongitude.doubleValue;
+//    self.model.toLat = orderListModel.toLatitude.doubleValue;
+//    self.model.additionFee = orderListModel.tipAmount;//小费
+//
+//    
+//    self.model.fromLng = orderListModel.fromLongitude.doubleValue;
+//    self.model.fromLat = orderListModel.fromLatitude.doubleValue;
+//    self.model.fromAddress = orderListModel.fromAddress;
+////    self.model.fromName = orderListModel.;//下单人
+////    self.model.fromMobile = orderListModel.;//下单人手机号
+//
+//
+////    self.model.category = orderListModel.;//物品类型
+////    self.model.categoryName = orderListModel.;//物品类型名称
+//    
+//    self.model.remark = orderListModel.remark;//备注
+////    self.model.logistics = orderDetailModel.logistic;//选择下单平台
+//    
+//    
+    
+}
+
 - (void) setTipInfo:(NSInteger)tip {
     //设置小费
     self.model.additionFee = tip;
@@ -487,6 +576,7 @@
     param[@"toLat"] = @(self.model.toLat);
     param[@"cityName"] = self.model.cityName;
     param[@"fromAddress"] = self.model.fromAddress;
+    param[@"toAddressDetail"] = self.model.fromAddressDetail;
     param[@"additionFee"] = @(self.model.additionFee);
     param[@"cityId"] =  @(self.model.cityId);
     param[@"storeId"] = @(acc.storeId);
@@ -606,12 +696,13 @@
             strongSelf.model.fromLat = model.latitude.doubleValue;
             strongSelf.model.fromLng = model.longitude.doubleValue;
             strongSelf.model.fromAddress = model.address;
+            strongSelf.model.fromAddressDetail = model.addressDetail;
             strongSelf.model.fromName = model.name;
             strongSelf.model.fromMobile = model.mobile;
             strongSelf.model.cityId = model.cityId;
             strongSelf.model.cityName = model.cityName;
-            strongSelf.model.category = model.category;
-            strongSelf.model.categoryName = model.categoryName;
+//            strongSelf.model.category = model.category;
+//            strongSelf.model.categoryName = model.categoryName;
             strongSelf.model.storeId = model.shopId;
             [strongSelf.popupController dismiss];
             [strongSelf freshSubViewData];

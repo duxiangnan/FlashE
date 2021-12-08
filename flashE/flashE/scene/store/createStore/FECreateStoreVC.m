@@ -92,8 +92,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.inputModel = [[FEStorePartModel alloc] init];
-    self.inputModel.defaultStore = self.defaultAddressSw.on?1:0;
+    if(!self.inputModel){
+        self.inputModel = [[FEStorePartModel alloc] init];
+        self.inputModel.defaultStore = self.defaultAddressSw.on?1:0;
+        
+    }
     self.btnType = -1;
     self.fd_prefersNavigationBarHidden = NO;
     self.title = @"添加店铺";
@@ -103,6 +106,23 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
+    
+    
+    self.dianNameTF.text = self.inputModel.name;
+    self.dianNameLB.text = self.inputModel.address;
+    self.dianDetailLB.text = self.inputModel.addressDetail;
+    self.dianTypeLB.text = self.inputModel.categoryName;
+    self.dianPhoneTF.text = self.inputModel.mobile;
+    self.dianNameTF.textColor = self.dianNameTF.text.length>0?UIColorFromRGB(0x333333):UIColorFromRGB(0x777777);
+    self.dianNameLB.textColor = self.dianNameLB.text.length>0?UIColorFromRGB(0x333333):UIColorFromRGB(0x777777);
+    self.dianDetailLB.textColor = self.dianDetailLB.text.length>0?UIColorFromRGB(0x333333):UIColorFromRGB(0x777777);
+    self.dianTypeLB.textColor = self.dianTypeLB.text.length>0?UIColorFromRGB(0x333333):UIColorFromRGB(0x777777);
+    self.dianPhoneTF.textColor = self.dianPhoneTF.text.length>0?UIColorFromRGB(0x333333):UIColorFromRGB(0x777777);
+    //    [self.zhengZMBtn setImage:[] forState:(UIControlState)];
+    //    self.zhengFMBtn;
+    //    self.yingyeBtn;
+    //    self.dianBtn;
+    self.defaultAddressSw.on = self.inputModel.defaultStore==1;
     
     CGFloat width = (kScreenWidth - 10*2 - 16*2 - 10)/2;
     CGFloat btnH = 106.0/156*width;
@@ -159,9 +179,12 @@
     if (!model) {
         return;
     }
+    if (!self.inputModel) {
+        self.inputModel = [FEStorePartModel new];
+    }
     self.inputModel.ID = model.ID;
     self.inputModel.category = model.category;
-    self.inputModel.businessLicense = model.categoryName;
+    self.inputModel.categoryName = model.categoryName;
     self.inputModel.cityName = model.cityName;
     self.inputModel.mobile = model.mobile;
     self.inputModel.longitude = model.longitude;
@@ -170,6 +193,7 @@
     self.inputModel.addressDetail = model.addressDetail;
     self.inputModel.address = model.address;
     self.inputModel.reverseIdcard = model.reverseIdcard;
+    self.inputModel.businessLicense = model.businessLicense;
     self.inputModel.shopId = model.shopId;
     self.inputModel.facade = model.facade;
     self.inputModel.cityId = model.cityId;
@@ -177,17 +201,6 @@
     self.inputModel.frontIdcard = model.frontIdcard;
 
  
-    self.dianNameTF.text = model.name;
-    self.dianNameLB.text = model.address;
-    self.dianDetailLB.text = model.addressDetail;
-    self.dianTypeLB.text = model.categoryName;
-    self.dianPhoneTF.text = model.mobile;
-
-//    [self.zhengZMBtn setImage:[] forState:<#(UIControlState)#>];
-//    self.zhengFMBtn;
-//    self.yingyeBtn;
-//    self.dianBtn;
-    self.defaultAddressSw.on = model.defaultStore==1;
 }
 
 

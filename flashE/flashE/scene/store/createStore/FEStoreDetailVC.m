@@ -78,6 +78,7 @@
 - (void) gotoModifyStore{
     
     FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://createStore" withParameters:@{@"model":self.model}];
+
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -92,7 +93,7 @@
         NSMutableArray* arr = [NSMutableArray array];
         FESoreDetailCellModle*item = [FESoreDetailCellModle new];
         item.type = FESoreDetailCellTypeAddress;
-        item.cellHeight = 90;
+        item.cellHeight = 110;
         [arr addObject:item];
         
         item = [FESoreDetailCellModle new];
@@ -116,7 +117,7 @@
          ^(FESoreDetailLogisticModle* obj, NSUInteger idx, BOOL * _Nonnull stop) {
             FESoreDetailCellModle*item = [FESoreDetailCellModle new];
             item.type = FESoreDetailCellTypeLocgist;
-            item.cellHeight = 60;
+            item.cellHeight = 0;//60;
             [arr addObject:item];
         }];
         strongSelf.model.cells = arr.copy;

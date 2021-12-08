@@ -24,7 +24,7 @@
     if (self) {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColor.whiteColor;
         
         [self.contentView addSubview:self.name];
         
@@ -52,6 +52,14 @@
         _name.numberOfLines = 2;
         _name.textColor = UIColorFromRGB(0x333333);
         _name.font = [UIFont regularFont:14];
+        UIView* line = [UIView new];
+        line.backgroundColor = UIColorFromRGB(0xF6F7F9);
+        [self.contentView addSubview:line];
+        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView.mas_left).offset(16);
+            make.bottom.right.equalTo(self.contentView);
+            make.height.mas_equalTo(1);
+        }];
     }
     return _name;
 }
@@ -147,7 +155,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 30;
+    return 50;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
