@@ -6,13 +6,12 @@
 //
 
 #import "FEBaseViewController.h"
-@class FEOrderDetailModel,FEHomeWorkOrderModel;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FECreateOrderVC : FEBaseViewController
 
-@property (nonatomic, strong) FEOrderDetailModel* orderDetailModel;
-@property (nonatomic, strong) FEHomeWorkOrderModel* orderListModel;
+@property (nonatomic, strong) NSString* orderId;
 @property (nonatomic, copy) void(^actionComplate)(NSString* orderId);
 @end
 

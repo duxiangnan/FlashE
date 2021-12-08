@@ -53,7 +53,7 @@
                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="BxS-v1-lsH" secondAttribute="trailing" id="Ahb-d4-Ibt"/>
                         <constraint firstAttribute="trailing" secondItem="q66-le-PKt" secondAttribute="trailing" id="Erg-RJ-a34"/>
@@ -109,7 +109,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="EM1-aV-t65" firstAttribute="centerY" secondItem="tvy-NO-p90" secondAttribute="centerY" id="9MF-iE-0mW"/>
                         <constraint firstItem="EM1-aV-t65" firstAttribute="leading" secondItem="tvy-NO-p90" secondAttribute="leading" id="Lfj-gF-u9B"/>

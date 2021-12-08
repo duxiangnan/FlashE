@@ -253,6 +253,7 @@
         [FFRouter registerObjectRouteURL:@"order://createOrder" handler:^id(NSDictionary *routerParameters) {
             FECreateOrderVC* vc = [[FECreateOrderVC alloc] initWithNibName:@"FECreateOrderVC" bundle:nil];
             vc.actionComplate = routerParameters[@"actionComplate"];
+            vc.orderId = routerParameters[@"orderId"];
             vc.hidesBottomBarWhenPushed = YES;
             return vc;
         }];
@@ -317,8 +318,8 @@
     
     UIColor* emptyColor = UIColorFromRGB(0x777777);
     UIColor* filledColor = UIColorFromRGB(0x333333);
-    self.addressFromTitleLB.text = [FEPublicMethods SafeString:self.model.fromName withDefault:@"请选择店铺"];
-    self.addressFromDescLB.text = [FEPublicMethods SafeString:self.model.fromName withDefault:@"请选择店铺地址"];
+    self.addressFromTitleLB.text = [FEPublicMethods SafeString:self.model.fromAddress withDefault:@"请选择店铺"];
+    self.addressFromDescLB.text = [FEPublicMethods SafeString:self.model.fromAddressDetail withDefault:@"请选择店铺地址"];
     
     NSString* tmp = [NSString stringWithFormat:@"%@%@",[FEPublicMethods SafeString:self.model.toAddress],[FEPublicMethods SafeString:self.model.toAddressDetail]];
     self.addressToTitleLB.text = [FEPublicMethods SafeString:tmp withDefault:@"请选择店铺"];
@@ -377,8 +378,8 @@
     
 }
 
-- (void)setOrderDetailModel:(FEOrderDetailModel *)orderDetailModel {
-    _orderDetailModel = orderDetailModel;
+- (void) updataInputModelUserOrderId:(FEOrderDetailModel *)orderDetailModel {
+    
     if(!self.model) {
         self.model = [FECreateOrderModel new];
     }
@@ -389,7 +390,7 @@
     self.model.weight = orderDetailModel.weight;
     
 
-    self.model.storeId = orderDetailModel.storeId.integerValue;
+//    self.model.storeId = orderDetailModel.storeId.integerValue;
 //    self.model.cityId = orderDetailModel.;//城市ID
 //    @property (nonatomic, copy) NSString* cityName;//城市名称
 
@@ -405,6 +406,8 @@
     self.model.fromLng = orderDetailModel.fromLongitude.doubleValue;
     self.model.fromLat = orderDetailModel.fromLatitude.doubleValue;
     self.model.fromAddress = orderDetailModel.fromAddress;
+    self.model.fromAddressDetail = orderDetailModel.fromAddressDetail;
+    self.model.storeId = orderDetailModel.storeId.integerValue;
 //    self.model.fromName = orderDetailModel.;//下单人
 //    self.model.fromMobile = orderDetailModel.;//下单人手机号
 
@@ -419,47 +422,24 @@
     
     
 }
-- (void)setOrderListModel:(FEHomeWorkOrderModel *)orderListModel {
-    _orderListModel = orderListModel;
-    if(!self.model) {
-        self.model = [FECreateOrderModel new];
+- (void)setOrderId:(NSString*)orderId {
+    _orderId = orderId;
+    if(orderId.integerValue <= 0) {
+        return;
     }
-    
-//    
-//    self.model.appointType = orderListModel.appointType;
-//    self.model.appointDate = orderListModel.appointDate;
-////    self.model.categoryName = orderListModel.goodName;
-//    self.model.weight = orderListModel.weight;
-//    
-//
-//    self.model.storeId = orderListModel.storeId.integerValue;
-////    self.model.cityId = orderListModel.;//城市ID
-////    @property (nonatomic, copy) NSString* cityName;//城市名称
-//
-//    self.model.toAddress = orderListModel.toAdress;
-//    self.model.toAddressDetail = orderListModel.toAdressDetail;
-//    self.model.toUserName = orderListModel.toUserName;
-//    self.model.toMobile = orderListModel.toUserMobile;
-//    self.model.toLng = orderListModel.toLongitude.doubleValue;
-//    self.model.toLat = orderListModel.toLatitude.doubleValue;
-//    self.model.additionFee = orderListModel.tipAmount;//小费
-//
-//    
-//    self.model.fromLng = orderListModel.fromLongitude.doubleValue;
-//    self.model.fromLat = orderListModel.fromLatitude.doubleValue;
-//    self.model.fromAddress = orderListModel.fromAddress;
-////    self.model.fromName = orderListModel.;//下单人
-////    self.model.fromMobile = orderListModel.;//下单人手机号
-//
-//
-////    self.model.category = orderListModel.;//物品类型
-////    self.model.categoryName = orderListModel.;//物品类型名称
-//    
-//    self.model.remark = orderListModel.remark;//备注
-////    self.model.logistics = orderDetailModel.logistic;//选择下单平台
-//    
-//    
-    
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    param[@"orderId"] = orderId;
+    @weakself(self);
+    [[FEHttpManager defaultClient] GET:@"/deer/orders/getDetail" parameters:param success:^(NSInteger code, id  _Nonnull response) {
+        @strongself(weakSelf);
+        FEOrderDetailModel* model = [FEOrderDetailModel yy_modelWithDictionary:response[@"data"]];
+        [strongSelf updataInputModelUserOrderId:model];
+        [strongSelf freshSubView];
+    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+        [MBProgressHUD showMessage:error.localizedDescription];
+    } cancle:^{
+
+    }];
 }
 
 - (void) setTipInfo:(NSInteger)tip {
@@ -757,7 +737,6 @@
 
 - (void) reqestCalculateFee {
     if (self.model.toAddress.length == 0 ||
-        self.model.cityId == 0 ||
         self.model.storeId == 0 ||
         self.model.fromAddress.length == 0 ||
         self.model.toUserName.length == 0 ||

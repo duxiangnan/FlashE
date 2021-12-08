@@ -212,10 +212,11 @@
     switch (type) {
         case FEOrderCommondAddCheck:{
             [self addCheckAction:model view:view];
-            
         }break;
         case FEOrderCommondRetry:{
-            
+            FEBaseViewController* vc = [FFRouter routeObjectURL:@"order://createOrder"
+                                                 withParameters:@{@"orderId":model.orderId}];
+            [self.navigationController pushViewController:vc animated:YES];
         }break;
         case FEOrderCommondCallRider:{
             NSString* phone = [NSString stringWithFormat:@"tel://%@",model.courierMobile];

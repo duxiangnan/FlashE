@@ -349,7 +349,10 @@ typedef enum : NSUInteger {
             [self addCheckAction:model view:view];
         }break;
         case FEOrderCommondRetry:{
-            
+            NSString* orderId = [NSString stringWithFormat:@"%lld",model.orderId];
+            FEBaseViewController* vc = [FFRouter routeObjectURL:@"order://createOrder"
+                                                 withParameters:@{@"orderId":orderId}];
+            [self.navigationController pushViewController:vc animated:YES];
         }break;
         case FEOrderCommondCallRider:{
             NSString* phone = [NSString stringWithFormat:@"tel://%@",model.courierMobile];
