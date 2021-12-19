@@ -30,7 +30,7 @@
 
 - (void) setModel:(FEMyStoreModel*) model{
  
-    self.addressLB.text = model.address;
+    self.addressLB.text = model.name;
     self.addressDescLB.text = model.addressDetail;
     self.addressPhoneLB.text = model.mobile;
     

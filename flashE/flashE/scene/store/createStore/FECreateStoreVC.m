@@ -329,7 +329,7 @@
 
     NSMutableDictionary* param = [NSMutableDictionary dictionary];
     if (self.model) {
-        param[@"ID"] = @(self.inputModel.ID);
+        param[@"id"] = @(self.inputModel.ID);
         param[@"shopId"] = @(self.inputModel.shopId);
         param[@"thirdStoreId"] = self.model.thirdStoreId;
         param[@"bdCode"] = self.model.bdCode;

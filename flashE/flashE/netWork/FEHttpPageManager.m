@@ -39,7 +39,8 @@
         _parameters = [NSMutableDictionary dictionary];
         [_parameters addEntriesFromDictionary:parameters];
         _itemClass = itemClass;
-        self.pageIndex = @"pageIndex";
+        
+        self.pageIndex = @"index";
         self.pageSize = @"pageSize";
     }
 
@@ -75,6 +76,13 @@
 
 - (void)_fetchDataList:(NSInteger)page completion:(void (^)(void))completion
 {
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:_parameters];
+    param[self.pageIndex] = @(page);
+    if (!param[self.pageSize]) {
+        param[self.pageSize] = @(20);
+    }
+    
     @weakself(self)
     FEHTTPAPIFailBlock failure = ^(NSError *error, id response) {
         @strongself(weakSelf);
@@ -105,7 +113,7 @@
         }
         
         
-        self.haveMore = arr.count > 0;
+        strongSelf.haveMore = arr.count >= ((NSNumber*)param[strongSelf.pageSize]).integerValue;
         strongSelf.pageCurrent = page;
         if (page <= 1) {
             strongSelf.pageCurrent = 1;
@@ -120,11 +128,6 @@
         
     };
 
-    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:_parameters];
-    param[self.pageIndex] = @(page);
-    if (!param[self.pageSize]) {
-        param[self.pageSize] = @(20);
-    }
     if(self.requestMethod == 0){
         _urlTask = [[FEHttpManager defaultClient] POST:self.functionId
                 parameters:param

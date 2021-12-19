@@ -153,13 +153,13 @@
     void (^loadFirstPage)(void) = ^{
         @strongself(weakSelf);
         [strongSelf.pagesManager fetchData:^{
-            
+            [strongSelf.table.mj_header endRefreshing];
             strongSelf.list = strongSelf.pagesManager.dataArr;
             
             if (strongSelf.pagesManager.hasMore) {
                 strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
                                                                            noMoreDataString:@"没有更多数据"];
-                [strongSelf.table.mj_header endRefreshing];
+                
             } else {
                 [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
             }

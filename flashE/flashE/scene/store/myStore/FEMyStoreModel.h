@@ -9,14 +9,10 @@
 
 @property (nonatomic, assign) NSInteger status;//状态：状态10待审核；20审核通过；30审核拒绝；
 
-
-
 @property (nonatomic, copy) NSString *frontIdcard;//身份证正面
 @property (nonatomic, copy) NSString *reverseIdcard;//身份证反面
 @property (nonatomic, copy) NSString *facade;//店铺照
 @property (nonatomic, copy) NSString *businessLicense;//营业执照
-
-
 
 @property (nonatomic, assign) NSInteger ID;
 @property (nonatomic, assign) NSInteger defaultStore;//默认店铺:0否；1是
@@ -31,20 +27,12 @@
 @property (nonatomic, assign) NSInteger category;
 @property (nonatomic, strong) NSString *categoryName;
 
-
 @property (nonatomic, assign) NSInteger delFlag;//删除标书
-
-
 
 @property (nonatomic, strong) NSArray<FELogisticsModel*> *logistics;
 
-
-
 @property (nonatomic, assign) NSInteger cityId;// 城市ID
 @property (nonatomic, copy) NSString *cityName;//城市名称
-
-
-
 
 @property (nonatomic, copy) NSString *mobile;
 

@@ -128,6 +128,7 @@ static NSString* UNIVERSAL_LINK = @"";
 
     if ([[FEAccountManager sharedFEAccountManager] hasLogin]) {
         [self requestUpdateAccount];
+        [self requestUpdateStoreList];
     }
 }
 
@@ -241,6 +242,25 @@ static NSString* UNIVERSAL_LINK = @"";
     } cancle:^{
     
     }];
+}
+
+
+- (void) requestUpdateStoreList {
     
+    FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    param[@"shopId"] = @(acc.shopId);
+    [[FEHttpManager defaultClient] GET:@"/deer/store/queryStoresByShopId" parameters:param
+      success:^(NSInteger code, id  _Nonnull response)
+    {
+        acc.storeList = [NSArray yy_modelArrayWithClass:[FEMyStoreModel class] json:((NSDictionary*)response)[@"data"]];
+        [[FEAccountManager sharedFEAccountManager] setLoginInfo:acc];
+        
+    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+        
+    } cancle:^{
+        
+    }];
+
 }
 @end

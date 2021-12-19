@@ -13,18 +13,19 @@
 @property (nonatomic, assign) long long cityId;//城市ID
 @property (nonatomic, copy) NSString* cityName;//城市名称
 
+@property (nonatomic, copy) NSString* storeName;//店铺名称
 @property (nonatomic, copy) NSString* toAddress;//收件地址
 @property (nonatomic, copy) NSString* toAddressDetail;//收件地址详情
 @property (nonatomic, copy) NSString* toUserName;//收件人
 @property (nonatomic, copy) NSString* toMobile;//收件人手机号
-@property (nonatomic, assign) double toLng;//收件经度
-@property (nonatomic, assign) double toLat;//收件纬度
+@property (nonatomic, copy) NSString* toLng;//收件经度
+@property (nonatomic, copy) NSString* toLat;//收件纬度
 @property (nonatomic, assign) NSInteger additionFee;//小费
 
 @property (nonatomic, assign) NSInteger appointType;//预约类型0及时单；1预约单
 @property (nonatomic, assign) NSInteger appointDate;//预约时间
-@property (nonatomic, assign) double fromLng;//下单地址经度
-@property (nonatomic, assign) double fromLat;//下单地址纬度
+@property (nonatomic, copy) NSString* fromLng;//下单地址经度
+@property (nonatomic, copy) NSString* fromLat;//下单地址纬度
 @property (nonatomic, copy) NSString* fromAddress;//发件地址
 @property (nonatomic, copy) NSString* fromAddressDetail;//发件地址
 @property (nonatomic, copy) NSString* fromName;//下单人
@@ -45,13 +46,13 @@
 
 @interface FECreateOrderLogisticModel : NSObject
 
-@property (nonatomic, assign) NSInteger coupon;
+@property (nonatomic, assign) CGFloat coupon;
 
 @property (nonatomic, copy) NSString *minLogistic;
 
 @property (nonatomic, assign) CGFloat minPrice;
 
-@property (nonatomic, assign) NSInteger maxPrice;
+@property (nonatomic, assign) CGFloat maxPrice;
 
 @property (nonatomic, strong) NSArray<FECreateOrderLogisticDetailsModel*> *details;
 
@@ -70,7 +71,7 @@
 
 @property (nonatomic, copy) NSString *logisticName;
 
-@property (nonatomic, assign) float distance;
+@property (nonatomic, assign) CGFloat distance;
 
 @property (nonatomic, assign) NSInteger status;//cell选择状态 0：未选择，1:选中，-1:无效
 @end

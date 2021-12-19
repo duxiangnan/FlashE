@@ -22,7 +22,7 @@
     [aCoder encodeFloat:_balance forKey:@"balance"];
     [aCoder encodeObject:_token forKey:@"token"];
     [aCoder encodeInteger:_status forKey:@"status"];
-    
+    [aCoder encodeObject:_storeList forKey:@"storeList"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -30,6 +30,7 @@
         
         self.shopId = [aDecoder decodeIntegerForKey:@"shopId"];
         self.mobile = [aDecoder decodeObjectForKey:@"mobile"];
+        self.loginName = [aDecoder decodeObjectForKey:@"loginName"];
         self.ID = [aDecoder decodeIntegerForKey:@"ID"];
         self.storeId = [aDecoder decodeIntegerForKey:@"storeId"];
         self.type = [aDecoder decodeIntegerForKey:@"type"];
@@ -37,6 +38,7 @@
         self.balance = [aDecoder decodeFloatForKey:@"balance"];
         self.token = [aDecoder decodeObjectForKey:@"token"];
         self.status = [aDecoder decodeIntegerForKey:@"status"];
+        self.storeList = [aDecoder decodeObjectForKey:@"storeList"];
     }
 
     return self;
@@ -46,6 +48,7 @@
     FEAccountModel *copy = [[[self class] allocWithZone:zone]init];
     copy.shopId = self.shopId;
     copy.mobile = self.mobile;
+    copy.loginName = self.loginName;
     copy.ID = self.ID;
     copy.storeId = self.storeId;
     copy.type = self.type;
@@ -53,7 +56,10 @@
     copy.balance = self.balance;
     copy.token = self.token;
     copy.status = self.status;
+    copy.storeList = self.storeList;
     return copy;
 }
+
+
 @end
 

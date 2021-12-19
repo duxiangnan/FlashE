@@ -199,7 +199,7 @@
     [[FEHttpManager defaultClient] POST:@"/deer/orders/createTipsOrder" parameters:param
                                 success:^(NSInteger code, id  _Nonnull response) {
         @strongself(weakSelf);
-        [MBProgressHUD showMessage:response[@"msg"]];
+        [MBProgressHUD showMessage:[FEPublicMethods SafeString:response[@"msg"] withDefault:@"操作成功"]];
         [strongSelf requestShowData];
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
         [MBProgressHUD showMessage:error.localizedDescription];
@@ -293,7 +293,7 @@
         @strongself(weakSelf);
         [strongSelf hiddenEmptyView];
         [strongSelf.pagesManager fetchData:^{
-            
+            [strongSelf.table.mj_header endRefreshing];
             NSDictionary* dic = strongSelf.pagesManager.wholeDict[@"data"];
             [strongSelf resetCountArr:dic[@"count"]];
             
@@ -302,7 +302,7 @@
             if (strongSelf.pagesManager.hasMore) {
                 strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
                                                                            noMoreDataString:@"没有更多数据"];
-                [strongSelf.table.mj_header endRefreshing];
+                
             } else {
                 [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
             }

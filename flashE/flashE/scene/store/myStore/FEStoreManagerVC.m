@@ -152,6 +152,8 @@
     
 }
 - (void) defaultBtnAcion:(UIButton*)sender {
+    if(self.model.defaultStore!=0)
+        return;
     !self.defaultAction?:self.defaultAction(self.model);
 }
 
@@ -339,6 +341,8 @@
         @strongself(weakSelf);
         [MBProgressHUD hideProgressOnView:strongSelf.view];
         strongSelf.list = [NSArray yy_modelArrayWithClass:[FEMyStoreModel class] json:((NSDictionary*)response)[@"data"]];
+        acc.storeList = strongSelf.list;
+        [[FEAccountManager sharedFEAccountManager] setLoginInfo:acc];
         if (strongSelf.list.count == 0) {
             [strongSelf showEmptyViewWithType:YES];
         } else {
@@ -362,13 +366,13 @@
     
     @weakself(self);
     [[FEHttpManager defaultClient] POST:@"/deer/store/setDefaultStore"
-                             parameters:@{@"id":@(model.shopId)}
+                             parameters:@{@"id":@(model.ID)}
                                 success:^(NSInteger code, id  _Nonnull response) {
         @strongself(weakSelf);
         [strongSelf.list enumerateObjectsUsingBlock:
          ^(FEMyStoreModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             obj.defaultStore = NO;
-            if (obj.shopId == model.shopId) {
+            if (obj.ID == model.ID) {
                 obj.defaultStore = YES;
             }
         }];

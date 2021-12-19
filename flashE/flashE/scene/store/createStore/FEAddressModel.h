@@ -1,7 +1,7 @@
 //
 //Created by ESJsonFormatForMac on 21/11/20.
 //
-
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
 
@@ -23,4 +23,6 @@
 
 @property (nonatomic, copy) NSString *name;//地址名称
 
+
+@property (nonatomic, assign) CGFloat cellHeight;//FESearchAddressCell使用
 @end

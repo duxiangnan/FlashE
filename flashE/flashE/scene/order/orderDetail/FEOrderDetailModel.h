@@ -52,7 +52,7 @@
 @property (nonatomic, assign) long long cancelTime;//取消时间
 @property (nonatomic, assign) long long finishTime;//完成时间
 @property (nonatomic, assign) long long systemTime;//系统时间
-
+@property (nonatomic, assign) long long arriveTime;//??时间
 
 
 @property (nonatomic, copy) NSString *logistic;//配送平台
@@ -64,7 +64,7 @@
 @property (nonatomic, strong) NSArray<FEOrderDtailLogisticModel*> *logistics;
 @property (nonatomic, strong) NSArray<FEOrderDtailRouteModel*> *routes;
 
-
+    
 @property (nonatomic, copy) NSString *showStuseTimeStr;//状态时间
 //@property (nonatomic, copy) NSString *orderStatusTipName;//状态提示
 //@property (nonatomic, copy) NSString *orderStatusDescName;//状态详细提示
@@ -93,6 +93,7 @@
 @property (nonatomic, assign) NSInteger orderStatus;//状态
 @property (nonatomic, copy) NSString *orderStatusName;//状态名称
 @property (nonatomic, assign) double amount;//配送金额
+@property (nonatomic, assign) double realAmount;//??配送金额
 @property (nonatomic, assign) double coupon;//优惠金额
 @property (nonatomic, copy) NSString *phone;//客服电话
 

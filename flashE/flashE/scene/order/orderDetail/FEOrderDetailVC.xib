@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FEOrderDetailVC">
             <connections>
+                <outlet property="backBtn" destination="9ee-TE-tU1" id="jDD-ow-9Ef"/>
                 <outlet property="backBtnTop" destination="MJc-H2-2dQ" id="ZXx-7Q-uwn"/>
                 <outlet property="table" destination="UsP-5h-99N" id="upn-Y3-cVw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

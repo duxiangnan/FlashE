@@ -4,6 +4,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "FEMyStoreModel.h"
+
 
 @interface FEAccountModel : NSObject
 
@@ -26,6 +28,8 @@
 @property (nonatomic, copy) NSString *token;
 
 @property (nonatomic, assign) long status;//商户注册状态：0第一次登陆需提交店铺资料；1
+
+@property (nonatomic, copy) NSArray<FEMyStoreModel*>* storeList;//店铺列表
 
 
 

@@ -45,7 +45,7 @@
     self.attributedText = ret;
 }
 
-- (void)appendUnderLineAttriString:(NSString *)attrTxt
+- (void)appendDeleteLineAttriString:(NSString *)attrTxt
                              color:(UIColor *)color
                               font:(UIFont *)font {
     if (attrTxt.length == 0) {
@@ -61,11 +61,13 @@
 
      NSDictionary *attriDic = @{NSFontAttributeName:font,
                                  NSForegroundColorAttributeName:color,
-                                 NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]
+                                NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid)
+//                                 NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]
      };
     NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:attrTxt attributes:attriDic];
     [ret appendAttributedString:attriString];
     self.attributedText = ret;
 }
+
 
 @end

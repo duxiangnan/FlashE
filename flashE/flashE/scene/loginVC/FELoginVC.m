@@ -140,7 +140,7 @@
                              parameters:parameters success:^(NSInteger code, NSDictionary *responseDict) {
         @strongself(weakSelf);
         [MBProgressHUD hideProgress];
-        [MBProgressHUD showMessage:responseDict[@"msg"]];
+        [MBProgressHUD showMessage:[FEPublicMethods SafeString:responseDict[@"msg"] withDefault:@"操作成功"]];
         
         [strongSelf timerButtonAction:60];//倒计时
     } failure:^(NSError *error, id response) {

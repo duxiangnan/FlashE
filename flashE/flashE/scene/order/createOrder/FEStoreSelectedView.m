@@ -44,8 +44,14 @@
 }
 
 - (void) freshSubData {
-    @weakself(self);
     FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
+    if (acc.storeList.count>0) {
+        self.list = acc.storeList;
+        [self.table reloadData];
+        return;
+    }
+    @weakself(self);
+    
     NSMutableDictionary* param = [NSMutableDictionary dictionary];
     param[@"shopId"] = @(acc.shopId);
     [[FEHttpManager defaultClient] GET:@"/deer/store/queryStoresByShopId" parameters:param

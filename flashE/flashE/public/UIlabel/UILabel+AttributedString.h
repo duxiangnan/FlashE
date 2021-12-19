@@ -14,5 +14,5 @@
 
 - (void)appendAttriString:(NSAttributedString *)attrTxt;
 
-- (void)appendUnderLineAttriString:(NSString *)attrTxt color:(UIColor *)color font:(UIFont *)font;
+- (void)appendDeleteLineAttriString:(NSString *)attrTxt color:(UIColor *)color font:(UIFont *)font;
 @end

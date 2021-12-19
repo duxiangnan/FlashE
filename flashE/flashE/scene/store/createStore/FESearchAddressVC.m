@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIImageView* flageImage;
 
 - (void) setModel:(FEAddressModel*) model search:(NSString*)key;
++ (void) caculationCellHeight:(FEAddressModel*)model;
 @end
 @implementation FESearchAddressCell
 
@@ -57,6 +58,29 @@
     }];
     
 }
++ (void) caculationCellHeight:(FEAddressModel*)model {
+    if (model.cellHeight == 0) {
+        model.cellHeight = 10;
+        CGFloat widht = kScreenWidth - 16 - 20 - 10 - 16;
+        CGSize size = [model.name sizeWithFont:[UIFont mediumFont:14] andMaxSize:CGSizeMake(widht,CGFLOAT_MAX)];
+        model.cellHeight += ceil(size.height);
+        
+        NSString* desc = @"";
+        if (model.cityname.length > 0) {
+            desc = [desc stringByAppendingString:model.cityname];
+        }
+        if (model.adname.length > 0) {
+            desc = [desc stringByAppendingString:model.adname];
+        }
+        if (model.address.length > 0) {
+            desc = [desc stringByAppendingString:model.address];
+        }
+        size = [desc sizeWithFont:[UIFont mediumFont:12] andMaxSize:CGSizeMake(widht,CGFLOAT_MAX)];
+        model.cellHeight += 6;
+        model.cellHeight += ceil(size.height);
+        model.cellHeight += 10;
+    }
+}
 - (void) setModel:(FEAddressModel*) model search:(NSString*)key{
     _model = model;
     NSRange range = [model.name rangeOfString:key];
@@ -89,12 +113,12 @@
     }
         
     NSString* desc = @"";
-    if (model.type.length > 0) {
-        desc = [NSString stringWithFormat:@"%@ | ",model.type];
-    }
-    if (model.pname.length > 0) {
-        desc = [desc stringByAppendingString:model.pname];
-    }
+//    if (model.type.length > 0) {
+//        desc = [NSString stringWithFormat:@"%@ | ",model.type];
+//    }
+//    if (model.pname.length > 0) {
+//        desc = [desc stringByAppendingString:model.pname];
+//    }
     if (model.cityname.length > 0) {
         desc = [desc stringByAppendingString:model.cityname];
     }
@@ -112,6 +136,7 @@
     if (!_name) {
         _name = [[UILabel alloc] init];
         _name.numberOfLines = 2;
+        _name.font = [UIFont mediumFont:14];
     }
     return _name;
 }
@@ -222,6 +247,7 @@
                                                             itemClass:[FEAddressModel class]];
     self.pagesManager.resultName = @"data";
     self.pagesManager.requestMethod = 1;
+    [self.pagesManager setkeyIndex:@"index" size:@"pageSize"];
     @weakself(self);
 
     void (^loadMore)(void) = ^{
@@ -247,13 +273,13 @@
         @strongself(weakSelf);
         [strongSelf hiddenEmptyView];
         [strongSelf.pagesManager fetchData:^{
-            
+            [strongSelf.table.mj_header endRefreshing];
             strongSelf.list = strongSelf.pagesManager.dataArr;
             
             if (strongSelf.pagesManager.hasMore) {
                 strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
                                                                            noMoreDataString:@"没有更多数据"];
-                [strongSelf.table.mj_header endRefreshing];
+                
             } else {
                 [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
             }
@@ -333,7 +359,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    FEAddressModel* item = self.list[indexPath.row];
+    [FESearchAddressCell caculationCellHeight:item];
+    return item.cellHeight;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
