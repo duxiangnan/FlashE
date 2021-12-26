@@ -10,6 +10,7 @@
 #import "FEHttpPageManager.h"
 #import "FESearchCityVC.h"
 #import "FEStoreCityModel.h"
+#import <WZLSerializeKit/WZLSerializeKit.h>
 
 
 
@@ -195,6 +196,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.fd_prefersNavigationBarHidden = YES;
+    WZLSERIALIZE_UNARCHIVE(self.cityDic, @"FEStoreCityItemModel", [self filePath:@"lastCity"]);
     self.headerH.constant = kHomeNavigationHeight;
     self.searchKey = @"";
     if (@available(iOS 11.0, *)) {
@@ -208,6 +210,7 @@
         @strongself(weakSelf);
         [strongSelf requestShowData];
     };
+    [self freshCityBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -222,6 +225,12 @@
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     self.emptyFrame = self.table.frame;
+}
+- (NSString*) filePath:(NSString*) fileName {
+    NSString *libraryCachePath = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];
+    libraryCachePath = [libraryCachePath stringByAppendingPathComponent:fileName];
+    NSLog(@"存储路径%@",libraryCachePath);
+    return libraryCachePath;
 }
 - (IBAction)cancleAvtion:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -307,19 +316,21 @@
     @weakself(self);
     vc.selectedAction = ^(FEStoreCityItemModel* model) {
         @strongself(weakSelf);
-        
-        self.cityDic = model;
-        NSString* city = self.cityDic.name;
-        CGSize size = [city sizeWithFont:self.cityBtn.titleLabel.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 30)];
-//        self.cityBtnW.constant = MAX(ceil(size.width)+20, 40);
-        [self.cityBtn setTitle:city forState:UIControlStateNormal];
+        strongSelf.cityDic = model;
+        WZLSERIALIZE_ARCHIVE(strongSelf.cityDic, @"FEStoreCityItemModel", [strongSelf filePath:@"lastCity"]);
+        [strongSelf freshCityBtn];
     };
     vc.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:vc animated:YES];
     
 }
-
+- (void) freshCityBtn{
+    NSString* city = self.cityDic.name;
+//    CGSize size = [city sizeWithFont:self.cityBtn.titleLabel.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 30)];
+//        self.cityBtnW.constant = MAX(ceil(size.width)+20, 40);
+    [self.cityBtn setTitle:city forState:UIControlStateNormal];
+}
 
 #pragma mark - UITextField delegate
 

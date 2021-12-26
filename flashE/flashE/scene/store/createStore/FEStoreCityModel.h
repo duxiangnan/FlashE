@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FEStoreCityItemModel : NSObject
+@interface FEStoreCityItemModel : NSObject<NSCopying,NSCoding>
 
 @property(nonatomic,assign) NSInteger ID;
 @property(nonatomic,copy) NSString* name;

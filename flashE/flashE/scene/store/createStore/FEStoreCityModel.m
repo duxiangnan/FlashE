@@ -6,6 +6,7 @@
 //
 
 #import "FEStoreCityModel.h"
+#import <WZLSerializeKit/WZLSerializeKit.h>
 
 @implementation FEStoreCityItemModel
 
@@ -13,6 +14,11 @@
 + (NSDictionary<NSString *,id> *)modelCustomPropertyMapper{
     return @{@"ID":@"id"};
 }
+
+
+WZLSERIALIZE_CODER_DECODER();
+WZLSERIALIZE_COPY_WITH_ZONE();
+WZLSERIALIZE_DESCRIPTION();//(NOT NECESSARY)
 
 @end
 

@@ -30,6 +30,7 @@
 @property (nonatomic, strong) UIView* naviView;
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) UIView* bottomView;
+@property (nonatomic, strong) UIButton* freshBtn;
 
 @property (nonatomic,strong) JXCategoryNumberView *categoryView;
 @property (nonatomic,copy) NSArray *itemArr;
@@ -85,6 +86,13 @@
     
     [self.view addSubview:self.table];
     [self.view addSubview:self.bottomView];
+    [self.view addSubview:self.freshBtn];
+    [self.freshBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(40);
+        make.right.equalTo(self.view.mas_right).offset(-20);
+        make.bottom.equalTo(self.table.mas_bottom).offset(-20);
+    }];
+    
     self.currentType = homeWorkWaiting;
     
     @weakself(self);
@@ -103,16 +111,10 @@
 }
 - (void)naviLeftAction:(id)sender {
     [FFRouter routeURL:@"deckControl://show"];
-    
-    
-//    self.countArr = @[@(0),@([self.countArr[1] integerValue]+1),@(99),@(110),@(0)];
-//    self.categoryView.counts = self.countArr;
-//    [self.categoryView reloadData];
-//
-//
-//    [self.categoryView selectItemAtIndex:4];
 }
-
+- (void) freshView{
+    [self requestShowData];
+}
 - (void) creatOrderAction:(UIButton*)btn {
 
     FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
@@ -292,6 +294,7 @@
     void (^loadFirstPage)(void) = ^{
         @strongself(weakSelf);
         [strongSelf hiddenEmptyView];
+        strongSelf.freshBtn.hidden = !strongSelf.emptyView.hidden;
         [strongSelf.pagesManager fetchData:^{
             [strongSelf.table.mj_header endRefreshing];
             NSDictionary* dic = strongSelf.pagesManager.wholeDict[@"data"];
@@ -313,10 +316,12 @@
 
                 if ([strongSelf.model.orders count] <= 0) {
                     [strongSelf showEmptyViewWithType:NO];
+                    
                 }
             } else if (strongSelf.model.orders.count == 0) {
                 [strongSelf showEmptyViewWithType:YES];
             }
+            strongSelf.freshBtn.hidden = !strongSelf.emptyView.hidden;
         }];
     };
 
@@ -592,5 +597,17 @@
         [_bottomView addSubview:newBtn];
     }
     return _bottomView;
+}
+
+-(UIButton*) freshBtn {
+    
+    if (!_freshBtn) {
+        _freshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_freshBtn addTarget:self action:@selector(freshView) forControlEvents:UIControlEventTouchUpInside];
+        [_freshBtn setImage:[UIImage imageNamed:@"fe_order_fresh"] forState:UIControlStateNormal];
+        
+        
+    }
+    return _freshBtn;
 }
 @end

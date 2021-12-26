@@ -444,7 +444,6 @@
 			isa = PBXGroup;
 			children = (
 				8BADD5F7274CB45100FDDA68 /* third */,
-				8B36883C2738C03E00B5C1AC /* netWork */,
 				8B36883427343BD900B5C1AC /* scene */,
 				8B36882927343B7E00B5C1AC /* FEBaseViewController.h */,
 				8B36882127343B7E00B5C1AC /* FEBaseViewController.m */,
@@ -478,6 +477,7 @@
 		8B36882227343B7E00B5C1AC /* public */ = {
 			isa = PBXGroup;
 			children = (
+				8B36883C2738C03E00B5C1AC /* netWork */,
 				8B664D662753BAD400583D3E /* UITextView */,
 				8BA1CD092752AF57004D3C35 /* NSObject */,
 				8B43FB772741683000D8460B /* font */,
@@ -1292,8 +1292,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: du xiangnan (4LW593PWQ9)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1000;
+				DEVELOPMENT_TEAM = 32U954HXU3;
 				DISPLAY_NAME_NEW = "小鹿急送_dev";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1379,6 +1381,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaolu.shansong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = shansong_dev;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1389,8 +1392,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Angoluoke Information Technology Co., Ltd. (32U954HXU3)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1000;
+				DEVELOPMENT_TEAM = 32U954HXU3;
 				DISPLAY_NAME_NEW = "小鹿急送";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1476,6 +1481,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaolu.shansong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = shansong_dis;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

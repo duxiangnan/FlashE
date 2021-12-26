@@ -21,6 +21,7 @@ target 'flashE' do
   pod 'JXPagingView/Pager'
   pod 'zhPopupController', '~> 2.0'
   pod 'SCIndexView'
+  pod 'WZLSerializeKit'
 end
 
 

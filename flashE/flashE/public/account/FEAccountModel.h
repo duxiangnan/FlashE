@@ -7,7 +7,7 @@
 #import "FEMyStoreModel.h"
 
 
-@interface FEAccountModel : NSObject
+@interface FEAccountModel : NSObject<NSCopying,NSCoding>
 
 @property (nonatomic, assign) NSInteger shopId;//商户ID
 
