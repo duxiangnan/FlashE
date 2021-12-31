@@ -10,9 +10,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FERechargeVC : FEBaseViewController
-
-
-- (void) setModel:(NSDictionary*) model;
 @end
 
 NS_ASSUME_NONNULL_END

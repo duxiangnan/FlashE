@@ -14,7 +14,7 @@
 #import "FERechargeRecodeCell.h"
 
 
-
+#import "WXApi.h"
 
 
 
@@ -77,6 +77,10 @@
         @strongself(weakSelf);
         NSArray* arr = response[@"data"];
         strongSelf.model.list = [NSArray yy_modelArrayWithClass:[FERechargeModel class] json:arr];
+        if (strongSelf.model.list.count>0) {
+            FERechargeModel* fisrt = strongSelf.model.list.firstObject;
+            fisrt.selected = YES;
+        }
         [strongSelf requestRechargeBalance];
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
         
@@ -109,7 +113,7 @@
     
     @weakself(self);
     NSMutableDictionary*param = [NSMutableDictionary dictionary];
-    param[@"openId"] = @"wx80e41617f401c3e0";//@"wx137a4fe10b102af1";
+    param[@"openId"] = kWXAPPID;//@"wx80e41617f401c3e0";//
     param[@"amount"] = @(item.amount);
     
     
@@ -132,11 +136,28 @@
         
     }];
 }
--(void) gotoWeiXinPay:(NSDictionary*)payInfo {
-#warning 微信支付
-    
-    
-    
+-(void) gotoWeiXinPay:(NSDictionary*)dict {
+    if(dict.count == 0){
+        [MBProgressHUD showProgress];
+        NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
+        PayReq* req = [[PayReq alloc] init];
+        req.partnerId = [dict objectForKey:@"partnerid"];
+        req.prepayId = [dict objectForKey:@"prepayid"];
+        req.nonceStr = [dict objectForKey:@"noncestr"];
+        req.timeStamp = stamp.intValue;
+        req.package = [dict objectForKey:@"package"];
+        req.sign = [dict objectForKey:@"sign"];
+        [WXApi sendReq:req completion:^(BOOL success) {
+            [MBProgressHUD hideProgress];
+            NSString* msg = success?@"支付成功":@"支付失败";
+            [MBProgressHUD showMessage:msg];
+            if (success) {
+                [self requestRechargeBalance];
+            }
+        }];
+        //日志输出
+        NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
+    }
 }
 #pragma mark - tableView delegate
 

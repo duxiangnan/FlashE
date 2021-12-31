@@ -111,4 +111,5 @@ return shared##_classname_;\
 #define waitServerSure @“”
 
 
-
+#define kWXAPPID @"wx137a4fe10b102af1"
+#define kWXUNIVERSAL_LINK @""

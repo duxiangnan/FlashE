@@ -20,8 +20,8 @@
 
 #import "WXApiManager.h"
 
-static NSString* APP_ID = @"";
-static NSString* UNIVERSAL_LINK = @"";
+
+
 @interface AppDelegate ()<WXApiDelegate>
 
 @property (nonatomic) IIViewDeckController *viewDeckController;
@@ -48,7 +48,7 @@ static NSString* UNIVERSAL_LINK = @"";
 
     [self.window makeKeyAndVisible];
     
-    [WXApi registerApp:APP_ID universalLink:UNIVERSAL_LINK];
+    [WXApi registerApp:kWXAPPID universalLink:kWXUNIVERSAL_LINK];
     
     [WXApi startLogByLevel:WXLogLevelNormal logBlock:^(NSString *log) {
         NSLog(@"log : %@", log);
