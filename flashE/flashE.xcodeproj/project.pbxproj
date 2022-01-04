@@ -370,6 +370,7 @@
 		8BCFAC69274A9241004F9B75 /* FESearchCityVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FESearchCityVC.h; sourceTree = "<group>"; };
 		8BCFAC6A274A9242004F9B75 /* FESearchCityVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FESearchCityVC.m; sourceTree = "<group>"; };
 		8BCFAC6B274A9242004F9B75 /* FESearchCityVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FESearchCityVC.xib; sourceTree = "<group>"; };
+		8BFDB26D277F0BEF0029D0F9 /* flashE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = flashE.entitlements; sourceTree = "<group>"; };
 		CD85DD360E682DB69B0B9700 /* libPods-flashE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flashE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -443,6 +444,7 @@
 		8B367BFF272A381700B5C1AC /* flashE */ = {
 			isa = PBXGroup;
 			children = (
+				8BFDB26D277F0BEF0029D0F9 /* flashE.entitlements */,
 				8BADD5F7274CB45100FDDA68 /* third */,
 				8B36883427343BD900B5C1AC /* scene */,
 				8B36882927343B7E00B5C1AC /* FEBaseViewController.h */,
@@ -1292,6 +1294,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = flashE/flashE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: du xiangnan (4LW593PWQ9)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1000;
@@ -1392,6 +1395,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = flashE/flashE.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Angoluoke Information Technology Co., Ltd. (32U954HXU3)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1000;

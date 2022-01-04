@@ -111,6 +111,11 @@
 }
 - (void) rechargeAction:(FERechargeModel *)item type:(NSInteger) type {
     
+    if(![WXApi isWXAppInstalled]){
+        [MBProgressHUD showMessage:@"请安装微信后使用"];
+        return;
+    }
+    
     @weakself(self);
     NSMutableDictionary*param = [NSMutableDictionary dictionary];
     param[@"openId"] = kWXAPPID;//@"wx80e41617f401c3e0";//

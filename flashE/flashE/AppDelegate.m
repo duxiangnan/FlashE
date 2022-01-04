@@ -208,8 +208,18 @@
 
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler {
+    NSLog(@"收到webpageURL 链接 %@",userActivity.webpageURL.absoluteString);
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSURL *url = userActivity.webpageURL;
+       // TODO 根据需求进行处理
+    }
+      // TODO 根据需求进行处理
+//    return YES;
+    
+    
     return [WXApi handleOpenUniversalLink:userActivity delegate:self];
 }
+#pragma mark Universal Link
 
 
 
