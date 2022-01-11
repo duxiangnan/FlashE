@@ -111,14 +111,14 @@
 }
 - (void) rechargeAction:(FERechargeModel *)item type:(NSInteger) type {
     
-    if(![WXApi isWXAppInstalled]){
-        [MBProgressHUD showMessage:@"请安装微信后使用"];
-        return;
-    }
+//    if(![WXApi isWXAppInstalled]){
+//        [MBProgressHUD showMessage:@"请安装微信后使用"];
+//        return;
+//    }
     
     @weakself(self);
     NSMutableDictionary*param = [NSMutableDictionary dictionary];
-    param[@"openId"] = kWXAPPID;//@"wx80e41617f401c3e0";//
+    param[@"openId"] = @"";//kWXAPPID;//@"wx80e41617f401c3e0";//
     param[@"amount"] = @(item.amount);
     
     
@@ -142,16 +142,19 @@
     }];
 }
 -(void) gotoWeiXinPay:(NSDictionary*)dict {
-    if(dict.count == 0){
+    if(dict.count > 0){
         [MBProgressHUD showProgress];
-        NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
+        NSMutableString *stamp  = [dict objectForKey:@"timeStamp"];
         PayReq* req = [[PayReq alloc] init];
-        req.partnerId = [dict objectForKey:@"partnerid"];
-        req.prepayId = [dict objectForKey:@"prepayid"];
-        req.nonceStr = [dict objectForKey:@"noncestr"];
+        req.openID = kWXAPPID;
+        req.partnerId = [dict objectForKey:@"partnerId"];
+        req.prepayId = [dict objectForKey:@"prepayId"];
+        req.nonceStr = [dict objectForKey:@"nonceStr"];
         req.timeStamp = stamp.intValue;
-        req.package = [dict objectForKey:@"package"];
+        req.package = [dict objectForKey:@"packageValue"];
         req.sign = [dict objectForKey:@"sign"];
+        
+        
         [WXApi sendReq:req completion:^(BOOL success) {
             [MBProgressHUD hideProgress];
             NSString* msg = success?@"支付成功":@"支付失败";

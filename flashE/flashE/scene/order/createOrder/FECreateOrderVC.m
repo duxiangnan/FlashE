@@ -15,7 +15,10 @@
 #import "FECreateOrderReciveAddressInfoVC.h"
 #import "FECreateOrderLogisticModel.h"
 #import "FEOrderDetailModel.h"
+#import "FECategorysModel.h"
 #import "FEHomeWorkModel.h"
+#import "FETipModel.h"
+#import "FETipSettingView.h"
 
 @interface FECreateOrderLogisticCell:UITableViewCell
 
@@ -233,6 +236,7 @@
 
 
 @property (nonatomic,strong) zhPopupController* popupController;
+@property (nonatomic,strong) FETipSettingView* tipView;
 @property (nonatomic,strong) FEWeightSettingView* weightView;
 @property (nonatomic,strong) FEStoreSelectedView* storeView;
 @property (nonatomic,strong) FECreateOrderRemarkVC* remarkVC;
@@ -321,7 +325,7 @@
     self.addressFromDescLB.text = [FEPublicMethods SafeString:self.model.fromAddressDetail withDefault:@"请选择店铺地址"];
     
     NSString* tmp = [NSString stringWithFormat:@"%@%@",[FEPublicMethods SafeString:self.model.toAddress],[FEPublicMethods SafeString:self.model.toAddressDetail]];
-    self.addressToTitleLB.text = [FEPublicMethods SafeString:tmp withDefault:@"请选择店铺"];
+    self.addressToTitleLB.text = [FEPublicMethods SafeString:tmp withDefault:@"请选择收货地址"];
     tmp = [FEPublicMethods SafeString:self.model.toUserName];
     if (self.model.toMobile.length > 0) {
         tmp = [tmp stringByAppendingFormat:@" %@",self.model.toMobile];
@@ -443,11 +447,11 @@
     }];
 }
 
-- (void) setTipInfo:(NSInteger)tip {
-    //设置小费
-    self.model.additionFee = tip;
-    self.tipLB.text = [NSString stringWithFormat:@"%ld",(long)tip];
-}
+//- (void) setTipInfo:(NSInteger)tip {
+//    //设置小费
+//    self.model.additionFee = tip;
+//    self.tipLB.text = [NSString stringWithFormat:@"%ld",(long)tip];
+//}
 
 - (IBAction)fromAddressAction:(id)sender {
     [self.storeView freshSubData];
@@ -467,31 +471,40 @@
 
 - (IBAction)weightAction:(id)sender {
     self.weightView.currentWeight = self.model.weight;
-    _popupController = [[zhPopupController alloc] initWithView:self.weightView
-                                                          size:self.weightView.bounds.size];
-    _popupController.presentationStyle = zhPopupSlideStyleFromBottom;
-    _popupController.layoutType = zhPopupLayoutTypeBottom;
-    _popupController.presentationTransformScale = 1.25;
-    _popupController.dismissonTransformScale = 0.85;
-    [_popupController showInView:self.view.window completion:NULL];
+    @weakself(self);
+    [self.weightView getCategorysData:^(FECategorysModel * _Nonnull modle) {
+        @strongself(weakSelf);
+        [strongSelf.weightView fitterViewHeight];
+        
+        strongSelf.popupController = [[zhPopupController alloc] initWithView:strongSelf.weightView
+                                                              size:strongSelf.weightView.bounds.size];
+        strongSelf.popupController.presentationStyle = zhPopupSlideStyleFromBottom;
+        strongSelf.popupController.layoutType = zhPopupLayoutTypeBottom;
+        strongSelf.popupController.presentationTransformScale = 1.25;
+        strongSelf.popupController.dismissonTransformScale = 0.85;
+        [strongSelf.popupController showInView:strongSelf.view.window completion:NULL];
+            
+            
+        }];
+    
 }
 
 - (IBAction)categoryAction:(id)sender {
-    
-    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
-    @weakself(self);
-    arg[@"title"] = @"物品类型";
-    arg[@"selectedAction"] =  ^(NSDictionary * _Nonnull item) {
-        @strongself(weakSelf);
-        
-        strongSelf.model.category = ((NSNumber*)item[@"code"]).intValue;
-        strongSelf.model.categoryName = item[@"name"];
-        [strongSelf freshSubViewData];
-        [strongSelf reqestCalculateFee];
-    };
-    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://storeType"
-                                         withParameters:arg];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self weightAction:nil];
+//    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
+//    @weakself(self);
+//    arg[@"title"] = @"物品类型";
+//    arg[@"selectedAction"] =  ^(NSDictionary * _Nonnull item) {
+//        @strongself(weakSelf);
+//
+//        strongSelf.model.category = ((NSNumber*)item[@"code"]).intValue;
+//        strongSelf.model.categoryName = item[@"name"];
+//        [strongSelf freshSubViewData];
+//        [strongSelf reqestCalculateFee];
+//    };
+//    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://storeType"
+//                                         withParameters:arg];
+//    [self.navigationController pushViewController:vc animated:YES];
 
 }
 
@@ -501,57 +514,15 @@
 }
 
 - (IBAction)tipAction:(id)sender {
-    
-    UIAlertController* actionView = [UIAlertController alertControllerWithTitle:@"选择小费额度"
-                                        message:nil
-                                 preferredStyle:UIAlertControllerStyleActionSheet];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"取消"
-        style:UIAlertActionStyleCancel
-      handler:^(UIAlertAction *_Nonnull action) {}]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"2元"
-        style:UIAlertActionStyleDefault
-      handler:^(UIAlertAction *_Nonnull action)
-    {
-        [self setTipInfo:2];
-    }]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"5元"
-        style:UIAlertActionStyleDefault
-      handler:^(UIAlertAction *_Nonnull action)
-    {
-        [self setTipInfo:5];
-    }]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"10元"
-        style:UIAlertActionStyleDefault
-      handler:^(UIAlertAction *_Nonnull action)
-    {
-        [self setTipInfo:10];
-    }]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"15元"
-        style:UIAlertActionStyleDefault
-      handler:^(UIAlertAction *_Nonnull action)
-    {
-        [self setTipInfo:15];
-    }]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"25元"
-        style:UIAlertActionStyleDefault
-      handler:^(UIAlertAction *_Nonnull action)
-    {
-        [self setTipInfo:25];
-    }]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"50元"
-        style:UIAlertActionStyleDefault
-      handler:^(UIAlertAction *_Nonnull action)
-    {
-        [self setTipInfo:50];
-    }]];
-    if (actionView.popoverPresentationController) {
 
-        UIPopoverPresentationController *popover = actionView.popoverPresentationController;
-        popover.sourceView = self.infoView;
-        popover.sourceRect = CGRectMake(0,CGRectGetHeight(self.infoView.frame)/2,0,0);
-        popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    }
-    [self presentViewController:actionView animated:YES completion:nil];
+    self.popupController = [[zhPopupController alloc] initWithView:self.tipView
+                                                          size:self.tipView.bounds.size];
+    self.popupController.presentationStyle = zhPopupSlideStyleFromBottom;
+    self.popupController.layoutType = zhPopupLayoutTypeBottom;
+    self.popupController.presentationTransformScale = 1.25;
+    self.popupController.dismissonTransformScale = 0.85;
+    [self.popupController showInView:self.view.window completion:NULL];
+         
 }
 
 - (IBAction)submitAction:(id)sender {
@@ -667,16 +638,39 @@
     [self freshSubViewData];
     
 }
-
+- (FETipSettingView*) tipView {
+    if (!_tipView) {
+        _tipView = [[NSBundle mainBundle] loadNibNamed:@"FETipSettingView" owner:self options:nil].firstObject;
+        _tipView.frame = CGRectMake(0, 0, kScreenWidth, 330 + kHomeIndicatorHeight);
+        [_tipView fitterViewHeight];
+        @weakself(self);
+        _tipView.sureAction = ^(FETipModel*item) {
+            @strongself(weakSelf);
+            strongSelf.model.additionFee = item.code;
+            strongSelf.tipLB.text = [NSString stringWithFormat:@"%ld",(long)item.code];
+            [strongSelf.popupController dismiss];
+        };
+        _tipView.cancleAction = ^{
+            @strongself(weakSelf);
+            [strongSelf.popupController dismiss];
+        };
+    }
+    return _tipView;
+    
+}
 -(FEWeightSettingView*) weightView {
     if (!_weightView) {
         _weightView = [[NSBundle mainBundle] loadNibNamed:@"FEWeightSettingView" owner:self options:nil].firstObject;
-        _weightView.frame = CGRectMake(0, 0, kScreenWidth, 230 + kHomeIndicatorHeight);
+        _weightView.frame = CGRectMake(0, 0, kScreenWidth, 330 + kHomeIndicatorHeight);
         _weightView.currentWeight = self.model.weight;
         @weakself(self);
-        _weightView.sureWeightAction = ^(NSInteger weight) {
+        _weightView.sureWeightAction = ^(NSInteger weight,FECategoryItemModel*item) {
             @strongself(weakSelf);
             strongSelf.model.weight = weight;
+            
+            strongSelf.model.category = item.code;
+            strongSelf.model.categoryName = item.name;
+            
             [strongSelf freshSubViewData];
             [strongSelf reqestCalculateFee];
             [strongSelf.popupController dismiss];

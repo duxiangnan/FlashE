@@ -240,6 +240,10 @@
         [MBProgressHUD showMessage:@"先输入搜索关键字"];
         return;
     }
+    if (!self.cityDic) {
+        [MBProgressHUD showMessage:@"先选择城市"];
+        return;
+    }
     if (self.pagesManager) {
         [self.pagesManager cancleCurrentRequest];
         self.pagesManager = nil;
@@ -326,7 +330,7 @@
     
 }
 - (void) freshCityBtn{
-    NSString* city = self.cityDic.name;
+    NSString* city = [FEPublicMethods SafeString:self.cityDic.name withDefault:@"选择城市"];
 //    CGSize size = [city sizeWithFont:self.cityBtn.titleLabel.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 30)];
 //        self.cityBtnW.constant = MAX(ceil(size.width)+20, 40);
     [self.cityBtn setTitle:city forState:UIControlStateNormal];

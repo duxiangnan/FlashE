@@ -112,4 +112,4 @@ return shared##_classname_;\
 
 
 #define kWXAPPID @"wx137a4fe10b102af1"
-#define kWXUNIVERSAL_LINK @""
+#define kWXUNIVERSAL_LINK @"https://www.xiaoluex.com/shansong/"

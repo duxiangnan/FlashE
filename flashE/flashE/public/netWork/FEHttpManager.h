@@ -6,7 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking/AFNetworking.h>
+#import "AFNetworking.h"
+//#import <AFNetworking/AFNetworking.h>
 NS_ASSUME_NONNULL_BEGIN
 
 static NSInteger FEHttpLogout1Code = 201;//pin身份过期

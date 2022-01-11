@@ -13,6 +13,8 @@
 
 @interface FEOrderDetailHeaderCell ()<MAMapViewDelegate>
 @property (nonatomic, strong)FEOrderDetailModel* model;
+@property (nonatomic, strong)NSMutableArray* mapAnnotation;
+
 
 @property (nonatomic, weak) IBOutlet MAMapView *mapView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapViewH;
@@ -44,6 +46,7 @@
     self.mapView.delegate = self;
     self.mapView.showsCompass = NO;
     self.mapView.scaleOrigin = CGPointMake(16, kScreenHeight/3);
+    self.mapAnnotation = [NSMutableArray array];
 }
 
 
@@ -129,6 +132,8 @@
     _model = model;
 
     self.mapView.hidden = model.orderDetailHeaderMapH == 0;
+    [self.mapView removeAnnotations:self.mapAnnotation];
+    [self.mapAnnotation removeAllObjects];
     if (!self.mapView.hidden) {
         CLLocationCoordinate2D locOne = CLLocationCoordinate2DMake(model.fromLatitude.doubleValue, model.fromLongitude.doubleValue);
         NSDictionary* userInfo = @{@"image":[UIImage imageNamed:@"fe_order_map_fa"],
@@ -196,6 +201,7 @@
     annotation.coordinate = coordinate;
     annotation.userObject = userInfo;
     [self.mapView addAnnotation:annotation];
+    [self.mapAnnotation addObject:annotation];
 }
 
 
@@ -214,7 +220,7 @@
         annotationView.portrait = userInfo[@"image"];
         annotationView.name = userInfo[@"title"];
         annotationView.centerOffset = CGPointMake(0, -annotationView.bounds.size.height/2);
-        NSLog(@"tiit %@",annotation.title);
+        
         return annotationView;
     }
     

@@ -126,8 +126,8 @@
     [self.showArr addObject:[self createItem:@"menu_shop" name:@"我的店铺" desc:@"" type:1]];
     [self.showArr addObject:[self createItem:@"menu_wallet" name:@"我的钱包" desc:@"" type:2]];
 //    [self.showArr addObject:[self createItem:@"menu_audi_order" name:@"订单语音播报" desc:@"" type:3]];
-    [self.showArr addObject:[self createItem:@"menu_user_private" name:@"用户协议" desc:@"" type:4]];
-    [self.showArr addObject:[self createItem:@"menu_private" name:@"隐私协议" desc:@"" type:5]];
+//    [self.showArr addObject:[self createItem:@"menu_user_private" name:@"用户协议" desc:@"" type:4]];
+//    [self.showArr addObject:[self createItem:@"menu_private" name:@"隐私协议" desc:@"" type:5]];
     [self.showArr addObject:[self createItem:@"menu_version" name:@"版本号"
                 desc:[NSString stringWithFormat:@"V%@",[FEPublicMethods clientVersion]] type:6]];
 }

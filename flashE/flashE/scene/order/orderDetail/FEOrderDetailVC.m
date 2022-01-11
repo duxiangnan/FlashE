@@ -14,6 +14,10 @@
 #import "FEOrderDetailInfoCell.h"
 #import "FEOrderDetailLinkCell.h"
 
+#import <zhPopupController/zhPopupController.h>
+#import "FETipModel.h"
+#import "FETipSettingView.h"
+
 typedef enum : NSUInteger {
     FEOrderDetailCellHeader = 0,
     FEOrderDetailCellLogistics,
@@ -46,6 +50,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSMutableArray<FEOrderDetailCellModel*>* cellModel;
 
 
+@property (nonatomic,strong) zhPopupController* popupController;
+@property (nonatomic,strong) FETipSettingView* tipView;
 @end
 
 @implementation FEOrderDetailVC
@@ -227,50 +233,14 @@ typedef enum : NSUInteger {
 }
 
 - (void) addCheckAction:(FEOrderDetailModel*)model view:(UIView*)view{
-    UIAlertController* actionView = [UIAlertController alertControllerWithTitle:@"选择小费额度"
-                                        message:nil
-                                 preferredStyle:UIAlertControllerStyleActionSheet];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"取消"
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:^(UIAlertAction *_Nonnull action) {}]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"2元"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *_Nonnull action) {
-        [self requestAddCheck:model check:2];
-    }]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"5元"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *_Nonnull action) {
-        [self requestAddCheck:model check:5];
-    }]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"10元"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *_Nonnull action) {
-        [self requestAddCheck:model check:10];
-    }]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"15元"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *_Nonnull action) {
-        [self requestAddCheck:model check:15];
-    }]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"25元"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *_Nonnull action) {
-        [self requestAddCheck:model check:25];
-    }]];
-    [actionView addAction:[UIAlertAction actionWithTitle:@"50元"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *_Nonnull action) {
-        [self requestAddCheck:model check:50];
-    }]];
-    if (actionView.popoverPresentationController) {
-
-        UIPopoverPresentationController *popover = actionView.popoverPresentationController;
-        popover.sourceView = view;
-        popover.sourceRect = CGRectMake(0,CGRectGetHeight(view.frame)/2,0,0);
-        popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    }
-    [self presentViewController:actionView animated:YES completion:nil];
+    self.tipView.userObject = model;
+    self.popupController = [[zhPopupController alloc] initWithView:self.tipView
+                                                          size:self.tipView.bounds.size];
+    self.popupController.presentationStyle = zhPopupSlideStyleFromBottom;
+    self.popupController.layoutType = zhPopupLayoutTypeBottom;
+    self.popupController.presentationTransformScale = 1.25;
+    self.popupController.dismissonTransformScale = 0.85;
+    [self.popupController showInView:self.view.window completion:NULL];
 }
 - (void) requestAddCheck:(FEOrderDetailModel*) model check:(NSInteger) check {
     NSMutableDictionary* param = [NSMutableDictionary dictionary];
@@ -417,6 +387,29 @@ typedef enum : NSUInteger {
     if (item) {
      
     }
+}
+
+
+#pragma mark 懒加载
+- (FETipSettingView*) tipView {
+    if (!_tipView) {
+        _tipView = [[NSBundle mainBundle] loadNibNamed:@"FETipSettingView" owner:self options:nil].firstObject;
+        _tipView.frame = CGRectMake(0, 0, kScreenWidth, 330 + kHomeIndicatorHeight);
+        [_tipView fitterViewHeight];
+        @weakself(self);
+        _tipView.sureAction = ^(FETipModel*item) {
+            @strongself(weakSelf);
+            FEOrderDetailModel*model = strongSelf.tipView.userObject;
+            [strongSelf requestAddCheck:model check:item.code];
+            [strongSelf.popupController dismiss];
+        };
+        _tipView.cancleAction = ^{
+            @strongself(weakSelf);
+            [strongSelf.popupController dismiss];
+        };
+    }
+    return _tipView;
+    
 }
 
 @end

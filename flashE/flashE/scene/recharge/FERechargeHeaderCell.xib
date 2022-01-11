@@ -101,7 +101,7 @@
                                     <constraint firstAttribute="height" constant="1" id="xDX-dx-Cs0"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dhq-uL-oNx">
+                            <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dhq-uL-oNx">
                                 <rect key="frame" x="16" y="243" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="DUP-kc-cqh"/>
@@ -248,10 +248,10 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="fe_icon_check" width="20" height="20"/>
+        <image name="fe_icon_check" width="14" height="14"/>
         <image name="fe_icon_check1" width="20" height="20"/>
         <image name="fe_icon_check1_selected" width="20" height="20"/>
-        <image name="fe_icon_check_selected" width="20" height="20"/>
+        <image name="fe_icon_check_selected" width="14" height="14"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

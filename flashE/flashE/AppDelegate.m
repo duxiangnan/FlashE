@@ -47,12 +47,21 @@
     [self resetRootVC];
 
     [self.window makeKeyAndVisible];
+    NSLog(@"微信参数 %@     ——  %@",kWXAPPID,kWXUNIVERSAL_LINK);
+    
+    [WXApi startLogByLevel:WXLogLevelDetail logBlock:^(NSString *log) {
+        NSLog(@"WeChatSDK log : %@", log);
+    }];
     
     [WXApi registerApp:kWXAPPID universalLink:kWXUNIVERSAL_LINK];
-    
-    [WXApi startLogByLevel:WXLogLevelNormal logBlock:^(NSString *log) {
-        NSLog(@"log : %@", log);
+
+    //调用自检函数
+    [WXApi checkUniversalLinkReady:^(WXULCheckStep step, WXCheckULStepResult* result) {
+        NSLog(@"%@, %u, %@, %@", @(step), result.success, result.errorInfo, result.suggestion);
     }];
+
+    
+    
     
     
     return YES;

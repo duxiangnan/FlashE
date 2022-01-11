@@ -19,27 +19,41 @@
 }
 + (void)showProgressWithView:(UIView *)view{
     dispatch_async(dispatch_get_main_queue(), ^{
+        UIImage* image = [UIImage imageNamed:@"VSP_loading-ios-1"];
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view?:FE_WINDOW animated:YES];
           UIImageView *animatedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+        
+    
           animatedImageView.animationImages = [NSArray arrayWithObjects:
           // VSP_loading-ios-
-          [UIImage imageNamed:@"VSP_loading-ios-1"],
-          [UIImage imageNamed:@"VSP_loading-ios-2"],
-          [UIImage imageNamed:@"VSP_loading-ios-3"],
-          [UIImage imageNamed:@"VSP_loading-ios-4"],
-          [UIImage imageNamed:@"VSP_loading-ios-5"],
-          [UIImage imageNamed:@"VSP_loading-ios-6"],
-          [UIImage imageNamed:@"VSP_loading-ios-7"],
-          [UIImage imageNamed:@"VSP_loading-ios-8"], nil];
-          animatedImageView.animationDuration = 1.0f;
+          
+//          [UIImage imageNamed:@"VSP_loading-ios-2"],
+//          [UIImage imageNamed:@"VSP_loading-ios-3"],
+//          [UIImage imageNamed:@"VSP_loading-ios-4"],
+//          [UIImage imageNamed:@"VSP_loading-ios-5"],
+//          [UIImage imageNamed:@"VSP_loading-ios-6"],
+//          [UIImage imageNamed:@"VSP_loading-ios-7"],
+       [MBProgressHUD image:image rotate:0],
+                                               [MBProgressHUD image:image rotate:36*1],
+                                               [MBProgressHUD image:image rotate:36*2],
+                                               [MBProgressHUD image:image rotate:36*3],
+                                               [MBProgressHUD image:image rotate:36*4],
+                                               [MBProgressHUD image:image rotate:36*5],
+                                               [MBProgressHUD image:image rotate:36*6],
+                                               [MBProgressHUD image:image rotate:36*7],
+                                               [MBProgressHUD image:image rotate:36*8],
+                                               [MBProgressHUD image:image rotate:36*9],
+                                        
+          nil];
+          animatedImageView.animationDuration = 10.0f;
           animatedImageView.animationRepeatCount = 0;
           [animatedImageView startAnimating];
 
           // custom No text
-          hud.customView = animatedImageView;
+//          hud.customView = animatedImageView;
           hud.defaultMotionEffectsEnabled = NO;
           hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-          hud.contentColor = [UIColor clearColor];
+          hud.contentColor = [UIColor grayColor];
           hud.backgroundColor = [UIColor clearColor];
           hud.backgroundView.backgroundColor = [UIColor clearColor];
           hud.backgroundView.color = [UIColor clearColor];
@@ -47,12 +61,52 @@
           hud.bezelView.color = [UIColor clearColor];
           hud.label.textColor = [UIColor clearColor];
           hud.detailsLabel.textColor = [UIColor clearColor];
-          hud.mode = MBProgressHUDModeCustomView;
+          hud.mode = MBProgressHUDModeIndeterminate;
+    
+         
           [hud showAnimated:YES];
       });
     
 }
-
++ (UIImage *)image:(UIImage *)image rotate:(CGFloat)rotate{
+    CGRect rect;
+    float translateX = 0.0f;
+    float translateY = 0.0f;
+    float scaleX = 1.0;
+    float scaleY = 1.0;
+    
+    CGFloat x = image.size.height * cos((90 - rotate)*M_PI/180.0f);
+    CGFloat y = image.size.width * cos(rotate * M_PI/180.0f);
+    
+    CGFloat newW = x + y;
+    CGFloat newH = image.size.height * sin((90 - rotate) * M_PI/180.0f)  + image.size.width * sin(rotate*M_PI/180.0f);
+    
+    rect = CGRectMake(0, 0, newW, newH);
+    translateX = (newW - image.size.width)/2.0f;
+    translateY = (newH - image.size.height)/2.0f;
+    
+    scaleY = newH/image.size.height;
+    scaleX = newW/rect.size.width;
+    
+    
+    UIView *bgView = [[UIView alloc]initWithFrame:rect];
+    bgView.transform = CGAffineTransformMakeTranslation([UIScreen mainScreen].bounds.size.width * 2, [UIScreen mainScreen].bounds.size.height * 2);
+    
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+    imageView.image = image;
+    [bgView addSubview:imageView];
+    imageView.center = bgView.center;
+    imageView.transform = CGAffineTransformTranslate(imageView.transform, -translateX, -translateY); //CGAffineTransformMakeTranslation(translateX, translateY);
+    imageView.transform = CGAffineTransformRotate(imageView.transform, rotate * M_PI/180.0f);
+    
+    UIGraphicsBeginImageContextWithOptions(bgView.frame.size, NO, [UIScreen mainScreen].scale);
+    [bgView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return snapshotImage;
+}
 + (void)showOriginalProgress {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self showHUDAddedTo:FE_WINDOW animated:NO];
