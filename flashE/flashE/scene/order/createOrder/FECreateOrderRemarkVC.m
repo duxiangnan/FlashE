@@ -23,6 +23,8 @@ NSInteger FECreateOrderRemarkMax = 150;
     self.title = @"备注";
     self.fd_prefersNavigationBarHidden = NO;
     self.textView.placeholder = @"请备注物品的名称及大小。例：一个30X3";
+    self.textView.placeholderColor = UIColorFromRGB(0x888888);
+    self.textView.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

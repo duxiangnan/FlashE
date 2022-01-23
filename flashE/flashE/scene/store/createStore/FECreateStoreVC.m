@@ -11,15 +11,21 @@
 #import <Photos/PHPhotoLibrary.h>
 #import <AVFoundation/AVFoundation.h>
 #import <TZImagePickerController/TZImagePickerController.h>
-
+#import <zhPopupController/zhPopupController.h>
 #import "FESearchAddressVC.h"
 
 #import "FEStoreCityModel.h"
 #import "FEStoreDetailModel.h"
+#import "FECategorySettingView.h"
+#import "FECategorysModel.h"
 
+#import "FESearchCityVC.h"
 
 
 @interface FECreateStoreVC ()
+@property (nonatomic, strong) NSString* defaultName;
+@property (nonatomic, strong) NSString* defaultType;
+
 @property (nonatomic, strong) FEStorePartModel* inputModel;
 
 @property (nonatomic, weak) IBOutlet UIScrollView* scrollView;
@@ -32,7 +38,7 @@
 
 @property (nonatomic, weak) IBOutlet UILabel* dianNameLB;
 
-@property (nonatomic, weak) IBOutlet UILabel* dianDetailLB;
+@property (nonatomic, weak) IBOutlet UITextField* dianDetailLB;
 
 @property (nonatomic, weak) IBOutlet UILabel* dianTypeLB;
 
@@ -67,6 +73,10 @@
 @property (nonatomic, strong) NSURLSessionDataTask* submitTask;
 @property (nonatomic, assign) NSInteger btnType;//图片选取索引
 
+
+@property (nonatomic,strong) zhPopupController* popupController;
+@property (nonatomic,strong) FECategorySettingView* categorySettingView;
+
 @end
 
 @implementation FECreateStoreVC
@@ -92,6 +102,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.defaultName = @"点击设置店铺地址";
+    self.defaultType = @"选择店铺类型";
     if(!self.inputModel){
         self.inputModel = [[FEStorePartModel alloc] init];
         self.inputModel.defaultStore = self.defaultAddressSw.on?1:0;
@@ -106,18 +118,12 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
-    
-    
-    self.dianNameTF.text = self.inputModel.name;
-    self.dianNameLB.text = self.inputModel.address;
-    self.dianDetailLB.text = self.inputModel.addressDetail;
-    self.dianTypeLB.text = self.inputModel.categoryName;
-    self.dianPhoneTF.text = self.inputModel.mobile;
-    self.dianNameTF.textColor = self.dianNameTF.text.length>0?UIColorFromRGB(0x333333):UIColorFromRGB(0x777777);
-    self.dianNameLB.textColor = self.dianNameLB.text.length>0?UIColorFromRGB(0x333333):UIColorFromRGB(0x777777);
-    self.dianDetailLB.textColor = self.dianDetailLB.text.length>0?UIColorFromRGB(0x333333):UIColorFromRGB(0x777777);
-    self.dianTypeLB.textColor = self.dianTypeLB.text.length>0?UIColorFromRGB(0x333333):UIColorFromRGB(0x777777);
-    self.dianPhoneTF.textColor = self.dianPhoneTF.text.length>0?UIColorFromRGB(0x333333):UIColorFromRGB(0x777777);
+    self.dianNameTF.text = [FEPublicMethods SafeString:self.inputModel.name];
+    self.dianNameLB.text = [FEPublicMethods SafeString:self.inputModel.address withDefault:self.defaultName];
+    self.dianDetailLB.text = [FEPublicMethods SafeString:self.inputModel.addressDetail];
+    self.dianTypeLB.text = [FEPublicMethods SafeString:self.inputModel.categoryName withDefault:self.defaultType];
+    self.dianPhoneTF.text = [FEPublicMethods SafeString:self.inputModel.mobile];
+    [self freshViewColor];
     //    [self.zhengZMBtn setImage:[] forState:(UIControlState)];
     //    self.zhengFMBtn;
     //    self.yingyeBtn;
@@ -145,21 +151,32 @@
     
     
 }
--(void) resetLbColor:(UILabel*)lb {
-    UIColor* emptyC = UIColorFromRGB(0xC7C7C9);
-    UIColor* defaultC = UIColorFromRGB(0x333333);
-    if (lb == self.dianDetailLB) {
-        lb.textColor = self.inputModel.addressDetail.length>0?defaultC:emptyC;
-    } else if (lb == self.dianNameLB) {
-        lb.textColor = self.inputModel.address.length>0?defaultC:emptyC;
-    } else if (lb == self.dianTypeLB) {
-        lb.textColor = self.inputModel.category>0?defaultC:emptyC;
+//-(void) resetLbColor:(UILabel*)lb {
+//    UIColor* emptyC = UIColorFromRGB(0x777777);
+//    UIColor* defaultC = UIColorFromRGB(0x333333);
+//    if (lb == self.dianNameLB) {
+//        lb.textColor = self.inputModel.address.length>0?defaultC:emptyC;
+//    } else if (lb == self.dianTypeLB) {
+//        lb.textColor = self.inputModel.category>0?defaultC:emptyC;
+//    }
+//    
+//}
+- (void) freshViewColor {
+    if (self.dianNameLB.text.length == 0 || [self.dianNameLB.text isEqualToString:self.defaultName]) {
+        self.dianNameLB.textColor = UIColorFromRGB(0xC7C7C7);
+    } else {
+        self.dianNameLB.textColor = UIColorFromRGB(0x333333);
     }
-    
+
+    if (self.dianTypeLB.text.length == 0 || [self.dianTypeLB.text isEqualToString:self.defaultType]) {
+        self.dianTypeLB.textColor = UIColorFromRGB(0xC7C7C7);
+    } else {
+        self.dianTypeLB.textColor = UIColorFromRGB(0x333333);
+    }
+
 }
 - (void)dealloc
 {
-    
     [self.submitTask cancel];
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -209,10 +226,10 @@
     [self.view endEditing:YES];
     [self gotoSearchAddress];
 }
-- (IBAction)dianDetailAction:(id)sender {
-    [self.view endEditing:YES];
-    [self gotoSearchAddress];
-}
+//- (IBAction)dianDetailAction:(id)sender {
+//    [self.view endEditing:YES];
+//    [self gotoSearchAddress];
+//}
 
 - (IBAction)dianTypeAction:(id)sender {
     [self.view endEditing:YES];
@@ -249,7 +266,7 @@
         [MBProgressHUD showMessage:@"请填写店铺名称"];
         return;
     }
-    if (self.inputModel.address.length == 0 || self.inputModel.addressDetail.length == 0) {
+    if (self.inputModel.address.length == 0 ) {
         [MBProgressHUD showMessage:@"请填写店铺地址"];
         return;
     }
@@ -284,43 +301,84 @@
     
 - (void) gotoSearchAddress{
     
-    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
+    
+    FESearchCityVC* vc = [[FESearchCityVC alloc] initWithNibName:@"FESearchCityVC" bundle:nil];
     @weakself(self);
-    arg[@"selectedAction"] = ^(FEAddressModel * _Nonnull model , FEStoreCityItemModel* city) {
+    vc.selectedAction = ^(FEStoreCityItemModel*city, FEAddressModel* model) {
         @strongself(weakSelf);
-        if(model.name.length > 0 && model.address.length>0){
-            strongSelf.dianNameLB.text = model.name;
-            strongSelf.dianDetailLB.text = model.address;
-            strongSelf.dianNameLB.textColor = UIColorFromRGB(0x333333);
-            strongSelf.dianDetailLB.textColor = UIColorFromRGB(0x333333);
-            strongSelf.inputModel.address = model.name;
-            strongSelf.inputModel.addressDetail = model.address;
-            strongSelf.inputModel.longitude = model.longitude;
-            strongSelf.inputModel.latitude = model.latitude;
-            strongSelf.inputModel.cityName = model.cityname;
-            strongSelf.inputModel.cityId = city.ID;
-        }
+        strongSelf.dianNameLB.text = model.address;
+        strongSelf.inputModel.address = model.address;
+        strongSelf.inputModel.longitude = model.longitude;
+        strongSelf.inputModel.latitude = model.latitude;
+        strongSelf.inputModel.cityName = city.name;
+        strongSelf.inputModel.cityId = city.ID;
+        [strongSelf freshViewColor];
+        [strongSelf.navigationController popToViewController:strongSelf animated:YES];
         
     };
-    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://createSearchAddress" withParameters:arg];
+    vc.hidesBottomBarWhenPushed = YES;
+    
     [self.navigationController pushViewController:vc animated:YES];
+    
+    
+    
+//    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
+//    @weakself(self);
+//    arg[@"selectedAction"] = ^(FEAddressModel * _Nonnull model , FEStoreCityItemModel* city,BOOL ignorCity) {
+//        @strongself(weakSelf);
+//        if(model.name.length > 0 && model.address.length>0){
+//            strongSelf.dianNameLB.text = model.name;
+//            strongSelf.inputModel.address = model.name;
+//            if (strongSelf.dianDetailLB.text.length == 0) {
+//                strongSelf.dianDetailLB.text = model.address;
+//                strongSelf.inputModel.addressDetail = model.address;
+//            }
+//            strongSelf.inputModel.longitude = model.longitude;
+//            strongSelf.inputModel.latitude = model.latitude;
+//            strongSelf.inputModel.cityName = model.cityname;
+//            strongSelf.inputModel.cityId = city.ID;
+//            [strongSelf freshViewColor];
+//        }
+//
+//    };
+//    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://createSearchAddress" withParameters:arg];
+//    [self.navigationController pushViewController:vc animated:YES];
 
 }
+
 
 - (void) showInputType {
-    
-    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
     @weakself(self);
-    arg[@"selectedAction"] =  ^(NSDictionary * _Nonnull item) {
+    [self.categorySettingView getCategorysData:^(FECategorysModel * _Nonnull modle) {
         @strongself(weakSelf);
-        strongSelf.inputModel.category = ((NSNumber*)item[@"code"]).intValue;
-        strongSelf.dianTypeLB.text = item[@"name"];
-        strongSelf.dianTypeLB.textColor = UIColorFromRGB(0x333333);
-    };
-    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://storeType"
-                                         withParameters:arg];
-    [self.navigationController pushViewController:vc animated:YES];
+        [strongSelf.categorySettingView fitterViewHeight];
+
+        strongSelf.popupController = [[zhPopupController alloc] initWithView:strongSelf.categorySettingView
+                                                              size:strongSelf.categorySettingView.bounds.size];
+        strongSelf.popupController.presentationStyle = zhPopupSlideStyleFromBottom;
+        strongSelf.popupController.layoutType = zhPopupLayoutTypeBottom;
+        strongSelf.popupController.presentationTransformScale = 1.25;
+        strongSelf.popupController.dismissonTransformScale = 0.85;
+        [strongSelf.popupController showInView:strongSelf.view.window completion:NULL];
+
+
+        }];
+    
+    
+//    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
+//    @weakself(self);
+//    arg[@"selectedAction"] =  ^(NSDictionary * _Nonnull item) {
+//        @strongself(weakSelf);
+//        strongSelf.inputModel.category = ((NSNumber*)item[@"code"]).intValue;
+//        strongSelf.dianTypeLB.text = item[@"name"];
+//        strongSelf.dianTypeLB.textColor = UIColorFromRGB(0x333333);
+//    };
+//    FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://storeType"
+//                                         withParameters:arg];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
+
+
 
 
 - (void) submitRequest {
@@ -343,16 +401,13 @@
     param[@"cityId"] = @(self.inputModel.cityId);
     param[@"cityName"] = self.inputModel.cityName;
     param[@"address"] = self.inputModel.address;
-    param[@"addressDetail"] = self.inputModel.addressDetail;
+    param[@"addressDetail"] = self.dianDetailLB.text;
     param[@"latitude"] = self.inputModel.latitude;
     param[@"longitude"] = self.inputModel.longitude;
     param[@"mobile"] = self.inputModel.mobile;
     param[@"category"] = @(self.inputModel.category);
     param[@"defaultStore"] = @(self.inputModel.defaultStore);
    
-    
-    
-    
     [MBProgressHUD showProgressOnView:self.view];
     NSString* fouction = nil;
     @weakself(self);
@@ -395,7 +450,30 @@
 }
 
 
-
+#pragma mark -- 懒加载
+- (FECategorySettingView*) categorySettingView{
+    
+    if (!_categorySettingView) {
+        _categorySettingView = [[NSBundle mainBundle] loadNibNamed:@"FECategorySettingView" owner:self options:nil].firstObject;
+        _categorySettingView.frame = CGRectMake(0, 0, kScreenWidth, 330 + kHomeIndicatorHeight);
+        [_categorySettingView setDetaultCategory:self.model.category name:self.model.categoryName];
+        @weakself(self);
+        _categorySettingView.sureWeightAction = ^(FECategoryItemModel*item) {
+    
+            @strongself(weakSelf);
+            strongSelf.inputModel.category = item.code;
+            strongSelf.inputModel.categoryName = item.name;
+            strongSelf.dianTypeLB.text = item.name;
+            [strongSelf.popupController dismiss];
+            [strongSelf freshViewColor];
+        };
+        _categorySettingView.cancleAction = ^{
+            @strongself(weakSelf);
+            [strongSelf.popupController dismiss];
+        };
+    }
+    return _categorySettingView;
+}
 
 #pragma mark -- UITextField delegate
 
@@ -403,11 +481,14 @@
     UITextField* text = noti.object;
 
     if (text == self.dianNameTF) {
-        self.dianNameTF.text = text.text;
+//        self.dianNameTF.text = text.text;
         self.inputModel.name = text.text;
     } else if (text == self.dianPhoneTF) {
-        self.dianPhoneTF.text = text.text;
+//        self.dianPhoneTF.text = text.text;
         self.inputModel.mobile = text.text;
+    } else if (text == self.dianDetailLB) {
+//        self.dianDetailLB.text = text.text;
+        self.inputModel.addressDetail = text.text;
     }
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

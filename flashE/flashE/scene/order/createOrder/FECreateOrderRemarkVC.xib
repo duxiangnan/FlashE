@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,24 +21,29 @@
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcK-0p-2Tg">
                     <rect key="frame" x="16" y="20" width="382" height="240"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="240" id="0jm-WJ-aEu"/>
                     </constraints>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="delegate" destination="-1" id="bM8-EW-aK6"/>
                     </connections>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yjn-la-bCs">
-                    <rect key="frame" x="16" y="280" width="382" height="34"/>
+                    <rect key="frame" x="16" y="280" width="382" height="48"/>
                     <color key="backgroundColor" red="0.15686274510000001" green="0.23529411759999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="34" id="HUb-hO-WwC"/>
+                        <constraint firstAttribute="height" constant="48" id="HUb-hO-WwC"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="16"/>
+                    <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
                     <state key="normal" title="确定">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
@@ -53,29 +57,24 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqM-KV-Uym">
-                    <rect key="frame" x="377" y="241.5" width="21" height="18.5"/>
+                    <rect key="frame" x="365" y="229.5" width="21" height="18.5"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
                     <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="dqM-KV-Uym" firstAttribute="trailing" secondItem="UcK-0p-2Tg" secondAttribute="trailing" id="EGK-Bl-XC3"/>
+                <constraint firstItem="dqM-KV-Uym" firstAttribute="trailing" secondItem="UcK-0p-2Tg" secondAttribute="trailing" constant="-12" id="EGK-Bl-XC3"/>
                 <constraint firstAttribute="trailing" secondItem="yjn-la-bCs" secondAttribute="trailing" constant="16" id="H7f-RC-fiz"/>
                 <constraint firstItem="UcK-0p-2Tg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="J9E-JU-dAn"/>
                 <constraint firstItem="yjn-la-bCs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="LfF-ol-Ii3"/>
                 <constraint firstItem="UcK-0p-2Tg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="bhp-ZE-Iv6"/>
                 <constraint firstItem="yjn-la-bCs" firstAttribute="top" secondItem="UcK-0p-2Tg" secondAttribute="bottom" constant="20" id="cgx-lw-v9c"/>
                 <constraint firstAttribute="trailing" secondItem="UcK-0p-2Tg" secondAttribute="trailing" constant="16" id="gLC-tD-xSm"/>
-                <constraint firstItem="dqM-KV-Uym" firstAttribute="bottom" secondItem="UcK-0p-2Tg" secondAttribute="bottom" id="wJf-DZ-4Gi"/>
+                <constraint firstItem="dqM-KV-Uym" firstAttribute="bottom" secondItem="UcK-0p-2Tg" secondAttribute="bottom" constant="-12" id="wJf-DZ-4Gi"/>
             </constraints>
             <point key="canvasLocation" x="139" y="137"/>
         </view>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

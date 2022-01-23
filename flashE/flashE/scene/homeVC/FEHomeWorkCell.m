@@ -21,9 +21,12 @@
 @property (nonatomic, strong) UIImageView* accessoryImage;
 
 
-
+@property (nonatomic,strong) UIView* sendBgView;
 @property (nonatomic, strong) UIImageView* sendImage;
 @property (nonatomic, strong) UILabel* sendNameLB;
+@property (nonatomic, strong) UILabel* sendDescLB;
+
+@property (nonatomic,strong) UIView* reciveBgView;
 @property (nonatomic, strong) UIImageView* reciveImage;
 @property (nonatomic, strong) UILabel* reciveNameLB;
 @property (nonatomic, strong) UILabel* reciveDescLB;
@@ -45,19 +48,23 @@
         
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
         [self.contentView addSubview:self.bgView];
         
         [self.bgView addSubview:self.statusTimeLB];
         [self.bgView addSubview:self.statusLB];
         [self.bgView addSubview:self.accessoryImage];
         
-        [self.bgView addSubview:self.sendImage];
-        [self.bgView addSubview:self.sendNameLB];
+        [self.bgView addSubview:self.sendBgView];
+        [self.sendBgView addSubview:self.sendImage];
+        [self.sendBgView addSubview:self.sendNameLB];
+        [self.sendBgView addSubview:self.sendDescLB];
         
-        [self.bgView addSubview:self.reciveImage];
-        [self.bgView addSubview:self.reciveNameLB];
-        [self.bgView addSubview:self.reciveDescLB];
+        [self.bgView addSubview:self.reciveBgView];
+        [self.reciveBgView addSubview:self.reciveImage];
+        [self.reciveBgView addSubview:self.reciveNameLB];
+        [self.reciveBgView addSubview:self.reciveDescLB];
+        
         [self.bgView addSubview:self.centerLine];
         
         [self.bgView addSubview:self.orderTimeLB];
@@ -76,8 +83,8 @@
     
     [self.statusTimeLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bgView.mas_left).offset(16);
-        make.top.equalTo(self.bgView.mas_top).offset(10);
-        make.height.mas_equalTo(@(20));
+        make.top.equalTo(self.bgView.mas_top).offset(16);
+        make.height.mas_equalTo(@(18));
     }];
     [self.statusLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.accessoryImage.mas_left).offset(-5);
@@ -87,56 +94,76 @@
         make.width.mas_equalTo(@(12));
         make.height.mas_equalTo(@(12));
         make.centerY.equalTo(self.statusTimeLB.mas_centerY);
-        make.right.equalTo(self.bgView.mas_right).offset(-10);
+        make.right.equalTo(self.bgView.mas_right).offset(-14);
     }];
     
+    [self.sendBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.bgView.mas_left).offset(16);
+        make.right.equalTo(self.bgView.mas_right).offset(-16);
+        make.top.equalTo(self.statusTimeLB.mas_bottom).offset(20);
+        make.height.mas_equalTo(40);
+    }];
     
     [self.sendImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.statusTimeLB.mas_left);
+        make.left.equalTo(self.sendBgView.mas_left);
         make.width.height.mas_equalTo(@(18));
-        make.centerY.equalTo(self.sendNameLB.mas_centerY);
+        make.centerY.equalTo(self.sendBgView.mas_centerY);
     }];
     [self.sendNameLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.sendImage.mas_right).offset(10);
-        make.top.equalTo(self.statusTimeLB.mas_bottom).offset(20);
-        make.right.equalTo(self.bgView.mas_right).offset(-16);
+        make.top.equalTo(self.sendBgView.mas_top);
+        make.right.equalTo(self.sendBgView.mas_right);
+        make.height.mas_equalTo(21);
     }];
- 
+    [self.sendDescLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.sendNameLB);
+        make.top.equalTo(self.sendNameLB.mas_bottom).offset(2);
+        make.height.mas_equalTo(17);
+        
+    }];
     
     
+    [self.reciveBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.bgView.mas_left).offset(16);
+        make.right.equalTo(self.bgView.mas_right).offset(-16);
+        make.top.equalTo(self.sendBgView.mas_bottom).offset(18);
+        make.height.mas_equalTo(40);
+    }];
     [self.reciveImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.statusTimeLB.mas_left);
+        make.left.equalTo(self.reciveBgView.mas_left);
         make.width.height.mas_equalTo(@(18));
-        make.centerY.equalTo(self.reciveNameLB.mas_centerY);
+        make.centerY.equalTo(self.reciveBgView.mas_centerY);
     }];
     [self.reciveNameLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.reciveImage.mas_right).offset(10);
-        make.top.equalTo(self.sendNameLB.mas_bottom).offset(15);
-        make.right.equalTo(self.bgView.mas_right).offset(-16);
+        make.top.equalTo(self.reciveBgView.mas_top);
+        make.right.equalTo(self.reciveBgView.mas_right);
+        make.height.mas_equalTo(21);
     }];
     [self.reciveDescLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.reciveNameLB);
-        make.top.equalTo(self.reciveNameLB.mas_bottom);
+        make.top.equalTo(self.reciveNameLB.mas_bottom).offset(2);
+        make.height.mas_equalTo(17);
     }];
     
     [self.centerLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bgView.mas_left).offset(16);
         make.right.equalTo(self.bgView.mas_right).offset(-16);
-        make.top.equalTo(self.reciveDescLB.mas_bottom).offset(15);
+        make.top.equalTo(self.reciveDescLB.mas_bottom).offset(16);
         make.height.mas_equalTo(@(0.5));
     }];
     
     [self.orderTimeLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.statusTimeLB.mas_left);
+        make.left.equalTo(self.bgView.mas_left).offset(16);
         make.centerY.equalTo(self.commondView.mas_centerY);
-        make.height.mas_equalTo(@(15));
+        make.height.mas_equalTo(@(18));
     }];
     
     [self.commondView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.centerLine.mas_bottom).offset(5);
+        make.top.equalTo(self.centerLine.mas_bottom).offset(10);
         make.left.equalTo(self.orderTimeLB.mas_right);
         make.right.equalTo(self.bgView.mas_right).offset(-16);
-        make.height.mas_equalTo(@(30));
+        make.height.mas_equalTo(@(26));
     }];
     
 }
@@ -145,42 +172,13 @@
     
         CGFloat width = kScreenWidth - 10*2 - 16*2 - 18 - 10;
         CGFloat heigt = 10;
-        heigt += (20 + 10);
-        
-        CGSize size;
-        //send
-        heigt += 20;
-        if (model.storeName.length > 0){
-            size = [model.storeName sizeWithFont:[UIFont mediumFont:15] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
-            heigt += (MIN(34, ceil(size.height)));
-        }
-        
-        heigt += 15;
-        //recive
-        NSString* str = [NSString stringWithFormat:@"%@　%@",
-                           [FEPublicMethods SafeString:model.toAdress],
-                           [FEPublicMethods SafeString:model.toAdressDetail]];
-        if (str.length > 0){
-            size = [str sizeWithFont:[UIFont mediumFont:15] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
-            heigt += (MIN(34, ceil(size.height)));
-        }
-        
-        str = [NSString stringWithFormat:@"%@　%@",
-                           [FEPublicMethods SafeString:model.toUserName],
-                           [FEPublicMethods SafeString:model.toUserMobile]];
-        if (str.length > 0){
-            size = [str sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(CGFLOAT_MAX, 15)];
-            heigt += (MIN(34, ceil(size.height)));
-        }
-        
-        heigt += (15 + 0.5);
-        
-        size = [model.createTimeStr sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(CGFLOAT_MAX, 15)];
+        heigt += (16 + 18);
+        heigt += (20 + 40);//send
+        heigt += (18 + 40);//recive
+        heigt += (16 + 0.5);//line
+        heigt += (26 + 20);//Commond
+        CGSize size = [model.createTimeStr sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(CGFLOAT_MAX, 15)];
         model.orderTimeMaxX = MIN(ceil(size.width), 100) + 16;
-//        if (1) {
-//            heigt += (10 + 15 + 10);
-//        } else {
-            heigt += (5 + 30 + 5);
         // 10,//待接单  20, //待取单 //配送中 //已取消 //已完成
         switch (model.status) {
             case 10:{//待接单
@@ -245,10 +243,8 @@
     self.statusLB.text = [FEPublicMethods SafeString:model.statusName];
     
     self.sendNameLB.text = model.storeName;
-    
-    self.reciveNameLB.text = [NSString stringWithFormat:@"%@　%@",
-                              [FEPublicMethods SafeString:model.toAdress],
-                              [FEPublicMethods SafeString:model.toAdressDetail]];
+    self.sendDescLB.text = [NSString stringWithFormat:@"%@ %@",model.fromAddress,model.fromAddressDetail];
+    self.reciveNameLB.text = [FEPublicMethods SafeString:model.toAdress];
     self.reciveDescLB.text = [NSString stringWithFormat:@"%@　%@",
                               [FEPublicMethods SafeString:model.toUserName],
                               [FEPublicMethods SafeString:model.toUserMobile]];
@@ -265,14 +261,14 @@
     for (FEOrderCommond* item in model.commonds) {
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:item.commodName forState:UIControlStateNormal];
-        [btn setTitleColor:UIColorFromRGB(0x12B398) forState:UIControlStateNormal];
+        [btn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont regularFont:13];
         btn.tag = item.commodType;
         [btn addTarget:self action:@selector(commondActoin:) forControlEvents:UIControlEventTouchUpInside];
-        btn.frame = CGRectMake(offW - item.commodWidth, 0, item.commodWidth, 30);
+        btn.frame = CGRectMake(offW - item.commodWidth, 0, item.commodWidth, 26);
 
-        btn.cornerRadius = 15;
-        btn.borderColor = UIColorFromRGB(0x12B398);
+        btn.cornerRadius = 13;
+        btn.borderColor = UIColorFromRGB(0xDBDBDB);
         btn.borderWidth = 0.5;
         offW -= item.commodWidth;
         offW -= 10;
@@ -324,6 +320,15 @@
 
 
 
+-(UIView*) sendBgView {
+    if(!_sendBgView){
+        _sendBgView = [UIView new];
+        _sendBgView.backgroundColor = UIColor.whiteColor;
+        _sendBgView.cornerRadius = 15;
+    }
+    return _sendBgView;
+}
+
 
 -(UIImageView*) sendImage{
     if (!_sendImage) {
@@ -335,13 +340,29 @@
 -(UILabel*) sendNameLB{
     if (!_sendNameLB) {
         _sendNameLB = [UILabel new];
-        _sendNameLB.numberOfLines = 2;
         _sendNameLB.font = [UIFont mediumFont:15];
         _sendNameLB.textColor = UIColorFromRGB(0x333333);
     }
     return _sendNameLB;
 }
+-(UILabel*) sendDescLB{
+    if (!_sendDescLB) {
+        _sendDescLB = [UILabel new];
+        _sendDescLB.font = [UIFont regularFont:12];
+        _sendDescLB.textColor = UIColorFromRGB(0x777777);
+    }
+    return _sendDescLB;
+}
 
+
+-(UIView*) reciveBgView {
+    if(!_reciveBgView){
+        _reciveBgView = [UIView new];
+        _reciveBgView.backgroundColor = UIColor.whiteColor;
+        _reciveBgView.cornerRadius = 15;
+    }
+    return _reciveBgView;
+}
 
 -(UIImageView*) reciveImage{
     if (!_reciveImage) {
@@ -353,7 +374,6 @@
 -(UILabel*) reciveNameLB{
     if (!_reciveNameLB) {
         _reciveNameLB = [UILabel new];
-        _reciveNameLB.numberOfLines = 2;
         _reciveNameLB.font = [UIFont mediumFont:15];
         _reciveNameLB.textColor = UIColorFromRGB(0x333333);
     }
@@ -362,14 +382,8 @@
 -(UILabel*) reciveDescLB{
     if (!_reciveDescLB) {
         _reciveDescLB = [UILabel new];
-        
-        _reciveDescLB.font = [UIFont regularFont:13];
-        _reciveDescLB.numberOfLines = 2;
+        _reciveDescLB.font = [UIFont regularFont:12];
         _reciveDescLB.textColor = UIColorFromRGB(0x777777);
-        
-        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] init];
-        [tap addTarget:self action:@selector(reciveDescAction:)];
-        [_reciveDescLB addGestureRecognizer:tap];
     }
     return _reciveDescLB;
 }
@@ -378,7 +392,7 @@
 -(UIView*) centerLine{
     if (!_centerLine) {
         _centerLine = [UIView new];
-        _centerLine.backgroundColor = UIColorFromRGB(0x999999);
+        _centerLine.backgroundColor = UIColorFromRGBA(0x000000,0.06);
     }
     return _centerLine;
 }
@@ -386,7 +400,6 @@
 -(UILabel*) orderTimeLB{
     if (!_orderTimeLB) {
         _orderTimeLB = [UILabel new];
-        
         _orderTimeLB.font = [UIFont regularFont:13];
         _orderTimeLB.textColor = UIColorFromRGB(0x777777);
         

@@ -32,5 +32,8 @@
 @property (nonatomic, copy) NSArray<FEMyStoreModel*>* storeList;//店铺列表
 
 
+@property (nonatomic, strong) FEMyStoreModel* selectedStore;//使用过的店铺列表
 
+
+- (void) updataSelectedStore;
 @end

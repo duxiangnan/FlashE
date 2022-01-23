@@ -40,9 +40,9 @@
 /// 设置环境
 + (BOOL)setDebug_mode:(NSString *)debug_mode;
 + (NSString *)debug_mode;
-+ (NSString *)JD_DES_KEY;
-+ (NSString *)JD_DES_NEWKEY;
-+ (NSString *)VSP_MD5_KEY;
++ (NSString *)FE_DES_KEY;
++ (NSString *)FE_DES_NEWKEY;
++ (NSString *)FE_MD5_KEY;
 //baseUrl
 + (NSString *)VSP_BASE_SERVER_URL;
 

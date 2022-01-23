@@ -14,11 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FEWeightSettingView : UIView
 
 @property (nonatomic, assign) NSInteger currentWeight;
-@property (nonatomic, copy) void(^sureWeightAction)(NSInteger weight,FECategoryItemModel*item);
+//@property (nonatomic, copy) void(^sureWeightAction)(NSInteger weight,FECategoryItemModel*item);
+@property (nonatomic, copy) void(^sureWeightAction)(NSInteger weight);
 @property (nonatomic, copy) void(^cancleAction)(void);
 
 
-- (void) getCategorysData:(void(^)(FECategorysModel* modle))complate;
+//- (void) getCategorysData:(void(^)(FECategorysModel* modle))complate;
 -(CGFloat) fitterViewHeight;
 @end
 

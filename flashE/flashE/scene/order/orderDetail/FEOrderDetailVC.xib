@@ -12,6 +12,7 @@
                 <outlet property="backBtn" destination="9ee-TE-tU1" id="jDD-ow-9Ef"/>
                 <outlet property="backBtnTop" destination="MJc-H2-2dQ" id="ZXx-7Q-uwn"/>
                 <outlet property="table" destination="UsP-5h-99N" id="upn-Y3-cVw"/>
+                <outlet property="tableB" destination="0fi-7d-5LE" id="SzP-cO-pWE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,8 +22,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UsP-5h-99N">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="876"/>
+                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="XcW-Wa-lLG"/>
                         <outlet property="delegate" destination="-1" id="cn7-d0-Pfc"/>
@@ -47,7 +48,7 @@
             </subviews>
             <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="UsP-5h-99N" secondAttribute="bottom" id="0fi-7d-5LE"/>
+                <constraint firstAttribute="bottom" secondItem="UsP-5h-99N" secondAttribute="bottom" constant="20" id="0fi-7d-5LE"/>
                 <constraint firstItem="9ee-TE-tU1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="MJc-H2-2dQ"/>
                 <constraint firstItem="9ee-TE-tU1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="6" id="Si5-zh-gqQ"/>
                 <constraint firstItem="UsP-5h-99N" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="iTA-7F-Gtc"/>

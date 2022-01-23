@@ -29,17 +29,31 @@
         
         switch (resp.errCode) {
             case WXSuccess:
-                strMsg = @"支付结果：成功！";
-                NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
+                strMsg = @"支付成功";
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccess" object:nil];
                 break;
-                
+            case WXErrCodeCommon:
+                strMsg = @"普通错误类型";
+                break;
+            case WXErrCodeUserCancel:
+                strMsg = @"支付取消";
+                break;
+            case WXErrCodeSentFail:
+                strMsg = @"发送失败";
+                break;
+            case WXErrCodeAuthDeny:
+                strMsg = @"授权失败";
+                break;
+            case WXErrCodeUnsupport:
+                strMsg = @"微信不支持";
+                break;
             default:
-                strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", resp.errCode,resp.errStr];
-                NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
+                strMsg = @"支付失败";
                 break;
         }
         [MBProgressHUD showMessage:strMsg];
     }else {
+        
     }
 }
 

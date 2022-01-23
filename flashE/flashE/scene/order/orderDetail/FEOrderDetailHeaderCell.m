@@ -58,14 +58,14 @@
     CGFloat heigt = 0;
     if (model.status == 10 || model.status == 20 || model.status == 30|| model.status == 40) {
         model.orderDetailHeaderMapH = kScreenHeight/3;
-        heigt += model.orderDetailHeaderMapH;
+//        heigt += model.orderDetailHeaderMapH;
     } else {
-        model.orderDetailHeaderMapH = 0;
+        model.orderDetailHeaderMapH = 40;
     }
-
-    heigt += 30;
+    heigt += model.orderDetailHeaderMapH;
+    heigt += (25 + 20);
     CGSize size = [model.scheduleInfo sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
-    heigt += ceil(size.height);
+    heigt += (4 + ceil(size.height));
 
     // 10,//待接单  20, //待取单 //配送中 //已取消 //已完成
     switch (model.status) {
@@ -120,18 +120,17 @@
     }
     if (model.commonds.count > 0) {
         heigt += (10 + 30);
-    } else {
-        
     }
-    heigt += 20;
+//    heigt += 20;
     model.orderDetailHeaderBottomH = heigt - model.orderDetailHeaderMapH + 20;
-    model.orderDetailHeaderCellH = heigt;
+    model.orderDetailHeaderCellH = heigt;// - 20;
     return model.orderDetailHeaderCellH;
 }
 - (void) setModel:(FEOrderDetailModel*)model {
     _model = model;
 
-    self.mapView.hidden = model.orderDetailHeaderMapH == 0;
+    self.mapView.hidden = model.orderDetailHeaderMapH == 40;
+    self.freshBtn.hidden = self.mapView.hidden;
     [self.mapView removeAnnotations:self.mapAnnotation];
     [self.mapAnnotation removeAllObjects];
     if (!self.mapView.hidden) {
@@ -166,7 +165,7 @@
     for (FEOrderCommond* item in model.commonds) {
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:item.commodName forState:UIControlStateNormal];
-        [btn setTitleColor:UIColorFromRGB(0x12B398) forState:UIControlStateNormal];
+        [btn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont regularFont:13];
         btn.tag = item.commodType;
         [btn addTarget:self action:@selector(commondActoin:) forControlEvents:UIControlEventTouchUpInside];
@@ -174,7 +173,7 @@
 
         
         btn.cornerRadius = 15;
-        btn.borderColor = UIColorFromRGB(0x12B398);
+        btn.borderColor = UIColorFromRGB(0xDBDBDB);
         btn.borderWidth = 0.5;
        
         [self.statusView addSubview:btn];

@@ -62,9 +62,14 @@ void FEResponseAnalysis(id responseObject, FEHTTPAPISuccessBlock successBlock, F
         
         int code = [response[@"status"] intValue];
         if (failureBlock) {
-            NSString* message = response[@"msg"];
+            NSString* message = response[@"data"];
+            
             if (![message isKindOfClass:[NSString class]] || message.length == 0) {
-                message = [NSString stringWithFormat:@"请检查您的网络环境,稍后重试～%d",code];
+                
+                message = response[@"msg"];
+                if (![message isKindOfClass:[NSString class]] || message.length == 0) {
+                    message = [NSString stringWithFormat:@"请检查您的网络环境,稍后重试～%d",code];
+                }
             }
             NSDictionary *userInfo = @{NSLocalizedDescriptionKey:message};
             NSError *error = [NSError errorWithDomain:@"FEHTTPAPIErrorDomain" code:code

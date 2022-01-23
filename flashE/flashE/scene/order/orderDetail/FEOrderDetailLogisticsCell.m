@@ -94,7 +94,7 @@
     model.orderDetailLogisticTableH = model.logistics.count * 30;
     
     model.orderDetailLogisticBottomH = model.backAmount > 0?34:0;
-    model.orderDetailLogisticCellH = 10+20+model.orderDetailLogisticHeaderH+model.orderDetailLogisticTableH+model.orderDetailLogisticBottomH+20;
+    model.orderDetailLogisticCellH = 10+22+model.orderDetailLogisticHeaderH+model.orderDetailLogisticTableH+model.orderDetailLogisticBottomH+20;
     
     return model.orderDetailLogisticCellH;
 }
@@ -106,7 +106,7 @@
     self.orderInfoLb.text = [NSString stringWithFormat:@"本单由“%@”为您配送",model.logisticName];
     self.orderNumLB.text = [NSString stringWithFormat:@"单号：%lld",model.orderId];
 #warning waitServerSure totalAmountLB.text
-    self.totalAmountLB.text = @"未知字段";
+    self.totalAmountLB.text = @"";//@"未知字段";
     self.table.hidden = model.orderDetailLogisticTableH == 0;
 
     self.bottomView.hidden = model.orderDetailLogisticBottomH==0;

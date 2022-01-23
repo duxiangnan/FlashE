@@ -4,11 +4,11 @@
 <dict>
 	<key>debug_mode</key>
 	<string>0</string>
-	<key>JD_DES_KEY</key>
+	<key>FE_DES_KEY</key>
 	<string>4L7/WVvIuc+htjJX9gIguJkcpBI4M/F9wKjLTxlem7E/PQ9ioMmLuRvxx1yeD4bk</string>
-	<key>JD_DES_NEWKEY</key>
+	<key>FE_DES_NEWKEY</key>
 	<string>zIpufvF0BUcTiSVLCHaGiUb2vJiCNr33vWW+bJ12X5A=</string>
-	<key>VSP_MD5_KEY</key>
+	<key>FE_MD5_KEY</key>
 	<string>UQXaVIAkOB+bVh51JgOW1D6jjpWbSzhgUdgh49sizrRIBEibFskgGVfJVFoAkt2x</string>
 	<key>definePlistNumber</key>
 	<integer>3</integer>

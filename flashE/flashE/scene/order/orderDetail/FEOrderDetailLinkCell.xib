@@ -24,7 +24,7 @@
                             <constraint firstAttribute="height" constant="40" id="OAc-Ci-Slq"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="15"/>
-                        <state key="normal" title="联系闪送客服">
+                        <state key="normal" title="联系小鹿客服">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <userDefinedRuntimeAttributes>

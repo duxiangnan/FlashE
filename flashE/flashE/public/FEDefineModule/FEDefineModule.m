@@ -43,16 +43,16 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"debug_mode"];
 }
 
-+ (NSString *)JD_DES_KEY{
-    NSString *sceret =  [[NSUserDefaults standardUserDefaults] objectForKey:@"JD_DES_KEY"];
++ (NSString *)FE_DES_KEY{
+    NSString *sceret =  [[NSUserDefaults standardUserDefaults] objectForKey:@"FE_DES_KEY"];
     return [FEAESCrypt decryptAES:sceret key:@"114eead8-66f5-fa"] ;
 }
-+ (NSString *)JD_DES_NEWKEY{
-    NSString *sceret =  [[NSUserDefaults standardUserDefaults] objectForKey:@"JD_DES_NEWKEY"];
++ (NSString *)FE_DES_NEWKEY{
+    NSString *sceret =  [[NSUserDefaults standardUserDefaults] objectForKey:@"FE_DES_NEWKEY"];
     return [FEAESCrypt decryptAES:sceret key:@"114eead8-66f5-fa"] ;
 }
-+ (NSString *)VSP_MD5_KEY{
-    NSString *sceret =  [[NSUserDefaults standardUserDefaults] objectForKey:@"VSP_MD5_KEY"];
++ (NSString *)FE_MD5_KEY{
+    NSString *sceret =  [[NSUserDefaults standardUserDefaults] objectForKey:@"FE_MD5_KEY"];
     return [FEAESCrypt decryptAES:sceret key:@"114eead8-66f5-fa"] ;
 }
 + (NSString *)baseUrlKey{

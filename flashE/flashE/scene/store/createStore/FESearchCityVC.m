@@ -74,6 +74,7 @@
 
 @property (nonatomic,copy) NSArray<FEStoreCityModel*>* showList;
 
+@property (nonatomic, strong) FEStoreCityItemModel* selectedCity;
 @end
 
 @implementation FESearchCityVC
@@ -267,10 +268,26 @@
     FEStoreCityModel* item = self.showList[indexPath.section];
     if (item) {
         FEStoreCityItemModel* city = item.cities[indexPath.row];
-        !self.selectedAction?:self.selectedAction(city);
+//        !self.selectedAction?:self.selectedAction(city);
+        self.selectedCity = city;
+        
+        NSMutableDictionary* arg = [NSMutableDictionary dictionary];
+        @weakself(self);
+        arg[@"selectedAction"] = ^(FEAddressModel * _Nonnull model) {
+            @strongself(weakSelf);
+            !strongSelf.selectedAction?:strongSelf.selectedAction(strongSelf.selectedCity,model);
+        };
+        arg[@"defaultCityid"] = @(self.selectedCity.ID);
+        arg[@"defaultCityName"] = self.selectedCity.name;
+        FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://createSearchAddress" withParameters:arg];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        
     }
-    [self cancleAvtion:nil];
+//    [self cancleAvtion:nil];
 }
+
+
 
 @end
 

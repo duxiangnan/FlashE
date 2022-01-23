@@ -12,7 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 @class FEStoreCityItemModel;
 @interface FESearchAddressVC : FEBaseViewController
 
-@property (nonatomic, copy) void(^selectedAction)(FEAddressModel*model,FEStoreCityItemModel* city);
+//使用默认city参数
+@property (nonatomic,assign) BOOL defaultCityid;
+@property (nonatomic,strong) NSString* defaultCityName;
+
+
+@property (nonatomic, copy) void(^selectedAction)(FEAddressModel*model);
 @end
 
 NS_ASSUME_NONNULL_END

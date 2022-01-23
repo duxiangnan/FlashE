@@ -19,26 +19,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BWX-62-i5c">
                         <rect key="frame" x="0.0" y="30" width="414" height="40"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4KD-g8-wPc">
-                                <rect key="frame" x="16" y="0.0" width="120.5" height="40"/>
-                                <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="13"/>
-                                <state key="normal" title="全部交易明细">
-                                    <color key="titleColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <state key="selected">
-                                    <color key="titleColor" red="0.070588235289999995" green="0.70196078429999997" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="commondAction:" destination="dbf-YU-pVN" eventType="touchUpInside" id="F3c-zb-gEY"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6y-Nq-JiV">
-                                <rect key="frame" x="146.5" y="0.0" width="121" height="40"/>
+                                <rect key="frame" x="16" y="0.0" width="186" height="40"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="13"/>
                                 <state key="normal" title="充值明细">
                                     <color key="titleColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -56,7 +38,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1Y-S5-hxZ">
-                                <rect key="frame" x="277.5" y="0.0" width="120.5" height="40"/>
+                                <rect key="frame" x="212" y="0.0" width="186" height="40"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="13"/>
                                 <state key="normal" title="扣款明细">
                                     <color key="titleColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -77,17 +59,13 @@
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="1S6-Rq-vrs"/>
-                            <constraint firstItem="w1Y-S5-hxZ" firstAttribute="width" secondItem="4KD-g8-wPc" secondAttribute="width" id="FYK-Vw-VvZ"/>
-                            <constraint firstItem="4KD-g8-wPc" firstAttribute="centerY" secondItem="BWX-62-i5c" secondAttribute="centerY" id="JKc-cF-0Ho"/>
                             <constraint firstAttribute="bottom" secondItem="w1Y-S5-hxZ" secondAttribute="bottom" id="M1N-f4-zHb"/>
-                            <constraint firstItem="4KD-g8-wPc" firstAttribute="leading" secondItem="BWX-62-i5c" secondAttribute="leading" constant="16" id="MXJ-nk-3z7"/>
-                            <constraint firstItem="d6y-Nq-JiV" firstAttribute="leading" secondItem="4KD-g8-wPc" secondAttribute="trailing" constant="10" id="O5s-u3-wOy"/>
                             <constraint firstItem="w1Y-S5-hxZ" firstAttribute="centerY" secondItem="BWX-62-i5c" secondAttribute="centerY" id="Seu-xF-rLP"/>
-                            <constraint firstItem="d6y-Nq-JiV" firstAttribute="width" secondItem="4KD-g8-wPc" secondAttribute="width" id="T1j-1x-0ZB"/>
                             <constraint firstItem="d6y-Nq-JiV" firstAttribute="centerY" secondItem="BWX-62-i5c" secondAttribute="centerY" id="TjR-K8-4SE"/>
                             <constraint firstAttribute="bottom" secondItem="d6y-Nq-JiV" secondAttribute="bottom" id="ZbS-em-Izk"/>
                             <constraint firstItem="w1Y-S5-hxZ" firstAttribute="leading" secondItem="d6y-Nq-JiV" secondAttribute="trailing" constant="10" id="cHp-hC-Q4O"/>
-                            <constraint firstAttribute="bottom" secondItem="4KD-g8-wPc" secondAttribute="bottom" id="u7H-kc-Fqm"/>
+                            <constraint firstItem="d6y-Nq-JiV" firstAttribute="leading" secondItem="BWX-62-i5c" secondAttribute="leading" constant="16" id="iFr-ie-PIl"/>
+                            <constraint firstItem="w1Y-S5-hxZ" firstAttribute="width" secondItem="d6y-Nq-JiV" secondAttribute="width" id="xbE-oS-Zr1"/>
                             <constraint firstAttribute="trailing" secondItem="w1Y-S5-hxZ" secondAttribute="trailing" constant="16" id="xgh-B3-QRY"/>
                         </constraints>
                     </view>
@@ -112,7 +90,6 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="commondOneBtn" destination="4KD-g8-wPc" id="QOF-Sb-hL7"/>
                 <outlet property="commondThreeBtn" destination="w1Y-S5-hxZ" id="hcE-VU-A8Z"/>
                 <outlet property="commondTwoBtn" destination="d6y-Nq-JiV" id="kct-SM-R5p"/>
                 <outlet property="table" destination="das-VZ-Ehf" id="gAL-Aq-7uh"/>

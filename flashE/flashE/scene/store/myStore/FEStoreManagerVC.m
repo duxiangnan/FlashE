@@ -43,7 +43,7 @@
     if (self) {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
         [self.contentView addSubview:self.bgView];
         [self.bgView addSubview:self.nameLB];
         [self.bgView addSubview:self.addressImage];
@@ -70,32 +70,34 @@
     }];
     
     [self.nameLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.bgView.mas_left).offset(16);
-        make.right.equalTo(self.bgView.mas_right).offset(-16);
-        make.top.equalTo(self.bgView.mas_top).offset(10);
-        make.height.mas_equalTo(@(20));
+        make.left.equalTo(self.bgView.mas_left).offset(22);
+        make.right.equalTo(self.bgView.mas_right).offset(-10);
+        make.top.equalTo(self.bgView.mas_top).offset(14);
+        make.height.mas_equalTo(@(21));
     }];
     [self.addressImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(@(18));
+        make.width.mas_equalTo(@(10));
+        make.height.mas_equalTo(@(13));
         make.centerY.equalTo(self.addressLB.mas_centerY);
-        make.left.equalTo(self.bgView.mas_left).offset(16);
+        make.left.equalTo(self.bgView.mas_left).offset(22);
     }];
     [self.addressLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nameLB.mas_bottom);
-        make.left.equalTo(self.addressImage.mas_right).offset(10);
-        make.right.equalTo(self.bgView.mas_right).offset(-16);
-        make.height.equalTo(@20);
+        make.top.equalTo(self.nameLB.mas_bottom).offset(4);
+        make.left.equalTo(self.addressImage.mas_right).offset(4);
+        make.right.equalTo(self.bgView.mas_right).offset(-10);
+        make.height.mas_equalTo(@17);
     }];
     
     [self.phoneImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(@(18));
+        make.width.mas_equalTo(@(11));
+        make.height.mas_equalTo(@(12));
         make.centerY.equalTo(self.phoneLB.mas_centerY);
-        make.left.equalTo(self.bgView.mas_left).offset(16);
+        make.left.equalTo(self.bgView.mas_left).offset(22);
     }];
     [self.phoneLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.addressLB.mas_bottom);
-        make.left.equalTo(self.phoneImage.mas_right).offset(10);
-        make.height.equalTo(@20);
+        make.top.equalTo(self.addressLB.mas_bottom).offset(4);
+        make.left.equalTo(self.phoneImage.mas_right).offset(4);
+        make.height.mas_equalTo(@20);
     }];
     
     [self.categoryLB mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -105,7 +107,7 @@
         make.height.mas_equalTo(15);
     }];
     [self.isDefaultLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.categoryLB.mas_right).offset(10);
+        make.left.equalTo(self.categoryLB.mas_right).offset(6);
         make.centerY.equalTo(self.categoryLB.mas_centerY);
         make.width.mas_equalTo(34);
         make.height.mas_equalTo(15);
@@ -113,8 +115,8 @@
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bgView.mas_left).offset(16);
         make.right.equalTo(self.bgView.mas_right).offset(-16);
-        make.top.equalTo(self.phoneLB.mas_bottom).offset(10);
-        make.height.mas_equalTo(1);
+        make.top.equalTo(self.phoneLB.mas_bottom).offset(12);
+        make.height.mas_equalTo(0.5);
     }];
     
     [self.defaultBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -125,14 +127,14 @@
     }];
     [self.defaultTip mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.line.mas_bottom).offset(10);
-        make.left.equalTo(self.defaultBtn.mas_right).offset(10);
+        make.left.equalTo(self.defaultBtn.mas_right).offset(5);
         make.right.equalTo(self.bgView.mas_right).offset(-16);
-        make.height.mas_equalTo(15);
+        make.height.mas_equalTo(17);
     }];
 }
 - (void) setModel:(FEMyStoreModel*) model{
     _model = model;
-    self.nameLB.text = model.name;
+    self.nameLB.text = [NSString stringWithFormat:@"%@",model.name];
     self.addressLB.text = [NSString stringWithFormat:@"%@ %@",model.address,model.addressDetail];
     self.phoneLB.text = model.mobile;
     CGSize size = [model.categoryName sizeWithFont:self.categoryLB.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 15)];
@@ -167,7 +169,7 @@
 }
 - (UIImageView*) addressImage {
     if (!_addressImage) {
-        _addressImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fe_address_icon"]];
+        _addressImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fe_address_store_icon"]];
     }
     return _addressImage;
 }
@@ -223,13 +225,14 @@
 - (UIView*) line {
     if (!_line) {
         _line = [[UIView alloc] init];
-        _line.backgroundColor = UIColorFromRGB(0xF6F7F9);
+        _line.backgroundColor = UIColorFromRGBA(0x000000,0.06);
     }
     return _line;
 }
 - (UIButton*) defaultBtn {
     if (!_defaultBtn) {
         _defaultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_defaultBtn setEnlargeEdgeWithTop:20 right:20 bottom:10 left:10];
         [_defaultBtn setImage:[UIImage imageNamed:@"fe_icon_check"] forState:UIControlStateNormal];
         [_defaultBtn setImage:[UIImage imageNamed:@"fe_icon_check_selected"] forState:UIControlStateSelected];
         [_defaultBtn addTarget:self action:@selector(defaultBtnAcion:) forControlEvents:UIControlEventTouchUpInside];
@@ -304,7 +307,7 @@
         @strongself(weakSelf);
         [strongSelf requestShowData];
     };
-    self.emptyTitle = @"尚未创建店铺";
+    self.emptyTitle = @"暂未添加店铺";
     
 }
 - (void)viewDidLayoutSubviews{
@@ -369,14 +372,15 @@
                              parameters:@{@"id":@(model.ID)}
                                 success:^(NSInteger code, id  _Nonnull response) {
         @strongself(weakSelf);
-        [strongSelf.list enumerateObjectsUsingBlock:
-         ^(FEMyStoreModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            obj.defaultStore = NO;
-            if (obj.ID == model.ID) {
-                obj.defaultStore = YES;
-            }
-        }];
-        [strongSelf.table reloadData];
+        [strongSelf requestShowData];
+//        [strongSelf.list enumerateObjectsUsingBlock:
+//         ^(FEMyStoreModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            obj.defaultStore = NO;
+//            if (obj.ID == model.ID) {
+//                obj.defaultStore = YES;
+//            }
+//        }];
+//        [strongSelf.table reloadData];
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
         [MBProgressHUD showMessage:error.localizedDescription];
     } cancle:^{
@@ -416,7 +420,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 130;
+    return 141;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

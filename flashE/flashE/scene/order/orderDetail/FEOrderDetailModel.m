@@ -5,6 +5,10 @@
 #import "FEOrderDetailModel.h"
 #import <DateTools/DateTools.h>
 
+
+
+
+
 @implementation FEOrderDetailModel
 
 + (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass{
@@ -77,6 +81,16 @@
 //        NSDate* tmpData = [[NSDate alloc] initWithTimeIntervalSince1970:tmpLong];
 //        _createTimeStr = [tmpData formattedDateWithFormat:@"MM-dd HH:mm"];
 //    }
+    
+    NSArray* plartform = @[@"bingex",@"shunfeng",@"mtps",@"fengka",@"dada",@"uupt"];
+    NSMutableArray* tmp = [NSMutableArray array];
+    for ( int i = 0; i < self.logistics.count ;i++) {
+        FEOrderDtailLogisticModel* item = self.logistics[i];
+        if ([plartform containsObject:item.logistic]) {
+            [tmp addObject:item];
+        }
+    }
+    self.logistics = tmp;
     return YES;
 }
 - (NSString*) makeMinutesAndSecond:(NSDate*)sourceData toDate:(NSDate*) toDate {
@@ -97,7 +111,7 @@
 //            self.orderStatusDescName = @"正在为您呼叫以下平台，请耐心等待。";
             double tmpL = self.createTime/1000;
             NSDate* tmpD = [[NSDate alloc] initWithTimeIntervalSince1970:tmpL];
-            NSString* timeStr = [self makeMinutesAndSecond:tmpD toDate:systemD];
+            NSString* timeStr = [self makeMinutesAndSecond:systemD toDate:tmpD];
             self.showStuseTimeStr = [NSString stringWithFormat:@"已呼叫 %@",timeStr];
         }break;
         case 20:{//已接单
@@ -105,7 +119,7 @@
 //            self.orderStatusDescName = [NSString stringWithFormat:@"骑手“%@”正赶往店铺，请耐心等待。",self.courierName];
             double tmpL = self.grebTime/1000;
             NSDate* tmpD = [[NSDate alloc] initWithTimeIntervalSince1970:tmpL];
-            NSString* timeStr = [self makeMinutesAndSecond:tmpD toDate:systemD];
+            NSString* timeStr = [self makeMinutesAndSecond:systemD toDate:tmpD];
             self.showStuseTimeStr = [NSString stringWithFormat:@"已等待 %@",timeStr];
         }break;
         case 30:{//已到店
@@ -114,7 +128,7 @@
 //            self.orderStatusDescName = [NSString stringWithFormat:@"骑手“%@”已到店，请尽快配合骑手完成取件。",self.courierName];
             double tmpL = self.grebTime/1000;
             NSDate* tmpD = [[NSDate alloc] initWithTimeIntervalSince1970:tmpL];
-            NSString* timeStr = [self makeMinutesAndSecond:tmpD toDate:systemD];
+            NSString* timeStr = [self makeMinutesAndSecond:systemD toDate:tmpD];
             self.showStuseTimeStr = [NSString stringWithFormat:@"已等待 %@",timeStr];
         }break;
         case 40:{//配送中
@@ -122,7 +136,7 @@
 //            self.orderStatusDescName = @"骑手正在为努力送件中，请您耐心等待。";
             double tmpL = self.pickupTime/1000;
             NSDate* tmpD = [[NSDate alloc] initWithTimeIntervalSince1970:tmpL];
-            NSString* timeStr = [self makeMinutesAndSecond:tmpD toDate:systemD];
+            NSString* timeStr = [self makeMinutesAndSecond:systemD toDate:tmpD];
             self.showStuseTimeStr = [NSString stringWithFormat:@"已配送 %@",timeStr];
         }break;
         case 50:{//已完成

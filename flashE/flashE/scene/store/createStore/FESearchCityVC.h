@@ -9,10 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @class FEStoreCityItemModel ;
+@class FEAddressModel;
 @interface FESearchCityVC : FEBaseViewController
 
 
-@property (nonatomic, copy) void(^selectedAction)(FEStoreCityItemModel*model);
+@property (nonatomic, copy) void(^selectedAction)(FEStoreCityItemModel*city,FEAddressModel* model);
 @end
 
 NS_ASSUME_NONNULL_END

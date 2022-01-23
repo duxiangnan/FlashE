@@ -10,6 +10,8 @@
 
 #import "FEDefineModule.h"
 #import "FEHttpPageManager.h"
+#import "FEEmptyView.h"
+
 
 @interface FERechargeRecodeInfoCell : UITableViewCell
 @property (nonatomic,strong) FERechargeRecodeModel* model;
@@ -56,11 +58,23 @@
 @property (nonatomic,copy) NSArray<FERechargeRecodeModel*>* list;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
-@property (weak, nonatomic) IBOutlet UIButton *commondOneBtn;
 @property (weak, nonatomic) IBOutlet UIButton *commondTwoBtn;
 @property (weak, nonatomic) IBOutlet UIButton *commondThreeBtn;
 
 @property (nonatomic,strong) FEHttpPageManager* pagesManager;
+
+@property (nonatomic, strong) FEEmptyView* emptyView;
+
+@property (nonatomic, assign) CGRect emptyFrame;
+@property (nonatomic, copy) NSString* emptyImage;
+@property (nonatomic, copy) NSString* emptyTitle;
+@property (nonatomic, copy) NSString* emptyDesc;
+
+@property (nonatomic, copy) NSString* errorImage;
+@property (nonatomic, copy) NSString* errorTitle;
+@property (nonatomic, copy) NSString* errorDesc;
+
+@property (nonatomic, copy) void (^emptyAction)(void);//实现点击回调
 
 @end
 @implementation FERechargeRecodeCell
@@ -82,30 +96,38 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 //    self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
     
-    [self.commondOneBtn setBackgroundColor:UIColorFromRGBA(0x12B398, 0.1) forState:UIControlStateSelected];
-    [self.commondOneBtn setBackgroundColor:UIColorFromRGB(0xF7F8F9) forState:UIControlStateNormal];
-    
     [self.commondTwoBtn setBackgroundColor:UIColorFromRGBA(0x12B398, 0.1) forState:UIControlStateSelected];
     [self.commondTwoBtn setBackgroundColor:UIColorFromRGB(0xF7F8F9) forState:UIControlStateNormal];
     
     [self.commondThreeBtn setBackgroundColor:UIColorFromRGBA(0x12B398, 0.1) forState:UIControlStateSelected];
     [self.commondThreeBtn setBackgroundColor:UIColorFromRGB(0xF7F8F9) forState:UIControlStateNormal];
     
-    [self.table registerNib:[UINib nibWithNibName:@"FERechargeRecodeInfoCell" bundle:nil] forCellReuseIdentifier:@"FERechargeRecodeInfoCell"];
+    [self.table registerNib:[UINib nibWithNibName:@"FERechargeRecodeInfoCell" bundle:nil]
+     forCellReuseIdentifier:@"FERechargeRecodeInfoCell"];
     self.table.rowHeight = 70;
-    self.commondOneBtn.selected = YES;
+    self.commondTwoBtn.selected = YES;
     
+    
+    
+//    self.emptyFrame = self.bounds;
+//    self.emptyImage = @"FEEmpty_icon";
+//    self.emptyTitle = @"暂无数据";
+//    self.emptyDesc = @"";
+//
+//    self.errorImage = @"Wifi-Error";;
+//    self.errorTitle = @"请检查网络连接后，再次尝试";
+//    self.errorDesc = @"";
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
+//    self.emptyFrame = self.table.frame;
 }
 - (void) setModel{
     [self freshdata];
 }
 - (IBAction)commondAction:(UIButton *)sender {
-    self.commondOneBtn.selected = NO;
+    
     self.commondTwoBtn.selected = NO;
     self.commondThreeBtn.selected = NO;
     
@@ -115,12 +137,10 @@
 - (void) freshdata {
     NSMutableDictionary* param = [NSMutableDictionary dictionary];
     //类型10 扣款记录；20充值记  录
-    if (self.commondOneBtn.selected) {
+    if (self.commondTwoBtn.selected) {
         param[@"type"] = @(10);
-    } else if (self.commondTwoBtn.selected) {
-        param[@"type"] = @(20);
     }else if (self.commondThreeBtn.selected){
-        param[@"type"] = @(30);
+        param[@"type"] = @(20);
     }
     
     self.pagesManager = [[FEHttpPageManager alloc] initWithFunctionId:@"/deer/orders/queryDebitList" parameters:param
@@ -154,20 +174,21 @@
         @strongself(weakSelf);
         [strongSelf.pagesManager fetchData:^{
             [strongSelf.table.mj_header endRefreshing];
+            [strongSelf hiddenEmptyView];
             strongSelf.list = strongSelf.pagesManager.dataArr;
             
             if (strongSelf.pagesManager.hasMore) {
                 strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
                                                                            noMoreDataString:@"没有更多数据"];
-                
             } else {
                 [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
             }
             
-            
             if (strongSelf.pagesManager.networkError) {
                 [MBProgressHUD showMessage:weakSelf.pagesManager.networkError.localizedDescription];
-                strongSelf.list = nil;
+            }
+            if (strongSelf.list.count == 0) {
+                [strongSelf showEmptyViewWithType:YES];
             }
             [strongSelf.table reloadData];
         }];
@@ -199,4 +220,38 @@
 }
 
 
+
+
+
+- (void)showEmptyViewWithType:(BOOL)isEmpty {
+//    CGRect frame = self.emptyFrame;
+//    NSString* imageName = self.errorImage;
+//    NSString* emptyTitle = self.errorTitle;
+//    NSString* desc = self.errorDesc;
+//    if (isEmpty) {
+//        imageName = self.emptyImage;
+//        emptyTitle = self.emptyTitle;
+//        desc = self.emptyDesc;
+//    }
+//    self.emptyView = [[FEEmptyView alloc] initWithFrame:frame emptyImage:imageName title:emptyTitle desc:desc];
+//    [self.emptyView removeFromSuperview];
+//    [self addSubview:self.emptyView];
+//    self.emptyView.onTapAction = self.emptyAction;
+}
+- (void) hiddenEmptyView {
+//    [self.emptyView emptyHidden];
+}
+//- (void)setEmptyTitle:(NSString *)emptyTitle {
+//    _emptyTitle = emptyTitle;
+//    self.emptyView.title = emptyTitle;
+//}
+//- (void)setEmptyDesc:(NSString *)emptyDesc{
+//    _emptyDesc = emptyDesc;
+//    self.emptyView.desc = emptyDesc;
+//}
+//- (void)setEmptyImage:(NSString *)emptyImage{
+//    _emptyImage = emptyImage;
+//
+//    self.emptyView.imageName = emptyImage;
+//}
 @end

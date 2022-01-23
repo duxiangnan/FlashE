@@ -33,7 +33,7 @@
     if (self) {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
         [self.contentView addSubview:self.bgView];
         [self.bgView addSubview:self.nameLB];
         [self.bgView addSubview:self.addressImage];
@@ -50,39 +50,41 @@
     [super layoutSubviews];
     
     [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView.mas_top).offset(20);
+        make.top.equalTo(self.contentView.mas_top).offset(10);
         make.left.equalTo(self.contentView.mas_left).offset(10);
         make.right.equalTo(self.contentView.mas_right).offset(-10);
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
     [self.nameLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.bgView.mas_left).offset(16);
+        make.left.equalTo(self.bgView.mas_left).offset(22);
         make.right.equalTo(self.bgView.mas_right).offset(-16);
-        make.top.equalTo(self.bgView).offset(10);
-        make.height.mas_equalTo(@(20));
+        make.top.equalTo(self.bgView).offset(14);
+        make.height.mas_equalTo(@(21));
     }];
     [self.addressImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(@(18));
+        make.width.mas_equalTo(@(10));
+        make.height.mas_equalTo(@(13));
         make.centerY.equalTo(self.addressLB.mas_centerY);
-        make.left.equalTo(self.bgView.mas_left).offset(16);
+        make.left.equalTo(self.bgView.mas_left).offset(22);
     }];
     [self.addressLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nameLB.mas_bottom);
-        make.left.equalTo(self.addressImage.mas_right).offset(10);
+        make.top.equalTo(self.nameLB.mas_bottom).offset(4);
+        make.left.equalTo(self.addressImage.mas_right).offset(4);
         make.right.equalTo(self.bgView.mas_right).offset(-16);
-        make.height.equalTo(@20);
+        make.height.mas_equalTo(@17);
     }];
     
     [self.phoneImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(@(18));
+        make.width.mas_equalTo(@(11));
+        make.height.mas_equalTo(@(12));
         make.centerY.equalTo(self.phoneLB.mas_centerY);
-        make.left.equalTo(self.bgView.mas_left).offset(16);
+        make.left.equalTo(self.bgView.mas_left).offset(22);
     }];
     [self.phoneLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.addressLB.mas_bottom);
-        make.left.equalTo(self.phoneImage.mas_right).offset(10);
-        make.height.equalTo(@20);
+        make.top.equalTo(self.addressLB.mas_bottom).offset(4);
+        make.left.equalTo(self.phoneImage.mas_right).offset(4);
+        make.height.mas_equalTo(@17);
     }];
     
     [self.categoryLB mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -92,7 +94,7 @@
         make.height.mas_equalTo(15);
     }];
     [self.isDefaultLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.categoryLB.mas_right).offset(10);
+        make.left.equalTo(self.categoryLB.mas_right).offset(6);
         make.centerY.equalTo(self.categoryLB.mas_centerY);
         make.width.mas_equalTo(34);
         make.height.mas_equalTo(15);
@@ -133,7 +135,7 @@
 }
 - (UIImageView*) addressImage {
     if (!_addressImage) {
-        _addressImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fe_address_icon"]];
+        _addressImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fe_address_store_icon"]];
     }
     return _addressImage;
 }
@@ -206,7 +208,7 @@
     if (self) {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
         [self.contentView addSubview:self.bgView];
         [self.bgView addSubview:self.titleLB];
         [self.bgView addSubview:self.zmImage];
@@ -309,7 +311,7 @@
     if (self) {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
         [self.contentView addSubview:self.bgView];
         [self.bgView addSubview:self.titleLB];
         [self.bgView addSubview:self.dianImage];
@@ -410,7 +412,7 @@
     if (self) {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
         [self.contentView addSubview:self.modifyBtn];
         [self.contentView addSubview:self.deletedBtn];
     }
@@ -420,12 +422,12 @@
     [super layoutSubviews];
     
     
-    CGFloat width = (kScreenWidth - 16*2 - 10)/2 ;
+    CGFloat width = (kScreenWidth - 22*2 - 10)/2 ;
     [self.modifyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(@(width));
         make.height.mas_equalTo(40);
         make.top.equalTo(self.contentView.mas_top).offset(10);
-        make.left.equalTo(self.contentView.mas_left).offset(16);
+        make.left.equalTo(self.contentView.mas_left).offset(22);
         
     }];
     
@@ -433,7 +435,7 @@
         make.width.mas_equalTo(@(width));
         make.height.mas_equalTo(40);
         make.top.equalTo(self.contentView.mas_top).offset(10);
-        make.right.equalTo(self.contentView.mas_right).offset(-16);
+        make.right.equalTo(self.contentView.mas_right).offset(-22);
     }];
     
 }
@@ -484,7 +486,7 @@
     if (self) {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
         [self.contentView addSubview:self.titleLB];
     }
     return self;
@@ -542,7 +544,7 @@
     if (self) {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
         [self.contentView addSubview:self.bgView];
         [self.bgView addSubview:self.flagImage];
         [self.bgView addSubview:self.titleLB];

@@ -37,7 +37,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="zwg-jS-iZb"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
+                            <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="16"/>
                             <state key="normal" title="添加店铺">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>

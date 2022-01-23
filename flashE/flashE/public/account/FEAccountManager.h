@@ -32,4 +32,5 @@ typedef enum : NSUInteger {
 
 
 - (NSString*) getPlatFormInfo:(NSString*)plat type:(FEPlatforeKey)type;
+- (FEMyStoreModel*) getStoreWithId:(NSString*)storeId;
 @end

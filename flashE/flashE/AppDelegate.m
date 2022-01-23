@@ -44,21 +44,24 @@
                                                  name:@"FELoginSucced" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutAction:)
                                                  name:@"FEDidLogout" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStoreNoti:)
+                                                 name:@"FEUpdateStore" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePayInfo:)
+                                                 name:@"paySuccess" object:nil];
     [self resetRootVC];
 
     [self.window makeKeyAndVisible];
-    NSLog(@"微信参数 %@     ——  %@",kWXAPPID,kWXUNIVERSAL_LINK);
+    
     
     [WXApi startLogByLevel:WXLogLevelDetail logBlock:^(NSString *log) {
         NSLog(@"WeChatSDK log : %@", log);
     }];
     
-    [WXApi registerApp:kWXAPPID universalLink:kWXUNIVERSAL_LINK];
 
-    //调用自检函数
-    [WXApi checkUniversalLinkReady:^(WXULCheckStep step, WXCheckULStepResult* result) {
-        NSLog(@"%@, %u, %@, %@", @(step), result.success, result.errorInfo, result.suggestion);
-    }];
+//    //调用自检函数
+//    [WXApi checkUniversalLinkReady:^(WXULCheckStep step, WXCheckULStepResult* result) {
+//        NSLog(@"%@, %u, %@, %@", @(step), result.success, result.errorInfo, result.suggestion);
+//    }];
 
     
     
@@ -76,8 +79,8 @@
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeVC];
         
         menuViewContorller* vc = [[menuViewContorller alloc] initWithNibName:@"menuViewContorller" bundle:nil];
-        
         UINavigationController *menu = [[UINavigationController alloc] initWithRootViewController:vc];
+        
 
         IIViewDeckController *viewDeckController = [[IIViewDeckController alloc] initWithCenterViewController:navigationController leftViewController:menu];
         self.viewDeckController = viewDeckController;
@@ -92,26 +95,39 @@
         [FFRouter registerRouteURL:@"deckControl://changeSecen" handler:^(NSDictionary *routerParameters) {
             NSString* vcType = routerParameters[@"vcType"];
             switch (vcType.integerValue) {
-                case 1:{
+                case 1:{//我的店铺
                     [self.viewDeckController closeSide:YES];
                     UIViewController* vc = [FFRouter routeObjectURL:@"store://createStoreManager"];
                     [[self getViewDeckNavi] pushViewController:vc animated:YES];
                     
                 }break;
-                case 2:{
+                case 2:{//我的钱包
                     [self.viewDeckController closeSide:YES];
                     UIViewController* vc = [FFRouter routeObjectURL:@"recharge://createRechange"];
                     [[self getViewDeckNavi] pushViewController:vc animated:YES];
                 }break;
-                case 3:{
+                case 3:{//订单语音播报
                     
                 }break;
-                case 4:{
+                case 4:{//用户隐私
                     
                         
                 }break;
-                case 5:{}break;
-                case 6:{}break;
+                case 5:{//隐私协议
+                    
+                }break;
+                case 6:{//版本号
+                    
+                }break;
+                case 7:{//语音设置
+                    
+                }break;
+                case 8:{//客户经理
+//                    [self.viewDeckController closeSide:YES];
+//                    UIViewController* vc = [FFRouter routeObjectURL:@"manger://createMy"];
+//                    [[self getViewDeckNavi] pushViewController:vc animated:YES];
+                    
+                }break;
                 default:
                     break;
             }
@@ -234,6 +250,7 @@
 
 - (void) loginSucAction:(NSNotification*)noti {
     [self resetRootVC];
+    [self requestUpdateStoreList];
 }
 
 - (void) logoutAction:(NSNotification*)noti {
@@ -273,6 +290,7 @@
       success:^(NSInteger code, id  _Nonnull response)
     {
         acc.storeList = [NSArray yy_modelArrayWithClass:[FEMyStoreModel class] json:((NSDictionary*)response)[@"data"]];
+        [self updateStoreNoti:nil];
         [[FEAccountManager sharedFEAccountManager] setLoginInfo:acc];
         
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
@@ -281,5 +299,33 @@
         
     }];
 
+}
+-(void)updateStoreNoti:(NSNotification*)noti {
+    FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
+    FEMyStoreModel* notiStore = noti.userInfo[@"store"];
+    
+    acc.selectedStore = notiStore;
+    [acc updataSelectedStore];
+//    if (!notiStore) {
+//        __block BOOL userDefault = YES;
+//        if (acc.selectedStore) {
+//            [acc.storeList enumerateObjectsUsingBlock:
+//             ^(FEMyStoreModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                if (obj.ID == acc.selectedStore.ID) {
+//                    userDefault = NO;
+//                    *stop = YES;
+//                }
+//            }];
+//        }
+//        if (userDefault) {
+//            acc.selectedStore = acc.storeList.firstObject;
+//        }
+//    } else {
+//        acc.selectedStore = notiStore;
+        [[FEAccountManager sharedFEAccountManager] setLoginInfo:acc];
+//    }
+}
+- (void) updatePayInfo:(NSNotification*)noti {
+    [self requestUpdateAccount];
 }
 @end

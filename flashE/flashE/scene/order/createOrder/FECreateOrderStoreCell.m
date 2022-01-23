@@ -31,11 +31,11 @@
 - (void) setModel:(FEMyStoreModel*) model{
  
     self.addressLB.text = model.name;
-    self.addressDescLB.text = model.addressDetail;
+    self.addressDescLB.text = [NSString stringWithFormat:@"%@ %@",model.address,model.addressDetail];
     self.addressPhoneLB.text = model.mobile;
     
     [self.categoryBtn setTitle:model.categoryName forState:UIControlStateNormal];
-    CGSize size = [model.categoryName sizeWithFont:self.categoryBtn.titleLabel.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 30)];
+    CGSize size = [model.categoryName sizeWithFont:self.categoryBtn.titleLabel.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 15)];
     self.categoryBtnW.constant = MAX(45, ceil(size.width+15));
     self.isDefaultBtn.hidden = model.defaultStore == 0;
     

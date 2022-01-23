@@ -44,6 +44,7 @@ typedef enum : NSUInteger {
 @interface FEOrderDetailVC ()
 @property (nonatomic,weak) IBOutlet UIButton* backBtn;
 @property (nonatomic,weak) IBOutlet UITableView* table;
+@property (nonatomic,weak) IBOutlet NSLayoutConstraint* tableB;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* backBtnTop;
 
 @property (nonatomic, strong) FEOrderDetailModel* model;
@@ -104,7 +105,7 @@ typedef enum : NSUInteger {
     [self.table registerNib:[UINib nibWithNibName:@"FEOrderDetailLinkCell" bundle:nil]
        forCellReuseIdentifier:@"FEOrderDetailLinkCell"];
     
-    
+    self.tableB.constant = kHomeIndicatorHeight;
     
     @weakself(self);
     self.emptyAction = ^{
@@ -140,11 +141,13 @@ typedef enum : NSUInteger {
         strongSelf.model = [FEOrderDetailModel yy_modelWithDictionary:response[@"data"]];
         if (strongSelf.model.status == 20 || strongSelf.model.status == 30 || strongSelf.model.status == 40 ){
             strongSelf.fd_prefersNavigationBarHidden = YES;
+            [strongSelf.navigationController setNavigationBarHidden:YES];
             strongSelf.backBtn.hidden = NO;
 //            10代接单；20已接单；30已到店；40配送中；50已完成；60已取消；70配送失败
             [strongSelf requestCourierLocation];
         } else {
             strongSelf.fd_prefersNavigationBarHidden = NO;
+            [strongSelf.navigationController setNavigationBarHidden:NO];
             strongSelf.backBtn.hidden = YES;
             [strongSelf calculataionModel];
             [strongSelf.table reloadData];
@@ -260,7 +263,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)cellCommond:(FEOrderDetailModel*) model type:(FEOrderCommondType)type view:(UIView*)view{
-    @weakself(self);
+    
     switch (type) {
         case FEOrderCommondAddCheck:{
             [self addCheckAction:model view:view];
@@ -276,33 +279,63 @@ typedef enum : NSUInteger {
             [FEPublicMethods openUrlInSafari:phone];
         }break;
         case FEOrderCommondCancel:{
-            NSMutableDictionary* param = [NSMutableDictionary dictionary];
-            param[@"orderId"] = @(model.orderId);
-            param[@"reason"] = @"不要配送";
+            [self makeSureCancleOrder:model view:view];
             
-            [[FEHttpManager defaultClient] POST:@"/deer/orders/cancleOrder" parameters:param
-                                        success:^(NSInteger code, id  _Nonnull response) {
-                @strongself(weakSelf);
-                NSDictionary* dic = response[@"data"];
-                
-                NSString* title = [FEPublicMethods SafeString:dic[@"title"] withDefault:@"取消结果"];
-                NSString* msg = [FEPublicMethods SafeString:dic[@"cancelTips"] withDefault:@"取消成功"];
-                FEAlertView* alter = [[FEAlertView alloc] initWithTitle:title message:msg];
-                [alter addAction:[FEAlertAction actionWithTitle:@"知道了"
-                              style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
-                    [strongSelf requestShowData];
-                }]];
-                [alter show];
-            } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
-                [MBProgressHUD showMessage:error.localizedDescription];
-            } cancle:^{
-            }];
         }
         default:
             break;
     }
 };
 
+- (void) makeSureCancleOrder:(FEOrderDetailModel*) model view:(UIView*)view{
+    NSString* msg = nil;
+    switch (model.status) {
+        case 10://待接单
+            msg = @"系统正在为您筛选合适骑手，请您稍等一下～";
+            break;
+        case 20://待取单
+            msg = @"骑手小哥已在来店途中～";
+            break;
+        case 40://配送中
+//        case 30:
+            msg = @"骑手小哥已在配送途中啦，如您取消，可能会产生扣款哦～";
+        default:
+            break;
+    }
+    FEAlertView* alert = [[FEAlertView alloc] initWithTitle:@"取消提示" message:msg];
+    [alert addAction:[FEAlertAction actionWithTitle:@"暂不取消"
+                                              style:FEAlertActionStyleCancel
+                                            handler:nil]];
+    [alert addAction:[FEAlertAction actionWithTitle:@"确定取消"
+                                              style:FEAlertActionStyleDefault
+                                            handler:^(FEAlertAction *action) {
+        NSMutableDictionary* param = [NSMutableDictionary dictionary];
+        param[@"orderId"] = @(model.orderId);
+        param[@"reason"] = @"不要配送";
+        @weakself(self);
+        [[FEHttpManager defaultClient] POST:@"/deer/orders/cancleOrder" parameters:param
+                                    success:^(NSInteger code, id  _Nonnull response) {
+            @strongself(weakSelf);
+            NSDictionary* dic = response[@"data"];
+            
+            NSString* title = [FEPublicMethods SafeString:dic[@"title"] withDefault:@"取消结果"];
+            NSString* msg = [FEPublicMethods SafeString:dic[@"cancelTips"] withDefault:@"取消成功"];
+            FEAlertView* alter = [[FEAlertView alloc] initWithTitle:title message:msg];
+            [alter addAction:[FEAlertAction actionWithTitle:@"知道了"
+                          style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
+                [strongSelf requestShowData];
+            }]];
+            [alter show];
+        } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
+            [MBProgressHUD showMessage:error.localizedDescription];
+        } cancle:^{
+        }];
+        
+    }]];
+    [alert show];
+    
+    
+}
 
 
 #pragma mark - tableView delegate
@@ -324,7 +357,7 @@ typedef enum : NSUInteger {
                 @weakself(self);
                 cell.refreshActoin = ^{
                     @strongself(weakSelf);
-                    [strongSelf requestCourierLocation];
+                    [strongSelf requestShowData];
                 };
                 cell.cellCommondActoin = ^(FEOrderCommondType type) {
                     @strongself(weakSelf);

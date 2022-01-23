@@ -214,7 +214,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoViewT;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoViewH;
 @property (weak, nonatomic) IBOutlet UILabel *weightLB;
-@property (weak, nonatomic) IBOutlet UILabel *catagroyLB;
+//@property (weak, nonatomic) IBOutlet UILabel *catagroyLB;
 @property (weak, nonatomic) IBOutlet UILabel *remarkLB;
 @property (weak, nonatomic) IBOutlet UILabel *tipLB;//小费
 
@@ -270,9 +270,32 @@
     [self.platformTable registerClass:[FECreateOrderLogisticCell class] forCellReuseIdentifier:@"FECreateOrderLogisticCell"];
     if(!self.model) {
         self.model = [FECreateOrderModel new];
+        self.model.weight = 3;
+        if (self.orderId.length==0) {
+            [self getModelDefault];
+        }
     }
+    
     [self freshSubView];
     
+}
+- (void) getModelDefault {
+    FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
+    [self updateWithStore:acc.selectedStore];
+}
+- (void) updateWithStore:(FEMyStoreModel*)store {
+    self.model.fromLat = store.latitude;
+    self.model.fromLng = store.longitude;
+    self.model.fromAddress = store.address;
+    self.model.fromAddressDetail = store.addressDetail;
+    self.model.fromName = store.name;
+    self.model.fromMobile = store.mobile;
+    self.model.cityId = store.cityId;
+    self.model.cityName = store.cityName;
+    self.model.storeId = store.ID;
+    self.model.storeName = store.name;
+    self.model.category = store.category;
+    self.model.categoryName = store.categoryName;
 }
 
 - (void) freshSubView {
@@ -281,22 +304,22 @@
         self.platformViewT.constant = 10;
         self.platformViewH.constant = 60 + self.model.logistics.details.count*60;
         
-        self.platformTipViewT.constant = 10;
-        self.platformTipViewH.constant = 130;
+        self.platformTipViewT.constant = 0;
+        self.platformTipViewH.constant = 0;
         
     } else {
         self.platformViewT.constant = 0;
         self.platformViewH.constant = 0;
         
-        self.platformTipViewT.constant = 0;
-        self.platformTipViewH.constant = 0;
+        self.platformTipViewT.constant = 10;
+        self.platformTipViewH.constant = 130;
     }
     
     self.addressViewT.constant = 10;
     self.addressViewH.constant = 140;
     
     self.infoViewT.constant = 10;
-    self.infoViewH.constant = 180;
+    self.infoViewH.constant = 100;
     
     self.bottomViewT.constant = 10;
     self.bottomViewH.constant = 10 + 48 + 10 + kHomeIndicatorHeight;
@@ -307,7 +330,6 @@
         self.platformTipViewT.constant + self.platformTipViewH.constant +
         self.bottomViewT.constant + self.bottomViewH.constant;
     if (height < kScreenHeight - kHomeNavigationHeight) {
-//        self.scroll.scrollEnabled = NO;
         height = kScreenHeight - kHomeNavigationHeight;
     }
     self.scroll.scrollEnabled = YES;
@@ -316,34 +338,41 @@
     [self freshSubViewData];
 }
 - (void) freshSubViewData {
-    
-    
-    
     UIColor* emptyColor = UIColorFromRGB(0x777777);
     UIColor* filledColor = UIColorFromRGB(0x333333);
     self.addressFromTitleLB.text = [FEPublicMethods SafeString:self.model.storeName withDefault:@"请选择店铺"];
-    self.addressFromDescLB.text = [FEPublicMethods SafeString:self.model.fromAddressDetail withDefault:@"请选择店铺地址"];
+    self.addressFromDescLB.text = [NSString stringWithFormat:@"%@ %@",self.model.fromAddress,self.model.fromAddressDetail];
     
-    NSString* tmp = [NSString stringWithFormat:@"%@%@",[FEPublicMethods SafeString:self.model.toAddress],[FEPublicMethods SafeString:self.model.toAddressDetail]];
-    self.addressToTitleLB.text = [FEPublicMethods SafeString:tmp withDefault:@"请选择收货地址"];
+//    NSString* tmp = [NSString stringWithFormat:@"%@%@",
+//                     [FEPublicMethods SafeString:self.model.toAddress],
+//                     [FEPublicMethods SafeString:self.model.toAddressDetail]];
+    NSString* tmp = [FEPublicMethods SafeString:self.model.toAddress];
+    if (tmp.length > 0) {
+        self.addressToTitleLB.text = tmp;
+        self.addressToTitleLB.textColor = filledColor;
+    } else {
+        self.addressToTitleLB.text = @"点击添加收件地址";
+        self.addressToTitleLB.textColor = emptyColor;
+    }
+    
     tmp = [FEPublicMethods SafeString:self.model.toUserName];
     if (self.model.toMobile.length > 0) {
         tmp = [tmp stringByAppendingFormat:@" %@",self.model.toMobile];
     }
-    self.addressToDescLB.text = [FEPublicMethods SafeString:tmp withDefault:@"收件人"];
+    self.addressToDescLB.text = [FEPublicMethods SafeString:tmp];
     
-    
-    self.catagroyLB.text = [FEPublicMethods SafeString:self.model.categoryName withDefault:@"选择类型"];
-    self.catagroyLB.textColor = self.model.category<=0?emptyColor:filledColor;
-
+//
+//    self.catagroyLB.text = [FEPublicMethods SafeString:self.model.categoryName withDefault:@"选择类型"];
+//    self.catagroyLB.textColor = filledColor;
+    NSString* weightStr = [FEPublicMethods SafeString:self.model.categoryName];
     if (self.model.weight<=0) {
-        self.weightLB.text = @"选择重量";
+        weightStr = @"选择重量";
         self.weightLB.textColor = emptyColor;
     } else {
-        self.weightLB.text = [NSString stringWithFormat:@"%ld公斤",self.model.weight];
+        weightStr = [NSString stringWithFormat:@"%@/%ld公斤",weightStr,self.model.weight];
         self.weightLB.textColor = filledColor;
     }
-
+    self.weightLB.text = weightStr;
     self.remarkLB.text = [FEPublicMethods SafeString:self.model.remark withDefault:@"添加备注信息"];
     self.remarkLB.textColor = self.model.remark.length==0?emptyColor:filledColor;
     
@@ -372,11 +401,8 @@
     } else {
         amount = realAmount;
     }
-    if (amount > 0) {
-        self.submitInfoLB.text = [NSString stringWithFormat:@"需支付最高金额%0.2f元",amount];
-    } else {
-        self.submitInfoLB.text = @"";
-    }
+    self.model.mustPay = amount;
+    self.submitInfoLB.text = [NSString stringWithFormat:@"需支付最高金额%0.2f元",amount];
     [self.platformTable reloadData];
     
 }
@@ -385,6 +411,7 @@
     
     if(!self.model) {
         self.model = [FECreateOrderModel new];
+        self.model.weight = 5;
     }
 
     self.model.appointType = orderDetailModel.appointType;
@@ -392,10 +419,11 @@
 //    self.model.categoryName = orderDetailModel.goodName;
     self.model.weight = orderDetailModel.weight;
     
-
-//    self.model.storeId = orderDetailModel.storeId.integerValue;
-//    self.model.cityId = orderDetailModel.;//城市ID
-//    @property (nonatomic, copy) NSString* cityName;//城市名称
+    FEMyStoreModel* store = [[FEAccountManager sharedFEAccountManager] getStoreWithId:orderDetailModel.storeId];
+    self.model.storeId = orderDetailModel.storeId.integerValue;
+    self.model.cityId = store.cityId;//城市ID
+    self.model.cityName = store.cityName;
+    
 
     self.model.toAddress = orderDetailModel.toAdress;
     self.model.toAddressDetail = orderDetailModel.toAdressDetail;
@@ -403,8 +431,9 @@
     self.model.toMobile = orderDetailModel.toUserMobile;
     self.model.toLng = orderDetailModel.toLongitude;
     self.model.toLat = orderDetailModel.toLatitude;
-    self.model.additionFee = orderDetailModel.tipAmount;//小费
+//    self.model.additionFee = orderDetailModel.tipAmount;//小费
 
+    
     
     self.model.fromLng = orderDetailModel.fromLongitude;
     self.model.fromLat = orderDetailModel.fromLatitude;
@@ -414,17 +443,21 @@
     self.model.fromAddressDetail = orderDetailModel.fromAddressDetail;
     
     self.model.fromName = orderDetailModel.storeName;//下单人
-//    self.model.fromMobile = orderDetailModel.;//下单人手机号
+    self.model.fromMobile = store.mobile;//下单人手机号
 
 
-//    self.model.category = orderDetailModel.;//物品类型
-//    self.model.categoryName = orderDetailModel.;//物品类型名称
+    self.model.category = orderDetailModel.category;//物品类型
+    self.model.categoryName = orderDetailModel.goodName;//物品类型名称
     
     self.model.remark = orderDetailModel.remark;//备注
 //    self.model.logistics = orderDetailModel.logistic;//选择下单平台
     
+    self.model.remark = orderDetailModel.remark;
+    [self reqestCalculateFee];
     
-    
+    if (!store) {
+        [MBProgressHUD showMessage:@"该店铺地址异常，需要更新下单店铺信息"];
+    }
     
 }
 - (void)setOrderId:(NSString*)orderId {
@@ -466,31 +499,45 @@
     
 }
 - (IBAction)toAddressAction:(id)sender {
+    [self.reciveAddressInfoVC freshSubViewUseModel];
     [self.navigationController pushViewController:self.reciveAddressInfoVC animated:YES];
 }
 
 - (IBAction)weightAction:(id)sender {
     self.weightView.currentWeight = self.model.weight;
-    @weakself(self);
-    [self.weightView getCategorysData:^(FECategorysModel * _Nonnull modle) {
-        @strongself(weakSelf);
-        [strongSelf.weightView fitterViewHeight];
-        
-        strongSelf.popupController = [[zhPopupController alloc] initWithView:strongSelf.weightView
-                                                              size:strongSelf.weightView.bounds.size];
-        strongSelf.popupController.presentationStyle = zhPopupSlideStyleFromBottom;
-        strongSelf.popupController.layoutType = zhPopupLayoutTypeBottom;
-        strongSelf.popupController.presentationTransformScale = 1.25;
-        strongSelf.popupController.dismissonTransformScale = 0.85;
-        [strongSelf.popupController showInView:strongSelf.view.window completion:NULL];
-            
-            
-        }];
+    [self.weightView fitterViewHeight];
+    self.popupController = [[zhPopupController alloc] initWithView:self.weightView
+                                                          size:self.weightView.bounds.size];
+    self.popupController.presentationStyle = zhPopupSlideStyleFromBottom;
+    self.popupController.layoutType = zhPopupLayoutTypeBottom;
+    self.popupController.presentationTransformScale = 1.25;
+    self.popupController.dismissonTransformScale = 0.85;
+    [self.popupController showInView:self.view.window completion:NULL];
+    
+//
+//    @weakself(self);
+//    [self.weightView getCategorysData:^(FECategorysModel * _Nonnull modle) {
+//        @strongself(weakSelf);
+//        [strongSelf.weightView fitterViewHeight];
+//
+//        strongSelf.popupController = [[zhPopupController alloc] initWithView:strongSelf.weightView
+//                                                              size:strongSelf.weightView.bounds.size];
+//        strongSelf.popupController.presentationStyle = zhPopupSlideStyleFromBottom;
+//        strongSelf.popupController.layoutType = zhPopupLayoutTypeBottom;
+//        strongSelf.popupController.presentationTransformScale = 1.25;
+//        strongSelf.popupController.dismissonTransformScale = 0.85;
+//        [strongSelf.popupController showInView:strongSelf.view.window completion:NULL];
+//
+//
+//        }];
     
 }
 
 - (IBAction)categoryAction:(id)sender {
-    [self weightAction:nil];
+//    [self weightAction:nil];
+
+    
+    
 //    NSMutableDictionary* arg = [NSMutableDictionary dictionary];
 //    @weakself(self);
 //    arg[@"title"] = @"物品类型";
@@ -542,6 +589,21 @@
         [MBProgressHUD showMessage:@"请选择物品类型"];
         return;
     }
+    FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
+    if (acc.balance < self.model.mustPay) {
+        FEAlertView* alert = [[FEAlertView alloc] initWithTitle:@"温馨提示" message:@"账户余额不足，请先充值后再下单"];
+        [alert addAction:[FEAlertAction actionWithTitle:@"取消" style:FEAlertActionStyleCancel handler:^(FEAlertAction *action) {
+            
+        }]];
+        [alert addAction:[FEAlertAction actionWithTitle:@"去充值" style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
+            UIViewController* vc = [FFRouter routeObjectURL:@"recharge://createRechange"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }]];
+        [alert show];
+        
+//        账户余额不足，请先充值后再下单
+        return;
+    }
     NSMutableArray* tmp = [NSMutableArray array];
     for (FECreateOrderLogisticDetailsModel* item in self.model.logistics.details) {
         if (item.status == 1) {
@@ -575,7 +637,7 @@
     param[@"weight"] = @(self.model.weight);
     param[@"logistics"] = tmp;
     param[@"maxPrice"] = @(self.model.logistics.maxPrice);
-    
+    param[@"remarks"] = self.model.remark;
     
     @weakself(self);
     [MBProgressHUD showProgress];
@@ -664,12 +726,13 @@
         _weightView.frame = CGRectMake(0, 0, kScreenWidth, 330 + kHomeIndicatorHeight);
         _weightView.currentWeight = self.model.weight;
         @weakself(self);
-        _weightView.sureWeightAction = ^(NSInteger weight,FECategoryItemModel*item) {
+//        _weightView.sureWeightAction = ^(NSInteger weight,FECategoryItemModel*item) {
+        _weightView.sureWeightAction = ^(NSInteger weight) {
             @strongself(weakSelf);
             strongSelf.model.weight = weight;
             
-            strongSelf.model.category = item.code;
-            strongSelf.model.categoryName = item.name;
+//            strongSelf.model.category = item.code;
+//            strongSelf.model.categoryName = item.name;
             
             [strongSelf freshSubViewData];
             [strongSelf reqestCalculateFee];
@@ -691,16 +754,8 @@
         @weakself(self);
         _storeView.selectedAction = ^(FEMyStoreModel* model) {
             @strongself(weakSelf);
-            strongSelf.model.fromLat = model.latitude;
-            strongSelf.model.fromLng = model.longitude;
-            strongSelf.model.fromAddress = model.address;
-            strongSelf.model.fromAddressDetail = model.addressDetail;
-            strongSelf.model.fromName = model.name;
-            strongSelf.model.fromMobile = model.mobile;
-            strongSelf.model.cityId = model.cityId;
-            strongSelf.model.cityName = model.cityName;
-            strongSelf.model.storeId = model.ID;
-            strongSelf.model.storeName = model.name;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FEUpdateStore" object:nil userInfo:@{@"store":model}];
+            [strongSelf updateWithStore:model];
             [strongSelf.popupController dismiss];
             [strongSelf freshSubViewData];
             [strongSelf reqestCalculateFee];
@@ -735,6 +790,16 @@
 - (FECreateOrderReciveAddressInfoVC*) reciveAddressInfoVC {
     if (!_reciveAddressInfoVC) {
         _reciveAddressInfoVC = [[FECreateOrderReciveAddressInfoVC alloc] initWithNibName:@"FECreateOrderReciveAddressInfoVC" bundle:nil];
+        _reciveAddressInfoVC.model.address = self.model.toAddress;
+        _reciveAddressInfoVC.model.addressDetail = self.model.toAddressDetail;
+        _reciveAddressInfoVC.model.name = self.model.toUserName;
+        _reciveAddressInfoVC.model.mobile = self.model.toMobile;
+        _reciveAddressInfoVC.model.longitude = self.model.toLng;
+        _reciveAddressInfoVC.model.latitude = self.model.toLat;
+        
+        _reciveAddressInfoVC.model.cityId = self.model.cityId;
+        _reciveAddressInfoVC.model.cityName = self.model.cityName;
+        
         @weakself(self);
         _reciveAddressInfoVC.infoComplate = ^(FEReciverAddressModel * _Nonnull model) {
             @strongself(weakSelf);
@@ -763,8 +828,8 @@
     }
     
     NSMutableDictionary* param = [NSMutableDictionary dictionary];
-    param[@"toLng"] = self.model.toLat;
-    param[@"toLat"] = self.model.toLat;
+    param[@"toLng"] = self.model.toLng;//@(self.model.toLng.floatValue);
+    param[@"toLat"] = self.model.toLat;//@(self.model.toLat.floatValue);
     param[@"cityName"] = [FEPublicMethods SafeString:self.model.cityName];
     param[@"fromAddress"] = self.model.fromAddress;
     param[@"additionFee"] = @(self.model.additionFee);
@@ -777,12 +842,13 @@
     param[@"fromName"] = self.model.fromName;
     param[@"fromMobile"] = self.model.fromMobile;
     param[@"appointType"] = @(self.model.appointType);
-    param[@"fromLng"] = self.model.fromLng;
-    param[@"fromLat"] = self.model.fromLat;
+    param[@"fromLng"] = self.model.fromLng;//@(self.model.fromLng.floatValue);
+    param[@"fromLat"] = self.model.fromLat;//@(self.model.fromLat.floatValue);
     param[@"category"] = @(self.model.category);
     param[@"weight"] = @(self.model.weight);
     param[@"logistics"] = @[@"uupt",@"fengka",@"mtps",@"dada",@"bingex",@"shunfeng"];
-   
+    
+    
     
     
     @weakself(self);
@@ -816,5 +882,6 @@
     }];
     
 }
+
 
 @end

@@ -39,38 +39,38 @@
                         <rect key="frame" x="10" y="319" width="358" height="145"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等待骑手接单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ld-sz-Qh6">
-                                <rect key="frame" x="16" y="20" width="108" height="30"/>
+                                <rect key="frame" x="16" y="20" width="108" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="PYX-xl-PYB"/>
+                                    <constraint firstAttribute="height" constant="25" id="PYX-xl-PYB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell_more" translatesAutoresizingMaskIntoConstraints="NO" id="P5R-rH-d7j">
-                                <rect key="frame" x="129" y="26" width="18" height="18"/>
+                                <rect key="frame" x="129" y="26.5" width="12" height="12"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="fuT-qN-buZ"/>
-                                    <constraint firstAttribute="width" constant="18" id="hJD-4a-OvD"/>
+                                    <constraint firstAttribute="height" constant="12" id="fuT-qN-buZ"/>
+                                    <constraint firstAttribute="width" constant="12" id="hJD-4a-OvD"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在为您呼叫以下平台，请耐心等待。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cch-CD-mdd">
-                                <rect key="frame" x="16" y="50" width="326" height="18.5"/>
+                                <rect key="frame" x="16" y="49" width="326" height="18.5"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
-                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMJ-VQ-7Kd">
-                                <rect key="frame" x="16" y="78.5" width="326" height="30"/>
+                                <rect key="frame" x="16" y="77.5" width="326" height="30"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="QrD-CD-Sky"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Cch-CD-mdd" firstAttribute="top" secondItem="3Ld-sz-Qh6" secondAttribute="bottom" id="JQ4-nC-OZN"/>
+                            <constraint firstItem="Cch-CD-mdd" firstAttribute="top" secondItem="3Ld-sz-Qh6" secondAttribute="bottom" constant="4" id="JQ4-nC-OZN"/>
                             <constraint firstItem="3Ld-sz-Qh6" firstAttribute="top" secondItem="WWZ-vI-LC1" secondAttribute="top" constant="20" id="MAj-to-10J"/>
                             <constraint firstItem="P5R-rH-d7j" firstAttribute="leading" secondItem="3Ld-sz-Qh6" secondAttribute="trailing" constant="5" id="Mod-2f-tZ0"/>
                             <constraint firstItem="jMJ-VQ-7Kd" firstAttribute="leading" secondItem="WWZ-vI-LC1" secondAttribute="leading" constant="16" id="U2c-Be-Oga"/>

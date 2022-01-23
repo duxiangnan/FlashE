@@ -12,8 +12,8 @@
 @property (nonatomic, assign) long long storeId;//店铺ID
 @property (nonatomic, assign) long long cityId;//城市ID
 @property (nonatomic, copy) NSString* cityName;//城市名称
-
 @property (nonatomic, copy) NSString* storeName;//店铺名称
+
 @property (nonatomic, copy) NSString* toAddress;//收件地址
 @property (nonatomic, copy) NSString* toAddressDetail;//收件地址详情
 @property (nonatomic, copy) NSString* toUserName;//收件人
@@ -38,6 +38,7 @@
 @property (nonatomic, copy) NSString* remark;//备注
 @property (nonatomic, strong) FECreateOrderLogisticModel* logistics;//选择下单平台
 
+@property (nonatomic, assign) CGFloat mustPay;//下单需支付最高金额
 @end
 
 

@@ -93,7 +93,7 @@
         NSMutableArray* arr = [NSMutableArray array];
         FESoreDetailCellModle*item = [FESoreDetailCellModle new];
         item.type = FESoreDetailCellTypeAddress;
-        item.cellHeight = 110;
+        item.cellHeight = 100;
         [arr addObject:item];
         
         item = [FESoreDetailCellModle new];

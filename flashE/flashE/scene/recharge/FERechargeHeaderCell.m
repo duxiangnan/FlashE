@@ -104,7 +104,7 @@
     
     self.accessoryType = UITableViewCellAccessoryNone;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-//    self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+//    self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;

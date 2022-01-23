@@ -13,11 +13,13 @@
 @interface FECreateOrderReciveAddressInfoVC ()
 
 @property (nonatomic,strong) FEAddressModel* item;
-@property (nonatomic,assign) NSInteger cityCode;
+//@property (nonatomic,assign) NSInteger cityCode;
+@property (copy, nonatomic) NSString *defaultName;
 @property (weak, nonatomic) IBOutlet UILabel *nameLB;
 @property (weak, nonatomic) IBOutlet UITextField *detailTF;
 @property (weak, nonatomic) IBOutlet UITextField *reciveUserTF;
 @property (weak, nonatomic) IBOutlet UITextField *reciveMobileTF;
+@property (weak, nonatomic) IBOutlet UITextField *reciveMobilePartTF;
 
 @end
 
@@ -26,13 +28,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"收件信息";
+    self.defaultName = @"收件地址(必填)";
     self.fd_prefersNavigationBarHidden = NO;
-    [self fillNameLB:@""];
+    [self freshSubViewUseModel];
+    [self fillNameLB:self.model.address];
 }
 - (void) fillNameLB:(NSString*)name {
-    if(name.length == 0) {
-        self.nameLB.text = @"请选择收件地址";
-        self.nameLB.textColor = UIColorFromRGB(0x777777);
+    if(name.length == 0 || [name isEqualToString:self.defaultName]) {
+        self.nameLB.text = self.defaultName;
+        self.nameLB.textColor = UIColorFromRGB(0xC7C7C7);
     } else {
         self.nameLB.text = name;
         self.nameLB.textColor = UIColorFromRGB(0x333333);
@@ -41,19 +45,24 @@
 - (IBAction)nameAction:(id)sender {
     NSMutableDictionary* arg = [NSMutableDictionary dictionary];
     @weakself(self);
-    arg[@"selectedAction"] = ^(FEAddressModel * _Nonnull model , FEStoreCityItemModel* city) {
+    arg[@"selectedAction"] = ^(FEAddressModel*model) {
         @strongself(weakSelf);
         strongSelf.item = model;
-        strongSelf.cityCode = city.ID;
-        
         strongSelf.model.address = model.name;
-        strongSelf.model.cityId = strongSelf.cityCode;
-        strongSelf.model.cityName = model.cityname;
+        [strongSelf fillNameLB:strongSelf.model.address];
+//        if (strongSelf.detailTF.text.length == 0) {
+//            strongSelf.model.addressDetail = model.address;
+//            strongSelf.detailTF.text = strongSelf.model.addressDetail;
+//        }
         strongSelf.model.longitude = model.longitude;
         strongSelf.model.latitude = model.latitude;
-        [strongSelf fillNameLB:model.name];
+        
+        [strongSelf.navigationController popToViewController:strongSelf animated:YES];
         
     };
+
+    arg[@"defaultCityid"] = @(self.model.cityId);
+    arg[@"defaultCityName"] = self.model.cityName;
     FEBaseViewController* vc = [FFRouter routeObjectURL:@"store://createSearchAddress" withParameters:arg];
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -79,6 +88,9 @@
     self.model.addressDetail = self.detailTF.text;
     self.model.name = self.reciveUserTF.text;
     self.model.mobile = self.reciveMobileTF.text;
+    if (self.reciveMobilePartTF.text.length > 0) {
+        self.model.mobile = [self.model.mobile stringByAppendingFormat:@"-%@",self.reciveMobilePartTF.text];
+    }
     
     !self.infoComplate?:self.infoComplate(self.model);
     [self.navigationController popViewControllerAnimated:YES];
@@ -91,8 +103,60 @@
     return _model;
 }
 
+- (void) textChange:(NSNotification*) noti {
+    UITextField* text = noti.object;
+
+//    if (text == self.reciveMobileTF && text.text.length > 11) {
+//        text.text = [text.text substringToIndex:11];
+//    }
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+
+    return YES;
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+
+    return YES;
+    
+}
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [self.view endEditing:YES];
+    if (textField == self.reciveMobileTF && textField.text.length > 11) {
+        textField.text = [textField.text substringToIndex:11];
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+ 
+    if ([string isEqualToString:@"\n"]){
+        [textField resignFirstResponder];
+        return NO;
+    }
+     if ([[textField.textInputMode primaryLanguage] isEqualToString:@"emoji"] ||
+         [textField.textInputMode primaryLanguage] == nil) {
+         return NO;
+    }
+    
+    if (textField == self.reciveMobileTF) {
+        return [FEPublicMethods limitTextField:textField replacementText:string max:11 ];
+    }
+    return YES;
+}
+
+
+
+
+- (void) freshSubViewUseModel {
+    [self fillNameLB:self.model.address];
+//    self.nameLB.text = [FEPublicMethods SafeString:self.model.address withDefault:@""];
+    self.detailTF.text = [FEPublicMethods SafeString:self.model.addressDetail];
+    self.reciveUserTF.text = [FEPublicMethods SafeString:self.model.name];
+    
+    NSArray* arr = [self.model.mobile componentsSeparatedByString:@"-"];
+    self.reciveMobileTF.text = [FEPublicMethods SafeString:arr.firstObject];
+    if (arr.count > 1) {
+        self.reciveMobilePartTF.text = [FEPublicMethods SafeString:arr.lastObject];
+    }
     
 }
 @end

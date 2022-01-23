@@ -35,7 +35,7 @@
 + (void)saveIuputPin:(NSString *)inputPin{
     NSString *aesInput = @"";
     if (inputPin.length > 0) {
-        aesInput = [FEAESCrypt encryptAES:inputPin key:[FEDefineModule JD_DES_NEWKEY]];
+        aesInput = [FEAESCrypt encryptAES:inputPin key:[FEDefineModule FE_DES_NEWKEY]];
     }
     [[NSUserDefaults standardUserDefaults]setObject:aesInput forKey:@"username"];
     
@@ -44,7 +44,7 @@
     NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
     NSString *realUserName = nil;
     if (userName.length > 0) {
-        realUserName = [FEAESCrypt decryptAES:userName key:[FEDefineModule JD_DES_NEWKEY]];
+        realUserName = [FEAESCrypt decryptAES:userName key:[FEDefineModule FE_DES_NEWKEY]];
     }
     return realUserName;
 }
@@ -104,6 +104,9 @@
         id udObject = [[NSUserDefaults standardUserDefaults] objectForKey:@"userlogin"];
         if (udObject) {
             FEAccountModel *ret = [NSKeyedUnarchiver unarchiveObjectWithData:udObject];
+            if (!ret.selectedStore) {
+                ret.selectedStore = ret.storeList.firstObject;
+            }
             [self setLoginInfo:ret];
             return ret;
         }
@@ -152,4 +155,20 @@
     
 }
 
+
+- (FEMyStoreModel*) getStoreWithId:(NSString*)storeId {
+    FEMyStoreModel* store = nil;
+    for (FEMyStoreModel* item in self.account.storeList) {
+        if (item.ID == storeId.integerValue) {
+            store = item;
+            break;
+        }
+    }
+    return store;
+}
+
+- (void) updateSeletedStore {
+    
+    
+}
 @end

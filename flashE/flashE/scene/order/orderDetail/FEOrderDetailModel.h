@@ -18,7 +18,7 @@
 @property (nonatomic, copy) NSString* appointDateStr;
 @property (nonatomic, copy) NSString *scheduleTitle;//订单进度
 @property (nonatomic, copy) NSString *scheduleInfo;//进度内容
-
+@property (nonatomic, assign) NSInteger category;//品类id
 @property (nonatomic, copy) NSString *goodName;//物品类型
 @property (nonatomic, assign) NSInteger weight;//重量
 

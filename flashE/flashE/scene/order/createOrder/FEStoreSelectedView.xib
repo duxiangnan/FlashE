@@ -15,9 +15,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择发单店铺" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yS9-lf-I6G">
-                    <rect key="frame" x="16" y="20" width="110" height="20"/>
+                    <rect key="frame" x="24" y="20" width="110" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="20" id="1Xu-il-Axt"/>
+                        <constraint firstAttribute="height" constant="25" id="1Xu-il-Axt"/>
                         <constraint firstAttribute="width" constant="110" id="UJl-ZW-KHe"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
@@ -25,7 +25,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="32w-B6-dj6">
-                    <rect key="frame" x="136" y="18" width="54" height="24"/>
+                    <rect key="frame" x="144" y="20.5" width="54" height="24"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="FUm-sz-YWK"/>
@@ -51,7 +51,7 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Lgx-M2-yce">
-                    <rect key="frame" x="0.0" y="62" width="414" height="824"/>
+                    <rect key="frame" x="0.0" y="64.5" width="414" height="821.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <connections>
                         <outlet property="dataSource" destination="iN0-l3-epB" id="5Tn-6i-HYi"/>
@@ -59,12 +59,12 @@
                     </connections>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0a0-Bc-WwI">
-                    <rect key="frame" x="378" y="20" width="20" height="20"/>
+                    <rect key="frame" x="378" y="22.5" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="GTX-8S-Ui7"/>
                         <constraint firstAttribute="width" constant="20" id="shj-Yh-qEC"/>
                     </constraints>
-                    <state key="normal" title="X">
+                    <state key="normal" image="FE_pop_view_close">
                         <color key="titleColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </state>
                     <connections>
@@ -78,7 +78,7 @@
                 <constraint firstItem="Lgx-M2-yce" firstAttribute="top" secondItem="32w-B6-dj6" secondAttribute="bottom" constant="20" id="CkC-cM-fLg"/>
                 <constraint firstAttribute="trailing" secondItem="Lgx-M2-yce" secondAttribute="trailing" id="Cz3-eX-WZN"/>
                 <constraint firstItem="Lgx-M2-yce" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="FRb-To-sQa"/>
-                <constraint firstItem="yS9-lf-I6G" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="bgF-DJ-59k"/>
+                <constraint firstItem="yS9-lf-I6G" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="bgF-DJ-59k"/>
                 <constraint firstAttribute="bottom" secondItem="Lgx-M2-yce" secondAttribute="bottom" constant="10" id="fqf-QR-vJ1"/>
                 <constraint firstItem="32w-B6-dj6" firstAttribute="centerY" secondItem="yS9-lf-I6G" secondAttribute="centerY" id="kkz-PQ-7cg"/>
                 <constraint firstItem="yS9-lf-I6G" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="mZ0-NY-7NE"/>
@@ -94,6 +94,7 @@
         </view>
     </objects>
     <resources>
+        <image name="FE_pop_view_close" width="12" height="12"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -60,6 +60,10 @@
     [self.table registerNib:[UINib nibWithNibName:@"FERechargeRecodeCell" bundle:nil]
      forCellReuseIdentifier:@"FERechargeRecodeCell"];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePayInfo:)
+                                                 name:@"paySuccess" object:nil];
+    
+    [WXApi registerApp:kWXAPPID universalLink:kWXUNIVERSAL_LINK];
     self.model = [FERechargeTotalModel new];
     [self requestRechargeList];
 }
@@ -68,6 +72,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) updatePayInfo:(NSNotification*)noti {
+    [self requestRechargeBalance];
+    
+}
 
 - (void) requestRechargeList {
     
@@ -157,14 +165,14 @@
         
         [WXApi sendReq:req completion:^(BOOL success) {
             [MBProgressHUD hideProgress];
-            NSString* msg = success?@"支付成功":@"支付失败";
-            [MBProgressHUD showMessage:msg];
-            if (success) {
-                [self requestRechargeBalance];
-            }
+//            NSString* msg = success?@"支付成功":@"支付失败";
+//            [MBProgressHUD showMessage:msg];
+//            if (success) {
+//                [self requestRechargeBalance];
+//            }
         }];
-        //日志输出
-        NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
+
+//        NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
     }
 }
 #pragma mark - tableView delegate

@@ -23,6 +23,7 @@
 - (void) setModel:(FEAddressModel*) model search:(NSString*)key;
 + (void) caculationCellHeight:(FEAddressModel*)model;
 @end
+
 @implementation FESearchAddressCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -32,7 +33,7 @@
     if (self) {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor = UIColorFromRGB(0xEFF1F3);
+        self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
         
         [self.contentView addSubview:self.name];
         [self.contentView addSubview:self.desc];
@@ -45,24 +46,24 @@
     [self.flageImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(@(20));
         make.centerY.equalTo(self.contentView.mas_centerY);
-        make.left.equalTo(self.contentView.mas_left).offset(16);
+        make.left.equalTo(self.contentView.mas_left).offset(12);
     }];
     [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.flageImage.mas_right).offset(10);
-        make.bottom.equalTo(self.contentView.mas_centerY).offset(-3);
+        make.bottom.equalTo(self.contentView.mas_centerY).offset(-1);
         make.right.equalTo(self.contentView.mas_right).offset(-16);
     }];
     [self.desc mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.flageImage.mas_right).offset(10);
-        make.top.equalTo(self.contentView.mas_centerY).offset(3);
+        make.top.equalTo(self.contentView.mas_centerY).offset(1);
         make.right.equalTo(self.contentView.mas_right).offset(-16);
     }];
     
 }
 + (void) caculationCellHeight:(FEAddressModel*)model {
     if (model.cellHeight == 0) {
-        model.cellHeight = 10;
-        CGFloat widht = kScreenWidth - 16 - 20 - 10 - 16;
+        model.cellHeight = 15;
+        CGFloat widht = kScreenWidth - 12 - 20 - 10 - 16;
         CGSize size = [model.name sizeWithFont:[UIFont mediumFont:14] andMaxSize:CGSizeMake(widht,CGFLOAT_MAX)];
         model.cellHeight += ceil(size.height);
         
@@ -77,9 +78,9 @@
             desc = [desc stringByAppendingString:model.address];
         }
         size = [desc sizeWithFont:[UIFont mediumFont:12] andMaxSize:CGSizeMake(widht,CGFLOAT_MAX)];
-        model.cellHeight += 6;
+        model.cellHeight += 2;
         model.cellHeight += ceil(size.height);
-        model.cellHeight += 10;
+        model.cellHeight += 15;
     }
 }
 - (void) setModel:(FEAddressModel*) model search:(NSString*)key{
@@ -171,8 +172,8 @@
     
 @property (nonatomic,strong) FEHttpPageManager* pagesManager;
 
-@property (weak, nonatomic) IBOutlet UIButton *cityBtn;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cityBtnW;
+//@property (weak, nonatomic) IBOutlet UIButton *cityBtn;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cityBtnW;
 @property (nonatomic ,strong) FEStoreCityItemModel* cityDic;
 @end
 
@@ -188,6 +189,10 @@
         [FFRouter registerObjectRouteURL:@"store://createSearchAddress" handler:^id(NSDictionary *routerParameters) {
             FESearchAddressVC* vc = [[FESearchAddressVC alloc] initWithNibName:@"FESearchAddressVC" bundle:nil];
             vc.selectedAction = routerParameters[@"selectedAction"];
+            
+            vc.defaultCityid = ((NSNumber*)routerParameters[@"defaultCityid"]).integerValue;
+            vc.defaultCityName = routerParameters[@"defaultCityName"];
+
             vc.hidesBottomBarWhenPushed = YES;
             return vc;
         }];
@@ -196,8 +201,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.fd_prefersNavigationBarHidden = YES;
-    WZLSERIALIZE_UNARCHIVE(self.cityDic, @"FEStoreCityItemModel", [self filePath:@"lastCity"]);
-    self.headerH.constant = kHomeNavigationHeight;
+//    if (self.defaultCityName.length>0) {
+//        self.cityBtn.hidden = YES;
+//        self.cityBtnW.constant = 0;
+        self.cityDic = [FEStoreCityItemModel new];
+        self.cityDic.name = self.defaultCityName;
+        self.cityDic.ID = self.defaultCityid;
+    
+//    } else {
+//        WZLSERIALIZE_UNARCHIVE(self.cityDic, @"FEStoreCityItemModel", [self filePath:@"lastCity"]);
+//        self.cityBtn.hidden = NO;
+//        self.cityBtnW.constant = 60;
+//        [self freshCityBtn];
+//    }
+    UIView* leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    self.searchTF.leftView = leftView;
+    self.searchTF.leftViewMode = UITextFieldViewModeAlways;
+    
+    self.headerH.constant = 64+ kHomeInformationBarHeigt;
     self.searchKey = @"";
     if (@available(iOS 11.0, *)) {
         self.table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -210,28 +231,37 @@
         @strongself(weakSelf);
         [strongSelf requestShowData];
     };
-    [self freshCityBtn];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.searchTF becomeFirstResponder];
+    });
 }
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textChange:)
+                                                 name:UITextFieldTextDidChangeNotification
+                                               object:self.searchTF];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    [[NSNotificationCenter defaultCenter]removeObserver:self
+                                                   name:UITextFieldTextDidChangeNotification
+                                                 object:self.searchTF];
 }
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     self.emptyFrame = self.table.frame;
 }
-- (NSString*) filePath:(NSString*) fileName {
-    NSString *libraryCachePath = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];
-    libraryCachePath = [libraryCachePath stringByAppendingPathComponent:fileName];
-    NSLog(@"存储路径%@",libraryCachePath);
-    return libraryCachePath;
-}
+//- (NSString*) filePath:(NSString*) fileName {
+//    NSString *libraryCachePath = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];
+//    libraryCachePath = [libraryCachePath stringByAppendingPathComponent:fileName];
+//    return libraryCachePath;
+//}
 - (IBAction)cancleAvtion:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -240,10 +270,10 @@
         [MBProgressHUD showMessage:@"先输入搜索关键字"];
         return;
     }
-    if (!self.cityDic) {
-        [MBProgressHUD showMessage:@"先选择城市"];
-        return;
-    }
+//    if (!self.cityDic) {
+//        [MBProgressHUD showMessage:@"先选择城市"];
+//        return;
+//    }
     if (self.pagesManager) {
         [self.pagesManager cancleCurrentRequest];
         self.pagesManager = nil;
@@ -252,8 +282,9 @@
     param[@"content"] = self.searchKey;
     param[@"index"] = @"1";
     param[@"pageSize"] = @"20";
+
     param[@"cityName"] = [FEPublicMethods SafeString:self.cityDic.name];
-    
+
     
     self.pagesManager = [[FEHttpPageManager alloc] initWithFunctionId:@"/deer/address/searchAddress"
                                                            parameters:param
@@ -315,31 +346,39 @@
     
 }
     
-- (IBAction)cityAction:(id)sender {
-    FESearchCityVC* vc = [[FESearchCityVC alloc] initWithNibName:@"FESearchCityVC" bundle:nil];
-    @weakself(self);
-    vc.selectedAction = ^(FEStoreCityItemModel* model) {
-        @strongself(weakSelf);
-        strongSelf.cityDic = model;
-        WZLSERIALIZE_ARCHIVE(strongSelf.cityDic, @"FEStoreCityItemModel", [strongSelf filePath:@"lastCity"]);
-        [strongSelf freshCityBtn];
-    };
-    vc.hidesBottomBarWhenPushed = YES;
-    
-    [self.navigationController pushViewController:vc animated:YES];
-    
-}
-- (void) freshCityBtn{
-    NSString* city = [FEPublicMethods SafeString:self.cityDic.name withDefault:@"选择城市"];
-//    CGSize size = [city sizeWithFont:self.cityBtn.titleLabel.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 30)];
-//        self.cityBtnW.constant = MAX(ceil(size.width)+20, 40);
-    [self.cityBtn setTitle:city forState:UIControlStateNormal];
-}
+//- (IBAction)cityAction:(id)sender {
+//    FESearchCityVC* vc = [[FESearchCityVC alloc] initWithNibName:@"FESearchCityVC" bundle:nil];
+//    @weakself(self);
+//    vc.selectedAction = ^(FEStoreCityItemModel* model) {
+//        @strongself(weakSelf);
+//        strongSelf.cityDic = model;
+//        WZLSERIALIZE_ARCHIVE(strongSelf.cityDic, @"FEStoreCityItemModel", [strongSelf filePath:@"lastCity"]);
+//        [strongSelf freshCityBtn];
+//    };
+//    vc.hidesBottomBarWhenPushed = YES;
+//
+//    [self.navigationController pushViewController:vc animated:YES];
+//
+//}
+//- (void) freshCityBtn{
+//    NSString* city = [FEPublicMethods SafeString:self.cityDic.name withDefault:@"选择城市"];
+////    CGSize size = [city sizeWithFont:self.cityBtn.titleLabel.font andMaxSize:CGSizeMake(CGFLOAT_MAX, 30)];
+////        self.cityBtnW.constant = MAX(ceil(size.width)+20, 40);
+//    [self.cityBtn setTitle:city forState:UIControlStateNormal];
+//}
 
 #pragma mark - UITextField delegate
 
+- (void) textChange:(NSNotification*)noti {
+    self.searchKey = [self.searchTF.text trimWhitespace];
+//    NSLog(@"输入变化   %@",self.searchKey);
+    if (self.searchKey.length > 0) {
+        [self requestShowData];
+    }
+}
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.searchKey = [self.searchTF.text trimWhitespace];
+//    NSLog(@"输入完成   %@",textField.text);
     if (self.searchKey.length > 0) {
         [self requestShowData];
     }
@@ -383,8 +422,8 @@
 {
     FEAddressModel* item = self.list[indexPath.row];
     
-    !self.selectedAction?:self.selectedAction(item,_cityDic);
-    [self cancleAvtion:nil];
+    !self.selectedAction?:self.selectedAction(item);
+//    [self cancleAvtion:nil];
 }
 
 @end

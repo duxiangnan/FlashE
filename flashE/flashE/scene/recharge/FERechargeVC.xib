@@ -26,12 +26,12 @@
                             <rect key="frame" x="0.0" y="84" width="414" height="44"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceS-QA-TRI">
-                                    <rect key="frame" x="10" y="0.0" width="20" height="44"/>
+                                    <rect key="frame" x="10" y="6" width="32" height="32"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="44" id="2hP-Vk-oci"/>
-                                        <constraint firstAttribute="width" constant="20" id="Nho-fZ-krQ"/>
+                                        <constraint firstAttribute="height" constant="32" id="2hP-Vk-oci"/>
+                                        <constraint firstAttribute="width" constant="32" id="Nho-fZ-krQ"/>
                                     </constraints>
-                                    <state key="normal" image="back_item"/>
+                                    <state key="normal" image="back_item_white"/>
                                     <connections>
                                         <action selector="naviBackAction:" destination="-1" eventType="touchUpInside" id="Fhb-l3-6mg"/>
                                     </connections>
@@ -85,6 +85,6 @@
         </view>
     </objects>
     <resources>
-        <image name="back_item" width="16" height="16"/>
+        <image name="back_item_white" width="32" height="32"/>
     </resources>
 </document>
