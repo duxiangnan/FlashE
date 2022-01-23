@@ -15,25 +15,15 @@
 
 - (void) updataSelectedStore {
     FEMyStoreModel* defaultStore = nil;
-    BOOL matchStore = NO;
     for (FEMyStoreModel* item in self.storeList) {
         if (item.defaultStore) {
             defaultStore = item;
         }
-        if (!self.selectedStore && item.defaultStore) {
-            self.selectedStore = item;
-            break;
-        } else {
-            if (item.ID == self.selectedStore.ID) {
-                self.selectedStore = item;
-                matchStore = YES;
-                break;
-            }
-        }
     }
-    if (!matchStore) {
-        self.selectedStore = defaultStore?:self.storeList.firstObject;
+    if(!defaultStore){
+        defaultStore = self.storeList.firstObject;
     }
+    self.selectedStore = defaultStore?:self.storeList.firstObject;
 }
 WZLSERIALIZE_CODER_DECODER();
 WZLSERIALIZE_COPY_WITH_ZONE();

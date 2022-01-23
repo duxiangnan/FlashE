@@ -104,9 +104,7 @@
         id udObject = [[NSUserDefaults standardUserDefaults] objectForKey:@"userlogin"];
         if (udObject) {
             FEAccountModel *ret = [NSKeyedUnarchiver unarchiveObjectWithData:udObject];
-            if (!ret.selectedStore) {
-                ret.selectedStore = ret.storeList.firstObject;
-            }
+            [ret updataSelectedStore];
             [self setLoginInfo:ret];
             return ret;
         }

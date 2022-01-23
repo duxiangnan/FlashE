@@ -144,6 +144,7 @@
         [MBProgressHUD showMessage:@"删除成功"];
         @strongself(weakSelf);
         [strongSelf.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FEUpdateStore" object:nil];
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
         [MBProgressHUD showMessage:error.localizedDescription];
     } cancle:^{

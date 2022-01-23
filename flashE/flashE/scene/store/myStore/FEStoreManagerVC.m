@@ -345,6 +345,7 @@
         [MBProgressHUD hideProgressOnView:strongSelf.view];
         strongSelf.list = [NSArray yy_modelArrayWithClass:[FEMyStoreModel class] json:((NSDictionary*)response)[@"data"]];
         acc.storeList = strongSelf.list;
+        [acc updataSelectedStore];
         [[FEAccountManager sharedFEAccountManager] setLoginInfo:acc];
         if (strongSelf.list.count == 0) {
             [strongSelf showEmptyViewWithType:YES];
@@ -373,14 +374,7 @@
                                 success:^(NSInteger code, id  _Nonnull response) {
         @strongself(weakSelf);
         [strongSelf requestShowData];
-//        [strongSelf.list enumerateObjectsUsingBlock:
-//         ^(FEMyStoreModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            obj.defaultStore = NO;
-//            if (obj.ID == model.ID) {
-//                obj.defaultStore = YES;
-//            }
-//        }];
-//        [strongSelf.table reloadData];
+        
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
         [MBProgressHUD showMessage:error.localizedDescription];
     } cancle:^{

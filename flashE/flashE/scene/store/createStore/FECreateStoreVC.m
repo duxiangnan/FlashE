@@ -429,6 +429,8 @@
         
         if (acc.storeId == 0) {
             [FFRouter routeURL:@"deckControl://updateAccount"];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FEUpdateStore" object:nil];
         }
         [MBProgressHUD hideProgressOnView:strongSelf.view];
         

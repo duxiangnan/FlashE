@@ -272,6 +272,8 @@
         acc.storeName = model.storeName;
         acc.mobile = model.mobile;
         acc.balance = model.balance;
+        acc.storeList = model.storeList;
+        [acc updataSelectedStore];
         [[FEAccountManager sharedFEAccountManager] setLoginInfo:acc];
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
         
@@ -290,7 +292,7 @@
       success:^(NSInteger code, id  _Nonnull response)
     {
         acc.storeList = [NSArray yy_modelArrayWithClass:[FEMyStoreModel class] json:((NSDictionary*)response)[@"data"]];
-        [self updateStoreNoti:nil];
+        [acc updataSelectedStore];
         [[FEAccountManager sharedFEAccountManager] setLoginInfo:acc];
         
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
@@ -301,29 +303,7 @@
 
 }
 -(void)updateStoreNoti:(NSNotification*)noti {
-    FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
-    FEMyStoreModel* notiStore = noti.userInfo[@"store"];
-    
-    acc.selectedStore = notiStore;
-    [acc updataSelectedStore];
-//    if (!notiStore) {
-//        __block BOOL userDefault = YES;
-//        if (acc.selectedStore) {
-//            [acc.storeList enumerateObjectsUsingBlock:
-//             ^(FEMyStoreModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                if (obj.ID == acc.selectedStore.ID) {
-//                    userDefault = NO;
-//                    *stop = YES;
-//                }
-//            }];
-//        }
-//        if (userDefault) {
-//            acc.selectedStore = acc.storeList.firstObject;
-//        }
-//    } else {
-//        acc.selectedStore = notiStore;
-        [[FEAccountManager sharedFEAccountManager] setLoginInfo:acc];
-//    }
+    [self requestUpdateStoreList];
 }
 - (void) updatePayInfo:(NSNotification*)noti {
     [self requestUpdateAccount];

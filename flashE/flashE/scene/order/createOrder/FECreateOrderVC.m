@@ -754,7 +754,6 @@
         @weakself(self);
         _storeView.selectedAction = ^(FEMyStoreModel* model) {
             @strongself(weakSelf);
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"FEUpdateStore" object:nil userInfo:@{@"store":model}];
             [strongSelf updateWithStore:model];
             [strongSelf.popupController dismiss];
             [strongSelf freshSubViewData];
