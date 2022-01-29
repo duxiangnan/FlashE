@@ -22,4 +22,7 @@
 
 @property (nonatomic, copy) NSArray<FERechargeModel*> *list;
 
+@property (nonatomic, assign) float rechargHeaderCellH;
+@property (nonatomic, assign) float rechargHeaderCellHeaderH;
+@property (nonatomic, assign) float rechargHeaderCellItemH;
 @end

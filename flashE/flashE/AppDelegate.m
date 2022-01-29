@@ -45,7 +45,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutAction:)
                                                  name:@"FEDidLogout" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStoreNoti:)
-                                                 name:@"FEUpdateStore" object:nil];
+                                                 name:@"x" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePayInfo:)
                                                  name:@"paySuccess" object:nil];
     [self resetRootVC];

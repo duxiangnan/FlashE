@@ -17,24 +17,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="378" height="464"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9R-DS-QgF" customClass="MAMapView">
-                        <rect key="frame" x="0.0" y="0.0" width="378" height="339"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqa-fX-Gct">
+                        <rect key="frame" x="0.0" y="285" width="378" height="179"/>
+                        <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="339" id="zmU-g1-0ia"/>
+                            <constraint firstAttribute="height" constant="179" id="BYh-kG-mfN"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDO-tl-YK0">
-                        <rect key="frame" x="330" y="269" width="42" height="42"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="42" id="GCS-A0-saV"/>
-                            <constraint firstAttribute="height" constant="42" id="lWE-9S-dSD"/>
-                        </constraints>
-                        <state key="normal" image="fe_order_fresh"/>
-                        <connections>
-                            <action selector="freshAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1fh-cu-3gd"/>
-                        </connections>
-                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWZ-vI-LC1">
                         <rect key="frame" x="10" y="319" width="358" height="145"/>
                         <subviews>
@@ -91,23 +80,19 @@
                 </subviews>
                 <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="u9R-DS-QgF" secondAttribute="trailing" id="7hx-fb-5JU"/>
+                    <constraint firstAttribute="bottom" secondItem="aqa-fX-Gct" secondAttribute="bottom" id="CFX-SC-bUr"/>
                     <constraint firstAttribute="trailing" secondItem="WWZ-vI-LC1" secondAttribute="trailing" constant="10" id="ELS-V1-sCP"/>
-                    <constraint firstAttribute="trailing" secondItem="hDO-tl-YK0" secondAttribute="trailing" constant="6" id="IuJ-QW-4K5"/>
                     <constraint firstAttribute="bottom" secondItem="WWZ-vI-LC1" secondAttribute="bottom" id="V8E-3I-Vvg"/>
-                    <constraint firstItem="u9R-DS-QgF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="XMz-2p-7y8"/>
+                    <constraint firstAttribute="trailing" secondItem="aqa-fX-Gct" secondAttribute="trailing" id="Wfc-Bc-Ubt"/>
                     <constraint firstItem="WWZ-vI-LC1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="cy1-BA-7Dw"/>
-                    <constraint firstItem="WWZ-vI-LC1" firstAttribute="top" secondItem="hDO-tl-YK0" secondAttribute="bottom" constant="8" id="nPD-ss-Mtc"/>
-                    <constraint firstItem="u9R-DS-QgF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zh3-s8-q54"/>
+                    <constraint firstItem="aqa-fX-Gct" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="umc-P5-reP"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="BGViewH" destination="BYh-kG-mfN" id="pdd-AU-X2z"/>
                 <outlet property="StatusDesLB" destination="Cch-CD-mdd" id="Gi7-rs-rvy"/>
                 <outlet property="bottomView" destination="WWZ-vI-LC1" id="agz-NE-A5M"/>
                 <outlet property="bottomViewH" destination="cKf-fl-V57" id="38g-BK-qVP"/>
-                <outlet property="freshBtn" destination="hDO-tl-YK0" id="5at-Sn-V1t"/>
-                <outlet property="mapView" destination="u9R-DS-QgF" id="8EC-J0-xha"/>
-                <outlet property="mapViewH" destination="zmU-g1-0ia" id="XYd-dQ-cUn"/>
                 <outlet property="statusNameLB" destination="3Ld-sz-Qh6" id="xy8-Md-EmC"/>
                 <outlet property="statusView" destination="jMJ-VQ-7Kd" id="8Wy-NK-QNF"/>
                 <outlet property="statusViewH" destination="QrD-CD-Sky" id="zOo-Iy-jm1"/>
@@ -117,7 +102,6 @@
     </objects>
     <resources>
         <image name="cell_more" width="10" height="10"/>
-        <image name="fe_order_fresh" width="42" height="42"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

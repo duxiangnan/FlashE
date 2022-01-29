@@ -279,6 +279,18 @@
     [self freshSubView];
     
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.model.fromName.length > 0) {
+        FEMyStoreModel* store = [[FEAccountManager sharedFEAccountManager]
+                                 getStoreWithId:[NSString stringWithFormat:@"%lld",self.model.storeId]];
+        if (store) {
+            [self updateWithStore:store];
+            [self reqestCalculateFee];
+        }
+        
+    }
+}
 - (void) getModelDefault {
     FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
     [self updateWithStore:acc.selectedStore];
@@ -420,7 +432,6 @@
     self.model.weight = orderDetailModel.weight;
     
     FEMyStoreModel* store = [[FEAccountManager sharedFEAccountManager] getStoreWithId:orderDetailModel.storeId];
-    self.model.storeId = orderDetailModel.storeId.integerValue;
     self.model.cityId = store.cityId;//城市ID
     self.model.cityName = store.cityName;
     
@@ -460,6 +471,7 @@
     }
     
 }
+
 - (void)setOrderId:(NSString*)orderId {
     _orderId = orderId;
     if(orderId.integerValue <= 0) {
@@ -592,6 +604,7 @@
     FEAccountModel* acc = [[FEAccountManager sharedFEAccountManager] getLoginInfo];
     if (acc.balance < self.model.mustPay) {
         FEAlertView* alert = [[FEAlertView alloc] initWithTitle:@"温馨提示" message:@"账户余额不足，请先充值后再下单"];
+        alert.firstAndSecondRatio = 0.588;
         [alert addAction:[FEAlertAction actionWithTitle:@"取消" style:FEAlertActionStyleCancel handler:^(FEAlertAction *action) {
             
         }]];
@@ -847,9 +860,6 @@
     param[@"weight"] = @(self.model.weight);
     param[@"logistics"] = @[@"uupt",@"fengka",@"mtps",@"dada",@"bingex",@"shunfeng"];
     
-    
-    
-    
     @weakself(self);
     [[FEHttpManager defaultClient] POST:@"/deer/orders/calculateFee" parameters:param
                                 success:^(NSInteger code, id  _Nonnull response) {
@@ -875,7 +885,9 @@
         
         [strongSelf freshSubView];
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
-    
+        @strongself(weakSelf);
+        strongSelf.model.logistics = nil;
+        [strongSelf freshSubView];
     } cancle:^{
     
     }];

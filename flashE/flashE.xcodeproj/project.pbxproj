@@ -116,7 +116,6 @@
 		8BADD768274D577200FDDA68 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD767274D576400FDDA68 /* libc++.tbd */; };
 		8BADD76C274D578C00FDDA68 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BADD76A274D577D00FDDA68 /* libz.tbd */; };
 		8BADD965274E8E2200FDDA68 /* FEOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD963274E8E2200FDDA68 /* FEOrderDetailVC.m */; };
-		8BADD966274E8E2200FDDA68 /* FEOrderDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BADD964274E8E2200FDDA68 /* FEOrderDetailVC.xib */; };
 		8BADD96B274E9B2900FDDA68 /* FEOrderDetailHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD969274E9B2900FDDA68 /* FEOrderDetailHeaderCell.m */; };
 		8BADD96C274E9B2900FDDA68 /* FEOrderDetailHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BADD96A274E9B2900FDDA68 /* FEOrderDetailHeaderCell.xib */; };
 		8BADD973274E9CED00FDDA68 /* FEOrderDetailLogisticsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD971274E9CED00FDDA68 /* FEOrderDetailLogisticsCell.m */; };
@@ -125,6 +124,9 @@
 		8BADD97A274E9D1200FDDA68 /* FEOrderDetailAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BADD978274E9D1200FDDA68 /* FEOrderDetailAddressCell.xib */; };
 		8BADD97F274E9D4000FDDA68 /* FEOrderDetailInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BADD97D274E9D4000FDDA68 /* FEOrderDetailInfoCell.m */; };
 		8BADD980274E9D4000FDDA68 /* FEOrderDetailInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BADD97E274E9D4000FDDA68 /* FEOrderDetailInfoCell.xib */; };
+		8BB6E0B127A3DB4700C4E9FC /* FEOrderMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB6E0B027A3DB4700C4E9FC /* FEOrderMapView.m */; };
+		8BB6E0C027A5206C00C4E9FC /* FEOrderDetailList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB6E0BE27A5206B00C4E9FC /* FEOrderDetailList.m */; };
+		8BB6E0C627A5802200C4E9FC /* FERechargeRecodeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB6E0C527A5802200C4E9FC /* FERechargeRecodeInfoCell.m */; };
 		8BC05309275BB575004804A9 /* FECreateOrderLogisticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC05308275BB575004804A9 /* FECreateOrderLogisticModel.m */; };
 		8BC87DC9279C56E600A8DC26 /* FEMyManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC87DC7279C56E600A8DC26 /* FEMyManagerVC.m */; };
 		8BC87DCA279C56E600A8DC26 /* FEMyManagerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BC87DC8279C56E600A8DC26 /* FEMyManagerVC.xib */; };
@@ -360,7 +362,6 @@
 		8BADD76A274D577D00FDDA68 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		8BADD962274E8E2200FDDA68 /* FEOrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEOrderDetailVC.h; sourceTree = "<group>"; };
 		8BADD963274E8E2200FDDA68 /* FEOrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEOrderDetailVC.m; sourceTree = "<group>"; };
-		8BADD964274E8E2200FDDA68 /* FEOrderDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEOrderDetailVC.xib; sourceTree = "<group>"; };
 		8BADD968274E9B2900FDDA68 /* FEOrderDetailHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEOrderDetailHeaderCell.h; sourceTree = "<group>"; };
 		8BADD969274E9B2900FDDA68 /* FEOrderDetailHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEOrderDetailHeaderCell.m; sourceTree = "<group>"; };
 		8BADD96A274E9B2900FDDA68 /* FEOrderDetailHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEOrderDetailHeaderCell.xib; sourceTree = "<group>"; };
@@ -373,6 +374,12 @@
 		8BADD97C274E9D4000FDDA68 /* FEOrderDetailInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEOrderDetailInfoCell.h; sourceTree = "<group>"; };
 		8BADD97D274E9D4000FDDA68 /* FEOrderDetailInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEOrderDetailInfoCell.m; sourceTree = "<group>"; };
 		8BADD97E274E9D4000FDDA68 /* FEOrderDetailInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEOrderDetailInfoCell.xib; sourceTree = "<group>"; };
+		8BB6E0AF27A3DB4700C4E9FC /* FEOrderMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEOrderMapView.h; sourceTree = "<group>"; };
+		8BB6E0B027A3DB4700C4E9FC /* FEOrderMapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEOrderMapView.m; sourceTree = "<group>"; };
+		8BB6E0BE27A5206B00C4E9FC /* FEOrderDetailList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEOrderDetailList.m; sourceTree = "<group>"; };
+		8BB6E0BF27A5206C00C4E9FC /* FEOrderDetailList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FEOrderDetailList.h; sourceTree = "<group>"; };
+		8BB6E0C427A5802200C4E9FC /* FERechargeRecodeInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FERechargeRecodeInfoCell.h; sourceTree = "<group>"; };
+		8BB6E0C527A5802200C4E9FC /* FERechargeRecodeInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FERechargeRecodeInfoCell.m; sourceTree = "<group>"; };
 		8BC05307275BB575004804A9 /* FECreateOrderLogisticModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FECreateOrderLogisticModel.h; sourceTree = "<group>"; };
 		8BC05308275BB575004804A9 /* FECreateOrderLogisticModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FECreateOrderLogisticModel.m; sourceTree = "<group>"; };
 		8BC87DC6279C56E600A8DC26 /* FEMyManagerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEMyManagerVC.h; sourceTree = "<group>"; };
@@ -805,13 +812,12 @@
 		8B43017B274427A000D8460B /* orderDetail */ = {
 			isa = PBXGroup;
 			children = (
-				8BA1CD0427529C36004D3C35 /* FEMapView.h */,
-				8BA1CD0527529C36004D3C35 /* FEMapView.m */,
 				8B43017D274427BE00D8460B /* FEOrderDetailModel.h */,
 				8B43017C274427BE00D8460B /* FEOrderDetailModel.m */,
 				8BADD962274E8E2200FDDA68 /* FEOrderDetailVC.h */,
 				8BADD963274E8E2200FDDA68 /* FEOrderDetailVC.m */,
-				8BADD964274E8E2200FDDA68 /* FEOrderDetailVC.xib */,
+				8BB6E0BF27A5206C00C4E9FC /* FEOrderDetailList.h */,
+				8BB6E0BE27A5206B00C4E9FC /* FEOrderDetailList.m */,
 				8BADD968274E9B2900FDDA68 /* FEOrderDetailHeaderCell.h */,
 				8BADD969274E9B2900FDDA68 /* FEOrderDetailHeaderCell.m */,
 				8BADD96A274E9B2900FDDA68 /* FEOrderDetailHeaderCell.xib */,
@@ -828,6 +834,10 @@
 				8B7A712527500BF8003CF41C /* FEOrderDetailLinkCell.h */,
 				8B7A712627500BF8003CF41C /* FEOrderDetailLinkCell.m */,
 				8B7A712727500BF8003CF41C /* FEOrderDetailLinkCell.xib */,
+				8BB6E0AF27A3DB4700C4E9FC /* FEOrderMapView.h */,
+				8BB6E0B027A3DB4700C4E9FC /* FEOrderMapView.m */,
+				8BA1CD0427529C36004D3C35 /* FEMapView.h */,
+				8BA1CD0527529C36004D3C35 /* FEMapView.m */,
 			);
 			path = orderDetail;
 			sourceTree = "<group>";
@@ -931,6 +941,8 @@
 				8BADD5E4274B715500FDDA68 /* FERechargeRecodeCell.h */,
 				8BADD5E5274B715500FDDA68 /* FERechargeRecodeCell.m */,
 				8BADD5D3274B484500FDDA68 /* FERechargeRecodeCell.xib */,
+				8BB6E0C427A5802200C4E9FC /* FERechargeRecodeInfoCell.h */,
+				8BB6E0C527A5802200C4E9FC /* FERechargeRecodeInfoCell.m */,
 				8BADD5D6274B4A1200FDDA68 /* FERechargeRecodeInfoCell.xib */,
 			);
 			path = recharge;
@@ -1143,7 +1155,6 @@
 				8B368F982740F5AF00B5C1AC /* JVRefreshStateView.xib in Resources */,
 				8BCFAC3A2748C66F004F9B75 /* FESearchAddressVC.xib in Resources */,
 				8B368F9B2740F5AF00B5C1AC /* vsp_JV_loading-ios-rotate.png in Resources */,
-				8BADD966274E8E2200FDDA68 /* FEOrderDetailVC.xib in Resources */,
 				8BCFAC4E274914C1004F9B75 /* FERechargeVC.xib in Resources */,
 				8BADD5D4274B484500FDDA68 /* FERechargeRecodeCell.xib in Resources */,
 				8BADD974274E9CED00FDDA68 /* FEOrderDetailLogisticsCell.xib in Resources */,
@@ -1237,7 +1248,9 @@
 				8BADD965274E8E2200FDDA68 /* FEOrderDetailVC.m in Sources */,
 				8BADD720274D3AEA00FDDA68 /* WXApiResponseHandler.m in Sources */,
 				8B43035A27455F6D00D8460B /* FECreateStoreVC.m in Sources */,
+				8BB6E0B127A3DB4700C4E9FC /* FEOrderMapView.m in Sources */,
 				8B6F5D19275537A7009B7606 /* FEStoreDetailModel.m in Sources */,
+				8BB6E0C027A5206C00C4E9FC /* FEOrderDetailList.m in Sources */,
 				8B368AA127396CFD00B5C1AC /* FEAccountManager.m in Sources */,
 				8BD9E404278B281C0067A222 /* AFImageDownloader.m in Sources */,
 				8B36883027343B7E00B5C1AC /* OpenUDID.m in Sources */,
@@ -1304,6 +1317,7 @@
 				8B44BAD4275926C9005E81C9 /* FEStoreCityModel.m in Sources */,
 				8BADD96B274E9B2900FDDA68 /* FEOrderDetailHeaderCell.m in Sources */,
 				8BADD973274E9CED00FDDA68 /* FEOrderDetailLogisticsCell.m in Sources */,
+				8BB6E0C627A5802200C4E9FC /* FERechargeRecodeInfoCell.m in Sources */,
 				8B368F822740AD6600B5C1AC /* FEHomeWorkModel.m in Sources */,
 				8B36882C27343B7E00B5C1AC /* UIButton+Frequentclicks.m in Sources */,
 				8BADD5E2274B70CC00FDDA68 /* FERechargeHeaderCell.m in Sources */,
@@ -1471,7 +1485,7 @@
 				CODE_SIGN_ENTITLEMENTS = flashE/flashE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: du xiangnan (4LW593PWQ9)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1011;
+				CURRENT_PROJECT_VERSION = 1012;
 				DEVELOPMENT_TEAM = 32U954HXU3;
 				DISPLAY_NAME_NEW = "小鹿急送_dev";
 				ENABLE_BITCODE = NO;
@@ -1571,7 +1585,7 @@
 				CODE_SIGN_ENTITLEMENTS = flashE/flashE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Beijing Angoluoke Information Technology Co., Ltd. (32U954HXU3)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1011;
+				CURRENT_PROJECT_VERSION = 1012;
 				DEVELOPMENT_TEAM = 32U954HXU3;
 				DISPLAY_NAME_NEW = "小鹿急送";
 				ENABLE_BITCODE = NO;

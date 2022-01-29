@@ -11,18 +11,20 @@
 #define CustomViewTranslate(ViewClass, view) (ViewClass *)view;
 
 typedef enum {
-    //上
-    UIViewBorderDirectTop = 0,
-
-    // 左
-    UIViewBorderDirectLeft,
-
-    //下
-    UIViewBorderDirectBottom,
-
-    // 右
-    UIViewBorderDirectRight,
+    UIViewBorderDirectTop = 0,//上
+    UIViewBorderDirectLeft,// 左
+    UIViewBorderDirectBottom,//下
+    UIViewBorderDirectRight,// 右
 } UIViewBorderDirect;
+
+typedef enum :NSInteger{
+    UIViewShadowPathLeft,
+    UIViewShadowPathRight,
+    UIViewShadowPathTop,
+    UIViewShadowPathBottom,
+    UIViewShadowPathNoTop,
+    UIViewShadowPathAllSide
+} UIViewShadowPathSide;
 
 @interface UIView (Extend)
 
@@ -35,6 +37,23 @@ typedef enum {
 @property (nonatomic, assign) CGFloat           radius;
 @property (nonatomic, assign, readonly) CGFloat maxWidth;
 @property (nonatomic, assign, readonly) CGFloat maxHeight;
+
+
+
+/*
+ * shadowColor 阴影颜色
+ *
+ * shadowOpacity 阴影透明度，默认0
+ *
+ * shadowRadius  阴影半径，默认3
+ *
+ * shadowPathSide 设置哪一侧的阴影，
+ *
+ * shadowPathWidth 阴影的宽度，
+ *
+ * type 1-左上右上 2-全方位 3-左下右下
+ */
+-(void)setShadowPathWith:(UIColor *)shadowColor shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius shadowSide:(UIViewShadowPathSide)shadowPathSide shadowPathWidth:(CGFloat)shadowPathWidth  radiusLocation:(NSInteger)type;
 
 /**
  *   view的圆角设置

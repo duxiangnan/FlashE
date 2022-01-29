@@ -9,6 +9,64 @@
 #import "UIView+Extend.h"
 
 @implementation UIView (Extend)
+
+
+-(void)setShadowPathWith:(UIColor *)shadowColor shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius shadowSide:(UIViewShadowPathSide)shadowPathSide shadowPathWidth:(CGFloat)shadowPathWidth  radiusLocation:(NSInteger)type {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       UIRectCorner corner ;
+       if (type == 1) {
+           corner = UIRectCornerTopLeft|UIRectCornerTopRight;
+       }else if (type == 2) {
+           corner = UIRectCornerAllCorners;
+       }else{
+           corner = UIRectCornerBottomLeft|UIRectCornerBottomRight;
+       }
+       if (@available(iOS 11.0,*)) {
+           self.layer.cornerRadius = shadowRadius;
+           self.layer.maskedCorners = (CACornerMask)corner;
+       }else{
+           UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:corner cornerRadii:CGSizeMake(shadowRadius, shadowRadius)];
+           CAShapeLayer *maskLayer = [[CAShapeLayer alloc]init];
+           self.frame = self.bounds;
+           maskLayer.path = path.CGPath;
+           self.layer.mask = maskLayer;
+       }
+       self.layer.masksToBounds = NO;
+       self.clipsToBounds = NO;
+       self.layer.shadowColor = shadowColor.CGColor;
+       self.layer.shadowOpacity = shadowOpacity;
+       //设置抗锯齿边缘
+       self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+       self.layer.shadowOffset = CGSizeZero;
+       CGRect shadowRect;
+       CGFloat originX = 0;
+       CGFloat originY = 0;
+       CGFloat originW = self.bounds.size.width;
+       CGFloat originH = self.bounds.size.height;
+       switch (shadowPathSide) {
+           case UIViewShadowPathTop:
+               shadowRect = CGRectMake(originX, originY - shadowPathWidth/2, originW,  shadowPathWidth);
+               break;
+           case UIViewShadowPathBottom:
+               shadowRect = CGRectMake(originX, originH -shadowPathWidth/2, originW, shadowPathWidth);
+               break;
+           case UIViewShadowPathLeft:
+               shadowRect = CGRectMake(originX - shadowPathWidth/2, originY, shadowPathWidth, originH);
+               break;
+           case UIViewShadowPathRight:
+               shadowRect = CGRectMake(originW - shadowPathWidth/2, originY, shadowPathWidth, originH);
+               break;
+           case UIViewShadowPathNoTop:
+               shadowRect = CGRectMake(originX -shadowPathWidth/2, originY +1, originW +shadowPathWidth,originH + shadowPathWidth/2 );
+               break;
+           case UIViewShadowPathAllSide:
+               shadowRect = CGRectMake(originX - shadowPathWidth/2, originY - shadowPathWidth/2, originW +  shadowPathWidth, originH + shadowPathWidth);
+               break;
+       }
+       UIBezierPath *path =[UIBezierPath bezierPathWithRect:shadowRect];
+       self.layer.shadowPath = path.CGPath;
+   });
+}
 /**
  *   view的圆角设置
  *

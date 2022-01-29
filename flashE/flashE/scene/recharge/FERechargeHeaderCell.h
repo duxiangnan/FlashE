@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class FERechargeModel;
 
 @interface FERechargeHeaderCell : UITableViewCell
+@property (nonatomic,copy) void (^backAction)(void);
 @property (nonatomic,copy) void (^rechargeAction)(FERechargeModel* item,NSInteger type);
-
 
 +(CGFloat) calculationCellHeight:(FERechargeTotalModel*)model;
 - (void) setModel:(FERechargeTotalModel*) model;

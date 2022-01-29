@@ -12,7 +12,7 @@
     double tmpLong = ((NSNumber*)dic[@"createTime"]).longValue/1000;
     if(tmpLong > 0) {
         NSDate* tmpData = [[NSDate alloc] initWithTimeIntervalSince1970:tmpLong];
-        _createTimeStr = [tmpData formattedDateWithFormat:@"MM-dd HH:mm"];
+        _createTimeStr = [tmpData formattedDateWithFormat:@"yyyy-MM-dd HH:mm"];
     }
     return YES;
 }

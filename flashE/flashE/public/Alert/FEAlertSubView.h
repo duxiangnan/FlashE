@@ -24,6 +24,8 @@ typedef NS_ENUM(NSInteger, FEAlertViewButtonType) {
 @interface FEAlertSubView : UIView
 @property (nonatomic, copy) NSString * title;
 @property (nonatomic) NSString *message;
+
+@property (nonatomic, assign) float firstAndSecondRatio; //default 1.0 
 @property (nonatomic, copy) NSArray *actionButtons;
 
 @property (nonatomic) UIFont *titleFont;

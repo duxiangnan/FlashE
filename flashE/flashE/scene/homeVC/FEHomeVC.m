@@ -105,7 +105,6 @@
         [strongSelf requestShowData];
     };
     
-    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -130,6 +129,7 @@
     if (acc.storeId == 0) {
         //创建店铺
         FEAlertView* alert = [[FEAlertView alloc] initWithTitle:@"温馨提示" message:@"如需发单请先创建店铺"];
+        alert.firstAndSecondRatio = 0.588;
         [alert addAction:[FEAlertAction actionWithTitle:@"取消" style:FEAlertActionStyleCancel handler:^(FEAlertAction *action) {
             
         }]];
@@ -221,6 +221,7 @@
             break;
     }
     FEAlertView* alert = [[FEAlertView alloc] initWithTitle:@"取消提示" message:msg];
+    alert.firstAndSecondRatio = 0.588;
     [alert addAction:[FEAlertAction actionWithTitle:@"暂不取消"
                                               style:FEAlertActionStyleCancel
                                             handler:nil]];

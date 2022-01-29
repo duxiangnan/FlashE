@@ -9,10 +9,11 @@
 #import "FEDefineModule.h"
 #import "FERechargeModel.h"
 #import "FERechargeRecodeModel.h"
+#import "FEHttpPageManager.h"
 
 #import "FERechargeHeaderCell.h"
 #import "FERechargeRecodeCell.h"
-
+#import "FERechargeRecodeInfoCell.h"
 
 #import "WXApi.h"
 
@@ -20,11 +21,14 @@
 
 
 @interface FERechargeVC ()
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *naviViewH;
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
 @property (strong, nonatomic) FERechargeTotalModel *model;
+
+@property (nonatomic,copy) NSArray<FERechargeRecodeModel*>* list;
+@property (nonatomic,strong) FEHttpPageManager* pagesManager;
+@property (nonatomic,strong) NSNumber* recodeInforType;
 
 @end
 
@@ -49,7 +53,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.naviViewH.constant = kHomeNavigationHeight;
     if (@available(iOS 11.0, *)) {
         self.table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     } else {
@@ -60,16 +63,18 @@
     [self.table registerNib:[UINib nibWithNibName:@"FERechargeRecodeCell" bundle:nil]
      forCellReuseIdentifier:@"FERechargeRecodeCell"];
     
+    [self.table registerNib:[UINib nibWithNibName:@"FERechargeRecodeInfoCell" bundle:nil]
+     forCellReuseIdentifier:@"FERechargeRecodeInfoCell"];
+    
+    self.table.mj_header = [JVRefreshHeaderView headerWithRefreshingTarget:self refreshingAction:@selector(requestRechargeList)];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePayInfo:)
                                                  name:@"paySuccess" object:nil];
     
     [WXApi registerApp:kWXAPPID universalLink:kWXUNIVERSAL_LINK];
     self.model = [FERechargeTotalModel new];
     [self requestRechargeList];
-}
-
-- (IBAction)naviBackAction:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    self.recodeInforType = @(10);
 }
 
 - (void) updatePayInfo:(NSNotification*)noti {
@@ -90,11 +95,13 @@
             fisrt.selected = YES;
         }
         [strongSelf requestRechargeBalance];
+        [strongSelf freshRecodeInfor];
     } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
         
         [MBProgressHUD showMessage:error.localizedDescription];
         @strongself(weakSelf);
         [strongSelf requestRechargeBalance];
+        [strongSelf freshRecodeInfor];
     } cancle:^{
         
     }];
@@ -175,6 +182,70 @@
 //        NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
     }
 }
+
+
+- (void) freshRecodeInfor {
+    NSMutableDictionary* param = [NSMutableDictionary dictionary];
+    //类型10 扣款记录；20充值记  录
+    param[@"type"] = self.recodeInforType;
+    
+    self.pagesManager = [[FEHttpPageManager alloc] initWithFunctionId:@"/deer/orders/queryDebitList"
+                                                           parameters:param
+                                                    itemClass:[FERechargeRecodeModel class]];
+    [self.pagesManager setkeyIndex:@"index" size:@"pageSize"];
+    self.pagesManager.resultName = @"data";
+    self.pagesManager.requestMethod = 1;
+    
+    @weakself(self);
+
+    void (^loadMore)(void) = ^{
+        @strongself(weakSelf);
+        if (strongSelf.pagesManager.hasMore) {
+            [strongSelf.pagesManager fetchMoreData:^{
+                strongSelf.list = strongSelf.pagesManager.dataArr;
+                if ([strongSelf.pagesManager hasMore]) {
+                    [strongSelf.table.mj_footer endRefreshing];
+                } else {
+                    [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
+                }
+                
+                if (strongSelf.pagesManager.networkError) {
+                    [MBProgressHUD showMessage:strongSelf.pagesManager.networkError.localizedDescription];
+                }
+                [strongSelf.table reloadData];
+            }];
+        }
+    };
+
+    void (^loadFirstPage)(void) = ^{
+        @strongself(weakSelf);
+        [strongSelf.pagesManager fetchData:^{
+            [strongSelf.table.mj_header endRefreshing];
+            [strongSelf hiddenEmptyView];
+            strongSelf.list = strongSelf.pagesManager.dataArr;
+            
+            if (strongSelf.pagesManager.hasMore) {
+                strongSelf.table.mj_footer = [JVRefreshFooterView footerWithRefreshingBlock:loadMore
+                                                                           noMoreDataString:@""];
+            } else {
+                [strongSelf.table.mj_footer endRefreshingWithNoMoreData];
+            }
+            
+            if (strongSelf.pagesManager.networkError) {
+                [MBProgressHUD showMessage:weakSelf.pagesManager.networkError.localizedDescription];
+            }
+            if (strongSelf.list.count == 0) {
+                [strongSelf showEmptyViewWithType:YES];
+            }
+            [strongSelf.table reloadData];
+        }];
+    };
+
+    
+    loadFirstPage();
+    
+    
+}
 #pragma mark - tableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -193,19 +264,34 @@
             @strongself(weakSelf);
             [strongSelf rechargeAction:item type:type];
         };
+        cell.backAction = ^{
+            @strongself(weakSelf);
+            [strongSelf backAction];
+        };
         return cell;
-    } else{
-        
+    } else if (indexPath.row == 1){
         FERechargeRecodeCell * cell = [tableView dequeueReusableCellWithIdentifier:@"FERechargeRecodeCell"];
-        [cell setModel];
+        @weakself(self);
+        cell.commondAction = ^(NSNumber * _Nonnull type) {
+            @strongself(weakSelf);
+            strongSelf.recodeInforType = type;
+            [strongSelf freshRecodeInfor];
+        };
+        
+        return cell;
+    } else {
+        FERechargeRecodeInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:@"FERechargeRecodeInfoCell"];
+        if (indexPath.row - 2 < self.list.count) {
+            FERechargeRecodeModel* model = self.list[indexPath.row-2];
+            [cell setModel:model flag:self.recodeInforType.integerValue==10?-1:1];
+        }
         return cell;
     }
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 2 + self.list.count;
 }
 
 
@@ -214,8 +300,10 @@
 {
     if (indexPath.row == 0) {
         return [FERechargeHeaderCell calculationCellHeight:self.model];
-    } else{
-        return kScreenHeight/2;
+    } else if (indexPath.row == 1) {
+        return 60;
+    } else {
+        return 70;
     }
 }
 

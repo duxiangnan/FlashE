@@ -30,8 +30,8 @@
     [super awakeFromNib];
     self.accessoryType = UITableViewCellAccessoryNone;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
-    
+    self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);//UIColor.clearColor;//
+//    self.backgroundColor = UIColor.clearColor;
 }
 
 

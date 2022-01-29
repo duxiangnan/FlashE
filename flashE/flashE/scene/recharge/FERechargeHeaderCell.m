@@ -70,8 +70,11 @@
 
 @interface FERechargeHeaderCell ()
 @property (nonatomic,strong) FERechargeTotalModel* model;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hearderTopViewH;
 
+@property (nonatomic,strong) UIView *hearderViewBG;
 @property (weak, nonatomic) IBOutlet UIView *hearderView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hearderViewT;
 @property (weak, nonatomic) IBOutlet UILabel *jineLB;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *rechargeCollection;
@@ -105,12 +108,13 @@
     self.accessoryType = UITableViewCellAccessoryNone;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 //    self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
-    
+    self.hearderTopViewH.constant = kHomeNavigationHeight+70;
+    self.hearderViewT.constant = kHomeNavigationHeight;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.minimumLineSpacing = 10;
     layout.minimumInteritemSpacing = 10;
-    CGFloat width = (kScreenWidth - 16*2 - 10*2 - 10*2)/3;
+    CGFloat width = (kScreenWidth - 10*2 - 10*2 - 10*2)/3;
     layout.itemSize =CGSizeMake(width, 50);
     self.rechargeCollection.collectionViewLayout = layout;
     [self.rechargeCollection registerClass:[FERechargeHeaderPageInfoCell class] forCellWithReuseIdentifier:@"FERechargeHeaderPageInfoCell"];
@@ -121,31 +125,54 @@
     [super layoutSubviews];
     
 }
+
 +(CGFloat) calculationCellHeight:(FERechargeTotalModel*)model {
-    if (model.list.count > 0) {
-        NSInteger num = ceil(model.list.count/3);
-        CGFloat x =  (50+10)*num - 10;
-        return 10 + 48 + 20+15+x+ 20 + 20 +10 + 20+10+48+20+44;
+    if (model.rechargHeaderCellH == 0 || model.rechargHeaderCellItemH == 0) {
+        CGFloat tmp = 0;
+        tmp += 22 + 48;
+        tmp += 17 + 20;
+        if (model.list.count > 0) {
+            NSInteger num = ceil(model.list.count/3);
+            CGFloat cellHeight = (50+10)*num - 10;
+            model.rechargHeaderCellItemH = cellHeight;
+        }
+        tmp += model.rechargHeaderCellItemH;
+        tmp += 22 + 20 + 22 + 1;
+        tmp += 20 + 20;
+        tmp += 16 + 48;
+        tmp += 20 + 44;
+        
+        model.rechargHeaderCellHeaderH = tmp;
+        CGFloat offy = kHomeNavigationHeight;
+        offy += model.rechargHeaderCellHeaderH;
+        offy += 10;
+        model.rechargHeaderCellH = offy;
     }
-    return 10 + 48 + 20 + 20 + 20 +10 + 20+10+48+20+44;
-    
+    return model.rechargHeaderCellH;
 }
 
 - (void) setModel:(FERechargeTotalModel*) model{
     _model = model;
     self.jineLB.text = [NSString stringWithFormat:@"%0.2f",model.balance];
-    if (model.list.count > 0) {
-        NSInteger num = ceil(model.list.count/3);
-        CGFloat x =  (50+10)*num - 10;
-        self.rechargeCollectionH.constant = x;
-        self.rechargeCollectionT.constant = 15;
-    } else {
-        self.rechargeCollectionH.constant = 0;
-        self.rechargeCollectionT.constant = 0;
-    }
+    self.rechargeCollectionH.constant = model.rechargHeaderCellItemH;
+    self.rechargeCollectionT.constant = 20;
     [self.rechargeCollection reloadData];
+    if ( _model.rechargHeaderCellHeaderH != self.hearderViewBG.height) {
+        self.hearderViewBG.frame = CGRectMake(10, kHomeNavigationHeight, kScreenWidth-10*2, self.model.rechargHeaderCellHeaderH);
+        [self.hearderViewBG setShadowPathWith:UIColorFromRGB(0x8C96AD)
+                                shadowOpacity:0.2
+                                 shadowRadius:15
+                                   shadowSide:UIViewShadowPathBottom
+                              shadowPathWidth:5 radiusLocation:2];
+        
+        
+    }
 }
 
+- (IBAction)backAction:(UIButton*)sender {
+    !self.backAction?:self.backAction();
+    
+}
 - (IBAction)payTypeAction:(UIButton*)sender {
     self.payTypeWeixinBtn.selected = sender==self.payTypeWeixinBtn;
 }
@@ -178,6 +205,20 @@
 }
 
 
+
+
+#pragma mark 懒加载
+
+- (UIView*) hearderViewBG {
+    if (!_hearderViewBG) {
+        _hearderViewBG = [[UIView alloc] initWithFrame:CGRectMake(10, kHomeNavigationHeight, kScreenWidth-10*2, self.model.rechargHeaderCellHeaderH)];
+        [self.contentView addSubview:_hearderViewBG];
+        [self.contentView bringSubviewToFront:self.hearderView];
+    }
+    return _hearderViewBG;
+}
+
+#pragma mark UICollectionView delegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return  self.model.list.count;

@@ -288,6 +288,7 @@
 //    }
     
     FEAlertView* alert = [[FEAlertView alloc] initWithTitle:@"温馨提示" message:@"新增店铺需提交至配送平台审核，审核中及未通过店铺暂不可发单"];
+    alert.firstAndSecondRatio = 0.588;
     [alert addAction:[FEAlertAction actionWithTitle:@"取消" style:FEAlertActionStyleCancel handler:^(FEAlertAction *action) {
         
     }]];

@@ -9,18 +9,11 @@
 #import "FEDefineModule.h"
 #import "FEOrderDetailModel.h"
 
-#import "FEMapView.h"
 
-@interface FEOrderDetailHeaderCell ()<MAMapViewDelegate>
+@interface FEOrderDetailHeaderCell ()
 @property (nonatomic, strong)FEOrderDetailModel* model;
-@property (nonatomic, strong)NSMutableArray* mapAnnotation;
 
-
-@property (nonatomic, weak) IBOutlet MAMapView *mapView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapViewH;
-@property (weak, nonatomic) IBOutlet UIButton *freshBtn;
-
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *BGViewH;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewH;
 @property (weak, nonatomic) IBOutlet UILabel *statusNameLB;
@@ -40,13 +33,9 @@
     [super awakeFromNib];
     self.accessoryType = UITableViewCellAccessoryNone;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
-    
-    self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.mapView.delegate = self;
-    self.mapView.showsCompass = NO;
-    self.mapView.scaleOrigin = CGPointMake(16, kScreenHeight/3);
-    self.mapAnnotation = [NSMutableArray array];
+    self.contentView.backgroundColor = UIColor.clearColor;//UIColorFromRGB(0xF6F7F9);
+    self.backgroundColor = UIColor.clearColor;
+   
 }
 
 
@@ -55,15 +44,7 @@
         return model.orderDetailHeaderCellH;
     }
     CGFloat width = kScreenWidth - 10*2 - 16*2;
-    CGFloat heigt = 0;
-    if (model.status == 10 || model.status == 20 || model.status == 30|| model.status == 40) {
-        model.orderDetailHeaderMapH = kScreenHeight/3;
-//        heigt += model.orderDetailHeaderMapH;
-    } else {
-        model.orderDetailHeaderMapH = 40;
-    }
-    heigt += model.orderDetailHeaderMapH;
-    heigt += (25 + 20);
+    CGFloat heigt = (25 + 20);
     CGSize size = [model.scheduleInfo sizeWithFont:[UIFont regularFont:13] andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
     heigt += (4 + ceil(size.height));
 
@@ -121,37 +102,16 @@
     if (model.commonds.count > 0) {
         heigt += (10 + 30);
     }
-//    heigt += 20;
-    model.orderDetailHeaderBottomH = heigt - model.orderDetailHeaderMapH + 20;
-    model.orderDetailHeaderCellH = heigt;// - 20;
+    model.orderDetailHeaderBGH = heigt;
+    model.orderDetailHeaderBottomH = model.orderDetailHeaderBGH + 20;
+    heigt += 20;
+    model.orderDetailHeaderCellH = heigt;
     return model.orderDetailHeaderCellH;
 }
 - (void) setModel:(FEOrderDetailModel*)model {
     _model = model;
-
-    self.mapView.hidden = model.orderDetailHeaderMapH == 40;
-    self.freshBtn.hidden = self.mapView.hidden;
-    [self.mapView removeAnnotations:self.mapAnnotation];
-    [self.mapAnnotation removeAllObjects];
-    if (!self.mapView.hidden) {
-        CLLocationCoordinate2D locOne = CLLocationCoordinate2DMake(model.fromLatitude.doubleValue, model.fromLongitude.doubleValue);
-        NSDictionary* userInfo = @{@"image":[UIImage imageNamed:@"fe_order_map_fa"],
-                                   @"title":model.showStuseTimeStr};
-        [self addAnnotationWithCooordinate:locOne userInfo:userInfo];
-        [self.mapView setCenterCoordinate:locOne animated:YES];
-        [self.mapView setZoomLevel:12];
-        
-        
-        CLLocationCoordinate2D locTow = CLLocationCoordinate2DMake(model.toLatitude.doubleValue, model.toLongitude.doubleValue);
-        userInfo = @{@"image":[UIImage imageNamed:@"fe_order_map_1"]};
-        [self addAnnotationWithCooordinate:locTow userInfo:userInfo];
-        
-        
-        
-    }
-    self.mapViewH.constant = model.orderDetailHeaderMapH;
+    self.BGViewH.constant = model.orderDetailHeaderBGH;
     self.bottomViewH.constant = model.orderDetailHeaderBottomH;
-    
     self.statusNameLB.text = model.scheduleTitle;
     self.StatusDesLB.text = model.scheduleInfo;
 
@@ -183,48 +143,10 @@
 
 
 
-- (IBAction)freshAction:(id)sender {
-    
-    !_refreshActoin?:_refreshActoin();
-    
-}
 - (void) commondActoin:(UIButton*)btn {
     !_cellCommondActoin?:_cellCommondActoin(btn.tag);
 }
 
-#pragma mark  map function
-
--(void)addAnnotationWithCooordinate:(CLLocationCoordinate2D)coordinate userInfo:(NSDictionary*)userInfo
-{
-    MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
-    annotation.coordinate = coordinate;
-    annotation.userObject = userInfo;
-    [self.mapView addAnnotation:annotation];
-    [self.mapAnnotation addObject:annotation];
-}
-
-
-
-- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
-{
-    if ([annotation isKindOfClass:[MAPointAnnotation class]])
-    {
-        static NSString *customReuseIndetifier = @"FEMapView";
-        FEMapView *annotationView = (FEMapView*)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndetifier];
-        if (annotationView == nil)
-        {
-            annotationView = [[FEMapView alloc] initWithAnnotation:annotation reuseIdentifier:customReuseIndetifier];
-        }
-        NSDictionary* userInfo = ((NSObject*)annotation).userObject;
-        annotationView.portrait = userInfo[@"image"];
-        annotationView.name = userInfo[@"title"];
-        annotationView.centerOffset = CGPointMake(0, -annotationView.bounds.size.height/2);
-        
-        return annotationView;
-    }
-    
-    return nil;
-}
 
 
 @end

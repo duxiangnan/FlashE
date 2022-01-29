@@ -115,7 +115,7 @@
     if (self) {
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height);
         _actions = [NSArray array];
-        
+        self.firstAndSecondRatio = 1.0;
         
         self.alertView = [[FEAlertSubView alloc]
                           initWithFrame:CGRectMake(0, 0,
@@ -132,8 +132,6 @@
 - (void)createActionButtons
 {
     NSMutableArray *buttons = [NSMutableArray array];
-    
-    // Create buttons for each action
     for (int i = 0; i < [self.actions count]; i++) {
         FEAlertAction *action = self.actions[i];
         
@@ -204,6 +202,10 @@
     _actions = [self.actions arrayByAddingObject:action];
 }
 
+- (void)setFirstAndSecondRatio:(float)firstAndSecondRatio {
+    _firstAndSecondRatio = firstAndSecondRatio;
+    self.alertView.firstAndSecondRatio = firstAndSecondRatio;
+}
 
 
 @end

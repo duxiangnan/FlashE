@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, FEAlertActionStyle)
 @property (nonatomic, copy) NSString * title;
 @property (nonatomic, copy) NSString *message;
 
+@property (nonatomic, assign) float firstAndSecondRatio; //default 1.0 
 /**
  An array of NYAlertAction objects representing the actions that the user can take in response to the alert view
  */

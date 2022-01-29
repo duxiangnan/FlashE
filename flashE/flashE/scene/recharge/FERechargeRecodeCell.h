@@ -10,9 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FERechargeRecodeCell : UITableViewCell
-
-
-- (void) setModel;
+@property (nonatomic,copy) void(^commondAction)(NSNumber* type);
 @end
 
 NS_ASSUME_NONNULL_END

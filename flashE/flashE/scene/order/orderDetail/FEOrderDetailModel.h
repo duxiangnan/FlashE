@@ -73,6 +73,7 @@
 @property (nonatomic, assign) CGFloat orderDetailHeaderCellH;
 @property (nonatomic, assign) CGFloat orderDetailHeaderMapH;
 @property (nonatomic, assign) CGFloat orderDetailHeaderBottomH;
+@property (nonatomic, assign) CGFloat orderDetailHeaderBGH;
 
 @property (nonatomic, assign) CGFloat orderDetailLogisticCellH;
 @property (nonatomic, assign) CGFloat orderDetailLogisticTableH;

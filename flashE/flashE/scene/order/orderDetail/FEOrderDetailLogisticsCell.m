@@ -26,6 +26,12 @@
 @end
 
 @implementation FEOrderDetailLogisticsItemCell
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.accessoryType = UITableViewCellAccessoryNone;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
 - (void) setModel:(FEOrderDtailLogisticModel*)model {
     _model = model;
     NSString* image = [[FEAccountManager sharedFEAccountManager] getPlatFormInfo:model.logistic type:FEPlatforeKeyFlage];
@@ -66,7 +72,8 @@
     [super awakeFromNib];
     self.accessoryType = UITableViewCellAccessoryNone;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
+    self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);//UIColor.clearColor;//
+//    self.backgroundColor = UIColor.clearColor;
     [self.table registerNib:[UINib nibWithNibName:@"FEOrderDetailLogisticsItemCell" bundle:nil] forCellReuseIdentifier:@"FEOrderDetailLogisticsItemCell"];
     
 //    self.table.selection = UITableViewCellSelectionStyleNone;
@@ -74,6 +81,7 @@
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.table.separatorColor = [UIColor clearColor];
     
+    self.table.scrollEnabled = NO;
     self.table.estimatedRowHeight = 0;
     self.table.estimatedSectionHeaderHeight = 0;
     self.table.estimatedSectionFooterHeight = 0;
@@ -105,7 +113,6 @@
     self.headerViewH.constant = model.orderDetailLogisticHeaderH;
     self.orderInfoLb.text = [NSString stringWithFormat:@"本单由“%@”为您配送",model.logisticName];
     self.orderNumLB.text = [NSString stringWithFormat:@"单号：%lld",model.orderId];
-#warning waitServerSure totalAmountLB.text
     self.totalAmountLB.text = @"";//@"未知字段";
     self.table.hidden = model.orderDetailLogisticTableH == 0;
 

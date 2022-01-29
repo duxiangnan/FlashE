@@ -75,7 +75,6 @@
 {
     CLLocationCoordinate2D coorinate = [self.annotation coordinate];
     
-    NSLog(@"coordinate = {______%f, %f}", coorinate.latitude, coorinate.longitude);
 }
 
 #pragma mark - Override

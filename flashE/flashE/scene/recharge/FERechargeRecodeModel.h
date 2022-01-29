@@ -9,7 +9,7 @@
 
 @property (nonatomic, copy) NSString *title;
 
-@property (nonatomic, assign) NSInteger amount;
+@property (nonatomic, assign) float amount;
 
 @property (nonatomic, assign) long long createTime;
 @property (nonatomic, copy) NSString* createTimeStr;

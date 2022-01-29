@@ -7,52 +7,34 @@
 
 #import "FEOrderDetailVC.h"
 #import "FEDefineModule.h"
-#import "FEOrderDetailModel.h"
-#import "FEOrderDetailHeaderCell.h"
-#import "FEOrderDetailLogisticsCell.h"
-#import "FEOrderDetailAddressCell.h"
-#import "FEOrderDetailInfoCell.h"
-#import "FEOrderDetailLinkCell.h"
+//#import "FEOrderDetailModel.h"
+#import "FEOrderMapView.h"
+//#import "FEOrderDetailHeaderCell.h"
+//#import "FEOrderDetailLogisticsCell.h"
+//#import "FEOrderDetailAddressCell.h"
+//#import "FEOrderDetailInfoCell.h"
+//#import "FEOrderDetailLinkCell.h"
 
 #import <zhPopupController/zhPopupController.h>
 #import "FETipModel.h"
 #import "FETipSettingView.h"
 
-typedef enum : NSUInteger {
-    FEOrderDetailCellHeader = 0,
-    FEOrderDetailCellLogistics,
-    FEOrderDetailCellAddress,
-    FEOrderDetailCellInfo,
-    FEOrderDetailCellLink,//联系商家客服
-    
-    
-} FEOrderDetailCellType;
+#import "FEOrderDetailList.h"
 
 
 
-@interface FEOrderDetailCellModel:NSObject
-@property (nonatomic,assign) FEOrderDetailCellType type;
-@property (nonatomic,assign) CGFloat cellHeight;
 
-
-@end
-@implementation FEOrderDetailCellModel
-
-@end
-
-
-@interface FEOrderDetailVC ()
-@property (nonatomic,weak) IBOutlet UIButton* backBtn;
-@property (nonatomic,weak) IBOutlet UITableView* table;
-@property (nonatomic,weak) IBOutlet NSLayoutConstraint* tableB;
-@property (nonatomic,weak) IBOutlet NSLayoutConstraint* backBtnTop;
-
-@property (nonatomic, strong) FEOrderDetailModel* model;
-@property (nonatomic, copy) NSMutableArray<FEOrderDetailCellModel*>* cellModel;
-
+@interface FEOrderDetailVC ()<UIGestureRecognizerDelegate,FEOrderDetailListDelegate>
+@property (nonatomic,strong)  FEOrderMapView* mapView;
+@property (nonatomic,strong) FEOrderDetailList* table;
 
 @property (nonatomic,strong) zhPopupController* popupController;
 @property (nonatomic,strong) FETipSettingView* tipView;
+
+@property (nonatomic,assign) CGFloat scrollViewOriginalY;
+@property (nonatomic,strong) UIButton *freshBtn;
+@property (nonatomic,strong) UIButton *backBtn;
+
 @end
 
 @implementation FEOrderDetailVC
@@ -66,7 +48,7 @@ typedef enum : NSUInteger {
         
     
         [FFRouter registerObjectRouteURL:@"order://createOrderDetail" handler:^id(NSDictionary *routerParameters) {
-            FEOrderDetailVC* vc = [[FEOrderDetailVC alloc] initWithNibName:@"FEOrderDetailVC" bundle:nil];
+            FEOrderDetailVC* vc = [[FEOrderDetailVC alloc] init];
             vc.orderId = routerParameters[@"orderId"];
             vc.actionComplate = routerParameters[@"actionComplate"];
             vc.hidesBottomBarWhenPushed = YES;
@@ -74,169 +56,41 @@ typedef enum : NSUInteger {
         }];
     });
 }
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     self.title = @"订单详情";
-    self.fd_prefersNavigationBarHidden = NO;
-    self.backBtn.hidden = YES;
-    self.backBtnTop.constant = kHomeInformationBarHeigt + 6;
-    
-    self.table.tableFooterView = [UIView new];
-    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.table.separatorColor = [UIColor clearColor];
-    
-    self.table.estimatedRowHeight = 0;
-    self.table.estimatedSectionHeaderHeight = 0;
-    self.table.estimatedSectionFooterHeight = 0;
-    if (@available(iOS 11.0, *)) {
-        self.table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    [self.table registerNib:[UINib nibWithNibName:@"FEOrderDetailHeaderCell" bundle:nil]
-       forCellReuseIdentifier:@"FEOrderDetailHeaderCell"];
-    [self.table registerNib:[UINib nibWithNibName:@"FEOrderDetailLogisticsCell" bundle:nil]
-       forCellReuseIdentifier:@"FEOrderDetailLogisticsCell"];
-    [self.table registerNib:[UINib nibWithNibName:@"FEOrderDetailAddressCell" bundle:nil]
-       forCellReuseIdentifier:@"FEOrderDetailAddressCell"];
-    [self.table registerNib:[UINib nibWithNibName:@"FEOrderDetailInfoCell" bundle:nil]
-       forCellReuseIdentifier:@"FEOrderDetailInfoCell"];
-    [self.table registerNib:[UINib nibWithNibName:@"FEOrderDetailLinkCell" bundle:nil]
-       forCellReuseIdentifier:@"FEOrderDetailLinkCell"];
-    
-    self.tableB.constant = kHomeIndicatorHeight;
-    
+    [self.view addSubview:self.mapView];
+    [self.view addSubview:self.table];
+    [self.view addSubview:self.backBtn];
+    [self.view addSubview:self.freshBtn];
     @weakself(self);
     self.emptyAction = ^{
         @strongself(weakSelf);
-        [strongSelf requestShowData];
+        [strongSelf.table requestShowData];
     };
+    [self addGesture];
+    
 }
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self requestShowData];
+    [self.table requestShowData];
 }
 - (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.emptyFrame = self.table.frame;
+    self.emptyFrame = self.view.frame;
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
 }
-- (IBAction) backBtnAction:(id) sender{
-    
-    [self.navigationController popViewControllerAnimated:YES];
+
+- (void) freshAction:(id)sender {
+    [self.table requestShowData];
 }
-
-- (void) requestShowData {
-
-    NSMutableDictionary* param = [NSMutableDictionary dictionary];
-    param[@"orderId"] = self.orderId;
-    @weakself(self);
-    [[FEHttpManager defaultClient] GET:@"/deer/orders/getDetail" parameters:param success:^(NSInteger code, id  _Nonnull response) {
-        @strongself(weakSelf);
-        strongSelf.model = [FEOrderDetailModel yy_modelWithDictionary:response[@"data"]];
-        if (strongSelf.model.status == 20 || strongSelf.model.status == 30 || strongSelf.model.status == 40 ){
-            strongSelf.fd_prefersNavigationBarHidden = YES;
-            [strongSelf.navigationController setNavigationBarHidden:YES];
-            strongSelf.backBtn.hidden = NO;
-//            10代接单；20已接单；30已到店；40配送中；50已完成；60已取消；70配送失败
-            [strongSelf requestCourierLocation];
-        } else {
-            strongSelf.fd_prefersNavigationBarHidden = NO;
-            [strongSelf.navigationController setNavigationBarHidden:NO];
-            strongSelf.backBtn.hidden = YES;
-            [strongSelf calculataionModel];
-            [strongSelf.table reloadData];
-        }
-    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
-        [MBProgressHUD showMessage:error.localizedDescription];
-    } cancle:^{
-
-    }];
-}
-
-- (void) requestCourierLocation {
-    
-    NSMutableDictionary* param = [NSMutableDictionary dictionary];
-    param[@"orderId"] = self.orderId;
-    @weakself(self);
-    [[FEHttpManager defaultClient] GET:@"/deer/orders/getCourierLocation" parameters:param success:^(NSInteger code, id  _Nonnull response) {
-        @strongself(weakSelf);
-        NSDictionary* data = response[@"data"];
-        if (data) {
-            strongSelf.model.orderId = ((NSNumber*)data[@"orderId"]).longLongValue;
-            strongSelf.model.status = ((NSNumber*)data[@"orderStatus"]).integerValue;
-            strongSelf.model.statusName = [FEPublicMethods SafeString:data[@"statusName"]];
-            strongSelf.model.courierName = [FEPublicMethods SafeString:data[@"statusName"]];
-            strongSelf.model.courierMobile = [FEPublicMethods SafeString:data[@"courierMobile"]];
-            strongSelf.model.courierLatitude = [FEPublicMethods SafeString:data[@"latitude"]];
-            strongSelf.model.courierLongitude = [FEPublicMethods SafeString:data[@"longitude"]];
-            if ([data[@"uploadTime"] isKindOfClass:[NSNumber class]]) {
-                strongSelf.model.systemTime = ((NSNumber*)data[@"uploadTime"]).longLongValue;
-            }
-        }
-    
-        [strongSelf.model makeUpdaSubKey];
-        [strongSelf calculataionModel];
-        
-        
-    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
-//        [MBProgressHUD showMessage:error.localizedDescription];
-    } cancle:^{
-
-    }];
-    [self performSelector:@selector(requestCourierLocation) withObject:nil afterDelay:5];
-}
-
-- (void) calculataionModel{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray*arr = [NSMutableArray array];
-        if(self.model) {
-            FEOrderDetailCellModel* item = [FEOrderDetailCellModel new];
-            item.type = FEOrderDetailCellHeader;
-            item.cellHeight = [FEOrderDetailHeaderCell calculationCellHeight:self.model];
-            [arr addObject:item];
-            
-            item = [FEOrderDetailCellModel new];
-            item.type = FEOrderDetailCellLogistics;
-            item.cellHeight = [FEOrderDetailLogisticsCell calculationCellHeight:self.model];
-            [arr addObject:item];
-            
-            item = [FEOrderDetailCellModel new];
-            item.type = FEOrderDetailCellAddress;
-            item.cellHeight = [FEOrderDetailAddressCell calculationCellHeight:self.model];
-            [arr addObject:item];
-            
-            item = [FEOrderDetailCellModel new];
-            item.type = FEOrderDetailCellInfo;
-            item.cellHeight = [FEOrderDetailInfoCell calculationCellHeight:self.model];
-            [arr addObject:item];
-            
-            item = [FEOrderDetailCellModel new];
-            item.type = FEOrderDetailCellLink;
-            item.cellHeight = self.model.logistic.length>0?80:0;
-            [arr addObject:item];
-        }
-        self.cellModel = arr;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-        
-            if(!self.model) {
-                [self showEmptyViewWithType:YES];
-            }
-            
-            [self.table reloadData];
-        });
-    });
-    
-}
-
-- (void) addCheckAction:(FEOrderDetailModel*)model view:(UIView*)view{
-    self.tipView.userObject = model;
+- (void) addCheckAction {
     self.popupController = [[zhPopupController alloc] initWithView:self.tipView
                                                           size:self.tipView.bounds.size];
     self.popupController.presentationStyle = zhPopupSlideStyleFromBottom;
@@ -245,185 +99,285 @@ typedef enum : NSUInteger {
     self.popupController.dismissonTransformScale = 0.85;
     [self.popupController showInView:self.view.window completion:NULL];
 }
-- (void) requestAddCheck:(FEOrderDetailModel*) model check:(NSInteger) check {
-    NSMutableDictionary* param = [NSMutableDictionary dictionary];
-    param[@"orderId"] = @(model.orderId);
-    param[@"amount"] = @(check);
-    @weakself(self);
-    [[FEHttpManager defaultClient] POST:@"/deer/orders/createTipsOrder" parameters:param
-                                success:^(NSInteger code, id  _Nonnull response) {
-        @strongself(weakSelf);
-        [MBProgressHUD showMessage:[FEPublicMethods SafeString:response[@"msg"] withDefault:@"操作成功"]];
-        [strongSelf requestShowData];
-    } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
-        [MBProgressHUD showMessage:error.localizedDescription];
-    } cancle:^{
+
+- (void) updateSubViewFrame {
+    CGFloat topy = self.backBtn.center.y - self.freshBtn.height/2;
+    
+    self.freshBtn.y = MAX(self.table.y - 16 - self.freshBtn.height, topy) ;
+
+}
+
+
+#pragma mark - scrollview delegate
+- (void)mainScrollViewDidScroll:(UIScrollView *)scrollView {
+    if ([scrollView isKindOfClass:[self.table class]]) {
+        if (scrollView.contentOffset.y <= 0) {
+            self.table.panGesture.enabled = YES;
+        }else {
+            self.table.panGesture.enabled = NO;
+        }
+    }
+}
+
+
+-(void)mainScrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+//    if (!decelerate) {
+//        BOOL dragToDragStop = scrollView.tracking && !scrollView.dragging && !scrollView.decelerating;
+//        if (dragToDragStop) {
+//            [self scrollViewDidEndScroll];
+//        }
+//    }
+}
+
+-(void)mainScrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+//    BOOL scrollToScrollStop = !scrollView.tracking && !scrollView.dragging && !scrollView.decelerating;
+//    if (scrollToScrollStop) {
+//        [self scrollViewDidEndScroll];
+//    }
+}
+
+
+#pragma mark scrollView 滚动停止
+- (void)scrollViewDidEndScroll {
+    
+    //记录之前已曝光的cell
+//    NSMutableArray *lastAdInfoIds = [self.mainAdListView.lastAdInfoItemIds copy];
+//    //清空，重新记录
+//    [self.mainAdListView.lastAdInfoItemIds removeAllObjects];
+//    
+//    
+//    for (NSIndexPath *index in self.mainAdListView.indexPathsForVisibleRows) {
+//        
+//        UITableViewCell *cell = [self.mainAdListView cellForRowAtIndexPath:index];
+//        CGRect cellRect = [cell convertRect:cell.bounds toView:nil];
+//        CGRect visibleWindowRect = CGRectMake(0, self.MainTopDropView.bottom+8, ScreenWidth, ScreenHeight-self.MainTopDropView.height-8);
+//        
+//        //只有漏出来的cell才打点，如果想全部漏出来改为CGRectContainsRect即可
+//        if (CGRectIntersectsRect(visibleWindowRect, cellRect)) {
+//            
+//            if (self.mainAdListView.dataArray.count > 0 && index.row < self.mainAdListView.dataArray.count) {
+//                SSAdvertInfoModel *item = self.mainAdListView.dataArray[index.row];
+//                
+//                
+//                if (![lastAdInfoIds containsObject:[SSTool convertNull:item.advertId]]) {//做下已曝光的item记录，避免重复曝光
+//                    kStatisticsProperties(StatisticsEventAdvertizement, (@{StatisticsTag:Statistics_AdShow,Statistics_Adv_Id:[SSTool convertNull:item.advertId],Statistics_Adv_Contact_Position:ADTYPE_HOME_LIST,Statistics_Adv_Launch_City:[SSTool convertNull:getCurrentCityName],Statistics_Adv_Operation:Statistics_Adv_Operation_Name,Statistics_Adv_Platform:Statistics_Adv_Platform_Name,Statistics_Adv_Page:Statistics_Adv_HomePage}));
+//                    BEIDOU_VIEW_RIST_MANAGEMENT_BURIEDPOINT(BEIDOU_ADV_CONTENT_VIEW, (@{BEIDOU_ADV_ID:[SSTool convertNull:item.advertId],BEIDOU_ADV_CONTENT_POSITION:ADTYPE_HOME_LIST,BEIDOU_ADV_LAUNCH_CITY:[SSTool convertNull:getCurrentCityName],BEIDOU_ADV_OPERATION:BEIDOU_ADV_OPERATION_NAME,BEIDOU_ADV_PLATFORM:BEIDOU_ADV_PLATFORM_NAME,BEIDOU_ADV_PAGE:BEIDOU_ADV_HOMEPAGE}));
+//                }
+//                
+//                [self.mainAdListView.lastAdInfoItemIds addObject:[SSTool convertNull:item.advertId]];
+//
+//            }
+//        }
+//        
+//    }
+}
+
+
+
+
+
+#pragma mark - 滑动相关
+- (void)addGesture {
+    
+    UIPanGestureRecognizer *pan1 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+    [self.table addGestureRecognizer:pan1];
+    pan1.delegate = self;
+    self.table.panGesture = pan1;
+    [self.table addObserver:self forKeyPath:@"frame" options:(NSKeyValueObservingOptionNew) context:nil];
+    
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"frame"]) {
+        //106 blue 644/2 clear
+        [self updateSubViewFrame];
+//        CGFloat minY = 106 * (kScreenHeight/812);
+//        CGFloat maxY = 644/2 * (kScreenHeight/812);
+//
+//        CGFloat alpha = ( self.table.y - minY) / (maxY - minY);
+//
+//        alpha = MIN(alpha, 1);
+//        alpha = MAX(alpha, 0);
+//
+//        self.topAdvertisementView.alpha = alpha;
+//
+//        self.mainAdListBgView.alpha = 1 - alpha;
+//
+//        //滑动到dropView底下时，将dropView显示出来
+//        if (self.table.top < self.MainTopDropView.height) {
+//            self.MainTopDropView.hidden = NO;
+//        }else {
+//            self.MainTopDropView.hidden = YES;
+//        }
+//
+//
+//        CGFloat alpha1 = (self.table.y - [self maxListViewTop]/2)/([self maxListViewTop]/2);
+//       //644 alpha = 1 644/2 alpha = 0
+//        self.mainAdListShadowView.alpha = alpha1;
+
+          
+    }
+}
+
+- (void)pan:(UIPanGestureRecognizer *)gesture {
+//    NSLog(@"%s gesture.state %d \n\n,self.panGesture.enabled %d",__func__,gesture.state,self.panGesture.enabled);
+    
+    switch (gesture.state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            self.scrollViewOriginalY = CGRectGetMinY(self.table.frame);
+        } break;
+        case UIGestureRecognizerStateChanged:
+        {
+            if (self.table.y <= [self minListViewTop]) {//滑动到最顶部，可以滑动
+                self.table.scrollEnabled = YES;
+            }else {
+                self.table.scrollEnabled = NO;
+            }
+            UIPanGestureRecognizer * pan = gesture;
+            CGPoint offset = [pan translationInView:pan.view];
+            if (offset.y < 0) {//up
+                self.table.direction = FEOrderDetailDirectionUp;
+                if (self.table.listState == FEOrderDetailStateTop) {
+
+                }else if (self.table.listState == FEOrderDetailStateBottom) {
+                    //从底下往上滑，需要scrollView跟手指移动
+                    [self.table setY:self.scrollViewOriginalY + offset.y];
+                }
+            }else {//down
+                self.table.direction = FEOrderDetailDirectionDown;
+                if (self.table.y <= kScreenHeight - 100) {
+                    //从上往下滑，需要scrollView跟手指移动
+                    [self.table setY:self.scrollViewOriginalY + offset.y];
+                }
+            }
+        } break;
+        case UIGestureRecognizerStateEnded:
+        {
+            [self scrollAdList:self.table];
+            self.table.direction = FEOrderDetailDirectionUnknow;
+        }break;
+        case UIGestureRecognizerStateCancelled:
+            break;
+        default:
+            break;
+    }
+}
+
+
+- (void)scrollAdList:(UIScrollView *)scrollView {
+    
+    if (self.table.scrollEnabled == NO) {
         
+        if (self.table.direction == FEOrderDetailDirectionDown) {
+            if (self.table.y > [self.mapView getMinHeight]) {
+                // 向下滚动
+                [self scrollToBottom];
+            }else {
+                [self scrollToTop];
+            }
+        } else if (self.table.direction == FEOrderDetailDirectionUp) {
+            if (self.scrollViewOriginalY - self.table.y > 50 ) {
+                // 向上滚动
+                [self scrollToTop];
+            } else {
+                [self scrollToBottom];
+            }
+        }
+    }
+}
+
+/// 广告可滑动的最顶
+- (CGFloat)minListViewTop {
+    return [self.mapView getMinHeight];
+}
+
+/// 广告可滑动的最底
+- (CGFloat)maxListViewTop {
+    return kScreenHeight-[self.mapView getMaxHeight] - 20;
+}
+
+
+- (void)scrollToTop {
+    [UIView animateWithDuration:0.35 animations:^{
+        //隐藏首次显示的提示条
+        [self.table setY:[self minListViewTop]];
+        self.table.listState = FEOrderDetailStateTop;
+    } completion:^(BOOL finished) {
+        if (self.table.y <= [self minListViewTop]) {
+            self.table.scrollEnabled = YES;
+        }else {
+            self.table.scrollEnabled = NO;
+        }
+    }];
+    
+}
+
+
+- (void)scrollToBottom {
+
+    [UIView animateWithDuration:0.35 animations:^{
+        [self.table setY:[self maxListViewTop]];
+        self.table.listState = FEOrderDetailStateBottom;
+        //setContentOffset是因为在上面时有可能滑动过tableView。
+        [self.table setContentOffset:CGPointZero animated:NO];
+
+    }completion:^(BOOL finished) {
+        self.table.scrollEnabled = NO;
     }];
 }
 
-- (void)cellCommond:(FEOrderDetailModel*) model type:(FEOrderCommondType)type view:(UIView*)view{
-    
-    switch (type) {
-        case FEOrderCommondAddCheck:{
-            [self addCheckAction:model view:view];
-        }break;
-        case FEOrderCommondRetry:{
-            NSString* orderId = [NSString stringWithFormat:@"%lld",model.orderId];
-            FEBaseViewController* vc = [FFRouter routeObjectURL:@"order://createOrder"
-                                                 withParameters:@{@"orderId":orderId}];
-            [self.navigationController pushViewController:vc animated:YES];
-        }break;
-        case FEOrderCommondCallRider:{
-            NSString* phone = [NSString stringWithFormat:@"tel://%@",model.courierMobile];
-            [FEPublicMethods openUrlInSafari:phone];
-        }break;
-        case FEOrderCommondCancel:{
-            [self makeSureCancleOrder:model view:view];
-            
-        }
-        default:
-            break;
-    }
-};
-
-- (void) makeSureCancleOrder:(FEOrderDetailModel*) model view:(UIView*)view{
-    NSString* msg = nil;
-    switch (model.status) {
-        case 10://待接单
-            msg = @"系统正在为您筛选合适骑手，请您稍等一下～";
-            break;
-        case 20://待取单
-            msg = @"骑手小哥已在来店途中～";
-            break;
-        case 40://配送中
-//        case 30:
-            msg = @"骑手小哥已在配送途中啦，如您取消，可能会产生扣款哦～";
-        default:
-            break;
-    }
-    FEAlertView* alert = [[FEAlertView alloc] initWithTitle:@"取消提示" message:msg];
-    [alert addAction:[FEAlertAction actionWithTitle:@"暂不取消"
-                                              style:FEAlertActionStyleCancel
-                                            handler:nil]];
-    [alert addAction:[FEAlertAction actionWithTitle:@"确定取消"
-                                              style:FEAlertActionStyleDefault
-                                            handler:^(FEAlertAction *action) {
-        NSMutableDictionary* param = [NSMutableDictionary dictionary];
-        param[@"orderId"] = @(model.orderId);
-        param[@"reason"] = @"不要配送";
-        @weakself(self);
-        [[FEHttpManager defaultClient] POST:@"/deer/orders/cancleOrder" parameters:param
-                                    success:^(NSInteger code, id  _Nonnull response) {
-            @strongself(weakSelf);
-            NSDictionary* dic = response[@"data"];
-            
-            NSString* title = [FEPublicMethods SafeString:dic[@"title"] withDefault:@"取消结果"];
-            NSString* msg = [FEPublicMethods SafeString:dic[@"cancelTips"] withDefault:@"取消成功"];
-            FEAlertView* alter = [[FEAlertView alloc] initWithTitle:title message:msg];
-            [alter addAction:[FEAlertAction actionWithTitle:@"知道了"
-                          style:FEAlertActionStyleDefault handler:^(FEAlertAction *action) {
-                [strongSelf requestShowData];
-            }]];
-            [alter show];
-        } failure:^(NSError * _Nonnull error, id  _Nonnull response) {
-            [MBProgressHUD showMessage:error.localizedDescription];
-        } cancle:^{
-        }];
-        
-    }]];
-    [alert show];
-    
-    
-}
-
-
-#pragma mark - tableView delegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell* tmpCell = nil;
-    FEOrderDetailCellModel* item = self.cellModel[indexPath.row];
-    if (item) {
-        switch (item.type) {
-            case FEOrderDetailCellHeader:{
-                FEOrderDetailHeaderCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FEOrderDetailHeaderCell"];
-                [cell setModel:self.model];
-                @weakself(self);
-                cell.refreshActoin = ^{
-                    @strongself(weakSelf);
-                    [strongSelf requestShowData];
-                };
-                cell.cellCommondActoin = ^(FEOrderCommondType type) {
-                    @strongself(weakSelf);
-                    [strongSelf cellCommond:self.model type:type view:cell];
-                };
-                tmpCell = cell;
-            }break;
-            case FEOrderDetailCellLogistics:{
-                FEOrderDetailLogisticsCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FEOrderDetailLogisticsCell"];
-                [cell setModel:self.model];
-                tmpCell = cell;
-            }break;
-            case FEOrderDetailCellAddress:{
-                FEOrderDetailAddressCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FEOrderDetailAddressCell"];
-                [cell setModel:self.model];
-                tmpCell = cell;
-            }break;
-            case FEOrderDetailCellInfo:{
-                FEOrderDetailInfoCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FEOrderDetailInfoCell"];
-                [cell setModel:self.model];
-                tmpCell = cell;
-            }break;
-            case FEOrderDetailCellLink: {
-                FEOrderDetailLinkCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FEOrderDetailLinkCell"];
-                [cell setModel:self.model];
-                tmpCell = cell;
-            }break;
-            default:{
-                tmpCell = [tableView dequeueReusableCellWithIdentifier:@"defaultCell"];
-                if (!tmpCell) {
-                    tmpCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell"];
-                }
-            }break;
-        }
-    }
-    return tmpCell;
-
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-
-    return self.cellModel.count;
-}
-
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    FEOrderDetailCellModel* item = self.cellModel[indexPath.row];
-    if (item) {
-        return item.cellHeight;
-    }
-    return 0;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    FEOrderDetailCellModel* item = self.cellModel[indexPath.row];
-    if (item) {
-     
-    }
-}
 
 
 #pragma mark 懒加载
+- (FEOrderDetailList*) table {
+    if (!_table) {
+        @weakself(self);
+        CGRect frame = CGRectMake(0, self.mapView.height, kScreenWidth, kScreenHeight - self.mapView.height);
+        _table = [[FEOrderDetailList alloc] initWithFrame:frame style:UITableViewStylePlain];
+        _table.vc = self;
+        _table.mainDelegate = self;
+        _table.orderId = self.orderId;
+        _table.tipAcion = ^{
+            @strongself(weakSelf);
+            [strongSelf addCheckAction];
+        };
+        _table.loadModelAction = ^{
+            @strongself(weakSelf);
+            if (strongSelf.table.model) {
+                if (strongSelf.table.model.status == 10 ||
+                    strongSelf.table.model.status == 20 ||
+                    strongSelf.table.model.status == 30||
+                    strongSelf.table.model.status == 40) {
+                    strongSelf.freshBtn.hidden = NO;
+                } else {
+                    strongSelf.freshBtn.hidden = YES;
+                }
+            } else {
+                [strongSelf showEmptyViewWithType:YES];
+                [strongSelf.view bringSubviewToFront:strongSelf.backBtn];
+                [strongSelf.view bringSubviewToFront:strongSelf.freshBtn];
+            }
+            
+            [strongSelf.mapView setModel:strongSelf.table.model];
+        };
+        if (@available(iOS 11.0, *)) {
+            _table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
+        _table.backgroundColor = UIColor.clearColor;
+        _table.tableFooterView = [UIView new];
+        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _table.separatorColor = [UIColor clearColor];
+        
+        _table.estimatedRowHeight = 0;
+        _table.estimatedSectionHeaderHeight = 0;
+        _table.estimatedSectionFooterHeight = 0;
+    }
+    return _table;
+}
+
 - (FETipSettingView*) tipView {
     if (!_tipView) {
         _tipView = [[NSBundle mainBundle] loadNibNamed:@"FETipSettingView" owner:self options:nil].firstObject;
@@ -432,8 +386,7 @@ typedef enum : NSUInteger {
         @weakself(self);
         _tipView.sureAction = ^(FETipModel*item) {
             @strongself(weakSelf);
-            FEOrderDetailModel*model = strongSelf.tipView.userObject;
-            [strongSelf requestAddCheck:model check:item.code];
+            [strongSelf.table requestAddCheck:item.code];
             [strongSelf.popupController dismiss];
         };
         _tipView.cancleAction = ^{
@@ -444,5 +397,39 @@ typedef enum : NSUInteger {
     return _tipView;
     
 }
+- (FEOrderMapView*) mapView{
+    if (!_mapView) {
+        _mapView = [[FEOrderMapView alloc] init];
+        _mapView.frame = CGRectMake(0, 0, kScreenWidth, [_mapView getMinHeight]);
+        [_mapView setModel:nil];
+    }
+    return _mapView;
+}
+
+
+- (UIButton* ) freshBtn {
+    if (!_freshBtn) {
+        _freshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _freshBtn.frame = CGRectMake(kScreenWidth - 16 - 42, 0, 42, 42);
+        [_freshBtn setImage:[UIImage imageNamed:@"fe_order_fresh"] forState:UIControlStateNormal];
+        [_freshBtn addTarget:self action:@selector(freshAction:) forControlEvents:UIControlEventTouchUpInside];
+//        _freshBtn.hidden = YES;
+    }
+    return _freshBtn;
+}
+
+- (UIButton*) backBtn {
+    if (!_backBtn) {
+        _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _backBtn.frame = CGRectMake(16, kHomeInformationBarHeigt + (44-34)/2, 34, 34);
+        [_backBtn setImage:[UIImage imageNamed:@"back_item_white_circle"] forState:UIControlStateNormal];
+        [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _backBtn;
+}
+
+
+
 
 @end

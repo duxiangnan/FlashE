@@ -463,24 +463,27 @@
     [self.actionButtons makeObjectsPerformSelector:@selector(removeFromSuperview) withObject:nil];
     _actionButtons = actionButtons;
     if ([actionButtons count] == 2) {
+        CGFloat width = self.bgViewW - 20*2-10;
+        CGFloat leftW = width/2*self.firstAndSecondRatio;
+        CGFloat rightW = width = leftW;
         UIButton *firstButton = actionButtons[0];
         UIButton *lastButton = actionButtons[1];
         [self.actionButtonContainerView addSubview:firstButton];
         [self.actionButtonContainerView addSubview:lastButton];
         
         [firstButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.actionButtonContainerView.mas_left).offset(20);
+            make.left.equalTo(self.actionButtonContainerView.mas_left);
             make.right.equalTo(lastButton.mas_left).offset(-10);
             make.top.equalTo(self.actionButtonContainerView.mas_top).offset(20);
             make.height.mas_equalTo(@(40));
-            make.width.equalTo(lastButton.mas_width);
+            make.width.mas_equalTo(@(leftW));
         }];
         [lastButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(firstButton.mas_right).offset(10);
-            make.right.equalTo(self.actionButtonContainerView.mas_right).offset(-10);
+            make.right.equalTo(self.actionButtonContainerView.mas_right);
             make.top.equalTo(self.actionButtonContainerView.mas_top).offset(20);
             make.height.mas_equalTo(@(40));
-            make.width.equalTo(firstButton.mas_width);
+            make.width.mas_equalTo(@(rightW));
         }];
         firstButton.layer.cornerRadius = 20;
         lastButton.layer.cornerRadius = 20;
