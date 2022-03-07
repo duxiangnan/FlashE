@@ -221,8 +221,8 @@
         _maximumHeight = MAX(CGRectGetHeight(backBound),CGRectGetWidth(backBound)) * 0.8f;
         _bgViewH = _maximumHeight;
         _bgViewW = _maximumWidth;
-        _titleTopMargin = 10;
-        _messageTopMargin = 10;
+        _titleTopMargin = 20;
+        _messageTopMargin = 15;
         _contentViewTopMargin = 10;
         _actionTopMargin = 10;
         _buttonBottomMargin = 10;
@@ -352,7 +352,7 @@
     
     CGFloat h = 10;
     if (self.title.length > 0) {
-        self.titleTopMargin = 10;
+        self.titleTopMargin = 20;
         
         CGFloat width = alWidth - self.titleLeadingAndTrailingPadding*2;
         CGSize size = [@"a" sizeWithFont:self.titleLabel.font andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
@@ -367,6 +367,7 @@
     }
     
     if (self.contentViewH > 0) {
+        self.contentViewTopMargin = 15;
         h += self.contentViewTopMargin;
         h += self.contentViewH;
     } else {
@@ -382,7 +383,7 @@
     h += self.buttonBottomMargin;
     
     if (self.message.length > 0) {
-        self.messageTopMargin = 10;
+        self.messageTopMargin = 15;
         CGFloat width = alWidth - self.messageLeadingAndTrailingPadding*2;
         CGSize size = [self.message sizeWithFont:self.messageFont andMaxSize:CGSizeMake(width, CGFLOAT_MAX)];
         CGFloat tmpH = self.maximumHeight - self.messageTopMargin - h;

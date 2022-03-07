@@ -115,7 +115,7 @@
 - (UILabel*) titleLB {
     if (!_titleLB) {
         _titleLB = [[UILabel alloc] init];
-        _titleLB.font = [UIFont systemFontOfSize:16];
+        _titleLB.font = [UIFont regularFont:16];
         _titleLB.textColor = UIColorFromRGB(0x333333);
     }
     return _titleLB;
@@ -124,7 +124,7 @@
     if (!_desc) {
         _desc = [[UILabel alloc] init];
         _desc.textAlignment = NSTextAlignmentRight;
-        _desc.font = [UIFont systemFontOfSize:12];
+        _desc.font = [UIFont regularFont:12];
         _desc.textColor = UIColorFromRGB(0x555555);
     }
     return _desc;
@@ -133,7 +133,7 @@
     if (!_statusLB) {
         _statusLB = [[UILabel alloc] init];
         _statusLB.textAlignment = NSTextAlignmentCenter;
-        _statusLB.font = [UIFont systemFontOfSize:12];
+        _statusLB.font = [UIFont regularFont:12];
         _statusLB.textColor = UIColorFromRGB(0xF58423);
     }
     return _statusLB;

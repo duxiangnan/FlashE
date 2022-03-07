@@ -215,7 +215,7 @@
             msg = @"骑手小哥已在来店途中～";
             break;
         case 40://配送中
-//        case 30:
+        case 30:
             msg = @"骑手小哥已在配送途中啦，如您取消，可能会产生扣款哦～";
         default:
             break;
@@ -455,15 +455,15 @@
 
 -(JXCategoryNumberView *)categoryView{
     if(!_categoryView){
-        _categoryView = [[JXCategoryNumberView alloc] initWithFrame:CGRectMake(0, kHomeNavigationHeight, kScreenWidth, 40)];
+        _categoryView = [[JXCategoryNumberView alloc] initWithFrame:CGRectMake(0, kHomeNavigationHeight, kScreenWidth, 50)];
         _categoryView.delegate = self;
         _categoryView.titles = self.itemArr;
         _categoryView.backgroundColor = [UIColor whiteColor];
     
         _categoryView.titleColor = UIColorFromRGB(0x555555);
         _categoryView.titleSelectedColor = UIColorFromRGB(0x12B398);
-        _categoryView.titleFont = [UIFont systemFontOfSize:14];
-        _categoryView.titleSelectedFont = [UIFont boldSystemFontOfSize:16];
+        _categoryView.titleFont = [UIFont regularFont:14];
+        _categoryView.titleSelectedFont = [UIFont mediumFont:16];
         _categoryView.titleColorGradientEnabled = YES;
         _categoryView.defaultSelectedIndex = 0;
         self.lastIndex = _categoryView.defaultSelectedIndex;

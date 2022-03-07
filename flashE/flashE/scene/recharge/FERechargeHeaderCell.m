@@ -107,6 +107,7 @@
     
     self.accessoryType = UITableViewCellAccessoryNone;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.contentView.clipsToBounds = YES;
 //    self.contentView.backgroundColor = UIColorFromRGB(0xF6F7F9);
     self.hearderTopViewH.constant = kHomeNavigationHeight+70;
     self.hearderViewT.constant = kHomeNavigationHeight;

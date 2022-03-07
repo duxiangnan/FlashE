@@ -426,7 +426,7 @@
     [self.modifyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(@(width));
         make.height.mas_equalTo(40);
-        make.top.equalTo(self.contentView.mas_top).offset(10);
+        make.top.equalTo(self.contentView.mas_top).offset(16);
         make.left.equalTo(self.contentView.mas_left).offset(22);
         
     }];
@@ -434,7 +434,7 @@
     [self.deletedBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(@(width));
         make.height.mas_equalTo(40);
-        make.top.equalTo(self.contentView.mas_top).offset(10);
+        make.top.equalTo(self.contentView.mas_top).offset(16);
         make.right.equalTo(self.contentView.mas_right).offset(-22);
     }];
     

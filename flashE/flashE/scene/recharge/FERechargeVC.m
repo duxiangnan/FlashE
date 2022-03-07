@@ -234,9 +234,9 @@
             if (strongSelf.pagesManager.networkError) {
                 [MBProgressHUD showMessage:weakSelf.pagesManager.networkError.localizedDescription];
             }
-            if (strongSelf.list.count == 0) {
-                [strongSelf showEmptyViewWithType:YES];
-            }
+//            if (strongSelf.list.count == 0) {
+//                [strongSelf showEmptyViewWithType:YES];
+//            }
             [strongSelf.table reloadData];
         }];
     };
