@@ -1485,7 +1485,7 @@
 				CODE_SIGN_ENTITLEMENTS = flashE/flashE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: du xiangnan (4LW593PWQ9)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1012;
+				CURRENT_PROJECT_VERSION = 1013;
 				DEVELOPMENT_TEAM = 32U954HXU3;
 				DISPLAY_NAME_NEW = "小鹿急送_dev";
 				ENABLE_BITCODE = NO;
@@ -1585,7 +1585,7 @@
 				CODE_SIGN_ENTITLEMENTS = flashE/flashE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Beijing Angoluoke Information Technology Co., Ltd. (32U954HXU3)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1012;
+				CURRENT_PROJECT_VERSION = 1013;
 				DEVELOPMENT_TEAM = 32U954HXU3;
 				DISPLAY_NAME_NEW = "小鹿急送";
 				ENABLE_BITCODE = NO;
