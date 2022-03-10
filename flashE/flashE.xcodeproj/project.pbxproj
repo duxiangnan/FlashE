@@ -128,6 +128,8 @@
 		8BB6E0C027A5206C00C4E9FC /* FEOrderDetailList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB6E0BE27A5206B00C4E9FC /* FEOrderDetailList.m */; };
 		8BB6E0C627A5802200C4E9FC /* FERechargeRecodeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB6E0C527A5802200C4E9FC /* FERechargeRecodeInfoCell.m */; };
 		8BC05309275BB575004804A9 /* FECreateOrderLogisticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC05308275BB575004804A9 /* FECreateOrderLogisticModel.m */; };
+		8BC370DD27D8EA3100C3E6E2 /* FEOrderDetailRouterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC370DB27D8EA3100C3E6E2 /* FEOrderDetailRouterView.m */; };
+		8BC370E027D8EE3D00C3E6E2 /* FEOrderDetailRouterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BC370DF27D8EE3D00C3E6E2 /* FEOrderDetailRouterView.xib */; };
 		8BC87DC9279C56E600A8DC26 /* FEMyManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC87DC7279C56E600A8DC26 /* FEMyManagerVC.m */; };
 		8BC87DCA279C56E600A8DC26 /* FEMyManagerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BC87DC8279C56E600A8DC26 /* FEMyManagerVC.xib */; };
 		8BCFAA7D2746AE80004F9B75 /* FEStorePartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAA7B2746AE80004F9B75 /* FEStorePartModel.m */; };
@@ -382,6 +384,9 @@
 		8BB6E0C527A5802200C4E9FC /* FERechargeRecodeInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FERechargeRecodeInfoCell.m; sourceTree = "<group>"; };
 		8BC05307275BB575004804A9 /* FECreateOrderLogisticModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FECreateOrderLogisticModel.h; sourceTree = "<group>"; };
 		8BC05308275BB575004804A9 /* FECreateOrderLogisticModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FECreateOrderLogisticModel.m; sourceTree = "<group>"; };
+		8BC370DA27D8EA3100C3E6E2 /* FEOrderDetailRouterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEOrderDetailRouterView.h; sourceTree = "<group>"; };
+		8BC370DB27D8EA3100C3E6E2 /* FEOrderDetailRouterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEOrderDetailRouterView.m; sourceTree = "<group>"; };
+		8BC370DF27D8EE3D00C3E6E2 /* FEOrderDetailRouterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEOrderDetailRouterView.xib; sourceTree = "<group>"; };
 		8BC87DC6279C56E600A8DC26 /* FEMyManagerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEMyManagerVC.h; sourceTree = "<group>"; };
 		8BC87DC7279C56E600A8DC26 /* FEMyManagerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEMyManagerVC.m; sourceTree = "<group>"; };
 		8BC87DC8279C56E600A8DC26 /* FEMyManagerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FEMyManagerVC.xib; sourceTree = "<group>"; };
@@ -818,6 +823,9 @@
 				8BADD963274E8E2200FDDA68 /* FEOrderDetailVC.m */,
 				8BB6E0BF27A5206C00C4E9FC /* FEOrderDetailList.h */,
 				8BB6E0BE27A5206B00C4E9FC /* FEOrderDetailList.m */,
+				8BC370DA27D8EA3100C3E6E2 /* FEOrderDetailRouterView.h */,
+				8BC370DB27D8EA3100C3E6E2 /* FEOrderDetailRouterView.m */,
+				8BC370DF27D8EE3D00C3E6E2 /* FEOrderDetailRouterView.xib */,
 				8BADD968274E9B2900FDDA68 /* FEOrderDetailHeaderCell.h */,
 				8BADD969274E9B2900FDDA68 /* FEOrderDetailHeaderCell.m */,
 				8BADD96A274E9B2900FDDA68 /* FEOrderDetailHeaderCell.xib */,
@@ -1158,6 +1166,7 @@
 				8BCFAC4E274914C1004F9B75 /* FERechargeVC.xib in Resources */,
 				8BADD5D4274B484500FDDA68 /* FERechargeRecodeCell.xib in Resources */,
 				8BADD974274E9CED00FDDA68 /* FEOrderDetailLogisticsCell.xib in Resources */,
+				8BC370E027D8EE3D00C3E6E2 /* FEOrderDetailRouterView.xib in Resources */,
 				8B7A711F274F6FCE003CF41C /* FEOrderDetailLogisticsItemCell.xib in Resources */,
 				8BADD96C274E9B2900FDDA68 /* FEOrderDetailHeaderCell.xib in Resources */,
 				8BD9E3FB278B281C0067A222 /* LICENSE in Resources */,
@@ -1298,6 +1307,7 @@
 				8BD9E3FE278B281C0067A222 /* UIRefreshControl+AFNetworking.m in Sources */,
 				8B368AED273A1F2500B5C1AC /* FEDefineModule.m in Sources */,
 				8BC05309275BB575004804A9 /* FECreateOrderLogisticModel.m in Sources */,
+				8BC370DD27D8EA3100C3E6E2 /* FEOrderDetailRouterView.m in Sources */,
 				8B40F4CB2794136A00FC308B /* FECategorySettingView.m in Sources */,
 				8B368B7D273ABA4100B5C1AC /* MBProgressHUD+Extend.m in Sources */,
 				8BA1CD0C2752AF57004D3C35 /* NSObject+userObject.m in Sources */,
@@ -1485,7 +1495,7 @@
 				CODE_SIGN_ENTITLEMENTS = flashE/flashE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: du xiangnan (4LW593PWQ9)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1013;
+				CURRENT_PROJECT_VERSION = 1014;
 				DEVELOPMENT_TEAM = 32U954HXU3;
 				DISPLAY_NAME_NEW = "小鹿急送_dev";
 				ENABLE_BITCODE = NO;
@@ -1585,7 +1595,7 @@
 				CODE_SIGN_ENTITLEMENTS = flashE/flashE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Beijing Angoluoke Information Technology Co., Ltd. (32U954HXU3)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1013;
+				CURRENT_PROJECT_VERSION = 1014;
 				DEVELOPMENT_TEAM = 32U954HXU3;
 				DISPLAY_NAME_NEW = "小鹿急送";
 				ENABLE_BITCODE = NO;

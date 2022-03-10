@@ -204,6 +204,7 @@
         for (FECategoryItemModel* item in self.categorys.data) {
             if (item.code == self.seletedCategory.code) {
                 item.selected = YES;
+                self.seletedCategory = item;
                 inCategorys = YES;
             } else {
                 item.selected = NO;

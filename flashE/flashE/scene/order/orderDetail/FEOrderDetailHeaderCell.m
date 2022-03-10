@@ -147,6 +147,12 @@
     !_cellCommondActoin?:_cellCommondActoin(btn.tag);
 }
 
+-(IBAction)statusAction:(id)tap {
+    if (!self.model || self.model.routes.count == 0) {
+        return;
+    }
+    !_cellStatusActoin?:_cellStatusActoin();
+}
 
 
 @end

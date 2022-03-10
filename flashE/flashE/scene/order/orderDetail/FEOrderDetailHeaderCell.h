@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class FEOrderDetailModel;
 @interface FEOrderDetailHeaderCell : UITableViewCell
 @property (nonatomic,copy) void(^cellCommondActoin)(FEOrderCommondType type);
-
+@property (nonatomic,copy) void(^cellStatusActoin)();
 
 +(CGFloat) calculationCellHeight:(FEOrderDetailModel*)model;
 - (void) setModel:(FEOrderDetailModel*)model;

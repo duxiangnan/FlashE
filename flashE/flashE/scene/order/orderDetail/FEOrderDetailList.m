@@ -28,6 +28,7 @@
 #import <zhPopupController/zhPopupController.h>
 #import "FETipModel.h"
 #import "FETipSettingView.h"
+#import "FEOrderDetailRouterView.h"
 
 
 @interface FEOrderDetailCellModel:NSObject
@@ -49,6 +50,8 @@
 
 @property (nonatomic, copy) NSMutableArray<FEOrderDetailCellModel*>* cellModel;
 
+@property (nonatomic,strong) zhPopupController* popupController;
+@property (nonatomic,strong) FEOrderDetailRouterView* routerView;
 
 
 @end
@@ -321,6 +324,21 @@
     
 }
 
+- (void) showOrderRouterView {
+    
+    
+   
+    self.popupController = [[zhPopupController alloc] initWithView:self.routerView
+                                                              size:self.routerView.bounds.size];
+    self.popupController.presentationStyle = zhPopupSlideStyleFromBottom;
+    self.popupController.layoutType = zhPopupLayoutTypeBottom;
+    self.popupController.presentationTransformScale = 1.25;
+    self.popupController.dismissonTransformScale = 0.85;
+    [self.popupController showInView:self.vc.view completion:NULL];
+
+
+}
+
 
 #pragma mark - tableview datasource & delegate
  - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -342,6 +360,10 @@
                  cell.cellCommondActoin = ^(FEOrderCommondType type) {
                      @strongself(weakSelf);
                      [strongSelf cellCommond:self.model type:type];
+                 };
+                 cell.cellStatusActoin = ^{
+                    @strongself(weakSelf);
+                     [strongSelf showOrderRouterView];
                  };
                  tmpCell = cell;
              }break;
@@ -451,6 +473,20 @@
     
 }
 
+
+- (FEOrderDetailRouterView *)routerView {
+    if (!_routerView) {
+        _routerView = [[NSBundle mainBundle] loadNibNamed:@"FEOrderDetailRouterView" owner:self options:nil].firstObject;
+        _routerView.frame = CGRectMake(0, 0, kScreenWidth, 265+kHomeIndicatorHeight);
+        _routerView.model = self.model.routes;
+        @weakself(self);
+        _routerView.closeAction = ^{
+            @strongself(weakSelf);
+            [strongSelf.popupController dismiss];
+        };
+    }
+    return _routerView;
+}
 @end
 
 

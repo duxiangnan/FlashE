@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -43,6 +43,14 @@
                                     <constraint firstAttribute="width" constant="12" id="hJD-4a-OvD"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTO-ii-o1k">
+                                <rect key="frame" x="16" y="20" width="125" height="25"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                <connections>
+                                    <action selector="statusAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2OR-7j-anU"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在为您呼叫以下平台，请耐心等待。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cch-CD-mdd">
                                 <rect key="frame" x="16" y="49" width="326" height="18.5"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
@@ -59,9 +67,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="P5R-rH-d7j" firstAttribute="trailing" secondItem="xTO-ii-o1k" secondAttribute="trailing" id="EW5-en-EPj"/>
+                            <constraint firstItem="xTO-ii-o1k" firstAttribute="top" secondItem="3Ld-sz-Qh6" secondAttribute="top" id="Hxb-5S-DvD"/>
                             <constraint firstItem="Cch-CD-mdd" firstAttribute="top" secondItem="3Ld-sz-Qh6" secondAttribute="bottom" constant="4" id="JQ4-nC-OZN"/>
                             <constraint firstItem="3Ld-sz-Qh6" firstAttribute="top" secondItem="WWZ-vI-LC1" secondAttribute="top" constant="20" id="MAj-to-10J"/>
                             <constraint firstItem="P5R-rH-d7j" firstAttribute="leading" secondItem="3Ld-sz-Qh6" secondAttribute="trailing" constant="5" id="Mod-2f-tZ0"/>
+                            <constraint firstItem="xTO-ii-o1k" firstAttribute="bottom" secondItem="3Ld-sz-Qh6" secondAttribute="bottom" id="Rzb-6n-xeI"/>
                             <constraint firstItem="jMJ-VQ-7Kd" firstAttribute="leading" secondItem="WWZ-vI-LC1" secondAttribute="leading" constant="16" id="U2c-Be-Oga"/>
                             <constraint firstItem="Cch-CD-mdd" firstAttribute="leading" secondItem="WWZ-vI-LC1" secondAttribute="leading" constant="16" id="VYP-kR-sgI"/>
                             <constraint firstAttribute="trailing" secondItem="jMJ-VQ-7Kd" secondAttribute="trailing" constant="16" id="cGn-oW-mNL"/>
@@ -69,6 +80,7 @@
                             <constraint firstItem="P5R-rH-d7j" firstAttribute="centerY" secondItem="3Ld-sz-Qh6" secondAttribute="centerY" id="fgT-7Z-TEB"/>
                             <constraint firstItem="jMJ-VQ-7Kd" firstAttribute="top" secondItem="Cch-CD-mdd" secondAttribute="bottom" constant="10" id="wtz-Id-hnx"/>
                             <constraint firstAttribute="trailing" secondItem="Cch-CD-mdd" secondAttribute="trailing" constant="16" id="wyp-gk-l6l"/>
+                            <constraint firstItem="xTO-ii-o1k" firstAttribute="leading" secondItem="3Ld-sz-Qh6" secondAttribute="leading" id="zPr-i6-NxQ"/>
                             <constraint firstItem="3Ld-sz-Qh6" firstAttribute="leading" secondItem="WWZ-vI-LC1" secondAttribute="leading" constant="16" id="zyE-zg-XaO"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
